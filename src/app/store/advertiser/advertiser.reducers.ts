@@ -26,19 +26,12 @@ const bannerStatsInitialState = {
   cost: 0,
 };
 
-export function advertiserReducers(
-  state = initialState,
-  action: AdvertiserActions.actions | AuthActions.actions
-) {
+export function advertiserReducers(state = initialState, action: AdvertiserActions.actions | AuthActions.actions) {
   switch (action.type) {
     case AdvertiserActions.CLEAR_LAST_EDITED_CAMPAIGN:
       return {
         ...state,
-        lastEditedCampaign: Object.assign(
-          {},
-          state.lastEditedCampaign,
-          campaignInitialState
-        ),
+        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, campaignInitialState),
       };
     case AdvertiserActions.SET_LAST_EDITED_CAMPAIGN:
       return {
@@ -53,7 +46,7 @@ export function advertiserReducers(
         }),
       };
     case AdvertiserActions.UPDATE_CAMPAIGN_SUCCESS:
-      const campaigns = state.campaigns.filter((campaign) => {
+      const campaigns = state.campaigns.filter(campaign => {
         return campaign.id !== action.payload.id;
       });
       return {
@@ -61,7 +54,7 @@ export function advertiserReducers(
         campaigns: [...campaigns, action.payload],
       };
     case AdvertiserActions.UPDATE_CAMPAIGN_STATUS_SUCCESS:
-      const mappedCampaigns = state.campaigns.map((campaign) => {
+      const mappedCampaigns = state.campaigns.map(campaign => {
         return campaign.id !== action.payload.id
           ? campaign
           : {
@@ -80,7 +73,7 @@ export function advertiserReducers(
     case AdvertiserActions.ACTIVATE_OUTDATED_CAMPAIGN_SUCCESS:
       return {
         ...state,
-        campaigns: state.campaigns.map((campaign) => {
+        campaigns: state.campaigns.map(campaign => {
           return campaign.id !== action.payload.campaignId
             ? campaign
             : {
@@ -112,9 +105,7 @@ export function advertiserReducers(
       };
     case AdvertiserActions.LOAD_CAMPAIGN_SUCCESS: {
       const _campaigns = [...state.campaigns];
-      const i = _campaigns.findIndex(
-        (campaign) => campaign.id === action.payload.id
-      );
+      const i = _campaigns.findIndex(campaign => campaign.id === action.payload.id);
       if (-1 !== i) {
         _campaigns[i] = action.payload;
       } else {
@@ -127,9 +118,7 @@ export function advertiserReducers(
       };
     }
     case AdvertiserActions.DELETE_CAMPAIGN_SUCCESS:
-      const newCampaigns = state.campaigns.filter(
-        (el) => el.id !== action.payload
-      );
+      const newCampaigns = state.campaigns.filter(el => el.id !== action.payload);
       return {
         ...state,
         campaigns: newCampaigns,
@@ -164,19 +153,16 @@ export function advertiserReducers(
           campaignsTotals: action.payload.total,
         };
       }
-      state.campaigns.forEach((campaign) => {
-        action.payload.data.forEach((data) => {
-          if (
-            data.campaignId === campaign.id &&
-            !campaignsWithTotal.find((el) => el.id === campaign.id)
-          ) {
+      state.campaigns.forEach(campaign => {
+        action.payload.data.forEach(data => {
+          if (data.campaignId === campaign.id && !campaignsWithTotal.find(el => el.id === campaign.id)) {
             campaignsWithTotal.push({
               ...campaign,
               ...data,
             });
           }
         });
-        if (!campaignsWithTotal.find((el) => el.id === campaign.id)) {
+        if (!campaignsWithTotal.find(el => el.id === campaign.id)) {
           campaignsWithTotal.push({ ...campaign });
         }
       });
@@ -188,30 +174,23 @@ export function advertiserReducers(
       };
     case AdvertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS: {
       const _campaigns = [...state.campaigns];
-      const i = _campaigns.findIndex(
-        (el) => el.id === action.payload.total.campaignId
-      );
+      const i = _campaigns.findIndex(el => el.id === action.payload.total.campaignId);
 
       let bannerStats = [];
-      if (
-        action.payload.data.length > 0 &&
-        _campaigns[i].ads !== undefined &&
-        _campaigns[i].ads.length > 0
-      ) {
-        bannerStats = [_campaigns[i].ads, action.payload.data].reduce(
-          (banners, data) =>
-            banners.map((banner) => {
-              const elementWithStats = data.find((el) => el.id === banner.id);
-              return elementWithStats
-                ? {
-                    ...banner,
-                    ...elementWithStats,
-                  }
-                : banner;
-            })
+      if (action.payload.data.length > 0 && _campaigns[i].ads !== undefined && _campaigns[i].ads.length > 0) {
+        bannerStats = [_campaigns[i].ads, action.payload.data].reduce((banners, data) =>
+          banners.map(banner => {
+            const elementWithStats = data.find(el => el.id === banner.id);
+            return elementWithStats
+              ? {
+                  ...banner,
+                  ...elementWithStats,
+                }
+              : banner;
+          })
         );
       } else {
-        bannerStats = _campaigns[i].ads.map((el) => {
+        bannerStats = _campaigns[i].ads.map(el => {
           return {
             ...el,
             ...bannerStatsInitialState,

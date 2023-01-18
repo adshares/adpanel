@@ -1,8 +1,4 @@
-import {
-  TargetingOption,
-  TargetingOptionType,
-  TargetingOptionValue,
-} from 'models/targeting-option.model';
+import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model';
 import { CampaignTargeting } from 'models/campaign.model';
 import {
   createPathObject,
@@ -37,18 +33,13 @@ export class CryptovoxelsConverter implements TargetingConverter {
     });
   }
 
-  convertSelectedTargetingOptionValues(
-    targetingObject: object,
-    result: TargetingOptionValue[]
-  ): void {
+  convertSelectedTargetingOptionValues(targetingObject: object, result: TargetingOptionValue[]): void {
     if (targetingObject['site'] && targetingObject['site']['domain']) {
       for (let item of targetingObject['site']['domain']) {
         if (item === 'cryptovoxels.com') {
           continue;
         }
-        result.push(
-          prepareCustomOption(this.decodeValue(item), CryptovoxelsConverter.ID)
-        );
+        result.push(prepareCustomOption(this.decodeValue(item), CryptovoxelsConverter.ID));
       }
     }
   }
@@ -56,27 +47,15 @@ export class CryptovoxelsConverter implements TargetingConverter {
   prepareCampaignTargetingForBackend(targeting: CampaignTargeting): void {
     if (targeting.requires[CryptovoxelsConverter.ID]) {
       for (let parcel of targeting.requires[CryptovoxelsConverter.ID]) {
-        createPathObject(
-          targeting.requires,
-          this.convertPath([CryptovoxelsConverter.ID]),
-          this.encodeValue(parcel)
-        );
+        createPathObject(targeting.requires, this.convertPath([CryptovoxelsConverter.ID]), this.encodeValue(parcel));
       }
       delete targeting.requires[CryptovoxelsConverter.ID];
     } else {
-      createPathObject(
-        targeting.requires,
-        ['site', 'domain'],
-        'cryptovoxels.com'
-      );
+      createPathObject(targeting.requires, ['site', 'domain'], 'cryptovoxels.com');
     }
     if (targeting.excludes[CryptovoxelsConverter.ID]) {
       for (let parcel of targeting.excludes[CryptovoxelsConverter.ID]) {
-        createPathObject(
-          targeting.excludes,
-          this.convertPath([CryptovoxelsConverter.ID]),
-          this.encodeValue(parcel)
-        );
+        createPathObject(targeting.excludes, this.convertPath([CryptovoxelsConverter.ID]), this.encodeValue(parcel));
       }
       delete targeting.requires[CryptovoxelsConverter.ID];
     }

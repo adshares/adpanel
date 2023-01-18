@@ -34,10 +34,7 @@ import { ClassifierListItemComponent } from './classifier/classifier-list-item/c
 import { SiteResolver } from './resolvers/site.resolver';
 import { FilteringCriteriaResolver } from './resolvers/filtering-criteria.resolver';
 import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
-import {
-  FaIconLibrary,
-  FontAwesomeModule,
-} from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { ClassifierFilteringComponent } from 'publisher/classifier/classifier-filtering/classifier-filtering.component';
 import { MatchingBannerSizesResolver } from 'publisher/resolvers/matching-banner-sizes.resolver';

@@ -30,7 +30,7 @@ export class EmailProcessingComponent {
   ngOnInit() {
     this.action = this.route.snapshot.url[0].path;
 
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe(params => {
       this.token = params['token'];
     });
 
@@ -109,7 +109,7 @@ export class EmailProcessingComponent {
 
   emailActivation() {
     this.api.users.emailActivate(this.token).subscribe(
-      (user) => {
+      user => {
         this.updateUser(user);
         this.defaultRedirect();
         this.dialogConfirm(
@@ -131,17 +131,11 @@ export class EmailProcessingComponent {
     this.api.users.confirmWithdrawal(this.token).subscribe(
       () => {
         this.router.navigate(['/settings/billing']);
-        this.dialogConfirm(
-          'Withdrawal confirmed',
-          'You should see the transaction in your account history.'
-        );
+        this.dialogConfirm('Withdrawal confirmed', 'You should see the transaction in your account history.');
       },
-      (err) => {
+      err => {
         this.defaultRedirect();
-        this.dialogError(
-          'Withdrawal confirmation failed',
-          err.error.message || 'Unknown error'
-        );
+        this.dialogError('Withdrawal confirmation failed', err.error.message || 'Unknown error');
       }
     );
   }
@@ -155,32 +149,23 @@ export class EmailProcessingComponent {
           'Now you need to verify your new email address.\nWe have sent an activation email to your new email address. Please check your incoming messages.'
         );
       },
-      (err) => {
+      err => {
         this.defaultRedirect();
-        this.dialogError(
-          'Email change process step failed',
-          err.error.message || 'Unknown error'
-        );
+        this.dialogError('Email change process step failed', err.error.message || 'Unknown error');
       }
     );
   }
 
   emailChangeConfirmNew() {
     this.api.users.emailConfirm2New(this.token).subscribe(
-      (user) => {
+      user => {
         this.updateUser(user);
         this.defaultRedirect();
-        this.dialogConfirm(
-          'Email change process complete',
-          'Requested email address is now assigned to your account.'
-        );
+        this.dialogConfirm('Email change process complete', 'Requested email address is now assigned to your account.');
       },
-      (err) => {
+      err => {
         this.defaultRedirect();
-        this.dialogError(
-          'Email change process final step failed',
-          err.error.message || 'Unknown error'
-        );
+        this.dialogError('Email change process final step failed', err.error.message || 'Unknown error');
       }
     );
   }
@@ -188,17 +173,11 @@ export class EmailProcessingComponent {
   passwordConfirm() {
     this.api.users.passwordConfirm(this.token).subscribe(
       () => {
-        this.dialogConfirm(
-          'Password change process complete',
-          'You can log in with new password.'
-        );
+        this.dialogConfirm('Password change process complete', 'You can log in with new password.');
         this.defaultRedirect();
       },
-      (error) => {
-        this.dialogError(
-          'Password change failed',
-          error.error.message || 'Unknown error'
-        );
+      error => {
+        this.dialogError('Password change failed', error.error.message || 'Unknown error');
         this.defaultRedirect();
       }
     );
@@ -208,12 +187,9 @@ export class EmailProcessingComponent {
     this.settings.confirmConnectWallet(this.token).subscribe(
       () => {
         this.router.navigate(['/settings/general']);
-        this.dialogConfirm(
-          'Connection confirmed',
-          'Your cryptocurrency wallet has been successfully connected.'
-        );
+        this.dialogConfirm('Connection confirmed', 'Your cryptocurrency wallet has been successfully connected.');
       },
-      (err) => {
+      err => {
         let error = err.error.message || 'Unknown error';
         if (err.error.errors) {
           const key = Object.keys(err.error.errors)[0];

@@ -23,10 +23,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './billing-history.component.html',
   styleUrls: ['./billing-history.component.scss'],
 })
-export class BillingHistoryComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class BillingHistoryComponent extends HandleSubscription implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
   emptyBillingHistory: BillingHistory = {
     limit: 10,
@@ -68,7 +65,7 @@ export class BillingHistoryComponent
 
     const dataSubscription = this.store
       .select('state', 'user', 'settings', 'billingHistory')
-      .subscribe((billingHistory) => {
+      .subscribe(billingHistory => {
         this.billingHistory = billingHistory;
         this.showLoader = false;
       });

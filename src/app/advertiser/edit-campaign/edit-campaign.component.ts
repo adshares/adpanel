@@ -6,14 +6,8 @@ import { take } from 'rxjs/operators';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { AppState } from 'models/app-state.model';
-import {
-  ClearLastEditedCampaign,
-  SaveCampaignTargeting,
-} from 'store/advertiser/advertiser.actions';
-import {
-  parseTargetingOptionsToArray,
-  processTargeting,
-} from 'common/components/targeting/targeting.helpers';
+import { ClearLastEditedCampaign, SaveCampaignTargeting } from 'store/advertiser/advertiser.actions';
+import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { CampaignsConfig } from 'models/campaign.model';
 import { HandleSubscription } from 'common/handle-subscription';
 
@@ -23,12 +17,8 @@ import { HandleSubscription } from 'common/handle-subscription';
   styleUrls: ['./edit-campaign.component.scss'],
   animations: [fadeAnimation],
 })
-export class EditCampaignComponent
-  extends HandleSubscription
-  implements OnInit, OnDestroy
-{
-  getRouterOutletState = (outlet) =>
-    outlet.isActivated ? outlet.activatedRoute : '';
+export class EditCampaignComponent extends HandleSubscription implements OnInit, OnDestroy {
+  getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
   isEditMode: boolean;
   campaignsConfig: CampaignsConfig;
 
@@ -48,23 +38,15 @@ export class EditCampaignComponent
     const lastEditedCampaignSubscription = this.store
       .select('state', 'advertiser', 'lastEditedCampaign')
       .pipe(take(1))
-      .subscribe((campaign) => {
+      .subscribe(campaign => {
         if (!campaign.targetingArray) {
           const targetingSubscription = this.advertiserService
-            .getMedium(
-              campaign.basicInformation.medium,
-              campaign.basicInformation.vendor
-            )
+            .getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
             .pipe(take(1))
-            .subscribe((medium) => {
+            .subscribe(medium => {
               const targetingOptions = processTargeting(medium);
               this.store.dispatch(
-                new SaveCampaignTargeting(
-                  parseTargetingOptionsToArray(
-                    campaign.targeting,
-                    targetingOptions
-                  )
-                )
+                new SaveCampaignTargeting(parseTargetingOptionsToArray(campaign.targeting, targetingOptions))
               );
             });
           this.subscriptions.push(targetingSubscription);

@@ -9,6 +9,5 @@ import { fadeAnimation } from 'common/animations/fade.animation';
   animations: [fadeAnimation],
 })
 export class SettingsComponent {
-  getRouterOutletState = (outlet) =>
-    outlet.isActivated ? outlet.activatedRoute : '';
+  getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 }

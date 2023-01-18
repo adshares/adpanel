@@ -9,10 +9,7 @@ import { PublisherService } from 'publisher/publisher.service';
   templateUrl: './site-code-cryptovoxels-dialog.component.html',
   styleUrls: ['./site-code-cryptovoxels-dialog.component.scss'],
 })
-export class SiteCodeCryptovoxelsDialogComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class SiteCodeCryptovoxelsDialogComponent extends HandleSubscription implements OnInit {
   readonly faCode = faCode;
   code: string | null = null;
   loaded: boolean = false;
@@ -25,17 +22,15 @@ export class SiteCodeCryptovoxelsDialogComponent
   }
 
   ngOnInit(): void {
-    const codeSubscription = this.publisherService
-      .getCryptovoxelsCode()
-      .subscribe(
-        (response) => {
-          this.code = response.code;
-          this.loaded = true;
-        },
-        () => {
-          this.loaded = true;
-        }
-      );
+    const codeSubscription = this.publisherService.getCryptovoxelsCode().subscribe(
+      response => {
+        this.code = response.code;
+        this.loaded = true;
+      },
+      () => {
+        this.loaded = true;
+      }
+    );
     this.subscriptions.push(codeSubscription);
   }
 

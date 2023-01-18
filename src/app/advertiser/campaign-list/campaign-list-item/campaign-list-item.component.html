@@ -1,115 +1,75 @@
 <tr
   *ngIf="campaign; else loading"
   class="row ap-box ap-campaign-list__item align-center justify-between ap-copy"
-  data-test="advertiser-navigate-to-campaign-details"
->
+  data-test="advertiser-navigate-to-campaign-details">
   <td class="row ap-campaign-list__status-cell align-center">
     <div
       (click)="statusSelect.open()"
       [attr.data-status]="currentCampaignStatus"
       class="ap-status ap-campaign-list__status"
-      role="button"
-    >
+      role="button">
       {{ currentCampaignStatus }}
       <div class="status-wrapper__list-item">
-        <mat-select
-          #statusSelect
-          [value]=""
-          data-test="advertiser-campaign-status-select"
-        >
+        <mat-select #statusSelect [value]="" data-test="advertiser-campaign-status-select">
           <mat-option
             (click)="onCampaignStatusChange(option)"
             *ngFor="let option of campaignStatusesEnumArray"
             [ngClass]="{
               visible:
-                option ===
-                  campaignStatusesEnum[
-                    campaignStatusesEnum.ACTIVE
-                  ].toLowerCase() ||
-                option ===
-                  campaignStatusesEnum[
-                    campaignStatusesEnum.INACTIVE
-                  ].toLowerCase()
+                option === campaignStatusesEnum[campaignStatusesEnum.ACTIVE].toLowerCase() ||
+                option === campaignStatusesEnum[campaignStatusesEnum.INACTIVE].toLowerCase()
             }"
             [value]="option"
             class="hidden"
-            data-test="advertiser-campaign-status-select-option"
-          >
+            data-test="advertiser-campaign-status-select-option">
             {{ option }}
           </mat-option>
         </mat-select>
       </div>
     </div>
     <div class="ap-campaign-list__classification">
-      <app-campaign-classification-info
-        [classifications]="campaign.classifications"
-      ></app-campaign-classification-info>
+      <app-campaign-classification-info [classifications]="campaign.classifications"></app-campaign-classification-info>
     </div>
   </td>
   <td class="col-xs-2 row align-center">
     <a
       class="ap-copy ap-copy--no-wrap ap-copy--bold clickable-row-a"
       data-test="advertiser-campaign-name"
-      routerLink="/advertiser/campaign/{{ campaign.id }}"
-    >
+      routerLink="/advertiser/campaign/{{ campaign.id }}">
       {{ campaign.basicInformation.name }}
     </a>
   </td>
   <td class="col-xs-1 row align-center" data-test="advertiser-campaign-bduget">
     <span>
-      {{
-        campaign.basicInformation.budget
-          | campaignBudgetPerDay
-          | formatMoney : 2
-      }}
+      {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney : 2 }}
       /day
     </span>
   </td>
   <td class="col-xs-1 row align-center" data-test="advertiser-campaign-cost">
-    <span [title]="campaign.cost || 0 | formatMoney : 4">
-      {{ campaign.cost || 0 | formatMoney : 2 }}</span
-    >
+    <span [title]="campaign.cost || 0 | formatMoney : 4"> {{ campaign.cost || 0 | formatMoney : 2 }}</span>
   </td>
   <td class="col-xs-1 row align-center" data-test="advertiser-campaign-clicks">
     <span>{{ campaign.clicks || 0 }}</span>
   </td>
-  <td
-    class="col-xs-1 row align-center"
-    data-test="advertiser-campaign-impressions"
-  >
+  <td class="col-xs-1 row align-center" data-test="advertiser-campaign-impressions">
     <span>{{ campaign.impressions || 0 | formatNumberWithComa }}</span>
   </td>
   <td class="col-xs-1 row align-center" data-test="advertiser-campaign-ctr">
     <span>{{ campaign.ctr || 0 | percent : '1.2-2' }}</span>
   </td>
-  <td
-    class="col-xs-1 row align-center"
-    data-test="advertiser-campaign-average-cpm"
-  >
+  <td class="col-xs-1 row align-center" data-test="advertiser-campaign-average-cpm">
     <span [title]="campaign.averageCpm || 0 | formatMoney : 4">
       {{ campaign.averageCpm || 0 | formatMoney : 2 }}
     </span>
   </td>
-  <td
-    class="col-xs-1 row align-center"
-    data-test="advertiser-campaign-average-cpc"
-  >
+  <td class="col-xs-1 row align-center" data-test="advertiser-campaign-average-cpc">
     <span [title]="campaign.averageCpc || 0 | formatMoney : 4">
       {{ campaign.averageCpc || 0 | formatMoney : 2 }}
     </span>
   </td>
-  <td
-    class="col-xs-1 row align-center justify-center ap-campaign-list__item-campaign-details"
-    role="link"
-  >
-    <a
-      class="clickable-row-a"
-      routerLink="/advertiser/campaign/{{ campaign.id }}"
-    >
-      <img
-        [alt]="'Go to ' + campaign.basicInformation.name + ' details'"
-        src="/assets/images/chevron--right.svg"
-      />
+  <td class="col-xs-1 row align-center justify-center ap-campaign-list__item-campaign-details" role="link">
+    <a class="clickable-row-a" routerLink="/advertiser/campaign/{{ campaign.id }}">
+      <img [alt]="'Go to ' + campaign.basicInformation.name + ' details'" src="/assets/images/chevron--right.svg" />
     </a>
   </td>
 </tr>

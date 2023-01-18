@@ -8,17 +8,10 @@
     {{ menuItem.description }}
   </p>
   <ul class="settings-menu-item__submenu">
-    <li
-      *ngFor="let subMenuItems of menuItem.values"
-      class="settings-menu-item__submenu-item"
-    >
+    <li *ngFor="let subMenuItems of menuItem.values" class="settings-menu-item__submenu-item">
       <a [routerLink]="menuItem.link" data-test="settings-category-link-direct">
         <div class="row align-center" routerLinkActive="active">
-          <img
-            alt=""
-            class="ap-icon ap-icon--prepend"
-            [src]="subMenuItems.icon"
-          />
+          <img alt="" class="ap-icon ap-icon--prepend" [src]="subMenuItems.icon" />
           <span class="ap-copy">{{ subMenuItems.name }}</span>
         </div>
       </a>

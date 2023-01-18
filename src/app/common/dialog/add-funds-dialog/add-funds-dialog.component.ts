@@ -28,10 +28,7 @@ import { GET_ADS_FAQ } from 'models/enum/link.enum';
   templateUrl: './add-funds-dialog.component.html',
   styleUrls: ['./add-funds-dialog.component.scss'],
 })
-export class AddFundsDialogComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
   readonly ADS_TOKEN_CODE = 'ADS';
   abi: any = [
     {
@@ -145,29 +142,28 @@ export class AddFundsDialogComponent
     const user = this.session.getUser();
     this.isConfirmed = user.isConfirmed;
 
-    const infoSubscription = observableForkJoin([
-      this.api.config.depositInfo(),
-      this.api.config.countries(),
-    ]).subscribe((responses: [DepositInfo, Country[]]) => {
-      const info = responses[0];
-      this.loadingInfo = false;
-      this.adsharesAddress = info.address;
-      this.paymentMemo = info.message;
-      this.nowPayments = info.nowPayments;
-      this.unwrappers = info.unwrappers;
-      this.fiat = info.fiat;
-      this.countries = responses[1];
-      this.filteredCountries = this.countries;
-      if (this.nowPayments !== null) {
-        this.setNowPaymentsAmount(this.nowPayments.minAmount);
+    const infoSubscription = observableForkJoin([this.api.config.depositInfo(), this.api.config.countries()]).subscribe(
+      (responses: [DepositInfo, Country[]]) => {
+        const info = responses[0];
+        this.loadingInfo = false;
+        this.adsharesAddress = info.address;
+        this.paymentMemo = info.message;
+        this.nowPayments = info.nowPayments;
+        this.unwrappers = info.unwrappers;
+        this.fiat = info.fiat;
+        this.countries = responses[1];
+        this.filteredCountries = this.countries;
+        if (this.nowPayments !== null) {
+          this.setNowPaymentsAmount(this.nowPayments.minAmount);
+        }
+        if (this.unwrappers !== null) {
+          this.initializeEthers();
+        }
+        if (this.fiat !== null) {
+          this.initializeFiats();
+        }
       }
-      if (this.unwrappers !== null) {
-        this.initializeEthers();
-      }
-      if (this.fiat !== null) {
-        this.initializeFiats();
-      }
-    });
+    );
     this.subscriptions.push(infoSubscription);
   }
 
@@ -185,14 +181,11 @@ export class AddFundsDialogComponent
     this.metamaskChainError = false;
     const ethereum = (window as any).ethereum;
     if (this.unwrappers !== null) {
-      const unwrapper = this.unwrappers.find((x) => x.chainId == chainId);
+      const unwrapper = this.unwrappers.find(x => x.chainId == chainId);
       if (unwrapper != null) {
         this.metamaskNetwork = unwrapper.networkName;
         this.web3 = new Web3(ethereum);
-        this.tokenContract = new this.web3.eth.Contract(
-          this.abi,
-          unwrapper.contractAddress
-        );
+        this.tokenContract = new this.web3.eth.Contract(this.abi, unwrapper.contractAddress);
         this.metamaskConnected = true;
         try {
           const accounts = await ethereum.request({
@@ -210,9 +203,7 @@ export class AddFundsDialogComponent
   async onAccountChanges(accounts) {
     this.metamaskAccountAds = '?';
     this.metamaskAccount = accounts[0];
-    const balance = await this.tokenContract.methods
-      .balanceOf(this.metamaskAccount)
-      .call();
+    const balance = await this.tokenContract.methods.balanceOf(this.metamaskAccount).call();
     this.metamaskAccountAds = (balance / 1e11).toFixed(4);
   }
 
@@ -236,21 +227,12 @@ export class AddFundsDialogComponent
         Validators.min(this.fiat.minAmount),
         Validators.max(this.fiat.maxAmount),
       ]),
-      buyerName: new FormControl(null, [
-        Validators.required,
-        Validators.maxLength(256),
-      ]),
-      buyerAddress: new FormControl(null, [
-        Validators.required,
-        Validators.maxLength(256),
-      ]),
+      buyerName: new FormControl(null, [Validators.required, Validators.maxLength(256)]),
+      buyerAddress: new FormControl(null, [Validators.required, Validators.maxLength(256)]),
       buyerPostalCode: new FormControl(null, [Validators.maxLength(16)]),
       buyerCity: new FormControl(null, [Validators.maxLength(128)]),
       buyerCountry: new FormControl(null, [Validators.required]),
-      buyerVatId: new FormControl(null, [
-        Validators.required,
-        Validators.maxLength(32),
-      ]),
+      buyerVatId: new FormControl(null, [Validators.required, Validators.maxLength(32)]),
       euVat: new FormControl(false, [Validators.required]),
       comments: new FormControl(null, Validators.maxLength(256)),
     });
@@ -259,8 +241,7 @@ export class AddFundsDialogComponent
         const country = this.fiatForm.get('buyerCountry').value;
         this.fiatEuVatDisabled = !country || !country.euTax;
         if (this.fiatEuVatDisabled) {
-          this.fiatForm.get('euVat').value &&
-            this.fiatForm.get('euVat').setValue(false);
+          this.fiatForm.get('euVat').value && this.fiatForm.get('euVat').setValue(false);
         }
       })
     );
@@ -269,9 +250,7 @@ export class AddFundsDialogComponent
   filterCountries(event): void {
     const filter = event.target.value.toLowerCase();
     this.filteredCountries = this.countries.filter(
-      (country) =>
-        country.name.toLowerCase().indexOf(filter) > -1 ||
-        country.code.toLowerCase().indexOf(filter) > -1
+      country => country.name.toLowerCase().indexOf(filter) > -1 || country.code.toLowerCase().indexOf(filter) > -1
     );
   }
 
@@ -283,7 +262,7 @@ export class AddFundsDialogComponent
 
     this.showLoader = true;
     const data = this.fiatForm.getRawValue();
-    Object.keys(data).forEach((key) => data[key] == null && delete data[key]);
+    Object.keys(data).forEach(key => data[key] == null && delete data[key]);
 
     if (data.buyerCountry) {
       data.buyerCountry = data.buyerCountry.code;
@@ -295,9 +274,9 @@ export class AddFundsDialogComponent
         (invoice: Invoice) => {
           this.fiatInvoice = invoice;
         },
-        (err) => {
+        err => {
           if (err.error.errors) {
-            Object.keys(err.error.errors).forEach((key) =>
+            Object.keys(err.error.errors).forEach(key =>
               this.fiatForm.get(key).setErrors({
                 custom: err.error.errors[key][0],
               })
@@ -357,18 +336,12 @@ export class AddFundsDialogComponent
   }
 
   validNowPaymentsAmount(amount) {
-    return (
-      isNumeric(amount) &&
-      amount >= this.nowPayments.minAmount &&
-      amount <= this.nowPayments.maxAmount
-    );
+    return isNumeric(amount) && amount >= this.nowPayments.minAmount && amount <= this.nowPayments.maxAmount;
   }
 
   setNowPaymentsAmount(amount: number) {
     this.nowPaymentsAmount = amount;
-    this.nowPaymentsAdsAmount = Math.round(
-      1e11 * (this.nowPaymentsAmount / this.nowPayments.exchangeRate)
-    );
+    this.nowPaymentsAdsAmount = Math.round(1e11 * (this.nowPaymentsAmount / this.nowPayments.exchangeRate));
   }
 
   keydownNowPaymentsAmount(event) {
@@ -394,9 +367,7 @@ export class AddFundsDialogComponent
     }
     this.metamaskError = null;
     this.metamaskTxid = null;
-    let amount: number = parseFloat(
-      (<HTMLInputElement>document.getElementById('wrapped_amount')).value
-    );
+    let amount: number = parseFloat((<HTMLInputElement>document.getElementById('wrapped_amount')).value);
     if (!amount || amount > parseFloat(this.metamaskAccountAds)) {
       this.wrappedAmountError = true;
     } else {
@@ -428,15 +399,13 @@ export class AddFundsDialogComponent
       return;
     }
 
-    this.api.config
-      .nowPaymentsInit(this.nowPaymentsAmount)
-      .subscribe((data: NowPaymentsInit) => {
-        if (data.nowPaymentsUrl) {
-          window.location.href = data.nowPaymentsUrl;
-        } else {
-          this.isFormBeingSubmitted = false;
-          this.nowPaymentsServerError = true;
-        }
-      });
+    this.api.config.nowPaymentsInit(this.nowPaymentsAmount).subscribe((data: NowPaymentsInit) => {
+      if (data.nowPaymentsUrl) {
+        window.location.href = data.nowPaymentsUrl;
+      } else {
+        this.isFormBeingSubmitted = false;
+        this.nowPaymentsServerError = true;
+      }
+    });
   }
 }

@@ -2,9 +2,7 @@ import { environment } from 'environments/environment';
 
 export const appSettings = {
   // ADS Operator URL
-  ADS_OPERATOR_URL: environment.production
-    ? 'https://operator.adshares.net'
-    : 'https://operator1.e11.click',
+  ADS_OPERATOR_URL: environment.production ? 'https://operator.adshares.net' : 'https://operator1.e11.click',
   // milliseconds of transitioning effect between views
   ROUTER_TRANSITION_DURATION: 200,
   // seconds of how long remembered user auth token will be stored

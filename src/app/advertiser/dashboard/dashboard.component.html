@@ -1,7 +1,4 @@
-<section
-  class="ap-advertiser-wrapper dashboard-view"
-  *ngIf="campaignsLoaded; else loading"
->
+<section class="ap-advertiser-wrapper dashboard-view" *ngIf="campaignsLoaded; else loading">
   <div class="container">
     <div class="row no-gutters justify-between">
       <div class="col-xs-12 col-md-3">
@@ -15,10 +12,7 @@
         <div class="row">
           <div class="col-xs-3">
             <a (click)="downloadReport()">
-              <button
-                class="ap-btn ap-btn--white ap-copy--dark"
-                data-test="advertiser-download-report-button"
-              >
+              <button class="ap-btn ap-btn--white ap-copy--dark" data-test="advertiser-download-report-button">
                 Generate a report
               </button>
             </a>
@@ -26,62 +20,37 @@
           <div class="col-xs-6">
             <app-chart-filter-by-type
               (updateId)="appChartRef.updateChartDataAssetId($event)"
-              (updateSeries)="appChartRef.updateChartDataSeries($event)"
-            ></app-chart-filter-by-type>
+              (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
           </div>
           <div class="col-xs-3">
             <app-chart-filter
               *ngIf="!!campaigns.length"
-              (filter)="
-                appChartRef.updateChartData($event);
-                loadCampaigns($event.from, $event.to)
-              "
-            ></app-chart-filter>
+              (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"></app-chart-filter>
           </div>
         </div>
-        <div
-          class="dashboard__chart-wrapper row align-center justify-center chart-wrapper"
-        >
+        <div class="dashboard__chart-wrapper row align-center justify-center chart-wrapper">
           <app-chart
             class="dashboard__chart chart row align-center justify-center"
             (update)="getChartData($event)"
             [barChartData]="barChartData"
-            [barChartLabels]="barChartLabels"
-          ></app-chart>
+            [barChartLabels]="barChartLabels"></app-chart>
         </div>
       </div>
       <app-campaign-list
         [dataLoaded]="dataLoaded"
         [campaigns]="campaigns"
-        [campaignsTotals]="campaignsTotals"
-      ></app-campaign-list>
+        [campaignsTotals]="campaignsTotals"></app-campaign-list>
     </div>
 
     <div *ngIf="!campaigns.length">
-      <div
-        class="ap-box ap-box--large col align-center justify-center text-center create-new-campaign-wrapper"
-      >
-        <img
-          src="/assets/images/advertiser-account-illustration.svg"
-          alt="Advertiser Account Illustration"
-        />
+      <div class="ap-box ap-box--large col align-center justify-center text-center create-new-campaign-wrapper">
+        <img src="/assets/images/advertiser-account-illustration.svg" alt="Advertiser Account Illustration" />
         <div class="ap-customize__box-description">
-          <h2 class="ap-heading ap-heading--primary">
-            Create your first campaign
-          </h2>
+          <h2 class="ap-heading ap-heading--primary">Create your first campaign</h2>
         </div>
-        <a
-          routerLink="/advertiser/create-campaign/basic-information"
-          data-test="advertiser-create-new-campaign"
-        >
-          <button
-            class="row align-center ap-btn ap-btn--large ap-btn--white ap-btn--no-border"
-          >
-            <img
-              src="assets/images/plus-circle--blue.svg"
-              alt="Add new"
-              class="ap-icon ap-icon--prepend"
-            />
+        <a routerLink="/advertiser/create-campaign/basic-information" data-test="advertiser-create-new-campaign">
+          <button class="row align-center ap-btn ap-btn--large ap-btn--white ap-btn--no-border">
+            <img src="assets/images/plus-circle--blue.svg" alt="Add new" class="ap-icon ap-icon--prepend" />
             <span class="ap-heading"> Create now </span>
           </button>
         </a>

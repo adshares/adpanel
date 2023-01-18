@@ -1,16 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CampaignClassification } from 'models/campaign.model';
-import {
-  faUserCheck,
-  faUserClock,
-  faUserTimes,
-} from '@fortawesome/free-solid-svg-icons';
+import { faUserCheck, faUserClock, faUserTimes } from '@fortawesome/free-solid-svg-icons';
 import { bannerClassificationStatusEnum } from 'models/enum/classification.enum';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
-import {
-  TargetingOption,
-  TargetingOptionValue,
-} from 'models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -87,9 +80,7 @@ export class CampaignClassificationInfoComponent implements OnInit {
     let descriptions = [];
 
     if (this.isInProgress(classification)) {
-      descriptions.push(
-        'The campaign is awaiting classification; some of the ads may not display until then.'
-      );
+      descriptions.push('The campaign is awaiting classification; some of the ads may not display until then.');
     } else if (this.isSuccess(classification)) {
       descriptions.push('The campaign has been successfully classified.');
     } else {
@@ -99,13 +90,11 @@ export class CampaignClassificationInfoComponent implements OnInit {
     }
 
     if (!this.extended) {
-      const keywords = this.keywords(classification).map((category) => {
+      const keywords = this.keywords(classification).map(category => {
         return category.label;
       });
       if (keywords.length > 0) {
-        const prefix = this.isInProgress(classification)
-          ? 'Current categories'
-          : 'Categories';
+        const prefix = this.isInProgress(classification) ? 'Current categories' : 'Categories';
         descriptions.push(`${prefix}: ${keywords.join(', ')}`);
       }
     }
@@ -113,26 +102,18 @@ export class CampaignClassificationInfoComponent implements OnInit {
     return descriptions.join(' ');
   }
 
-  keywords(
-    classification: CampaignClassification,
-    group: string = 'category'
-  ): TargetingOptionValue[] {
+  keywords(classification: CampaignClassification, group: string = 'category'): TargetingOptionValue[] {
     if ('undefined' === typeof this._keywords[classification.classifier]) {
       this._keywords[classification.classifier] = [];
     }
-    if (
-      'undefined' === typeof this._keywords[classification.classifier][group]
-    ) {
+    if ('undefined' === typeof this._keywords[classification.classifier][group]) {
       let keywords = [];
       if ('undefined' !== typeof classification.keywords[group]) {
         keywords = classification.keywords[group].map((keyword: string) => {
           const option = this.options.find(
-            (option: TargetingOption) =>
-              option.key == `${classification.classifier}:${group}`
+            (option: TargetingOption) => option.key == `${classification.classifier}:${group}`
           );
-          const value = option
-            ? option.values.find((item) => item.value == keyword)
-            : null;
+          const value = option ? option.values.find(item => item.value == keyword) : null;
           return value ? value : { value: keyword, label: keyword };
         });
       }

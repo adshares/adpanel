@@ -1,20 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import {
-  ChartFilterSettings,
-  FilterPreset,
-  TimespanFilter,
-} from 'models/chart/chart-filter-settings.model';
+import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/chart-filter-settings.model';
 import * as moment from 'moment';
 import { filterPresetsEnum } from 'models/enum/chart.enum';
 import { enumToObjectArray } from 'common/utilities/helpers';
@@ -61,9 +50,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
   filterChart(from, to, isFromDatepicker) {
     this.hideDatepicker();
     const timespan = {
-      from: isNaN(from)
-        ? from.value._d
-        : moment().startOf('day').subtract(from, 'days'),
+      from: isNaN(from) ? from.value._d : moment().startOf('day').subtract(from, 'days'),
       to: isNaN(to) ? moment(to.value._d).endOf('day') : moment().endOf('day'),
     };
     this.filter.emit(timespan);
@@ -77,9 +64,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
     this.dateFrom.setValue(this.dateFrom.value);
     this.dateTo.setValue(moment(this.dateTo.value).endOf('day'));
     const datesSet = this.dateFrom.value && this.dateTo.value;
-    const fromUnix = datesSet
-      ? +this.dateFrom.value.startOf('day') <= +this.dateTo.value.startOf('day')
-      : false;
+    const fromUnix = datesSet ? +this.dateFrom.value.startOf('day') <= +this.dateTo.value.startOf('day') : false;
     if (!fromUnix) {
       return;
     }
@@ -90,12 +75,9 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
     const momentFrom = moment(this.currentChartFilterSettings.currentFrom);
     const momentTo = moment(this.currentChartFilterSettings.currentTo);
 
-    const isCurrent =
-      moment(new Date()).format(DATE_FORMAT) === momentTo.format(DATE_FORMAT);
+    const isCurrent = moment(new Date()).format(DATE_FORMAT) === momentTo.format(DATE_FORMAT);
     this.currentDaysSpan = momentTo.diff(momentFrom, 'days');
-    this.currentFilterPreset = this.filterPresets.find(
-      (p) => p.id === this.currentDaysSpan && isCurrent
-    );
+    this.currentFilterPreset = this.filterPresets.find(p => p.id === this.currentDaysSpan && isCurrent);
     this.currentFromFilter = momentFrom.format(DATE_FORMAT);
     this.currentToFilter = momentTo.format(DATE_FORMAT);
     this.dateFrom.setValue(momentFrom);

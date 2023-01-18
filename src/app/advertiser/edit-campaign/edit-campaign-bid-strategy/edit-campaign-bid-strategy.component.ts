@@ -13,10 +13,7 @@ import {
   UPDATE_CAMPAIGN_FAILURE,
   UPDATE_CAMPAIGN_SUCCESS,
 } from 'store/advertiser/advertiser.actions';
-import {
-  ShowDialogOnError,
-  ShowSuccessSnackbar,
-} from 'store/common/common.actions';
+import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { BidStrategyService } from 'common/bid-strategy.service';
@@ -27,10 +24,7 @@ import { SAVE_SUCCESS } from 'common/utilities/messages';
   templateUrl: './edit-campaign-bid-strategy.component.html',
   styleUrls: ['./edit-campaign-bid-strategy.component.scss'],
 })
-export class EditCampaignBidStrategyComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditCampaignBidStrategyComponent extends HandleSubscription implements OnInit {
   campaignsConfig: CampaignsConfig;
   campaign: Campaign;
   submitted: boolean = false;
@@ -58,33 +52,22 @@ export class EditCampaignBidStrategyComponent
   fetchBidStrategies(): void {
     this.campaign = this.route.snapshot.parent.data.campaign;
     this.bidStrategyService
-      .getBidStrategies(
-        this.campaign.basicInformation.medium,
-        this.campaign.basicInformation.vendor,
-        true
-      )
+      .getBidStrategies(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor, true)
       .subscribe(
-        (bidStrategies) => {
+        bidStrategies => {
           this.bidStrategies = bidStrategies;
           const bidStrategyUuid = this.campaign.bidStrategy.uuid;
           if (
             bidStrategyUuid &&
-            -1 !==
-              this.bidStrategies.findIndex(
-                (bidStrategy) => bidStrategy.uuid === bidStrategyUuid
-              )
+            -1 !== this.bidStrategies.findIndex(bidStrategy => bidStrategy.uuid === bidStrategyUuid)
           ) {
             this.bidStrategyUuidSelected = bidStrategyUuid;
           }
           this.isLoading = false;
         },
-        (error) => {
+        error => {
           const status = error.status ? error.status : 0;
-          this.store.dispatch(
-            new ShowDialogOnError(
-              `Reload the page to load data. Error code (${status})`
-            )
-          );
+          this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
           this.isLoading = false;
         }
       );
@@ -94,7 +77,7 @@ export class EditCampaignBidStrategyComponent
     this.submitted = true;
 
     const bigStrategySelected = this.bidStrategies.find(
-      (bidStrategy) => bidStrategy.uuid === this.bidStrategyUuidSelected
+      bidStrategy => bidStrategy.uuid === this.bidStrategyUuidSelected
     );
 
     this.campaign = {
@@ -106,16 +89,14 @@ export class EditCampaignBidStrategyComponent
     };
     this.store.dispatch(new SaveConversion(this.campaign));
 
-    this.action$
-      .pipe(ofType(UPDATE_CAMPAIGN_SUCCESS, UPDATE_CAMPAIGN_FAILURE), first())
-      .subscribe((action: Action) => {
-        this.submitted = false;
-        if (UPDATE_CAMPAIGN_SUCCESS === action.type) {
-          this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
-        } else {
-          this.bidStrategyUuidSelected = null;
-        }
-      });
+    this.action$.pipe(ofType(UPDATE_CAMPAIGN_SUCCESS, UPDATE_CAMPAIGN_FAILURE), first()).subscribe((action: Action) => {
+      this.submitted = false;
+      if (UPDATE_CAMPAIGN_SUCCESS === action.type) {
+        this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
+      } else {
+        this.bidStrategyUuidSelected = null;
+      }
+    });
   }
 
   onStepBack(): void {

@@ -94,15 +94,8 @@ export abstract class BaseListComponent extends HandleSubscription {
 
   onPageChange(): void {
     if (this._list && this._list.data) {
-      this._filteredList = sortArrayByKeys(
-        this._list.data,
-        this.sortKeys,
-        this.sortDesc
-      );
-      this._filteredList = this._filteredList.slice(
-        (this._page - 1) * this._pageSize,
-        this._page * this._pageSize
-      );
+      this._filteredList = sortArrayByKeys(this._list.data, this.sortKeys, this.sortDesc);
+      this._filteredList = this._filteredList.slice((this._page - 1) * this._pageSize, this._page * this._pageSize);
     } else {
       this._filteredList = [];
     }
@@ -142,14 +135,11 @@ export abstract class BaseListComponent extends HandleSubscription {
       queryParamsHandling: 'merge',
       replaceUrl: true,
     });
-    localStorage.setItem(
-      this.localStorageName,
-      JSON.stringify(this._queryParams)
-    );
+    localStorage.setItem(this.localStorageName, JSON.stringify(this._queryParams));
   }
 
   checkQueryParams(): Subscription {
-    return this.activatedRoute.queryParams.pipe(take(1)).subscribe((param) => {
+    return this.activatedRoute.queryParams.pipe(take(1)).subscribe(param => {
       for (let key in this._queryParams) {
         if (!param[key]) continue;
         let newParam = param[key];

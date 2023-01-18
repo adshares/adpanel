@@ -12,12 +12,7 @@ import { User } from 'models/user.model';
 import { environment } from 'environments/environment';
 import { SetUser } from 'store/auth/auth.actions';
 import { CODE, CRYPTO } from 'common/utilities/consts';
-import {
-  faComments,
-  faEnvelope,
-  faLifeRing,
-  faPaperPlane,
-} from '@fortawesome/free-solid-svg-icons';
+import { faComments, faEnvelope, faLifeRing, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { ServerOptionsService } from 'common/server-options.service';
 
 @Component({
@@ -100,14 +95,12 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         break;
     }
 
-    const userDataStateSubscription = this.store
-      .select('state', 'user', 'data')
-      .subscribe((data: User) => {
-        this.totalFunds = data.adserverWallet.totalFunds;
-        this.isTotalFundsValid = data.isAdserverWalletValid;
-        this.actAsAdvertiser = data.isAdvertiser;
-        this.actAsPublisher = data.isPublisher;
-      });
+    const userDataStateSubscription = this.store.select('state', 'user', 'data').subscribe((data: User) => {
+      this.totalFunds = data.adserverWallet.totalFunds;
+      this.isTotalFundsValid = data.isAdserverWalletValid;
+      this.actAsAdvertiser = data.isAdvertiser;
+      this.actAsPublisher = data.isPublisher;
+    });
     this.subscriptions.push(userDataStateSubscription);
   }
 
@@ -124,10 +117,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   setActiveUserType(userType) {
     this.session.setAccountTypeChoice(userRolesEnum[userType].toLowerCase());
-    this.router.navigate([
-      `/${userRolesEnum[userType].toLowerCase()}`,
-      'dashboard',
-    ]);
+    this.router.navigate([`/${userRolesEnum[userType].toLowerCase()}`, 'dashboard']);
   }
 
   toggleSettingsMenu(state) {

@@ -4,23 +4,17 @@
 
   <div>
     <p class="ap-copy ap-copy--large">
-      This code is intended for Cryptovoxels only. Please copy the code and
-      place it in creator.
+      This code is intended for Cryptovoxels only. Please copy the code and place it in creator.
     </p>
 
     <div *ngIf="loaded; else loadingSpinner">
       <div *ngIf="null !== code">
         <div class="row align-center">
-          <label
-            class="ap-copy ap-copy--bold col text-left"
-            for="code-container-common"
+          <label class="ap-copy ap-copy--bold col text-left" for="code-container-common"
             >Paste this code in creator</label
           >
 
-          <button
-            class="code-copy-btn"
-            (click)="copyCode('code-container-common')"
-          >
+          <button class="code-copy-btn" (click)="copyCode('code-container-common')">
             <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
             Copy the code
           </button>
@@ -29,17 +23,12 @@
         <textarea
           id="code-container-common"
           class="code-container ap-box ap-box--large ap-box--light-border ap-copy"
-          [ngModel]="code"
-        ></textarea>
+          [ngModel]="code"></textarea>
       </div>
 
-      <div
-        *ngIf="null === code"
-        class="row align-center ap-alert ap-copy ap-gray"
-      >
+      <div *ngIf="null === code" class="row align-center ap-alert ap-copy ap-gray">
         <img src="assets/images/error.svg" alt="Attention" />
-        An error occurred. Make sure that you confirmed an account and connected
-        the wallet.
+        An error occurred. Make sure that you confirmed an account and connected the wallet.
       </div>
     </div>
   </div>

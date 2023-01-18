@@ -9,10 +9,7 @@ import { Campaign, CampaignTotals } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { createInitialDataSet } from 'common/utilities/helpers';
-import {
-  LoadCampaigns,
-  LoadCampaignsTotals,
-} from 'store/advertiser/advertiser.actions';
+import { LoadCampaigns, LoadCampaignsTotals } from 'store/advertiser/advertiser.actions';
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -40,10 +37,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   currentChartFilterSettings: ChartFilterSettings;
 
-  constructor(
-    private chartService: ChartService,
-    private store: Store<AppState>
-  ) {
+  constructor(private chartService: ChartService, private store: Store<AppState>) {
     super();
   }
 
@@ -54,10 +48,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.currentChartFilterSettings = chartFilterSettings;
       });
 
-    this.loadCampaigns(
-      this.currentChartFilterSettings.currentFrom,
-      this.currentChartFilterSettings.currentTo
-    );
+    this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
 
     const refreshSubscription = timer(
@@ -93,7 +84,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.currentAssetId
       )
       .pipe(take(1))
-      .subscribe((data) => {
+      .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].label = chartFilterSettings.currentSeries.label;
         this.barChartLabels = mapDatesToChartLabels(data.timestamps);
@@ -112,9 +103,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
     const campaignsLoadedSubscription = this.store
       .select('state', 'advertiser', 'campaignsLoaded')
-      .subscribe(
-        (campaignsLoaded: boolean) => (this.campaignsLoaded = campaignsLoaded)
-      );
+      .subscribe((campaignsLoaded: boolean) => (this.campaignsLoaded = campaignsLoaded));
 
     const campaignsTotalsSubscription = this.store
       .select('state', 'advertiser', 'campaignsTotals')

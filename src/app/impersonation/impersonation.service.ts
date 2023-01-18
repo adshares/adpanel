@@ -4,9 +4,7 @@ const IMPERSONATION_TOKEN = 'impersonationToken';
 
 @Injectable()
 export class ImpersonationService {
-  impersonationMode: EventEmitter<string | null> = new EventEmitter<
-    string | null
-  >();
+  impersonationMode: EventEmitter<string | null> = new EventEmitter<string | null>();
 
   setImpersonationToken(token: string) {
     localStorage.setItem(IMPERSONATION_TOKEN, token);

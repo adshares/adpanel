@@ -14,10 +14,7 @@ import { AppState } from 'models/app-state.model';
   templateUrl: './forgotten-password.component.html',
   styleUrls: ['./forgotten-password.component.scss'],
 })
-export class ForgottenPasswordComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class ForgottenPasswordComponent extends HandleSubscription implements OnInit {
   @ViewChild('remindPasswordForm') remindPasswordForm: NgForm;
 
   registrationMode: string;
@@ -34,11 +31,9 @@ export class ForgottenPasswordComponent
   }
 
   ngOnInit() {
-    const infoSubscription = this.store
-      .select('state', 'common', 'info')
-      .subscribe((info: Info) => {
-        this.registrationMode = info.registrationMode;
-      });
+    const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
+      this.registrationMode = info.registrationMode;
+    });
     this.subscriptions.push(infoSubscription);
   }
 

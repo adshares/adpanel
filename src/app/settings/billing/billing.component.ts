@@ -14,8 +14,6 @@ export class BillingComponent {
   ngOnInit() {
     const route = this.route.snapshot.firstChild;
     this.nowPaymentsSuccess =
-      route &&
-      route.routeConfig.path.includes('now-payments') &&
-      route.params.status == 'success';
+      route && route.routeConfig.path.includes('now-payments') && route.params.status == 'success';
   }
 }

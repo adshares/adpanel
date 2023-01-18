@@ -16,16 +16,14 @@
           requires: this.addedItems,
           excludes: this.excludedItems
         }"
-        [vendor]="campaign.basicInformation.vendor"
-      ></app-targeting-reach>
+        [vendor]="campaign.basicInformation.vendor"></app-targeting-reach>
 
       <form
         *ngIf="!isAutoCpm"
         [formGroup]="campaignBasicInfoForm"
         (ngSubmit)="onSubmit()"
         class="ap-form"
-        data-test="advertiser-edit-campaign-additional-targeting-form"
-      >
+        data-test="advertiser-edit-campaign-additional-targeting-form">
         <div class="ap-form-input__box">
           <div class="row no-gutters">
             <div class="col">
@@ -36,14 +34,11 @@
                   requires: this.addedItems,
                   excludes: this.excludedItems
                 }"
-                [vendor]="campaign.basicInformation.vendor"
-              ></app-targeting-reach>
+                [vendor]="campaign.basicInformation.vendor"></app-targeting-reach>
             </div>
             <div class="col">
               <div class="col relative">
-                <label for="campaign-max-cpm" class="ap-form-label">
-                  Max CPM ({{ currencyCode }})
-                </label>
+                <label for="campaign-max-cpm" class="ap-form-label"> Max CPM ({{ currencyCode }}) </label>
                 <input
                   id="campaign-max-cpm"
                   class="ap-form-input input-budget"
@@ -51,19 +46,10 @@
                   step="0.01"
                   name="campaignMaxCpm"
                   formControlName="maxCpm"
-                  data-test="advertiser-edit-campaign-additional-targeting-max-cpm"
-                />
-                <span
-                  *ngIf="campaignBasicInfoForm.get('maxCpm').valid"
-                  class="input-valid"
-                ></span>
+                  data-test="advertiser-edit-campaign-additional-targeting-max-cpm" />
+                <span *ngIf="campaignBasicInfoForm.get('maxCpm').valid" class="input-valid"></span>
               </div>
-              <span
-                class="error-msg"
-                *ngIf="
-                  campaignBasicInfoForm.hasError('min', ['maxCpm']) && submitted
-                "
-              >
+              <span class="error-msg" *ngIf="campaignBasicInfoForm.hasError('min', ['maxCpm']) && submitted">
                 Allowed minimum is {{ configuredMinCpm | formatMoney : 2 : '' }}
               </span>
             </div>
@@ -75,15 +61,13 @@
     <mat-accordion
       multi="true"
       class="targeting-accordion"
-      data-test="advertiser-edit-campaign-additional-targeting-accordion"
-    >
+      data-test="advertiser-edit-campaign-additional-targeting-accordion">
       <div class="ap-box">
         <mat-expansion-panel
           (opened)="requirePanelOpenState = true"
           (closed)="requirePanelOpenState = false"
           [expanded]="true"
-          data-test="advertiser-edit-campaign-additional-targeting-accordion-panel-required"
-        >
+          data-test="advertiser-edit-campaign-additional-targeting-accordion-panel-required">
           <mat-expansion-panel-header class="ap-heading ap-heading--secondary">
             <mat-panel-title> Targeting </mat-panel-title>
           </mat-expansion-panel-header>
@@ -91,22 +75,17 @@
           <div class="row">
             <div class="col-xs-6 no-gutters ap-box--no-padding">
               <p class="ap-copy">
-                If you want to apply specific targeting to your campaign (e.g.
-                language, country, device etc.), please select options below. In
-                case you want to target specific website, make sure that it is
-                one of Adshares publishers. Please note that your campaign reach
-                will be limited by the options you select.
+                If you want to apply specific targeting to your campaign (e.g. language, country, device etc.), please
+                select options below. In case you want to target specific website, make sure that it is one of Adshares
+                publishers. Please note that your campaign reach will be limited by the options you select.
               </p>
 
               <div class="targeting-select-wrapper">
                 <app-targeting-select
-                  *ngIf="
-                    targetingOptionsToAdd && targetingOptionsToAdd.length > 0
-                  "
+                  *ngIf="targetingOptionsToAdd && targetingOptionsToAdd.length > 0"
                   [targetingOptions]="targetingOptionsToAdd"
                   [addedItems]="addedItems"
-                  (itemsChange)="updateAddedItems($event)"
-                ></app-targeting-select>
+                  (itemsChange)="updateAddedItems($event)"></app-targeting-select>
               </div>
             </div>
 
@@ -116,8 +95,7 @@
                 [canRemove]="true"
                 [isExclude]="false"
                 (itemsChange)="updateAddedItems($event)"
-                [targetingOptions]="targetingOptionsToAdd"
-              ></app-targeting-display>
+                [targetingOptions]="targetingOptionsToAdd"></app-targeting-display>
             </div>
           </div>
         </mat-expansion-panel>
@@ -129,8 +107,7 @@
             [isExclude]="false"
             (itemsChange)="updateAddedItems($event)"
             [targetingOptions]="targetingOptionsToAdd"
-            *ngIf="!requirePanelOpenState"
-          ></app-targeting-display>
+            *ngIf="!requirePanelOpenState"></app-targeting-display>
         </div>
       </div>
 
@@ -138,8 +115,7 @@
         <mat-expansion-panel
           (opened)="excludePanelOpenState = true"
           (closed)="excludePanelOpenState = false"
-          data-test="advertiser-edit-campaign-additional-targeting-accordion-panel-excluded"
-        >
+          data-test="advertiser-edit-campaign-additional-targeting-accordion-panel-excluded">
           <mat-expansion-panel-header class="ap-heading ap-heading--secondary">
             <mat-panel-title> Exclusions </mat-panel-title>
           </mat-expansion-panel-header>
@@ -147,21 +123,16 @@
           <div class="row">
             <div class="col-xs-6">
               <p class="ap-copy">
-                If you want your ads not to be displayed on specific domains,
-                devices, in certain countries or by a specific group of users,
-                please select options below.
+                If you want your ads not to be displayed on specific domains, devices, in certain countries or by a
+                specific group of users, please select options below.
               </p>
 
               <div class="targeting-select-wrapper">
                 <app-targeting-select
-                  *ngIf="
-                    targetingOptionsToExclude &&
-                    targetingOptionsToExclude.length > 0
-                  "
+                  *ngIf="targetingOptionsToExclude && targetingOptionsToExclude.length > 0"
                   [targetingOptions]="targetingOptionsToExclude"
                   [addedItems]="excludedItems"
-                  (itemsChange)="updateExcludedItems($event)"
-                ></app-targeting-select>
+                  (itemsChange)="updateExcludedItems($event)"></app-targeting-select>
               </div>
             </div>
 
@@ -171,8 +142,7 @@
                 [canRemove]="true"
                 [isExclude]="true"
                 (itemsChange)="updateExcludedItems($event)"
-                [targetingOptions]="targetingOptionsToExclude"
-              ></app-targeting-display>
+                [targetingOptions]="targetingOptionsToExclude"></app-targeting-display>
             </div>
           </div>
         </mat-expansion-panel>
@@ -184,44 +154,29 @@
             [isExclude]="true"
             (itemsChange)="updateExcludedItems($event)"
             [targetingOptions]="targetingOptionsToExclude"
-            *ngIf="!excludePanelOpenState"
-          ></app-targeting-display>
+            *ngIf="!excludePanelOpenState"></app-targeting-display>
         </div>
       </div>
     </mat-accordion>
   </ng-container>
 
   <div class="ap-box ap-box--large row justify-between">
-    <button
-      class="ap-btn ap-btn--white ap-blue"
-      role="link"
-      (click)="onStepBack()"
-    >
-      Back
-    </button>
+    <button class="ap-btn ap-btn--white ap-blue" role="link" (click)="onStepBack()">Back</button>
     <div class="row">
       <button
         *ngIf="createCampaignMode"
         (click)="saveCampaignTargetingAndCpm(true)"
         class="ap-btn ap-btn--white ap-blue save-as-draft"
-        data-test="advertiser-edit-campaign-save-as-draft"
-      >
+        data-test="advertiser-edit-campaign-save-as-draft">
         Save as draft
       </button>
       <button
         (click)="onSubmit()"
         class="ap-btn ap-btn--wide ap-btn--blue"
-        data-test="advertiser-edit-campaign-save-and-continue"
-      >
-        <span *ngIf="!changesSaved; else loading">{{
-          createCampaignMode ? 'Save & continue' : 'Update'
-        }}</span>
+        data-test="advertiser-edit-campaign-save-and-continue">
+        <span *ngIf="!changesSaved; else loading">{{ createCampaignMode ? 'Save & continue' : 'Update' }}</span>
         <ng-template #loading>
-          <mat-spinner
-            [diameter]="20"
-            [strokeWidth]="2"
-            color="accent"
-          ></mat-spinner>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
       </button>
     </div>

@@ -29,16 +29,10 @@ export class UsersComponent extends HandleSubscription {
   ];
 
   onTabClick() {
-    const localStorageQueryParamsForUsers = JSON.parse(
-      localStorage.getItem('usersQueryParams')
-    );
-    const localStorageQueryParamsForPublishers = JSON.parse(
-      localStorage.getItem('publishersQueryParams')
-    );
-    const localStorageQueryParamsForAdvertisers = JSON.parse(
-      localStorage.getItem('advertisersQueryParams')
-    );
-    this.links.forEach((link) => {
+    const localStorageQueryParamsForUsers = JSON.parse(localStorage.getItem('usersQueryParams'));
+    const localStorageQueryParamsForPublishers = JSON.parse(localStorage.getItem('publishersQueryParams'));
+    const localStorageQueryParamsForAdvertisers = JSON.parse(localStorage.getItem('advertisersQueryParams'));
+    this.links.forEach(link => {
       if (link.label === 'Users') {
         link.queryParams = localStorageQueryParamsForUsers;
       } else if (link.label === 'Publishers') {

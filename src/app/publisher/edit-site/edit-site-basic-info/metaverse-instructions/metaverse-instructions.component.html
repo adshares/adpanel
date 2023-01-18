@@ -7,49 +7,34 @@
         class="ap-btn ap-btn--blue ap-btn--x-small"
         role="button"
         (click)="openGetCryptovoxelsCodeDialog()"
-        data-test="publisher-get-code-button"
-      >
+        data-test="publisher-get-code-button">
         Get the ad code
       </button>
     </li>
     <li>Add image object from the Asset Library</li>
     <li>
-      After placing your banner, just resize it to fit as you want. The system
-      will detect scale and automatically serve ads.
+      After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve
+      ads.
     </li>
   </ol>
   <ol *ngIf="vendor === DECENTRALAND">
     <li>
       Download the smart item from
-      <a
-        [href]="ADD_UNIT_DECENTRALAND_SMART"
-        target="_blank"
-        rel="noopener nofollow noreferrer"
-      >
+      <a [href]="ADD_UNIT_DECENTRALAND_SMART" target="_blank" rel="noopener nofollow noreferrer">
         GitHub
-        <fa-icon
-          [icon]="faExternalLinkSquareAlt"
-          class="ap-icon ap-icon--large"
-        ></fa-icon>
+        <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--large"></fa-icon>
       </a>
     </li>
     <li>
       Add it using the
-      <a
-        href="https://builder.decentraland.org/"
-        target="_blank"
-        rel="noopener nofollow noreferrer"
-      >
+      <a href="https://builder.decentraland.org/" target="_blank" rel="noopener nofollow noreferrer">
         DCL builder
-        <fa-icon
-          [icon]="faExternalLinkSquareAlt"
-          class="ap-icon ap-icon--large"
-        ></fa-icon>
+        <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--large"></fa-icon>
       </a>
     </li>
     <li>
-      After placing your banner, just resize it to fit as you want. The system
-      will detect scale and automatically serve ads.
+      After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve
+      ads.
     </li>
     <li>Provide payout network: {{ wallet.walletNetwork }}</li>
     <li>Provide payout address: {{ wallet.walletAddress }}</li>
@@ -58,17 +43,11 @@
   <p>
     For more information read
     <a
-      [href]="
-        vendor === CRYPTOVOXELS ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND
-      "
+      [href]="vendor === CRYPTOVOXELS ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND"
       target="_blank"
-      rel="noopener nofollow noreferrer"
-    >
+      rel="noopener nofollow noreferrer">
       the manual
-      <fa-icon
-        [icon]="faExternalLinkSquareAlt"
-        class="ap-icon ap-icon--large"
-      ></fa-icon> </a
+      <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--large"></fa-icon> </a
     >.
   </p>
 </div>

@@ -16,10 +16,7 @@ import { SessionService } from '../../../session.service';
   templateUrl: './newsletter-settings.component.html',
   styleUrls: ['./newsletter-settings.component.scss'],
 })
-export class NewsletterSettingsComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class NewsletterSettingsComponent extends HandleSubscription implements OnInit {
   isSubscribed: boolean = false;
   isSettingDisabled: boolean = true;
   isImpersonated: boolean = false;
@@ -51,7 +48,7 @@ export class NewsletterSettingsComponent
       () => {
         this.isSettingDisabled = false;
       },
-      (error) => {
+      error => {
         if (error.status !== HTTP_INTERNAL_SERVER_ERROR) {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {

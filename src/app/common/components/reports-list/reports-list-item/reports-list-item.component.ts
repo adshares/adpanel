@@ -41,12 +41,10 @@ export class ReportsListItemComponent implements OnInit {
       .getReport(this.item.id)
       .pipe(take(1))
       .subscribe(
-        (response) => downloadReport(response),
+        response => downloadReport(response),
         () =>
           this.store.dispatch(
-            new ShowDialogOnError(
-              'Report cannot be downloaded at this moment. Please try again later.'
-            )
+            new ShowDialogOnError('Report cannot be downloaded at this moment. Please try again later.')
           )
       );
   }

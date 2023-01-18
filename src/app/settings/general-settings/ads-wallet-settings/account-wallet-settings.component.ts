@@ -51,7 +51,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     this.isSubmitted = true;
     this.connectError = null;
     this.settingsService.initConnectWallet().subscribe(
-      (token) => {
+      token => {
         switch (network) {
           case 'ADS':
             this.connectToAds(token);
@@ -72,7 +72,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     const adsWallet = new AdsWallet();
     adsWallet.getInfo().then(
       () => {
-        adsWallet.authenticate(token.message).then((response) => {
+        adsWallet.authenticate(token.message).then(response => {
           if (response.status !== 'accepted') {
             this.connectError = 'Connection was rejected';
             this.isSubmitted = false;
@@ -83,12 +83,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
             this.isSubmitted = false;
             return;
           }
-          this.connectToWallet(
-            'ADS',
-            response.account.address,
-            token.token,
-            response.signature
-          );
+          this.connectToWallet('ADS', response.account.address, token.token, response.signature);
         });
       },
       () => {
@@ -107,66 +102,58 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     }
 
     await ethereum.request({ method: 'eth_requestAccounts' }).then(
-      async (accounts) => {
+      async accounts => {
         await ethereum
           .request({
             method: 'personal_sign',
             params: [stringToHex(token.message), accounts[0]],
           })
           .then(
-            (result) => {
+            result => {
               this.connectToWallet('BSC', accounts[0], token.token, result);
             },
-            (error) => {
+            error => {
               this.connectError = error.message;
               this.isSubmitted = false;
             }
           );
       },
-      (error) => {
+      error => {
         this.connectError = error.message;
         this.isSubmitted = false;
       }
     );
   }
 
-  connectToWallet(
-    network: string,
-    address: string,
-    token: string,
-    signature: string
-  ) {
-    this.settingsService
-      .connectWallet(network, address, token, signature)
-      .subscribe(
-        (user) => {
-          this.isSubmitted = false;
-          if (null !== user) {
-            this.wallet = user.adserverWallet;
-            this.dialog.open(ConfirmResponseDialogComponent, {
-              data: {
-                title: 'Wallet connected',
-                message: `Your account has been connected to ${network} wallet: ${address}`,
-              },
-            });
-          } else {
-            this.dialog.open(ConfirmResponseDialogComponent, {
-              data: {
-                title: 'Confirm connection request',
-                message:
-                  'Please check your email and follow instructions to confirm your request',
-              },
-            });
-          }
-        },
-        (err) => {
-          this.connectError = err.error.message || 'Unknown error';
-          if (err.error.errors) {
-            const key = Object.keys(err.error.errors)[0];
-            this.connectError = err.error.errors[key][0];
-          }
-          this.isSubmitted = false;
+  connectToWallet(network: string, address: string, token: string, signature: string) {
+    this.settingsService.connectWallet(network, address, token, signature).subscribe(
+      user => {
+        this.isSubmitted = false;
+        if (null !== user) {
+          this.wallet = user.adserverWallet;
+          this.dialog.open(ConfirmResponseDialogComponent, {
+            data: {
+              title: 'Wallet connected',
+              message: `Your account has been connected to ${network} wallet: ${address}`,
+            },
+          });
+        } else {
+          this.dialog.open(ConfirmResponseDialogComponent, {
+            data: {
+              title: 'Confirm connection request',
+              message: 'Please check your email and follow instructions to confirm your request',
+            },
+          });
         }
-      );
+      },
+      err => {
+        this.connectError = err.error.message || 'Unknown error';
+        if (err.error.errors) {
+          const key = Object.keys(err.error.errors)[0];
+          this.connectError = err.error.errors[key][0];
+        }
+        this.isSubmitted = false;
+      }
+    );
   }
 }

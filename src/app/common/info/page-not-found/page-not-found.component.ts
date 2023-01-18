@@ -9,10 +9,7 @@ import { Info } from 'models/info.model';
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss'],
 })
-export class PageNotFoundComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class PageNotFoundComponent extends HandleSubscription implements OnInit {
   supportEmail: string;
 
   constructor(private store: Store<AppState>) {
@@ -20,11 +17,9 @@ export class PageNotFoundComponent
   }
 
   ngOnInit(): void {
-    const infoSubscription = this.store
-      .select('state', 'common', 'info')
-      .subscribe((info: Info) => {
-        this.supportEmail = info.supportEmail;
-      });
+    const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
+      this.supportEmail = info.supportEmail;
+    });
     this.subscriptions.push(infoSubscription);
   }
 }

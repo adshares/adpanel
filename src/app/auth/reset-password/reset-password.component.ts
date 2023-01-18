@@ -26,7 +26,7 @@ export class ResetPasswordComponent {
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe(params => {
       this.token = params['token'];
       this.api.auth.recoveryGet(this.token).subscribe(
         () => [],
@@ -35,8 +35,7 @@ export class ResetPasswordComponent {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Invalid password recovery token',
-              message:
-                'The token is outdated or already used before.\nPlease request new password recovery email.',
+              message: 'The token is outdated or already used before.\nPlease request new password recovery email.',
             },
           });
         }
@@ -67,7 +66,7 @@ export class ResetPasswordComponent {
           },
         });
       },
-      (err) => {
+      err => {
         this.confirmErrors = err.error.errors;
         this.isPasswordConfirm = false;
       }

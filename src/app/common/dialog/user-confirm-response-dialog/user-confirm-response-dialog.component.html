@@ -6,24 +6,16 @@
 
   <p
     class="ap-copy ap-copy--large ap-customize-subheading ap-success ap-success--large ap-multiline"
-    [innerHTML]="message"
-  ></p>
+    [innerHTML]="message"></p>
 
   <div class="dialog__controls">
-    <button
-      class="ap-btn ap-btn--white ap-copy--dark"
-      mat-button
-      [mat-dialog-close]="false"
-    >
-      No
-    </button>
+    <button class="ap-btn ap-btn--white ap-copy--dark" mat-button [mat-dialog-close]="false">No</button>
 
     <button
       class="dialog__confirm-btn ap-btn ap-btn--blue ap-copy--white"
       mat-button
       [mat-dialog-close]="true"
-      cdkFocusInitial
-    >
+      cdkFocusInitial>
       Yes
     </button>
   </div>

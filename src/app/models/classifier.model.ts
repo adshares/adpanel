@@ -34,8 +34,4 @@ interface BannerClassificationFilters {
   classifierLocalBanners?: number;
 }
 
-export {
-  BannerClassification,
-  BannerClassificationResponse,
-  BannerClassificationFilters,
-};
+export { BannerClassification, BannerClassificationResponse, BannerClassificationFilters };

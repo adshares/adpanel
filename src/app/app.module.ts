@@ -53,11 +53,7 @@ const appModules = [
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ConfirmResponseDialogComponent,
-    ErrorResponseDialogComponent,
-  ],
+  declarations: [AppComponent, ConfirmResponseDialogComponent, ErrorResponseDialogComponent],
   imports: [
     ApiModule,
     BrowserModule,

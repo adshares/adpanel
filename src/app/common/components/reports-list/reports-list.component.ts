@@ -27,7 +27,7 @@ export class ReportsListComponent extends HandleSubscription implements OnInit {
         .getReportsList()
         .pipe(take(1))
         .subscribe(
-          (response) => {
+          response => {
             this.reportsListAdvertiser = response.advertiser || [];
             this.reportsListPublisher = response.publisher || [];
             this.reportListLoaded = true;

@@ -7,7 +7,5 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./leave-edit-process-dialog.component.scss'],
 })
 export class LeaveEditProcessDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<LeaveEditProcessDialogComponent>
-  ) {}
+  constructor(public dialogRef: MatDialogRef<LeaveEditProcessDialogComponent>) {}
 }

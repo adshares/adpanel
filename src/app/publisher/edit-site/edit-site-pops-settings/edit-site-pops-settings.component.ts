@@ -24,10 +24,7 @@ import { siteStatusEnum } from 'models/enum/site.enum';
   templateUrl: './edit-site-pops-settings.component.html',
   styleUrls: ['./edit-site-pops-settings.component.scss'],
 })
-export class EditSitePopsSettingsComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditSitePopsSettingsComponent extends HandleSubscription implements OnInit {
   faCheck = faCheck;
   faTimes = faTimes;
   popsSettingsForm: FormGroup;
@@ -49,28 +46,26 @@ export class EditSitePopsSettingsComponent
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
-      (item) => item.type === adUnitTypesEnum.POP
+      item => item.type === adUnitTypesEnum.POP
     );
 
     this.createForm();
-    const lastSiteSubscription = this.store
-      .select('state', 'publisher', 'lastEditedSite')
-      .subscribe((site: Site) => {
-        this.site = site;
-        site.adUnits
-          .filter((item) => item.type === adUnitTypesEnum.POP)
-          .forEach((adUnit) => {
-            const control = this.popsSettingsForm.get(adUnit.size);
-            control.get('selected').setValue(true);
-            control.get('id').setValue(adUnit.id);
-          });
-      });
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').subscribe((site: Site) => {
+      this.site = site;
+      site.adUnits
+        .filter(item => item.type === adUnitTypesEnum.POP)
+        .forEach(adUnit => {
+          const control = this.popsSettingsForm.get(adUnit.size);
+          control.get('selected').setValue(true);
+          control.get('id').setValue(adUnit.id);
+        });
+    });
     this.subscriptions.push(lastSiteSubscription);
   }
 
   createForm(): void {
     const controls = {};
-    this.adUnitSizes.forEach((adUnitSize) => {
+    this.adUnitSizes.forEach(adUnitSize => {
       controls[adUnitSize.size] = new FormGroup({
         selected: new FormControl(false),
         id: new FormControl(null),
@@ -124,11 +119,11 @@ export class EditSitePopsSettingsComponent
 
   get adUnitsToSave(): AdUnit[] {
     const units = [
-      ...this.site.adUnits.filter((adUnit) => {
+      ...this.site.adUnits.filter(adUnit => {
         return adUnit.type !== adUnitTypesEnum.POP;
       }),
     ];
-    this.adUnitSizes.forEach((adUnit) => {
+    this.adUnitSizes.forEach(adUnit => {
       const control = this.popsSettingsForm.get(adUnit.size);
       if (control.get('selected').value) {
         units.push({

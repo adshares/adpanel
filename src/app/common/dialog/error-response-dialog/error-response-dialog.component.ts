@@ -16,8 +16,7 @@ export class ErrorResponseDialogComponent {
   ) {}
 
   ngOnInit() {
-    this.message =
-      this.data && this.data.message ? this.data.message : this.message;
+    this.message = this.data && this.data.message ? this.data.message : this.message;
     this.title = this.data && this.data.title ? this.data.title : this.title;
   }
 }

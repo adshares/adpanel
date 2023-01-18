@@ -13,8 +13,6 @@ export class FormatFileSizePipe implements PipeTransform {
       return `${fileSize} KB`;
     }
     fileSize /= 1024;
-    return fileSize >= 10
-      ? `${Math.floor(fileSize)} MB`
-      : `${Math.floor(fileSize * 10) / 10} MB`;
+    return fileSize >= 10 ? `${Math.floor(fileSize)} MB` : `${Math.floor(fileSize * 10) / 10} MB`;
   }
 }

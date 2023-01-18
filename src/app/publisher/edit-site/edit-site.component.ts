@@ -16,19 +16,11 @@ import { HandleSubscription } from 'common/handle-subscription';
   styleUrls: ['./edit-site.component.scss'],
   animations: [fadeAnimation],
 })
-export class EditSiteComponent
-  extends HandleSubscription
-  implements OnInit, OnDestroy
-{
-  getRouterOutletState = (outlet) =>
-    outlet.isActivated ? outlet.activatedRoute : '';
+export class EditSiteComponent extends HandleSubscription implements OnInit, OnDestroy {
+  getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
   isEditMode: boolean;
 
-  constructor(
-    private store: Store<AppState>,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router: Router) {
     super();
   }
 
@@ -41,10 +33,7 @@ export class EditSiteComponent
         const filteringOptions = this.route.snapshot.data.filteringOptions;
         this.store.dispatch(
           new publisherActions.SaveSiteFiltering(
-            parseTargetingOptionsToArray(
-              lastEditedSite.filtering,
-              filteringOptions
-            )
+            parseTargetingOptionsToArray(lastEditedSite.filtering, filteringOptions)
           )
         );
       });

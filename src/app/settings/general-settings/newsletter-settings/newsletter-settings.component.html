@@ -3,22 +3,18 @@
     <div class="col">
       <h2 class="ap-heading ap-heading--primary">Newsletter</h2>
       <p class="ap-copy ap-copy--large">
-        We are using our newsletter to share important information about the
-        development of our network, airdrop campaigns and other offers. If you
-        prefer to unsubscribe, please change your settings below.
+        We are using our newsletter to share important information about the development of our network, airdrop
+        campaigns and other offers. If you prefer to unsubscribe, please change your settings below.
       </p>
 
-      <div class="error-msg" *ngIf="isImpersonated">
-        You cannot change user preferences during impersonation.
-      </div>
+      <div class="error-msg" *ngIf="isImpersonated">You cannot change user preferences during impersonation.</div>
 
       <div *ngIf="!isImpersonated" class="newsletter-table ap-copy">
         <mat-slide-toggle
           color="primary"
           [disabled]="isSettingDisabled"
           [(ngModel)]="isSubscribed"
-          (change)="onChangeSubscription(isSubscribed)"
-        >
+          (change)="onChangeSubscription(isSubscribed)">
           Subscription
         </mat-slide-toggle>
       </div>

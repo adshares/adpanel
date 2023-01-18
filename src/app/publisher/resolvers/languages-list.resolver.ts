@@ -17,7 +17,7 @@ export class LanguagesListResolver implements Resolve<SiteLanguage[]> {
   }
 
   initLanguagesList(): void {
-    this.store.pipe(take(1)).subscribe((store) => {
+    this.store.pipe(take(1)).subscribe(store => {
       const list = store.state.publisher.languagesList;
 
       if (list.length <= 0) {
@@ -28,7 +28,7 @@ export class LanguagesListResolver implements Resolve<SiteLanguage[]> {
 
   waitForListToLoad(): Observable<SiteLanguage[]> {
     return this.store.select('state', 'publisher', 'languagesList').pipe(
-      filter((el) => el.length > 0),
+      filter(el => el.length > 0),
       take(1)
     );
   }

@@ -46,7 +46,7 @@ export class ModelPreviewComponent implements OnInit {
     loader.setResponseType('arraybuffer');
     loader.load(
       this.modelUrl,
-      (buffer) => {
+      buffer => {
         const magic = LoaderUtils.decodeText(new Uint8Array(buffer, 0, 4));
         if (magic === 'glTF') {
           this.displayGltfModel(this.modelPreview.nativeElement, buffer);
@@ -57,26 +57,12 @@ export class ModelPreviewComponent implements OnInit {
       () => {
         // progress not supported at this moment
       },
-      () =>
-        this.handleLoadError(
-          this.modelPreview.nativeElement,
-          new Error('Cannot load model')
-        )
+      () => this.handleLoadError(this.modelPreview.nativeElement, new Error('Cannot load model'))
     );
   }
 
   scaleUniformlyTo2x2x2(box): number {
-    return (
-      1 /
-      Math.max(
-        Math.abs(box.min.x),
-        Math.abs(box.min.y),
-        Math.abs(box.min.z),
-        box.max.x,
-        box.max.y,
-        box.max.z
-      )
-    );
+    return 1 / Math.max(Math.abs(box.min.x), Math.abs(box.min.y), Math.abs(box.min.z), box.max.x, box.max.y, box.max.z);
   }
 
   initCamera(): Camera {
@@ -127,9 +113,7 @@ export class ModelPreviewComponent implements OnInit {
 
   handleLoadError(element, error: Error): void {
     console.error(error);
-    const message = error.message
-      ? `Error during model load: ${error.message}`
-      : 'Model load failed';
+    const message = error.message ? `Error during model load: ${error.message}` : 'Model load failed';
     const spanElement = document.createElement('span');
     spanElement.innerHTML = message;
     element.appendChild(spanElement);
@@ -159,7 +143,7 @@ export class ModelPreviewComponent implements OnInit {
       loader.parse(
         buffer,
         '',
-        (gltf) => {
+        gltf => {
           const model = gltf.scene;
           const boundingBox = new Box3().setFromObject(model);
           model.scale.setScalar(this.scaleUniformlyTo2x2x2(boundingBox));
@@ -172,7 +156,7 @@ export class ModelPreviewComponent implements OnInit {
           element.appendChild(renderer.domElement);
           animate();
         },
-        (error) => this.handleLoadError(element, error)
+        error => this.handleLoadError(element, error)
       );
     } catch (error) {
       this.handleLoadError(element, error);
@@ -216,7 +200,7 @@ export class ModelPreviewComponent implements OnInit {
       const group = new Group();
       const boundingBox = new Box3();
       const palette = chunks[chunks.length - 1].palette;
-      chunks.forEach((chunk) => {
+      chunks.forEach(chunk => {
         chunk.palette = palette;
         const mesh = new VOXMesh(chunk);
         boundingBox.expandByObject(mesh);
@@ -259,9 +243,7 @@ export class ModelPreviewComponent implements OnInit {
         const period = framesCount * periodPerFrame;
         const currentTime = time % period;
         const currentFrameIndex = Math.floor(currentTime / periodPerFrame);
-        model.children.forEach(
-          (frame, index) => (frame.visible = index === currentFrameIndex)
-        );
+        model.children.forEach((frame, index) => (frame.visible = index === currentFrameIndex));
       }
 
       controls.update();

@@ -9,6 +9,6 @@ export abstract class HandleSubscription implements OnDestroy {
   subscriptions: Subscription[] = [];
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

@@ -1,20 +1,15 @@
 <div class="filters">
   <div class="row user-filters">
-    <div
-      *ngIf="!detailsPage"
-      class="user-filters__select-wrapper col-xs-12 no-gutters"
-    >
+    <div *ngIf="!detailsPage" class="user-filters__select-wrapper col-xs-12 no-gutters">
       <mat-select
         class="ap-select"
         [(value)]="currentAssetId"
         (selectionChange)="updateAssetId($event)"
-        data-test="chart-filter-by-type-asset-id-select"
-      >
+        data-test="chart-filter-by-type-asset-id-select">
         <mat-option
           *ngFor="let asset of assetsInfo"
           [value]="asset.id"
-          data-test="chart-filter-by-type-asset-id-option"
-        >
+          data-test="chart-filter-by-type-asset-id-option">
           {{ asset.name }}
         </mat-option>
       </mat-select>
@@ -24,13 +19,11 @@
         class="ap-select chart-filter__select--wider"
         [(value)]="currentAssetSeries"
         (selectionChange)="updateAssetSeries($event)"
-        data-test="chart-filter-by-type-asset-series-select"
-      >
+        data-test="chart-filter-by-type-asset-series-select">
         <mat-option
           *ngFor="let assetSeries of chartSeries"
           [value]="assetSeries"
-          data-test="chart-filter-by-type-asset-series-option"
-        >
+          data-test="chart-filter-by-type-asset-series-option">
           {{ assetSeries.label }}
         </mat-option>
       </mat-select>

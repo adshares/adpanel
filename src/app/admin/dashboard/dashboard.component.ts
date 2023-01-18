@@ -51,10 +51,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     },
   ];
 
-  constructor(
-    private adminService: AdminService,
-    private store: Store<AppState>
-  ) {
+  constructor(private adminService: AdminService, private store: Store<AppState>) {
     super();
   }
 

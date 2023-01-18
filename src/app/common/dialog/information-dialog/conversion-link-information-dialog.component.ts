@@ -20,10 +20,7 @@ export class ConversionLinkInformationDialogComponent {
   ) {}
 
   ngOnInit() {
-    this.isAdvanced =
-      this.data && this.data.hasOwnProperty('isAdvanced')
-        ? this.data.isAdvanced
-        : true;
+    this.isAdvanced = this.data && this.data.hasOwnProperty('isAdvanced') ? this.data.isAdvanced : true;
     this.link = this.data && this.data.link ? this.data.link : '';
   }
 

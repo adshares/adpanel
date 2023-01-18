@@ -83,13 +83,4 @@ interface SiteCodeItem {
   code: string;
 }
 
-export {
-  Site,
-  SiteRank,
-  AdUnit,
-  AdUnitMetaData,
-  SitesTotals,
-  SiteLanguage,
-  SiteCodes,
-  SiteCodeItem,
-};
+export { Site, SiteRank, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage, SiteCodes, SiteCodeItem };

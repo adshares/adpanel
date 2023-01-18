@@ -58,10 +58,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     if (this.user.hasPassword) {
       controls['currentPassword'] = new FormControl('', Validators.required);
     }
-    controls['newPassword'] = new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]);
+    controls['newPassword'] = new FormControl('', [Validators.required, Validators.minLength(8)]);
     this.changePasswordForm = new FormGroup(controls);
   }
 
@@ -80,7 +77,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
         '/auth/email-change-confirm-new/'
       )
       .subscribe(
-        (user) => {
+        user => {
           this.changeEmailForm.get('email').setValue('');
           let title;
           let message;
@@ -133,10 +130,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     this.errorsPasswordChange = false;
     this.changePasswordFormSubmitted = true;
 
-    if (
-      !this.changePasswordForm.valid ||
-      this.newPasswordConfirm.value !== newPassword
-    ) {
+    if (!this.changePasswordForm.valid || this.newPasswordConfirm.value !== newPassword) {
       return;
     }
     const userPasswords = {
@@ -146,7 +140,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     const changePasswordSubscription = this.settingsService
       .changePassword(userPasswords, '/auth/password-confirm/')
       .subscribe(
-        (user) => {
+        user => {
           if (user.id) {
             this.user = user;
           }
@@ -164,13 +158,12 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
               : {
                   data: {
                     title: 'Password change needs confirmation',
-                    message:
-                      'Please check your email and follow instructions to confirm your request',
+                    message: 'Please check your email and follow instructions to confirm your request',
                   },
                 }
           );
         },
-        (err) => {
+        err => {
           this.errorsPasswordChange = err.error.errors;
         },
         () => (this.changePasswordFormSubmitted = false)

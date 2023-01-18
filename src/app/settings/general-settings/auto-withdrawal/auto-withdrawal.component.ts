@@ -17,10 +17,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './auto-withdrawal.component.html',
   styleUrls: ['./auto-withdrawal.component.scss'],
 })
-export class AutoWithdrawalComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class AutoWithdrawalComponent extends HandleSubscription implements OnInit {
   wallet: UserAdserverWallet;
   currencyCode: string;
   isImpersonated: boolean = false;
@@ -56,12 +53,9 @@ export class AutoWithdrawalComponent
 
   updateWallet(wallet: UserAdserverWallet) {
     this.wallet = wallet;
-    this.isAutoWithdrawalAvailable =
-      wallet.walletNetwork === 'ADS' || wallet.walletNetwork === 'BSC';
+    this.isAutoWithdrawalAvailable = wallet.walletNetwork === 'ADS' || wallet.walletNetwork === 'BSC';
     this.showAutoWithdrawalForm = wallet.isAutoWithdrawal;
-    const limit = clicksToAds(
-      Math.max(0, this.wallet.autoWithdrawalLimit || this.defaultLimit)
-    );
+    const limit = clicksToAds(Math.max(0, this.wallet.autoWithdrawalLimit || this.defaultLimit));
     this.autoWithdrawalForm = new FormGroup({
       limit: new FormControl(limit, [Validators.required]),
     });
@@ -96,7 +90,7 @@ export class AutoWithdrawalComponent
           },
         });
       },
-      (err) => {
+      err => {
         this.errorWithdrawalSave = err.error.message;
       },
       () => (this.autoWithdrawalFormSubmitted = false)

@@ -27,18 +27,10 @@ export class CampaignListComponent {
   }
 
   sortTable(event: TableSortEvent): void {
-    this.campaigns = sortArrayByKeys(
-      this.campaigns,
-      event.keys,
-      event.sortDesc
-    );
+    this.campaigns = sortArrayByKeys(this.campaigns, event.keys, event.sortDesc);
   }
 
   navigateToCreateCampaign(): void {
-    this.router.navigate([
-      'advertiser',
-      'create-campaign',
-      'basic-information',
-    ]);
+    this.router.navigate(['advertiser', 'create-campaign', 'basic-information']);
   }
 }

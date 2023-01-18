@@ -3,10 +3,7 @@ import { Component } from '@angular/core';
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { CommonService } from 'common/common.service';
 import { environment } from 'environments/environment';
-import {
-  ADVERTISER_INSTRUCTION_LINK,
-  PUBLISHER_INSTRUCTION_LINK,
-} from 'models/enum/link.enum';
+import { ADVERTISER_INSTRUCTION_LINK, PUBLISHER_INSTRUCTION_LINK } from 'models/enum/link.enum';
 import { take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
@@ -19,8 +16,7 @@ import { HandleSubscription } from 'common/handle-subscription';
   animations: [fadeAnimation],
 })
 export class AuthComponent extends HandleSubscription {
-  getRouterOutletState = (outlet) =>
-    outlet.isActivated ? outlet.activatedRoute : '';
+  getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 
   advertiserInstructionLink = ADVERTISER_INSTRUCTION_LINK;
   publisherInstructionLink = PUBLISHER_INSTRUCTION_LINK;
@@ -31,10 +27,7 @@ export class AuthComponent extends HandleSubscription {
   isLoading = true;
   loginInfo = null;
 
-  constructor(
-    private commonService: CommonService,
-    private store: Store<AppState>
-  ) {
+  constructor(private commonService: CommonService, private store: Store<AppState>) {
     super();
     this.source = environment.name.toLowerCase().replace(/\s+/, '-');
     this.version = environment.version;
@@ -44,17 +37,15 @@ export class AuthComponent extends HandleSubscription {
     this.store
       .select('state', 'common', 'info')
       .pipe(take(1))
-      .subscribe((info) => {
+      .subscribe(info => {
         this.privacyPolicyLink = info.privacyUrl;
         this.termsOfServiceLink = info.termsUrl;
       });
 
-    const placeholdersSubscription = this.store
-      .select('state', 'common', 'placeholders')
-      .subscribe((placeholders) => {
-        this.loginInfo = placeholders?.loginInfo;
-        this.isLoading = false;
-      });
+    const placeholdersSubscription = this.store.select('state', 'common', 'placeholders').subscribe(placeholders => {
+      this.loginInfo = placeholders?.loginInfo;
+      this.isLoading = false;
+    });
     this.subscriptions.push(placeholdersSubscription);
   }
 }

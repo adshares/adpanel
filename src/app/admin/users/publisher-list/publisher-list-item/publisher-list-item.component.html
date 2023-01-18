@@ -7,8 +7,7 @@
           [href]="getAdUserInfoUrl(domain.domain)"
           target="_blank"
           rel="noopener"
-          [title]="domain.info"
-        >
+          [title]="domain.info">
           {{ pageRank(domain.rank) }}
         </a>
         <a [href]="domain.url" target="_blank">
@@ -23,12 +22,8 @@
         [disabled]="!canImpersonate(userId)"
         *ngFor="let userId of publisher.userIds"
         (click)="handleImpersonating(userId)"
-        class="ap-btn ap-btn--tiny ap-btn--no-vertical-padding ap-btn--no-border ap-btn--white ap-btn--transparent"
-      >
-        <fa-icon
-          [icon]="faIconImpersonation"
-          class="ap-icon ap-icon--large fa-lg"
-        ></fa-icon>
+        class="ap-btn ap-btn--tiny ap-btn--no-vertical-padding ap-btn--no-border ap-btn--white ap-btn--transparent">
+        <fa-icon [icon]="faIconImpersonation" class="ap-icon ap-icon--large fa-lg"></fa-icon>
       </button>
       {{ publisher.email }}
     </div>
@@ -41,8 +36,7 @@
     [ngClass]="{
       change__positive: publisher.viewsChange > 0,
       change__negative: publisher.viewsChange < 0
-    }"
-  >
+    }">
     <div>{{ publisher.viewsDiff | number }}</div>
     <div>{{ publisher.viewsChange | percent : '1.1-1' }}</div>
   </td>
@@ -54,8 +48,7 @@
     [ngClass]="{
       change__positive: publisher.ivrChange > 0,
       change__negative: publisher.ivrChange < 0
-    }"
-  >
+    }">
     <div>{{ publisher.ivrDiff * 100 | number : '1.2-2' }}</div>
     <div>{{ publisher.ivrChange | percent : '1.1-1' }}</div>
   </td>
@@ -67,8 +60,7 @@
     [ngClass]="{
       change__positive: publisher.clicksChange > 0,
       change__negative: publisher.clicksChange < 0
-    }"
-  >
+    }">
     <div>{{ publisher.clicksDiff | number }}</div>
     <div>{{ publisher.clicksChange | percent : '1.1-1' }}</div>
   </td>
@@ -80,8 +72,7 @@
     [ngClass]="{
       change__positive: publisher.ctrChange > 0,
       change__negative: publisher.ctrChange < 0
-    }"
-  >
+    }">
     <div>{{ publisher.ctrDiff * 100 | number : '1.2-2' }}</div>
     <div>{{ publisher.ctrChange | percent : '1.1-1' }}</div>
   </td>
@@ -93,8 +84,7 @@
     [ngClass]="{
       change__positive: publisher.revenueChange > 0,
       change__negative: publisher.revenueChange < 0
-    }"
-  >
+    }">
     <div>{{ publisher.revenueDiff | formatMoney : 2 : 'other' : 'none' }}</div>
     <div>{{ publisher.revenueChange | percent : '1.1-1' }}</div>
   </td>
@@ -106,8 +96,7 @@
     [ngClass]="{
       change__positive: publisher.rpmChange > 0,
       change__negative: publisher.rpmChange < 0
-    }"
-  >
+    }">
     <div>{{ publisher.rpmDiff | formatMoney : 2 : 'other' : 'none' }}</div>
     <div>{{ publisher.rpmChange | percent : '1.1-1' }}</div>
   </td>

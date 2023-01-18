@@ -1,14 +1,6 @@
 import { Action } from '@ngrx/store';
-import {
-  AccessToken,
-  AccessTokenResponse,
-  AccessTokenResponseWithSecret,
-} from 'models/access-token.model';
-import {
-  BillingHistory,
-  PaginatorResponse,
-  RefLink,
-} from 'models/settings.model';
+import { AccessToken, AccessTokenResponse, AccessTokenResponseWithSecret } from 'models/access-token.model';
+import { BillingHistory, PaginatorResponse, RefLink } from 'models/settings.model';
 import { User } from 'models/user.model';
 
 export const GET_ACCESS_TOKENS = 'Get access tokens';
@@ -25,8 +17,7 @@ export const GET_CURRENT_BALANCE_SUCCESS = 'Get current balance success';
 export const GET_CURRENT_BALANCE_FAILURE = 'Get current balance failure';
 
 export const CANCEL_AWAITING_TRANSACTION = 'Cancel awaiting transaction';
-export const CANCEL_AWAITING_TRANSACTION_SUCCESS =
-  'Cancel awaiting transaction success';
+export const CANCEL_AWAITING_TRANSACTION_SUCCESS = 'Cancel awaiting transaction success';
 
 export const GET_BILLING_HISTORY = 'Get billing history';
 export const GET_BILLING_HISTORY_SUCCESS = 'Get billing history success';

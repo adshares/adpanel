@@ -1,12 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  AdminSettingsResponse,
-  AdvertiserInfo,
-  PublisherInfo,
-  UserInfo,
-} from 'models/settings.model';
+import { AdminSettingsResponse, AdvertiserInfo, PublisherInfo, UserInfo } from 'models/settings.model';
 import { environment } from 'environments/environment';
 import { buildUrl } from 'common/utilities/helpers';
 
@@ -22,16 +17,14 @@ export class AdminService {
     direction?: string
   ): Observable<UserInfo[]> {
     const url =
-      (nextPage &&
-        environment.serverUrl.search(/^https:/) >= 0 &&
-        nextPage.replace(/^http:/, 'https:')) ||
+      (nextPage && environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:')) ||
       nextPage ||
       `${environment.serverUrl}/admin/users`;
     const params = [];
     if (searchPhrase) {
       params.push('q=' + encodeURIComponent(searchPhrase));
     }
-    filters.forEach((filter) => {
+    filters.forEach(filter => {
       params.push('f[]=' + encodeURIComponent(filter));
     });
     if (orderBy) {
@@ -62,9 +55,7 @@ export class AdminService {
     if (minDailyViews !== null) {
       params.push('l=' + minDailyViews);
     }
-    return this.http.get<AdvertiserInfo[]>(
-      buildUrl(`${environment.serverUrl}/admin/advertisers`, params)
-    );
+    return this.http.get<AdvertiserInfo[]>(buildUrl(`${environment.serverUrl}/admin/advertisers`, params));
   }
 
   getPublishers(
@@ -86,21 +77,15 @@ export class AdminService {
     if (minDailyViews !== null) {
       params.push('l=' + minDailyViews);
     }
-    return this.http.get<PublisherInfo[]>(
-      buildUrl(`${environment.serverUrl}/admin/publishers`, params)
-    );
+    return this.http.get<PublisherInfo[]>(buildUrl(`${environment.serverUrl}/admin/publishers`, params));
   }
 
   impersonateUser(id: number): Observable<string> {
-    return this.http.get<string>(
-      `${environment.serverUrl}/admin/impersonation/${id}`
-    );
+    return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`);
   }
 
   getAdminSettings(): Observable<AdminSettingsResponse> {
-    return this.http.get<AdminSettingsResponse>(
-      `${environment.serverUrl}/admin/settings`
-    );
+    return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
   }
 
   getLicense(): Observable<any> {

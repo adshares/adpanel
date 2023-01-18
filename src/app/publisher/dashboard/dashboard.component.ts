@@ -38,10 +38,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   currentChartFilterSettings: ChartFilterSettings;
 
-  constructor(
-    private chartService: ChartService,
-    private store: Store<AppState>
-  ) {
+  constructor(private chartService: ChartService, private store: Store<AppState>) {
     super();
   }
 
@@ -51,10 +48,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
-    this.loadSites(
-      this.currentChartFilterSettings.currentFrom,
-      this.currentChartFilterSettings.currentTo
-    );
+    this.loadSites(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
 
     const refreshSubscription = timer(
@@ -90,7 +84,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.currentAssetId
       )
       .pipe(take(1))
-      .subscribe((data) => {
+      .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].label = chartFilterSettings.currentSeries.label;
         this.barChartLabels = mapDatesToChartLabels(data.timestamps);
@@ -116,9 +110,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
     const sitesTotalsSubscription = this.store
       .select('state', 'publisher', 'sitesTotals')
-      .subscribe(
-        (sitesTotals: SitesTotals) => (this.sitesTotals = sitesTotals)
-      );
+      .subscribe((sitesTotals: SitesTotals) => (this.sitesTotals = sitesTotals));
 
     const dataLoadedSubscription = this.store
       .select('state', 'publisher', 'dataLoaded')

@@ -21,18 +21,15 @@ export class SiteListItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentSiteStatus =
-      typeof this.site.status === 'number' &&
-      this.siteStatusEnum[this.site.status].toLowerCase();
+      typeof this.site.status === 'number' && this.siteStatusEnum[this.site.status].toLowerCase();
   }
 
   onSiteStatusChange(status: string): void {
     this.site = {
       ...this.site,
-      status: this.siteStatuses.findIndex((el) => el.value === status),
+      status: this.siteStatuses.findIndex(el => el.value === status),
     };
     this.currentSiteStatus = status;
-    this.store.dispatch(
-      new UpdateSiteStatus({ id: this.site.id, status: this.site.status })
-    );
+    this.store.dispatch(new UpdateSiteStatus({ id: this.site.id, status: this.site.status }));
   }
 }

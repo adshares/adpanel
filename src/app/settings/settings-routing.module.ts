@@ -26,9 +26,7 @@ const settingsRoutes: Routes = [
       {
         path: 'billing',
         component: BillingComponent,
-        children: [
-          { path: 'now-payments/:status', component: BillingComponent },
-        ],
+        children: [{ path: 'now-payments/:status', component: BillingComponent }],
       },
       {
         path: 'reports',

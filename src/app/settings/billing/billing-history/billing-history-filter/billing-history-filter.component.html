@@ -1,9 +1,5 @@
 <div class="filters" (clickOutside)="hideDatepicker()">
-  <button
-    class="ap-btn ap-btn--blue"
-    (click)="showDatepicker()"
-    data-test="settings-billing-history-filter-button"
-  >
+  <button class="ap-btn ap-btn--blue" (click)="showDatepicker()" data-test="settings-billing-history-filter-button">
     <fa-icon class="ap-icon ap-icon--prepend" [icon]="filterIcon"></fa-icon>
     Filter
   </button>
@@ -11,14 +7,12 @@
     <div class="row filter-row align-center">
       <label class="ap-copy billing-filters__label"> From </label>
       <mat-form-field
-        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row"
-      >
+        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
         <img
           src="assets/images/calendar.svg"
           alt="Select date from"
           class="ap-icon ap-icon--prepend billing-filters__icon"
-          (click)="dateFromPicker.open()"
-        />
+          (click)="dateFromPicker.open()" />
         <input
           (click)="dateFromPicker.open()"
           matInput
@@ -26,29 +20,22 @@
           [formControl]="dateFrom"
           required
           [max]="dateTo.value || today"
-          data-test="settings-billing-history-date-from"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dateFromPicker"
-        ></mat-datepicker-toggle>
+          data-test="settings-billing-history-date-from" />
+        <mat-datepicker-toggle matSuffix [for]="dateFromPicker"></mat-datepicker-toggle>
         <mat-datepicker
           #dateFromPicker
           (opened)="setCalendarStatus(true)"
-          (closed)="setCalendarStatus(false)"
-        ></mat-datepicker>
+          (closed)="setCalendarStatus(false)"></mat-datepicker>
       </mat-form-field>
 
       <label class="ap-copy billing-filters__label"> To </label>
       <mat-form-field
-        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row"
-      >
+        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
         <img
           src="assets/images/calendar.svg"
           alt="Select date to"
           class="ap-icon ap-icon--prepend billing-filters__icon"
-          (click)="dateToPicker.open()"
-        />
+          (click)="dateToPicker.open()" />
         <input
           (click)="dateToPicker.open()"
           matInput
@@ -57,17 +44,12 @@
           required
           [min]="dateFrom.value"
           [max]="today"
-          data-test="settings-billing-history-date-to"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dateToPicker"
-        ></mat-datepicker-toggle>
+          data-test="settings-billing-history-date-to" />
+        <mat-datepicker-toggle matSuffix [for]="dateToPicker"></mat-datepicker-toggle>
         <mat-datepicker
           #dateToPicker
           (opened)="setCalendarStatus(true)"
-          (closed)="setCalendarStatus(false)"
-        ></mat-datepicker>
+          (closed)="setCalendarStatus(false)"></mat-datepicker>
       </mat-form-field>
     </div>
 
@@ -77,16 +59,11 @@
         *ngFor="let type of transactionTypes"
         class="billing-filters__checkbox"
         [checked]="type.checked"
-        (change)="onCheckboxChange($event, type.id)"
-      >
+        (change)="onCheckboxChange($event, type.id)">
         {{ type.name }}
       </mat-checkbox>
 
-      <mat-checkbox
-        class="billing-history__checkbox"
-        [checked]="isCheckedAll"
-        (change)="onCheckboxAllChange($event)"
-      >
+      <mat-checkbox class="billing-history__checkbox" [checked]="isCheckedAll" (change)="onCheckboxAllChange($event)">
         All
       </mat-checkbox>
     </div>
@@ -97,14 +74,9 @@
         class="ap-btn ap-button--small ap-bg-gray--light ap-navy"
         [class.disabled]="!dateTo.value || !dateFrom.value"
         (click)="filterBillingHistory()"
-        data-test="settings-billing-history-apply-button"
-      >
+        data-test="settings-billing-history-apply-button">
         Apply
-        <img
-          class="ap-icon--append"
-          src="assets/images/chevron--right.svg"
-          alt="Apply filters"
-        />
+        <img class="ap-icon--append" src="assets/images/chevron--right.svg" alt="Apply filters" />
       </button>
     </div>
   </div>

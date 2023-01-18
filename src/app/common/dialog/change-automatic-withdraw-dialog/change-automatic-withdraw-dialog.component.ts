@@ -18,10 +18,7 @@ import * as authActions from 'store/auth/auth.actions';
   templateUrl: './change-automatic-withdraw-dialog.component.html',
   styleUrls: ['./change-automatic-withdraw-dialog.component.scss'],
 })
-export class ChangeAutomaticWithdrawDialogComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription implements OnInit {
   automaticWithdrawForm: FormGroup;
   periods = enumToArray(withdrawPeriodsEnum);
   periodsEnum = withdrawPeriodsEnum;
@@ -44,11 +41,9 @@ export class ChangeAutomaticWithdrawDialogComponent
   ngOnInit() {
     this.createForm();
 
-    const userSubscription = this.store
-      .select('state', 'user', 'data')
-      .subscribe((user: User) => {
-        this.isConfirmed = user.isConfirmed;
-      });
+    const userSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
+      this.isConfirmed = user.isConfirmed;
+    });
 
     this.subscriptions.push(userSubscription);
   }
@@ -87,11 +82,7 @@ export class ChangeAutomaticWithdrawDialogComponent
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
 
-    this.store.dispatch(
-      new authActions.UpdateUserAutomaticWithdrawPeriod(period)
-    );
-    this.store.dispatch(
-      new authActions.UpdateUserAutomaticWithdrawAmount(amount)
-    );
+    this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawPeriod(period));
+    this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawAmount(amount));
   }
 }

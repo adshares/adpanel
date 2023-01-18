@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -13,11 +8,7 @@ import { Observable } from 'rxjs';
 import { first, map, startWith, take } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { ShowDialogOnError } from 'store/common/common.actions';
-import {
-  SaveLastEditedSite,
-  UPDATE_SITE_FAILURE,
-  UpdateSite,
-} from 'store/publisher/publisher.actions';
+import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publisher/publisher.actions';
 import { cloneDeep, mapToIterable } from 'common/utilities/helpers';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter';
@@ -36,10 +27,7 @@ import { SessionService } from '../../../session.service';
   templateUrl: './edit-site-basic-information.component.html',
   styleUrls: ['./edit-site-basic-information.component.scss'],
 })
-export class EditSiteBasicInformationComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditSiteBasicInformationComponent extends HandleSubscription implements OnInit {
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255;
   private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024;
@@ -60,12 +48,9 @@ export class EditSiteBasicInformationComponent
   selectedTargetingOptionValues: TargetingOptionValue[] = [];
   isSetCategoryMode: boolean;
   changesSaving: boolean = false;
-  websiteNameLengthMax =
-    EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX;
-  websiteDomainLengthMax =
-    EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
-  websiteUrlLengthMax =
-    EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX;
+  websiteNameLengthMax = EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX;
+  websiteDomainLengthMax = EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
+  websiteUrlLengthMax = EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX;
   private overwriteNameByDomain = false;
   media: Entry[];
   vendors: Entry[] = [];
@@ -87,12 +72,10 @@ export class EditSiteBasicInformationComponent
 
   ngOnInit(): void {
     this.media = mapToIterable(this.route.snapshot.data.media);
-    const updateSiteFailureSubscription = this.action$
-      .pipe(ofType(UPDATE_SITE_FAILURE))
-      .subscribe(() => {
-        this.changesSaving = false;
-        this.store.dispatch(new ShowDialogOnError(''));
-      });
+    const updateSiteFailureSubscription = this.action$.pipe(ofType(UPDATE_SITE_FAILURE)).subscribe(() => {
+      this.changesSaving = false;
+      this.store.dispatch(new ShowDialogOnError(''));
+    });
     this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
     if (this.createSiteMode && this.media.length > 0) {
@@ -101,17 +84,11 @@ export class EditSiteBasicInformationComponent
     this.getLanguages();
     this.createForm();
 
-    this.filteredOptions = this.siteBasicInfoForm
-      .get('primaryLanguage')
-      .valueChanges.pipe(
-        startWith(''),
-        map((value: string | SiteLanguage) =>
-          typeof value === 'string' ? value : value.name
-        ),
-        map((val: string) =>
-          val ? this.filterOptions(val) : this.languages.slice()
-        )
-      );
+    this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges.pipe(
+      startWith(''),
+      map((value: string | SiteLanguage) => (typeof value === 'string' ? value : value.name)),
+      map((val: string) => (val ? this.filterOptions(val) : this.languages.slice()))
+    );
     this.updateWalletConnectionState();
   }
 
@@ -123,7 +100,7 @@ export class EditSiteBasicInformationComponent
     const languageListSubscription = this.store
       .select('state', 'publisher', 'languagesList')
       .pipe(first())
-      .subscribe((languagesList) => {
+      .subscribe(languagesList => {
         this.languages = languagesList;
       });
     this.subscriptions.push(languageListSubscription);
@@ -140,13 +117,10 @@ export class EditSiteBasicInformationComponent
     const domain = this.site.domain;
     this.publisherService.validateDomain(domain).subscribe(
       () => {
-        this.createSiteMode
-          ? this.saveSiteBasicInformation()
-          : this.updateSite();
+        this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
       },
-      (error) => {
-        const message =
-          error.error && error.error.message ? error.error.message : '';
+      error => {
+        const message = error.error && error.error.message ? error.error.message : '';
         this.store.dispatch(new ShowDialogOnError(message));
         this.changesSaving = false;
       }
@@ -192,9 +166,7 @@ export class EditSiteBasicInformationComponent
   }
 
   private getNextPath(): string {
-    return this.site.medium !== 'metaverse'
-      ? 'pops-settings'
-      : 'additional-filtering';
+    return this.site.medium !== 'metaverse' ? 'pops-settings' : 'additional-filtering';
   }
 
   updateSite(): void {
@@ -203,8 +175,7 @@ export class EditSiteBasicInformationComponent
   }
 
   adjustSiteDataBeforeSave(): boolean {
-    let chosenLanguage =
-      this.siteBasicInfoForm.controls['primaryLanguage'].value;
+    let chosenLanguage = this.siteBasicInfoForm.controls['primaryLanguage'].value;
 
     if (typeof chosenLanguage === 'string') {
       chosenLanguage = this.getSiteInitialLanguage(chosenLanguage);
@@ -220,10 +191,7 @@ export class EditSiteBasicInformationComponent
       return false;
     }
 
-    if (
-      this.isSetCategoryMode &&
-      this.selectedTargetingOptionValues.length === 0
-    ) {
+    if (this.isSetCategoryMode && this.selectedTargetingOptionValues.length === 0) {
       return false;
     }
 
@@ -232,18 +200,13 @@ export class EditSiteBasicInformationComponent
       name: this.siteBasicInfoForm.controls['name'].value,
       domain: this.siteBasicInfoForm.controls['domain'].value,
       url: this.siteBasicInfoForm.controls['url'].value,
-      primaryLanguage:
-        typeof chosenLanguage === 'object'
-          ? chosenLanguage.code
-          : chosenLanguage,
+      primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
       medium: this.siteBasicInfoForm.controls['medium'].value,
       vendor: this.siteBasicInfoForm.controls['vendor'].value,
     };
 
     if (this.isSetCategoryMode) {
-      this.site.categories = this.selectedTargetingOptionValues.map(
-        (optionValue) => optionValue.value
-      );
+      this.site.categories = this.selectedTargetingOptionValues.map(optionValue => optionValue.value);
     }
 
     return true;
@@ -270,28 +233,19 @@ export class EditSiteBasicInformationComponent
     this.siteBasicInfoForm = new FormGroup({
       name: new FormControl(siteInitialState.name, [
         Validators.required,
-        Validators.maxLength(
-          EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX
-        ),
+        Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX),
       ]),
       domain: new FormControl(siteInitialState.domain, [
         Validators.required,
-        Validators.maxLength(
-          EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX
-        ),
+        Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX),
         Validators.pattern(/^(?![.]).+\..+$/),
       ]),
       url: new FormControl(siteInitialState.url, [
         Validators.required,
-        Validators.maxLength(
-          EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX
-        ),
+        Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX),
         Validators.pattern(/^https?:\/\/(?![.])[^\/?#]+\.[^\/?#]+$/i),
       ]),
-      primaryLanguage: new FormControl(
-        siteInitialState.primaryLanguage,
-        Validators.required
-      ),
+      primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required),
       medium: new FormControl({
         value: siteInitialState.medium,
         disabled: !this.createSiteMode,
@@ -302,9 +256,7 @@ export class EditSiteBasicInformationComponent
       }),
       setupVersionControl: new FormControl(this.SETUP_VERSION.MANUAL),
     });
-    this.siteBasicInfoForm
-      .get('medium')
-      .valueChanges.subscribe((value) => (this.medium = value));
+    this.siteBasicInfoForm.get('medium').valueChanges.subscribe(value => (this.medium = value));
     this.getFormDataFromStore();
   }
 
@@ -312,7 +264,7 @@ export class EditSiteBasicInformationComponent
     const lastEditedSiteSubscription = this.store
       .select('state', 'publisher', 'lastEditedSite')
       .pipe(take(1))
-      .subscribe((lastEditedSite) => {
+      .subscribe(lastEditedSite => {
         this.site = cloneDeep(lastEditedSite);
         this.site.primaryLanguage = lastEditedSite.primaryLanguage
           ? this.getSiteInitialLanguage(lastEditedSite.primaryLanguage)
@@ -324,21 +276,13 @@ export class EditSiteBasicInformationComponent
           this.updateFormGroupOnVendorChange(this.vendor);
           if (this.site.medium === 'metaverse') {
             if (CryptovoxelsConverter.ID === this.vendor) {
-              const value = new CryptovoxelsConverter().decodeValue(
-                this.site.url.slice('https://'.length)
-              );
+              const value = new CryptovoxelsConverter().decodeValue(this.site.url.slice('https://'.length));
               this.siteBasicInfoForm.get('parcelId').setValue(value);
             } else if (DecentralandConverter.ID === this.vendor) {
-              const value = new DecentralandConverter().decodeValue(
-                this.site.url.slice('https://'.length)
-              );
+              const value = new DecentralandConverter().decodeValue(this.site.url.slice('https://'.length));
               const coordinates = value.slice(1, value.length - 1).split(', ');
-              this.siteBasicInfoForm
-                .get('parcelCoordinateX')
-                .setValue(coordinates[0]);
-              this.siteBasicInfoForm
-                .get('parcelCoordinateY')
-                .setValue(coordinates[1]);
+              this.siteBasicInfoForm.get('parcelCoordinateX').setValue(coordinates[0]);
+              this.siteBasicInfoForm.get('parcelCoordinateY').setValue(coordinates[1]);
             }
           }
         }
@@ -349,18 +293,14 @@ export class EditSiteBasicInformationComponent
   getSiteInitialLanguage(languageCode?: string | SiteLanguage): SiteLanguage {
     let data;
     if (languageCode) {
-      data =
-        typeof languageCode === 'string' ? languageCode : languageCode.code;
+      data = typeof languageCode === 'string' ? languageCode : languageCode.code;
     } else {
       data = navigator.language.split('-')[0];
     }
 
     data = data.toLowerCase();
 
-    return this.languages.find(
-      (lang) =>
-        lang.code.toLowerCase() === data || lang.name.toLowerCase() === data
-    );
+    return this.languages.find(lang => lang.code.toLowerCase() === data || lang.name.toLowerCase() === data);
   }
 
   displayOption(language?): string {
@@ -370,19 +310,14 @@ export class EditSiteBasicInformationComponent
   filterOptions(val: string): object[] {
     const filterValue = val.toLowerCase();
     return this.languages.filter(
-      (option) =>
-        option.name.toLowerCase().includes(filterValue) ||
-        option.code.toLowerCase().includes(filterValue)
+      option => option.name.toLowerCase().includes(filterValue) || option.code.toLowerCase().includes(filterValue)
     );
   }
 
   extractDomain(url: string): string {
     let domain = url.toLowerCase();
     //remove protocol, user info and www subdomain
-    domain = domain.replace(
-      /^(?:[a-z0-9+.-]+:\/\/)?(?:\/\/)?(?:.*@)?(?:www\.)?/i,
-      ''
-    );
+    domain = domain.replace(/^(?:[a-z0-9+.-]+:\/\/)?(?:\/\/)?(?:.*@)?(?:www\.)?/i, '');
     // remove port number, path, query string and fragment
     domain = domain.replace(/(?::.*)?(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, '');
 
@@ -392,10 +327,7 @@ export class EditSiteBasicInformationComponent
   sanitizeUrl(url: string): string {
     let sanitizedUrl = url.toLowerCase();
     // remove path, query string and fragment
-    sanitizedUrl = sanitizedUrl.replace(
-      /^(https?:\/\/[^\/?#]*)(?:\/.*)?(?:\?.*)?(?:#.*)?$/i,
-      '$1'
-    );
+    sanitizedUrl = sanitizedUrl.replace(/^(https?:\/\/[^\/?#]*)(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, '$1');
     // remove port
     sanitizedUrl = sanitizedUrl.replace(/:\d+$/, '');
     // remove authentication
@@ -410,7 +342,7 @@ export class EditSiteBasicInformationComponent
     }
     const siteCategoriesSubscription = this.publisherService
       .siteCategoriesOptions(medium, vendor)
-      .subscribe((options) => {
+      .subscribe(options => {
         this.siteCategoriesOptions = options;
         this.isSetCategoryMode = options.length > 0;
       });
@@ -421,13 +353,11 @@ export class EditSiteBasicInformationComponent
     const subscription = this.publisherService
       .getMediumVendors(medium)
       .pipe(take(1))
-      .subscribe((vendors) => {
+      .subscribe(vendors => {
         this.vendors = mapToIterable(vendors);
         if (this.createSiteMode) {
           this.setupVersionControl.setValue(
-            medium === 'metaverse'
-              ? this.SETUP_VERSION.AUTOMATIC
-              : this.SETUP_VERSION.MANUAL
+            medium === 'metaverse' ? this.SETUP_VERSION.AUTOMATIC : this.SETUP_VERSION.MANUAL
           );
           const vendor = this.vendors.length > 0 ? this.vendors[0].key : null;
           this.updateFormGroupOnVendorChange(vendor);
@@ -442,10 +372,7 @@ export class EditSiteBasicInformationComponent
   onVendorChange(vendor: string): void {
     this.updateFormGroupOnVendorChange(vendor);
     this.vendor = vendor;
-    this.loadSiteCategories(
-      this.siteBasicInfoForm.controls['medium'].value,
-      vendor
-    );
+    this.loadSiteCategories(this.siteBasicInfoForm.controls['medium'].value, vendor);
   }
 
   updateFormGroupOnVendorChange(vendor: string | null): void {
@@ -454,19 +381,10 @@ export class EditSiteBasicInformationComponent
     this.siteBasicInfoForm.removeControl('parcelCoordinateY');
 
     if (CryptovoxelsConverter.ID === vendor) {
-      this.siteBasicInfoForm.addControl(
-        'parcelId',
-        new FormControl(null, Validators.required)
-      );
+      this.siteBasicInfoForm.addControl('parcelId', new FormControl(null, Validators.required));
     } else if (DecentralandConverter.ID === vendor) {
-      this.siteBasicInfoForm.addControl(
-        'parcelCoordinateX',
-        new FormControl(null, Validators.required)
-      );
-      this.siteBasicInfoForm.addControl(
-        'parcelCoordinateY',
-        new FormControl(null, Validators.required)
-      );
+      this.siteBasicInfoForm.addControl('parcelCoordinateX', new FormControl(null, Validators.required));
+      this.siteBasicInfoForm.addControl('parcelCoordinateY', new FormControl(null, Validators.required));
     }
   }
 
@@ -493,14 +411,10 @@ export class EditSiteBasicInformationComponent
   }
 
   private updateWalletConnectionState(): void {
-    const userSubscription = this.store
-      .select('state', 'user', 'data')
-      .subscribe((user: User) => {
-        this.isConnectedWallet =
-          user.isConfirmed &&
-          user.adserverWallet.walletAddress !== null &&
-          user.adserverWallet.walletNetwork !== null;
-      });
+    const userSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
+      this.isConnectedWallet =
+        user.isConfirmed && user.adserverWallet.walletAddress !== null && user.adserverWallet.walletNetwork !== null;
+    });
     this.subscriptions.push(userSubscription);
   }
 }

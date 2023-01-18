@@ -32,10 +32,4 @@ interface AccessTokenStore {
   expiresAt: string;
 }
 
-export {
-  AccessToken,
-  AccessTokenResponse,
-  AccessTokenResponseWithSecret,
-  AccessTokenScope,
-  AccessTokenStore,
-};
+export { AccessToken, AccessTokenResponse, AccessTokenResponseWithSecret, AccessTokenScope, AccessTokenStore };

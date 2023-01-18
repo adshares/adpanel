@@ -21,14 +21,8 @@ export interface UsersQueryParams {
   styleUrls: ['./user-list.component.scss'],
   animations: [
     trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate('400ms', style({ opacity: 0 })),
-      ]),
+      transition(':enter', [style({ opacity: 0 }), animate('400ms', style({ opacity: 1 }))]),
+      transition(':leave', [style({ opacity: 1 }), animate('400ms', style({ opacity: 0 }))]),
     ]),
   ],
 })
@@ -40,12 +34,7 @@ export class UserListComponent extends BaseListComponent implements OnInit {
   localStorageName = 'usersQueryParams';
   userTypes: string[] = appSettings.USER_TYPES;
 
-  constructor(
-    store: Store<AppState>,
-    router: Router,
-    activatedRoute: ActivatedRoute,
-    private session: SessionService
-  ) {
+  constructor(store: Store<AppState>, router: Router, activatedRoute: ActivatedRoute, private session: SessionService) {
     super(store, router, activatedRoute);
   }
 
@@ -59,9 +48,7 @@ export class UserListComponent extends BaseListComponent implements OnInit {
     this.store.dispatch(
       new LoadUsers({
         nextPage,
-        searchPhrase: this.queryParams.userSearch
-          ? this.queryParams.userSearch.toLowerCase().trim()
-          : null,
+        searchPhrase: this.queryParams.userSearch ? this.queryParams.userSearch.toLowerCase().trim() : null,
         filters,
         orderBy: this.queryParams.sort,
         direction: this.queryParams.order,
@@ -74,12 +61,10 @@ export class UserListComponent extends BaseListComponent implements OnInit {
   }
 
   ngOnInit() {
-    const usersSubscription = this.store
-      .select('state', 'admin', 'users')
-      .subscribe((users) => {
-        this.list = users;
-        this.isLoading = !this.list;
-      });
+    const usersSubscription = this.store.select('state', 'admin', 'users').subscribe(users => {
+      this.list = users;
+      this.isLoading = !this.list;
+    });
     this.subscriptions.push(usersSubscription);
     this.queryParams = {
       ...this.defaultParams,

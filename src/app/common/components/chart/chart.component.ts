@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { chartOptions } from './chart-settings/chart-settings';
@@ -24,10 +16,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent
-  extends HandleSubscription
-  implements OnInit, OnDestroy, OnChanges
-{
+export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy, OnChanges {
   @Input() chartSpan: string;
   @Input() barChartData: ChartDataset<'bar'>[];
   @Input() barChartLabels: string[];
@@ -37,17 +26,12 @@ export class ChartComponent
   barChartOptions: ChartOptions<'bar'>;
   static seriesType;
 
-  constructor(
-    private serverOptionsService: ServerOptionsService,
-    private store: Store<AppState>
-  ) {
+  constructor(private serverOptionsService: ServerOptionsService, private store: Store<AppState>) {
     super();
   }
 
   ngOnInit(): void {
-    this.barChartOptions = chartOptions(
-      this.serverOptionsService.getOptions().displayCurrency
-    );
+    this.barChartOptions = chartOptions(this.serverOptionsService.getOptions().displayCurrency);
 
     const chartFilterSubscription = this.store
       .select('state', 'common', 'chartFilterSettings')
@@ -62,14 +46,8 @@ export class ChartComponent
   }
 
   updateChartData(timespan) {
-    const from = (this.currentChartFilterSettings.currentFrom = moment(
-      timespan.from
-    )
-      .startOf('day')
-      .format());
-    const to = (this.currentChartFilterSettings.currentTo = moment(timespan.to)
-      .endOf('day')
-      .format());
+    const from = (this.currentChartFilterSettings.currentFrom = moment(timespan.from).startOf('day').format());
+    const to = (this.currentChartFilterSettings.currentTo = moment(timespan.to).endOf('day').format());
     const daysSpan = moment(to).diff(moment(from), 'days');
 
     if (daysSpan <= 2) {
@@ -101,9 +79,7 @@ export class ChartComponent
   }
 
   updateCurrentFilterSettingsInStore() {
-    this.store.dispatch(
-      new commonActions.SetChartFilterSettings(this.currentChartFilterSettings)
-    );
+    this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
   }
 
   resetSettings() {

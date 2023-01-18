@@ -17,11 +17,9 @@ export class RegisteredComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit(): void {
-    const infoSubscription = this.store
-      .select('state', 'common', 'info')
-      .subscribe((info: Info) => {
-        this.supportEmail = info.supportEmail;
-      });
+    const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
+      this.supportEmail = info.supportEmail;
+    });
     this.subscriptions.push(infoSubscription);
   }
 }

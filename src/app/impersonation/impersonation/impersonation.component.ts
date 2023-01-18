@@ -12,10 +12,7 @@ import { User } from 'models/user.model';
   templateUrl: './impersonation.component.html',
   styleUrls: ['./impersonation.component.scss'],
 })
-export class ImpersonationComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class ImpersonationComponent extends HandleSubscription implements OnInit {
   impersonationToken: boolean = false;
   userLabel: string;
   userEmail: string;
@@ -34,7 +31,7 @@ export class ImpersonationComponent
   ngOnInit() {
     const subscription = this.impersonationService
       .getImpersonationToken()
-      .subscribe((token) => (this.impersonationToken = !!token));
+      .subscribe(token => (this.impersonationToken = !!token));
     this.subscriptions.push(subscription);
     this.impersonationService.getTokenFromStorage();
     this.store.select('state', 'user', 'data').subscribe((user: User) => {

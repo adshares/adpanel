@@ -3,57 +3,32 @@
   <h1 class="ap-heading ap-heading--primary">
     <span *ngIf="useNativeDeposit">Deposit ADS</span>
     <span *ngIf="useWrappedDeposit">Deposit Wrapped ADS</span>
-    <span *ngIf="useNowPaymentsDeposit" class="now_payments_logo"
-      ><span>NOW</span>Payments</span
-    >
-    <span
-      *ngIf="!useNativeDeposit && !useNowPaymentsDeposit && !useWrappedDeposit"
-      >Deposit funds</span
-    >
+    <span *ngIf="useNowPaymentsDeposit" class="now_payments_logo"><span>NOW</span>Payments</span>
+    <span *ngIf="!useNativeDeposit && !useNowPaymentsDeposit && !useWrappedDeposit">Deposit funds</span>
   </h1>
 
   <div *ngIf="!loadingInfo; else loading">
     <div
       *ngIf="
-        !useNativeDeposit &&
-          !useWrappedDeposit &&
-          !useNowPaymentsDeposit &&
-          !useFiatDeposit;
+        !useNativeDeposit && !useWrappedDeposit && !useNowPaymentsDeposit && !useFiatDeposit;
         else (useNativeDeposit && nativeDeposit) ||
           (useNowPaymentsDeposit && nowPaymentsDeposit) ||
           (useWrappedDeposit && wrappedDeposit) ||
           (useFiatDeposit && fiatDeposit)
       "
-      class="add-funds-selector"
-    >
+      class="add-funds-selector">
       <p class="ap-copy ap-copy--medium dialog-description">
-        Select your preferred deposit method. You can choose between the native
-        ADS coin and over 30 other cryptocurrencies, including BTC and ETH.
+        Select your preferred deposit method. You can choose between the native ADS coin and over 30 other
+        cryptocurrencies, including BTC and ETH.
       </p>
       <div class="add-funds-content dialog-main-content">
-        <button
-          (click)="selectNativeDeposit()"
-          class="ap-btn ap-btn--blue ap-btn--block"
-        >
-          Deposit ADS
-        </button>
+        <button (click)="selectNativeDeposit()" class="ap-btn ap-btn--blue ap-btn--block">Deposit ADS</button>
         <p class="ap-copy ap-copy--medium">
           No fee, super fast.
-          <a
-            [href]="getAdsFaqLink"
-            rel="noopener noreferrer nofollow"
-            target="_blank"
-          >
-            How to get ADS?
-          </a>
+          <a [href]="getAdsFaqLink" rel="noopener noreferrer nofollow" target="_blank"> How to get ADS? </a>
         </p>
 
-        <button
-          (click)="selectWrappedDeposit()"
-          class="ap-btn ap-btn--blue ap-btn--block"
-        >
-          Deposit Wrapped ADS
-        </button>
+        <button (click)="selectWrappedDeposit()" class="ap-btn ap-btn--blue ap-btn--block">Deposit Wrapped ADS</button>
         <p class="ap-copy ap-copy--medium">
           Easily bought on
           <a
@@ -75,18 +50,12 @@
         <button
           *ngIf="nowPayments !== null"
           (click)="selectNowPaymentsDeposit()"
-          class="ap-btn ap-btn--blue ap-btn--block"
-        >
-          Deposit with&nbsp;<span class="now_payments_logo"
-            ><span>NOW</span>Payments</span
-          >
+          class="ap-btn ap-btn--blue ap-btn--block">
+          Deposit with&nbsp;<span class="now_payments_logo"><span>NOW</span>Payments</span>
         </button>
         <p class="ap-copy ap-copy--medium" *ngIf="nowPayments !== null">
           Deposit BTC, ETH, LTC and other cryptocurrencies.
-          <a
-            href="https://nowpayments.io/supported-coins/"
-            rel="noopener noreferrer nofollow"
-            target="_blank"
+          <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank"
             >Check the full list here.</a
           >
         </p>
@@ -96,8 +65,7 @@
           <button
             *ngFor="let currency of fiat.currencies"
             (click)="selectFiatDeposit(currency)"
-            class="ap-btn ap-btn--blue ap-btn--block"
-          >
+            class="ap-btn ap-btn--blue ap-btn--block">
             Order marketing services ({{ currency }})
           </button>
         </ng-container>
@@ -112,9 +80,7 @@
 
     <div class="add-funds-content dialog-main-content">
       <div class="ap-form-input__box">
-        <label class="ap-form-label" for="adshares-address">
-          Adshares’ account address:
-        </label>
+        <label class="ap-form-label" for="adshares-address"> Adshares’ account address: </label>
         <input
           #address
           [value]="adsharesAddress"
@@ -122,21 +88,18 @@
           data-test="common-add-funds-dialog-adshares-address"
           id="adshares-address"
           name="adshares-address"
-          readonly
-        />
+          readonly />
         <span class="input-valid"></span>
       </div>
       <p class="ap-copy ap-copy--blue add-funds-dialog__hint">
-        Please transfer your ADS coins to this address. Remember to add a
-        message (aka Payment ID or Memo), otherwise your funds will not be
-        deposited.
+        Please transfer your ADS coins to this address. Remember to add a message (aka Payment ID or Memo), otherwise
+        your funds will not be deposited.
       </p>
       <div class="row justify-end">
         <button
           (click)="copyInput(address)"
           class="ap-btn ap-btn--blue"
-          data-test="common-add-funds-dialog-adshares-address-copy"
-        >
+          data-test="common-add-funds-dialog-adshares-address-copy">
           Copy to clipboard
         </button>
       </div>
@@ -151,52 +114,35 @@
           id="memo"
           name="memo"
           readonly
-          type="url"
-        />
+          type="url" />
         <span class="input-valid"></span>
       </div>
       <p class="ap-copy ap-copy--blue add-funds-dialog__hint">
-        The message is necessary to deposit ADS coins to your account. Please
-        add the message above to your transfer.
+        The message is necessary to deposit ADS coins to your account. Please add the message above to your transfer.
       </p>
       <div class="row justify-end">
         <button
           (click)="copyInput(memo)"
           class="ap-btn ap-btn--blue"
-          data-test="common-add-funds-dialog-user-memo-copy"
-        >
+          data-test="common-add-funds-dialog-user-memo-copy">
           Copy to clipboard
         </button>
       </div>
 
       <div class="row">
-        <span
-          *ngIf="!isConfirmed"
-          class="confirm-account-error-block error-msg col-xs-12"
-        >
+        <span *ngIf="!isConfirmed" class="confirm-account-error-block error-msg col-xs-12">
           Confirm account to deposit funds
         </span>
       </div>
     </div>
 
-    <button
-      (click)="restartDepositMethod()"
-      *ngIf="nowPayments"
-      class="ap-btn ap-btn--white"
-    >
-      Back
-    </button>
+    <button (click)="restartDepositMethod()" *ngIf="nowPayments" class="ap-btn ap-btn--white">Back</button>
   </ng-template>
 
   <ng-template #wrappedDeposit>
-    <p class="ap-copy ap-copy--medium dialog-description">
-      allows you to directly deposit wrapped ADS
-    </p>
+    <p class="ap-copy ap-copy--medium dialog-description">allows you to directly deposit wrapped ADS</p>
 
-    <div
-      class="add-funds-content dialog-main-content"
-      *ngIf="metamaskConnected && !metamaskTxid"
-    >
+    <div class="add-funds-content dialog-main-content" *ngIf="metamaskConnected && !metamaskTxid">
       <div class="ap-form-input__box">
         <p class="ap-copy add-funds-dialog__hint">
           Network: <strong>{{ metamaskNetwork }}</strong>
@@ -217,11 +163,8 @@
           max="1000000"
           step="0.0001"
           type="number"
-          value=""
-        />
-        <span *ngIf="wrappedAmountError" class="error-msg">
-          Provide correct deposit amount
-        </span>
+          value="" />
+        <span *ngIf="wrappedAmountError" class="error-msg"> Provide correct deposit amount </span>
       </div>
 
       <div class="row justify-center deposit__btns-wrapper">
@@ -229,11 +172,8 @@
           <button
             (click)="depositWrapped()"
             class="ap-btn ap-btn--blue ap-btn--block"
-            data-test="common-now-payments-submit-button"
-          >
-            <span *ngIf="!isFormBeingSubmitted; else loadingBtn"
-              >Deposit with Metamask</span
-            >
+            data-test="common-now-payments-submit-button">
+            <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Deposit with Metamask</span>
           </button>
 
           <p *ngIf="metamaskError" class="error-msg col-xs-12">
@@ -241,14 +181,12 @@
           </p>
 
           <p class="ap-copy ap-copy--blue add-funds-dialog__hint">
-            You need to sign transaction using Metamask. A notification will be
-            sent via e-mail once the funds have been deposited.
+            You need to sign transaction using Metamask. A notification will be sent via e-mail once the funds have been
+            deposited.
           </p>
         </div>
 
-        <span *ngIf="!isConfirmed" class="error-msg col-xs-12">
-          Confirm account to deposit funds
-        </span>
+        <span *ngIf="!isConfirmed" class="error-msg col-xs-12"> Confirm account to deposit funds </span>
         <span *ngIf="nowPaymentsServerError" class="error-msg col-xs-12">
           An unexpected error occurred, please try again later.
         </span>
@@ -258,61 +196,40 @@
     <div class="add-funds-content dialog-main-content" *ngIf="metamaskTxid">
       <p>
         Transaction submitted successfully. <br /><br />
-        A notification will be sent via e-mail once the funds have been
-        deposited.
+        A notification will be sent via e-mail once the funds have been deposited.
       </p>
     </div>
 
-    <div
-      class="add-funds-content dialog-main-content"
-      *ngIf="!metamaskConnected && metamaskAvailable"
-    >
+    <div class="add-funds-content dialog-main-content" *ngIf="!metamaskConnected && metamaskAvailable">
       <button
         (click)="connectMetamask()"
         class="ap-btn ap-btn--blue ap-btn--block"
-        data-test="common-now-payments-submit-button"
-      >
-        <span *ngIf="!isMetamaskConnecting; else loadingBtn"
-          >Connect Metamask</span
-        >
+        data-test="common-now-payments-submit-button">
+        <span *ngIf="!isMetamaskConnecting; else loadingBtn">Connect Metamask</span>
       </button>
       <div *ngIf="metamaskChainError" class="error-msg col-xs-12">
         Unknown network. Only Ethereum an Binance Smart Chain is supported.
       </div>
     </div>
 
-    <div
-      class="add-funds-content dialog-main-content"
-      *ngIf="!metamaskAvailable"
-    >
-      <p>
-        Metamask is not installed on this browser. Please use other deposit
-        methods.
-      </p>
+    <div class="add-funds-content dialog-main-content" *ngIf="!metamaskAvailable">
+      <p>Metamask is not installed on this browser. Please use other deposit methods.</p>
     </div>
 
-    <button (click)="restartDepositMethod()" class="ap-btn ap-btn--white">
-      Back
-    </button>
+    <button (click)="restartDepositMethod()" class="ap-btn ap-btn--white">Back</button>
   </ng-template>
 
   <ng-template #nowPaymentsDeposit>
     <p class="ap-copy ap-copy--medium dialog-description">
-      allows you to make deposits in Bitcoin, Ethereum, Litecoin, and over 30
-      other cryptocurrencies.
-      <a
-        href="https://nowpayments.io/supported-coins/"
-        rel="noopener noreferrer nofollow"
-        target="_blank"
+      allows you to make deposits in Bitcoin, Ethereum, Litecoin, and over 30 other cryptocurrencies.
+      <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank"
         >Check the full list here.</a
       >
     </p>
 
     <div class="add-funds-content dialog-main-content">
       <div class="ap-form-input__box">
-        <label class="ap-form-label" for="amount">
-          Deposit amount ({{ nowPayments.currency }}):
-        </label>
+        <label class="ap-form-label" for="amount"> Deposit amount ({{ nowPayments.currency }}): </label>
         <input
           (change)="changeNowPaymentsAmount($event)"
           (keyup)="keydownNowPaymentsAmount($event)"
@@ -324,34 +241,20 @@
           name="amount"
           step="0.01"
           type="number"
-          value="{{ nowPaymentsDefaultAmount }}"
-        />
-        <span *ngIf="nowPaymentsAmountError" class="error-msg">
-          Provide correct deposit amount
-        </span>
+          value="{{ nowPaymentsDefaultAmount }}" />
+        <span *ngIf="nowPaymentsAmountError" class="error-msg"> Provide correct deposit amount </span>
         <span class="ap-form-label">
           The min. deposit is
-          <strong
-            >{{ nowPayments.minAmount }} {{ nowPayments.currency }}</strong
-          >
+          <strong>{{ nowPayments.minAmount }} {{ nowPayments.currency }}</strong>
           and the max. is
-          <strong
-            >{{ nowPayments.maxAmount }} {{ nowPayments.currency }}</strong
-          >
+          <strong>{{ nowPayments.maxAmount }} {{ nowPayments.currency }}</strong>
         </span>
       </div>
 
       <div *ngIf="ADS_TOKEN_CODE === appCurrency" class="ads-amount">
         <span class="ap-form-label"> Your deposit will amount to approx. </span>
-        <span
-          class="ap-copy ap-copy--large"
-          data-test="common-now-payments-dialog-ads-amount"
-        >
-          {{
-            nowPaymentsAdsAmount
-              ? (nowPaymentsAdsAmount | formatMoney : 0 : crypto : code)
-              : '? ' + ADS_TOKEN_CODE
-          }}
+        <span class="ap-copy ap-copy--large" data-test="common-now-payments-dialog-ads-amount">
+          {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney : 0 : crypto : code) : '? ' + ADS_TOKEN_CODE }}
         </span>
       </div>
 
@@ -360,36 +263,28 @@
           <button
             (click)="depositNowPaymentsFunds()"
             class="ap-btn ap-btn--blue ap-btn--block"
-            data-test="common-now-payments-submit-button"
-          >
+            data-test="common-now-payments-submit-button">
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Deposit</span>
           </button>
           <p class="ap-copy ap-copy--blue add-funds-dialog__hint">
-            You will be redirected to NowPayments.io. Please note that it may
-            take up to a few hours to deposit your funds, depending on the
-            cryptocurrency you are using. A notification will be sent via e-mail
-            once the funds have been deposited.
+            You will be redirected to NowPayments.io. Please note that it may take up to a few hours to deposit your
+            funds, depending on the cryptocurrency you are using. A notification will be sent via e-mail once the funds
+            have been deposited.
           </p>
         </div>
 
-        <span *ngIf="!isConfirmed" class="error-msg col-xs-12">
-          Confirm account to deposit funds
-        </span>
+        <span *ngIf="!isConfirmed" class="error-msg col-xs-12"> Confirm account to deposit funds </span>
         <span *ngIf="nowPaymentsServerError" class="error-msg col-xs-12">
           An unexpected error occurred, please try again later.
         </span>
       </div>
     </div>
 
-    <button (click)="restartDepositMethod()" class="ap-btn ap-btn--white">
-      Back
-    </button>
+    <button (click)="restartDepositMethod()" class="ap-btn ap-btn--white">Back</button>
   </ng-template>
 
   <ng-template #fiatDeposit>
-    <p class="ap-copy ap-copy--medium dialog-description">
-      You will get proforma invoice in {{ fiatCurrency }}
-    </p>
+    <p class="ap-copy ap-copy--medium dialog-description">You will get proforma invoice in {{ fiatCurrency }}</p>
 
     <div class="add-funds-content dialog-main-content" *ngIf="fiatInvoice">
       <p class="ap-copy ap-copy--medium dialog-description">
@@ -405,16 +300,9 @@
 
     <div class="add-funds-content dialog-main-content" *ngIf="!fiatInvoice">
       <div class="ap-form-input__box">
-        <form
-          id="fiat-form"
-          class="ap-form"
-          [formGroup]="fiatForm"
-          (ngSubmit)="onFiatSubmit()"
-        >
+        <form id="fiat-form" class="ap-form" [formGroup]="fiatForm" (ngSubmit)="onFiatSubmit()">
           <div class="ap-form-input__box">
-            <label for="fiatNetAmount" class="ap-form-label">
-              Deposit amount ({{ fiatCurrency }}):
-            </label>
+            <label for="fiatNetAmount" class="ap-form-label"> Deposit amount ({{ fiatCurrency }}): </label>
             <input
               id="fiatNetAmount"
               class="ap-form-input ap-form-input--full"
@@ -423,12 +311,8 @@
               max="{{ fiat.maxAmount }}"
               min="{{ fiat.minAmount }}"
               step="0.01"
-              type="number"
-            />
-            <span
-              *ngIf="fiatForm.get('netAmount').valid"
-              class="input-valid"
-            ></span>
+              type="number" />
+            <span *ngIf="fiatForm.get('netAmount').valid" class="input-valid"></span>
             <span
               class="error-msg"
               *ngIf="
@@ -436,157 +320,78 @@
                   fiatForm.hasError('max', ['netAmount']) ||
                   fiatForm.hasError('required', ['netAmount'])) &&
                 isFormBeingSubmitted
-              "
-            >
+              ">
               Provide correct deposit amount
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('custom', ['netAmount']) &&
-                isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('custom', ['netAmount']) && isFormBeingSubmitted">
               {{ fiatForm.getError('custom', ['netAmount']) }}
             </span>
           </div>
           <span class="ap-form-label">
             The min. deposit is
-            <strong>{{ fiat.minAmount }} {{ fiatCurrency }}</strong> and the
-            max. is <strong>{{ fiat.maxAmount }} {{ fiatCurrency }}</strong>
+            <strong>{{ fiat.minAmount }} {{ fiatCurrency }}</strong> and the max. is
+            <strong>{{ fiat.maxAmount }} {{ fiatCurrency }}</strong>
           </span>
 
           <div class="ap-form-input__box">
-            <label for="fiatBuyerName" class="ap-form-label">
-              Company name:
-            </label>
+            <label for="fiatBuyerName" class="ap-form-label"> Company name: </label>
             <input
               id="fiatBuyerName"
               class="ap-form-input ap-form-input--full"
               name="buyerName"
               formControlName="buyerName"
-              type="text"
-            />
-            <span
-              *ngIf="fiatForm.get('buyerName').valid"
-              class="input-valid"
-            ></span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('required', ['buyerName']) &&
-                isFormBeingSubmitted
-              "
-            >
+              type="text" />
+            <span *ngIf="fiatForm.get('buyerName').valid" class="input-valid"></span>
+            <span class="error-msg" *ngIf="fiatForm.hasError('required', ['buyerName']) && isFormBeingSubmitted">
               Company name is required.
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('max', ['buyerName']) && isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('max', ['buyerName']) && isFormBeingSubmitted">
               Company name may not be greater than
-              {{
-                fiatForm.getError('maxlength', ['buyerName']).requiredLength
-              }}
+              {{ fiatForm.getError('maxlength', ['buyerName']).requiredLength }}
               characters.
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('custom', ['buyerName']) &&
-                isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('custom', ['buyerName']) && isFormBeingSubmitted">
               {{ fiatForm.getError('custom', ['buyerName']) }}
             </span>
           </div>
 
           <div class="ap-form-input__box">
-            <label for="fiatBuyerAddress" class="ap-form-label">
-              Company address:
-            </label>
+            <label for="fiatBuyerAddress" class="ap-form-label"> Company address: </label>
             <input
               id="fiatBuyerAddress"
               class="ap-form-input ap-form-input--full"
               name="buyerAddress"
               formControlName="buyerAddress"
-              type="text"
-            />
-            <span
-              *ngIf="fiatForm.get('buyerAddress').valid"
-              class="input-valid"
-            ></span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('required', ['buyerAddress']) &&
-                isFormBeingSubmitted
-              "
-            >
+              type="text" />
+            <span *ngIf="fiatForm.get('buyerAddress').valid" class="input-valid"></span>
+            <span class="error-msg" *ngIf="fiatForm.hasError('required', ['buyerAddress']) && isFormBeingSubmitted">
               Company address is required.
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('max', ['buyerAddress']) &&
-                isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('max', ['buyerAddress']) && isFormBeingSubmitted">
               Company address may not be greater than
-              {{
-                fiatForm.getError('maxlength', ['buyerAddress']).requiredLength
-              }}
+              {{ fiatForm.getError('maxlength', ['buyerAddress']).requiredLength }}
               characters.
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('custom', ['buyerAddress']) &&
-                isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('custom', ['buyerAddress']) && isFormBeingSubmitted">
               {{ fiatForm.getError('custom', ['buyerAddress']) }}
             </span>
           </div>
 
           <div class="ap-form-input__box">
-            <label for="fiatBuyerPostalCode" class="ap-form-label">
-              Postal code:
-            </label>
+            <label for="fiatBuyerPostalCode" class="ap-form-label"> Postal code: </label>
             <input
               id="fiatBuyerPostalCode"
               class="ap-form-input ap-form-input--full"
               name="buyerPostalCode"
               formControlName="buyerPostalCode"
-              type="text"
-            />
-            <span
-              *ngIf="fiatForm.get('buyerPostalCode').valid"
-              class="input-valid"
-            ></span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('max', ['buyerPostalCode']) &&
-                isFormBeingSubmitted
-              "
-            >
+              type="text" />
+            <span *ngIf="fiatForm.get('buyerPostalCode').valid" class="input-valid"></span>
+            <span class="error-msg" *ngIf="fiatForm.hasError('max', ['buyerPostalCode']) && isFormBeingSubmitted">
               Postal code may not be greater than
-              {{
-                fiatForm.getError('maxlength', ['buyerPostalCode'])
-                  .requiredLength
-              }}
+              {{ fiatForm.getError('maxlength', ['buyerPostalCode']).requiredLength }}
               characters.
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('custom', ['buyerPostalCode']) &&
-                isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('custom', ['buyerPostalCode']) && isFormBeingSubmitted">
               {{ fiatForm.getError('custom', ['buyerPostalCode']) }}
             </span>
           </div>
@@ -598,122 +403,62 @@
               class="ap-form-input ap-form-input--full"
               name="buyerCity"
               formControlName="buyerCity"
-              type="text"
-            />
-            <span
-              *ngIf="fiatForm.get('buyerCity').valid"
-              class="input-valid"
-            ></span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('max', ['buyerCity']) && isFormBeingSubmitted
-              "
-            >
+              type="text" />
+            <span *ngIf="fiatForm.get('buyerCity').valid" class="input-valid"></span>
+            <span class="error-msg" *ngIf="fiatForm.hasError('max', ['buyerCity']) && isFormBeingSubmitted">
               City may not be greater than
-              {{
-                fiatForm.getError('maxlength', ['buyerCity']).requiredLength
-              }}
+              {{ fiatForm.getError('maxlength', ['buyerCity']).requiredLength }}
               characters.
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('custom', ['buyerCity']) &&
-                isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('custom', ['buyerCity']) && isFormBeingSubmitted">
               {{ fiatForm.getError('custom', ['buyerCity']) }}
             </span>
           </div>
 
           <div class="ap-form-input__box">
-            <label for="fiatBuyerCountry" class="ap-form-label">
-              Country:
-            </label>
+            <label for="fiatBuyerCountry" class="ap-form-label"> Country: </label>
             <mat-select
               id="fiatBuyerCountry"
               class="ap-form-select ap-form-select--full"
-              formControlName="buyerCountry"
-            >
+              formControlName="buyerCountry">
               <input
                 type="search"
                 class="ap-form-input ap-form-search-option"
                 placeholder="Search"
-                (keyup)="filterCountries($event)"
-              />
-              <mat-option
-                *ngFor="let country of filteredCountries"
-                [value]="country"
-              >
+                (keyup)="filterCountries($event)" />
+              <mat-option *ngFor="let country of filteredCountries" [value]="country">
                 {{ country.name }}
               </mat-option>
             </mat-select>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('required', ['buyerCountry']) &&
-                isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('required', ['buyerCountry']) && isFormBeingSubmitted">
               Country is required.
             </span>
           </div>
 
           <div class="row justify-between">
             <div class="ap-form-input__box ap-form-input__inline">
-              <label for="fiatBuyerVatId" class="ap-form-label">
-                VAT id (tax id):
-              </label>
+              <label for="fiatBuyerVatId" class="ap-form-label"> VAT id (tax id): </label>
               <input
                 id="fiatBuyerVatId"
                 class="ap-form-input ap-form-input--full"
                 name="buyerVatId"
                 formControlName="buyerVatId"
-                type="text"
-              />
-              <span
-                *ngIf="fiatForm.get('buyerVatId').valid"
-                class="input-valid"
-              ></span>
-              <span
-                class="error-msg"
-                *ngIf="
-                  fiatForm.hasError('required', ['buyerVatId']) &&
-                  isFormBeingSubmitted
-                "
-              >
+                type="text" />
+              <span *ngIf="fiatForm.get('buyerVatId').valid" class="input-valid"></span>
+              <span class="error-msg" *ngIf="fiatForm.hasError('required', ['buyerVatId']) && isFormBeingSubmitted">
                 VAT id is required.
               </span>
-              <span
-                class="error-msg"
-                *ngIf="
-                  fiatForm.hasError('max', ['buyerVatId']) &&
-                  isFormBeingSubmitted
-                "
-              >
+              <span class="error-msg" *ngIf="fiatForm.hasError('max', ['buyerVatId']) && isFormBeingSubmitted">
                 VAT id may not be greater than
-                {{
-                  fiatForm.getError('maxlength', ['buyerVatId']).requiredLength
-                }}
+                {{ fiatForm.getError('maxlength', ['buyerVatId']).requiredLength }}
                 characters.
               </span>
-              <span
-                class="error-msg"
-                *ngIf="
-                  fiatForm.hasError('custom', ['buyerVatId']) &&
-                  isFormBeingSubmitted
-                "
-              >
+              <span class="error-msg" *ngIf="fiatForm.hasError('custom', ['buyerVatId']) && isFormBeingSubmitted">
                 {{ fiatForm.getError('custom', ['buyerVatId']) }}
               </span>
             </div>
             <div class="ap-form-input__box">
-              <mat-checkbox
-                formControlName="euVat"
-                *ngIf="fiatForm.get('euVat')"
-                [disabled]="fiatEuVatDisabled"
-              >
+              <mat-checkbox formControlName="euVat" *ngIf="fiatForm.get('euVat')" [disabled]="fiatEuVatDisabled">
                 EU VAT
               </mat-checkbox>
             </div>
@@ -725,31 +470,14 @@
               class="ap-form-input ap-form-input--full"
               name="comments"
               formControlName="comments"
-              type="text"
-            />
-            <span
-              *ngIf="fiatForm.get('comments').valid"
-              class="input-valid"
-            ></span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('max', ['comments']) && isFormBeingSubmitted
-              "
-            >
+              type="text" />
+            <span *ngIf="fiatForm.get('comments').valid" class="input-valid"></span>
+            <span class="error-msg" *ngIf="fiatForm.hasError('max', ['comments']) && isFormBeingSubmitted">
               Comments may not be greater than
-              {{
-                fiatForm.getError('maxlength', ['comments']).requiredLength
-              }}
+              {{ fiatForm.getError('maxlength', ['comments']).requiredLength }}
               characters.
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                fiatForm.hasError('custom', ['comments']) &&
-                isFormBeingSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="fiatForm.hasError('custom', ['comments']) && isFormBeingSubmitted">
               {{ fiatForm.getError('custom', ['comments']) }}
             </span>
           </div>
@@ -759,17 +487,13 @@
                 <span *ngIf="!showLoader; else loadingBtn">Get invoice</span>
               </button>
             </div>
-            <span *ngIf="!isConfirmed" class="error-msg col-xs-12">
-              Confirm account to deposit funds
-            </span>
+            <span *ngIf="!isConfirmed" class="error-msg col-xs-12"> Confirm account to deposit funds </span>
           </div>
         </form>
       </div>
     </div>
 
-    <button (click)="restartDepositMethod()" class="ap-btn ap-btn--white">
-      Back
-    </button>
+    <button (click)="restartDepositMethod()" class="ap-btn ap-btn--white">Back</button>
   </ng-template>
 
   <ng-template #loading>

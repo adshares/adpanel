@@ -42,10 +42,7 @@ import {
   UpdateSiteUnits,
   UpdateSiteUnitsSuccess,
 } from './publisher.actions';
-import {
-  ShowDialogOnError,
-  ShowSuccessSnackbar,
-} from '../common/common.actions';
+import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions';
 import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
 import * as moment from 'moment';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
@@ -63,10 +60,10 @@ export class PublisherEffects {
   loadSites$ = createEffect(() =>
     this.actions$.pipe(
       ofType<LoadSites>(LOAD_SITES),
-      map((action) => action.payload),
-      switchMap((payload) =>
+      map(action => action.payload),
+      switchMap(payload =>
         this.service.getSites().pipe(
-          switchMap((sites) => {
+          switchMap(sites => {
             let to = payload.to || moment().format();
             let from = payload.from || moment().subtract(7, 'd').format();
             if (typeof to === 'object') {
@@ -92,9 +89,9 @@ export class PublisherEffects {
   loadSite$ = createEffect(() =>
     this.actions$.pipe(
       ofType<LoadSite>(LOAD_SITE),
-      switchMap((action) =>
+      switchMap(action =>
         this.service.getSite(action.payload).pipe(
-          map((site) => new LoadSiteSuccess(site)),
+          map(site => new LoadSiteSuccess(site)),
           catchError(() => observableOf(new LoadSiteFailure()))
         )
       )
@@ -104,14 +101,12 @@ export class PublisherEffects {
   loadSiteTotals$ = createEffect(() =>
     this.actions$.pipe(
       ofType<LoadSiteTotals>(LOAD_SITE_TOTALS),
-      map((action) => action.payload),
-      switchMap((payload) =>
-        this.service
-          .getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id)
-          .pipe(
-            map((sitesTotals) => new LoadSiteTotalsSuccess(sitesTotals)),
-            catchError(() => observableOf(new LoadSiteTotalsFailure()))
-          )
+      map(action => action.payload),
+      switchMap(payload =>
+        this.service.getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id).pipe(
+          map(sitesTotals => new LoadSiteTotalsSuccess(sitesTotals)),
+          catchError(() => observableOf(new LoadSiteTotalsFailure()))
+        )
       )
     )
   );
@@ -119,10 +114,10 @@ export class PublisherEffects {
   loadSitesTotals$ = createEffect(() =>
     this.actions$.pipe(
       ofType<LoadSitesTotals>(LOAD_SITES_TOTALS),
-      map((action) => action.payload),
-      switchMap((payload) =>
+      map(action => action.payload),
+      switchMap(payload =>
         this.service.getSitesTotals(`${payload.from}`, `${payload.to}`).pipe(
-          map((sitesTotals) => new LoadSitesTotalsSuccess(sitesTotals)),
+          map(sitesTotals => new LoadSitesTotalsSuccess(sitesTotals)),
           catchError(() => observableOf(new LoadSitesTotalsFailure()))
         )
       )
@@ -132,9 +127,9 @@ export class PublisherEffects {
   addSiteToSites$ = createEffect(() =>
     this.actions$.pipe(
       ofType<AddSiteToSites>(ADD_SITE_TO_SITES),
-      switchMap((action) =>
+      switchMap(action =>
         this.service.saveSite(action.payload).pipe(
-          switchMap((site) => {
+          switchMap(site => {
             this.router.navigate(['/publisher', 'dashboard']);
             this.dialog.open(ConfirmResponseDialogComponent, {
               data: {
@@ -146,7 +141,7 @@ export class PublisherEffects {
 
             return [new AddSiteToSitesSuccess(site), new ClearLastEditedSite()];
           }),
-          catchError((error) => {
+          catchError(error => {
             if (error !== HTTP_INTERNAL_SERVER_ERROR) {
               return observableOf(
                 new ShowDialogOnError(
@@ -166,7 +161,7 @@ export class PublisherEffects {
       ofType(GET_LANGUAGES_LIST),
       switchMap(() =>
         this.service.getLanguagesList().pipe(
-          map((siteLanguages) => new GetLanguagesListSuccess(siteLanguages)),
+          map(siteLanguages => new GetLanguagesListSuccess(siteLanguages)),
           catchError(() => observableOf(new GetLanguagesListFailure()))
         )
       )
@@ -175,12 +170,9 @@ export class PublisherEffects {
 
   updateSite$ = createEffect(() =>
     this.actions$.pipe(
-      ofType<UpdateSite | UpdateSiteFiltering>(
-        UPDATE_SITE,
-        UPDATE_SITE_FILTERING
-      ),
-      map((action) => action.payload),
-      switchMap((payload) =>
+      ofType<UpdateSite | UpdateSiteFiltering>(UPDATE_SITE, UPDATE_SITE_FILTERING),
+      map(action => action.payload),
+      switchMap(payload =>
         this.service.updateSiteData(payload.id, payload).pipe(
           switchMap(() => {
             this.router.navigate(['/publisher', 'site', payload.id]);
@@ -195,20 +187,14 @@ export class PublisherEffects {
   updateSiteAdUnits$ = createEffect(() =>
     this.actions$.pipe(
       ofType<UpdateSiteUnits>(UPDATE_SITE_UNITS),
-      map((action) => action.payload),
-      switchMap((payload) =>
+      map(action => action.payload),
+      switchMap(payload =>
         this.service.updateSiteData(payload.id, payload).pipe(
           switchMap(() => {
             this.router.navigate(['/publisher', 'site', payload.id]);
-            return [
-              new ClearLastEditedSite(),
-              new UpdateSiteUnitsSuccess(),
-              new LoadSite(payload.id),
-            ];
+            return [new ClearLastEditedSite(), new UpdateSiteUnitsSuccess(), new LoadSite(payload.id)];
           }),
-          catchError(() =>
-            observableOf(new ShowDialogOnError('Placements cannot be updated'))
-          )
+          catchError(() => observableOf(new ShowDialogOnError('Placements cannot be updated')))
         )
       )
     )
@@ -217,16 +203,11 @@ export class PublisherEffects {
   updateSiteStatus$ = createEffect(() =>
     this.actions$.pipe(
       ofType<UpdateSiteStatus>(UPDATE_SITE_STATUS),
-      map((action) => action.payload),
-      switchMap((payload) =>
+      map(action => action.payload),
+      switchMap(payload =>
         this.service.updateSiteData(payload.id, payload).pipe(
-          switchMap(() => [
-            new UpdateSiteStatusSuccess(payload),
-            new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS),
-          ]),
-          catchError(() =>
-            observableOf(new ShowDialogOnError('Site status cannot be changed'))
-          )
+          switchMap(() => [new UpdateSiteStatusSuccess(payload), new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)]),
+          catchError(() => observableOf(new ShowDialogOnError('Site status cannot be changed')))
         )
       )
     )

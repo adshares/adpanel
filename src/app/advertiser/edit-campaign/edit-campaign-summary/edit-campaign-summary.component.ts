@@ -19,10 +19,7 @@ import { cloneDeep } from 'common/utilities/helpers';
   templateUrl: './edit-campaign-summary.component.html',
   styleUrls: ['./edit-campaign-summary.component.scss'],
 })
-export class EditCampaignSummaryComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditCampaignSummaryComponent extends HandleSubscription implements OnInit {
   campaign: Campaign;
   targetingOptionsToAdd: TargetingOption[] = [];
   targetingOptionsToExclude: TargetingOption[] = [];
@@ -39,20 +36,15 @@ export class EditCampaignSummaryComponent
     const lastCampaignSubscription = this.store
       .select('state', 'advertiser', 'lastEditedCampaign')
       .pipe(first())
-      .subscribe((campaign) => {
+      .subscribe(campaign => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
         this.campaign = campaign;
         const targetingSubscription = this.advertiserService
-          .getMedium(
-            campaign.basicInformation.medium,
-            campaign.basicInformation.vendor
-          )
+          .getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
           .pipe(take(1))
-          .subscribe((medium) => {
+          .subscribe(medium => {
             this.targetingOptionsToAdd = processTargeting(medium);
-            this.targetingOptionsToExclude = cloneDeep(
-              this.targetingOptionsToAdd
-            );
+            this.targetingOptionsToExclude = cloneDeep(this.targetingOptionsToAdd);
           });
         this.subscriptions.push(targetingSubscription);
       });
@@ -63,7 +55,7 @@ export class EditCampaignSummaryComponent
     if (!isDraft) {
       this.campaign = {
         ...this.campaign,
-        ads: this.campaign.ads.map((ad) => {
+        ads: this.campaign.ads.map(ad => {
           return {
             ...ad,
             status: adStatusesEnum.ACTIVE,

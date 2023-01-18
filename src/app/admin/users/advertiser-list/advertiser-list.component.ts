@@ -21,21 +21,12 @@ export interface AdvertisersQueryParams {
   styleUrls: ['./advertiser-list.component.scss'],
   animations: [
     trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate('400ms', style({ opacity: 0 })),
-      ]),
+      transition(':enter', [style({ opacity: 0 }), animate('400ms', style({ opacity: 1 }))]),
+      transition(':leave', [style({ opacity: 1 }), animate('400ms', style({ opacity: 0 }))]),
     ]),
   ],
 })
-export class AdvertiserListComponent
-  extends BaseListComponent
-  implements OnInit
-{
+export class AdvertiserListComponent extends BaseListComponent implements OnInit {
   readonly defaultParams: AdvertisersQueryParams = {
     searchPhrase: '',
     groupBy: 'campaign',
@@ -44,11 +35,7 @@ export class AdvertiserListComponent
   };
   localStorageName = 'advertisersQueryParams';
 
-  constructor(
-    store: Store<AppState>,
-    router: Router,
-    activatedRoute: ActivatedRoute
-  ) {
+  constructor(store: Store<AppState>, router: Router, activatedRoute: ActivatedRoute) {
     super(store, router, activatedRoute);
   }
 
@@ -67,13 +54,11 @@ export class AdvertiserListComponent
   }
 
   ngOnInit(): void {
-    const advertisersSubscription = this.store
-      .select('state', 'admin', 'advertisers')
-      .subscribe((advertisers) => {
-        this.list = advertisers;
-        this.isLoading = !this.list;
-        this.onPageChange();
-      });
+    const advertisersSubscription = this.store.select('state', 'admin', 'advertisers').subscribe(advertisers => {
+      this.list = advertisers;
+      this.isLoading = !this.list;
+      this.onPageChange();
+    });
     this.subscriptions.push(advertisersSubscription);
     this.queryParams = {
       ...this.defaultParams,

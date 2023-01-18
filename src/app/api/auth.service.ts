@@ -37,9 +37,7 @@ export class ApiAuthService {
   }
 
   initWalletLogin(): Observable<WalletToken> {
-    return this.http.get<WalletToken>(
-      `${environment.authUrl}/login/wallet/init`
-    );
+    return this.http.get<WalletToken>(`${environment.authUrl}/login/wallet/init`);
   }
 
   walletLogin(
@@ -57,9 +55,6 @@ export class ApiAuthService {
   }
 
   oauthAuthorize(url: string): Observable<OAuthAuthorizeResponse> {
-    return this.http.get<OAuthAuthorizeResponse>(
-      buildUrl(url, ['no_redirect=true']),
-      { withCredentials: true }
-    );
+    return this.http.get<OAuthAuthorizeResponse>(buildUrl(url, ['no_redirect=true']), { withCredentials: true });
   }
 }

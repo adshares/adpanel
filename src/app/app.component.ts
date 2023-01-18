@@ -36,24 +36,17 @@ export class AppComponent extends HandleSubscription implements OnInit {
     super();
   }
 
-  getRouterOutletState = (outlet) =>
-    outlet.isActivated ? outlet.activatedRoute : '';
+  getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 
   ngOnInit(): void {
     this.name = environment.name;
-    const infoSubscription = this.store
-      .select('state', 'common', 'info')
-      .subscribe((info: Info) => {
-        if (
-          !this.isOauth() &&
-          environment.adControllerUrl &&
-          this.MODE_INITIALIZATION === info?.mode
-        ) {
-          window.location.href = environment.adControllerUrl;
-          return;
-        }
-        this.info = info;
-      });
+    const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
+      if (!this.isOauth() && environment.adControllerUrl && this.MODE_INITIALIZATION === info?.mode) {
+        window.location.href = environment.adControllerUrl;
+        return;
+      }
+      this.info = info;
+    });
     this.subscriptions.push(infoSubscription);
     this.loadInfo();
 
@@ -63,15 +56,12 @@ export class AppComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    this.router.events.subscribe((event) => {
+    this.router.events.subscribe(event => {
       if (!(event instanceof NavigationEnd)) {
         return;
       }
 
-      setTimeout(
-        () => window.scrollTo(0, 0),
-        appSettings.ROUTER_TRANSITION_DURATION
-      );
+      setTimeout(() => window.scrollTo(0, 0), appSettings.ROUTER_TRANSITION_DURATION);
     });
   }
 

@@ -25,10 +25,7 @@ import { first } from 'rxjs/operators';
   templateUrl: './edit-site-create-ad-units.component.html',
   styleUrls: ['./edit-site-create-ad-units.component.scss'],
 })
-export class EditSiteCreateAdUnitsComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditSiteCreateAdUnitsComponent extends HandleSubscription implements OnInit {
   adUnitForms: FormGroup[] = [];
   adSizesOptions: string[] = [];
   adUnitSizes: AdUnitMetaData[];
@@ -53,25 +50,23 @@ export class EditSiteCreateAdUnitsComponent
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
-      (item) => item.type === adUnitTypesEnum.DISPLAY
+      item => item.type === adUnitTypesEnum.DISPLAY
     );
 
     this.getOptions();
     this.fillFormWithData();
-    const lastSiteSubscription = this.store
-      .select('state', 'publisher', 'lastEditedSite')
-      .subscribe((site: Site) => {
-        this.site = site;
-      });
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').subscribe((site: Site) => {
+      this.site = site;
+    });
     this.subscriptions.push(lastSiteSubscription);
   }
 
   getOptions(): void {
     const tags = this.adUnitSizes
-      .map((unit) => unit.tags)
+      .map(unit => unit.tags)
       .reduce((arr1, arr2) => arr1.concat(arr2))
       .filter((item, pos, self) => self.indexOf(item) === pos)
-      .filter((item) => item !== 'best');
+      .filter(item => item !== 'best');
     this.adSizesOptions.push('Recommended');
     this.adSizesOptions.push('All');
     this.adSizesOptions.push(...tags);
@@ -82,15 +77,14 @@ export class EditSiteCreateAdUnitsComponent
       .select('state', 'publisher', 'lastEditedSite')
       .pipe(first())
       .subscribe((lastEditedSite: Site) => {
-        const siteUrlFilled =
-          this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
+        const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
 
         if (!siteUrlFilled) {
           this.changesSaved = true;
           return;
         }
 
-        const savedAdUnits = lastEditedSite.adUnits.filter((adUnit) => {
+        const savedAdUnits = lastEditedSite.adUnits.filter(adUnit => {
           return adUnit.type === adUnitTypesEnum.DISPLAY;
         });
 
@@ -120,24 +114,17 @@ export class EditSiteCreateAdUnitsComponent
   }
 
   unsetSizeIfNotSupported(savedAdUnit: AdUnit, adIndex: number): void {
-    const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(
-      (adUnit) => adUnit.size === savedAdUnit.size
-    );
+    const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(adUnit => adUnit.size === savedAdUnit.size);
     if (undefined === chosenAdSize) {
       this.adUnitForms[adIndex].patchValue({ size: undefined });
     }
   }
 
-  generateFormField(
-    adUnit: Partial<AdUnit>,
-    saved: boolean = false
-  ): FormGroup {
+  generateFormField(adUnit: Partial<AdUnit>, saved: boolean = false): FormGroup {
     this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
     this.allAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
-    const adUnitMetaData = this.adUnitSizes.find(
-      (adUnitMetaData) => adUnitMetaData.size === adUnit.size
-    );
+    const adUnitMetaData = this.adUnitSizes.find(adUnitMetaData => adUnitMetaData.size === adUnit.size);
 
     return new FormGroup({
       name: new FormControl(adUnit.name, Validators.required),
@@ -153,20 +140,17 @@ export class EditSiteCreateAdUnitsComponent
   }
 
   onAdUnitSizeFilterChange(adUnitIndex: number): void {
-    const filterValue =
-      this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
+    const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
-    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter(
-      (adUnitSize) => {
-        if (filterValue === 'Recommended') {
-          return adUnitSize.tags.includes('best');
-        } else if (filterValue === 'All') {
-          return true;
-        } else {
-          return adUnitSize.tags.includes(filterValue);
-        }
+    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter(adUnitSize => {
+      if (filterValue === 'Recommended') {
+        return adUnitSize.tags.includes('best');
+      } else if (filterValue === 'All') {
+        return true;
+      } else {
+        return adUnitSize.tags.includes(filterValue);
       }
-    );
+    });
   }
 
   selectAdUnit(adUnit: AdUnitMetaData, adUnitIndex: number): void {
@@ -199,7 +183,7 @@ export class EditSiteCreateAdUnitsComponent
   }
 
   updateAdUnits(): void {
-    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
+    const adUnitsValid = this.adUnitForms.every(adForm => adForm.valid);
     this.adUnitsSubmitted = true;
     if (!adUnitsValid) return;
     this.adUnitsSubmitted = false;
@@ -212,12 +196,12 @@ export class EditSiteCreateAdUnitsComponent
 
   get adUnitsToSave(): AdUnit[] {
     const units = [
-      ...this.site.adUnits.filter((adUnit) => {
+      ...this.site.adUnits.filter(adUnit => {
         return adUnit.type !== adUnitTypesEnum.DISPLAY;
       }),
     ];
 
-    this.adUnitForms.forEach((form) => {
+    this.adUnitForms.forEach(form => {
       units.push({
         name: form.get('name').value,
         type: form.get('type').value,
@@ -235,7 +219,7 @@ export class EditSiteCreateAdUnitsComponent
   saveAdUnits(isDraft: boolean): void {
     this.changesSaved = true;
     this.adUnitsSubmitted = true;
-    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
+    const adUnitsValid = this.adUnitForms.every(adForm => adForm.valid);
     if (adUnitsValid) {
       this.adUnitsSubmitted = false;
       this.store.dispatch(new SaveLastEditedSiteAdUnits(this.adUnitsToSave));

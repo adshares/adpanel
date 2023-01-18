@@ -1,9 +1,7 @@
 <section class="homepage-view campaign-edit-bid-strategy">
   <div class="text-center">
     <h1 class="ap-heading ap-heading--primary">Bid strategy</h1>
-    <p class="ap-copy ap-copy--medium">
-      Here you can edit bid strategy for the campaign.
-    </p>
+    <p class="ap-copy ap-copy--medium">Here you can edit bid strategy for the campaign.</p>
   </div>
 
   <div class="ap-box ap-box--large">
@@ -11,25 +9,15 @@
       Select bid strategy for {{ campaign.basicInformation.name }} campaign
     </h3>
     <div class="ap-copy">
-      Here you can select bid strategy for the campaign. You can preview all
-      your bid strategies below. There is also an explanation what a bid
-      strategy is.
+      Here you can select bid strategy for the campaign. You can preview all your bid strategies below. There is also an
+      explanation what a bid strategy is.
     </div>
 
-    <div
-      *ngIf="!isLoading && bidStrategies.length > 0"
-      class="row align-center space-top"
-    >
+    <div *ngIf="!isLoading && bidStrategies.length > 0" class="row align-center space-top">
       <mat-form-field>
         <mat-label>Select bid strategy</mat-label>
-        <mat-select
-          [(value)]="bidStrategyUuidSelected"
-          (selectionChange)="onBidStrategySelect()"
-        >
-          <mat-option
-            *ngFor="let bidStrategy of bidStrategies"
-            [value]="bidStrategy.uuid"
-          >
+        <mat-select [(value)]="bidStrategyUuidSelected" (selectionChange)="onBidStrategySelect()">
+          <mat-option *ngFor="let bidStrategy of bidStrategies" [value]="bidStrategy.uuid">
             {{ bidStrategy.name }}
           </mat-option>
         </mat-select>
@@ -42,8 +30,7 @@
 
   <app-bid-strategy-settings
     [medium]="campaign.basicInformation.medium"
-    [vendor]="campaign.basicInformation.vendor"
-  ></app-bid-strategy-settings>
+    [vendor]="campaign.basicInformation.vendor"></app-bid-strategy-settings>
 
   <div class="ap-box ap-box--large row justify-between">
     <button
@@ -51,8 +38,7 @@
       class="ap-btn ap-btn--white ap-blue"
       (click)="onStepBack()"
       [disabled]="submitted"
-      data-test="advertiser-navigate-to-dashboard"
-    >
+      data-test="advertiser-navigate-to-dashboard">
       Back
     </button>
   </div>

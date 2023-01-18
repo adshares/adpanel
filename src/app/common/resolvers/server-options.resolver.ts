@@ -10,10 +10,7 @@ import { ServerOptionsService } from 'common/server-options.service';
 export class ServerOptionsResolver implements Resolve<Options> {
   private options: Options | null = null;
 
-  constructor(
-    private commonService: CommonService,
-    private serverOptionsService: ServerOptionsService
-  ) {}
+  constructor(private commonService: CommonService, private serverOptionsService: ServerOptionsService) {}
 
   resolve(): Observable<Options> {
     if (null !== this.options) {
@@ -21,7 +18,7 @@ export class ServerOptionsResolver implements Resolve<Options> {
     }
 
     return this.commonService.getOptions().pipe(
-      map((options) => {
+      map(options => {
         this.options = options;
         this.serverOptionsService.setOptions(options);
         return options;

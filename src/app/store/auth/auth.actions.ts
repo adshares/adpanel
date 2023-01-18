@@ -7,10 +7,8 @@ export const SET_USER_FAILURE = 'Set user failure';
 
 export const UPDATE_USER_ADDRESS = 'User Address updated';
 
-export const UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD =
-  'User Automatic Withdraw period updated';
-export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT =
-  'User Automatic Withdraw amount updated';
+export const UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD = 'User Automatic Withdraw period updated';
+export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT = 'User Automatic Withdraw amount updated';
 
 export const USER_LOG_OUT_SUCCESS = 'User logged out success';
 export const USER_LOG_IN_SUCCESS = 'User logged in success';

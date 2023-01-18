@@ -27,7 +27,7 @@ export class SiteListComponent extends HandleSubscription {
   }
 
   private static addLabelsToStatuses() {
-    return enumToArray(siteStatusEnum).map((item) => {
+    return enumToArray(siteStatusEnum).map(item => {
       let label;
       switch (item) {
         case 'active':

@@ -8,11 +8,7 @@ import {
 } from './settings.actions';
 import { SettingsState } from 'models/app-state.model';
 import { actions } from 'store/admin/admin.actions';
-import {
-  AccessTokenResponse,
-  AccessTokenResponseWithSecret,
-  AccessTokenStore,
-} from 'models/access-token.model';
+import { AccessTokenResponse, AccessTokenResponseWithSecret, AccessTokenStore } from 'models/access-token.model';
 
 const initialState: SettingsState = {
   accessTokens: [],
@@ -40,9 +36,7 @@ const initialState: SettingsState = {
   },
 };
 
-function mapAccessTokenToStore(
-  accessToken: AccessTokenResponse
-): AccessTokenStore {
+function mapAccessTokenToStore(accessToken: AccessTokenResponse): AccessTokenStore {
   return <AccessTokenStore>{
     id: accessToken.id,
     name: accessToken.name,
@@ -56,25 +50,21 @@ export function settingsReducers(state = initialState, action: actions) {
     case GET_ACCESS_TOKENS_SUCCESS: {
       return {
         ...state,
-        accessTokens: (<AccessTokenResponse[]>action.payload).map(
-          (accessToken) => mapAccessTokenToStore(accessToken)
-        ),
+        accessTokens: (<AccessTokenResponse[]>action.payload).map(accessToken => mapAccessTokenToStore(accessToken)),
       };
     }
     case ADD_ACCESS_TOKEN_SUCCESS: {
       return {
         ...state,
         accessTokens: [
-          mapAccessTokenToStore(
-            (<AccessTokenResponseWithSecret>action.payload).token
-          ),
+          mapAccessTokenToStore((<AccessTokenResponseWithSecret>action.payload).token),
           ...state.accessTokens,
         ],
       };
     }
     case DELETE_ACCESS_TOKEN_SUCCESS: {
       const id = action.payload;
-      const accessTokens = state.accessTokens.filter((el) => el.id !== id);
+      const accessTokens = state.accessTokens.filter(el => el.id !== id);
       return {
         ...state,
         accessTokens: accessTokens,
@@ -91,7 +81,7 @@ export function settingsReducers(state = initialState, action: actions) {
         refLinks: action.payload,
       };
     case DELETE_REF_LINK_SUCCESS:
-      const data = state.refLinks.data.filter((el) => el.id !== action.payload);
+      const data = state.refLinks.data.filter(el => el.id !== action.payload);
       return {
         ...state,
         refLinks: {

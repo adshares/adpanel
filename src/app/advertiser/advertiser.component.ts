@@ -8,6 +8,5 @@ import { fadeAnimation } from 'common/animations/fade.animation';
   animations: [fadeAnimation],
 })
 export class AdvertiserComponent {
-  getRouterOutletState = (outlet) =>
-    outlet.isActivated ? outlet.activatedRoute : '';
+  getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 }

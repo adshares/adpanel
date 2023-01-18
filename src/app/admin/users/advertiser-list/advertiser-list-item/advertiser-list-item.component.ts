@@ -31,12 +31,10 @@ export class AdvertiserListItemComponent {
   }
 
   handleImpersonating(userId: number): void {
-    this.adminService.impersonateUser(userId).subscribe((token) => {
+    this.adminService.impersonateUser(userId).subscribe(token => {
       this.impersonationService.setImpersonationToken(token);
       this.router.navigate(['/advertiser', 'dashboard']);
-      this.sessionService.setAccountTypeChoice(
-        SessionService.ACCOUNT_TYPE_ADVERTISER
-      );
+      this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER);
     });
   }
 }

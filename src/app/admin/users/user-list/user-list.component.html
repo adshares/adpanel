@@ -11,8 +11,7 @@
             class="user-list__input"
             data-test="admin-user-search-input"
             id="search"
-            placeholder="Search by email or domain"
-          />
+            placeholder="Search by email or domain" />
         </label>
       </div>
       <div class="user-list__filters">
@@ -21,33 +20,20 @@
           (change)="onParamChange('selectedType', type)"
           *ngFor="let type of userTypes"
           [checked]="type === queryParams.selectedType"
-          class="user-list__checkbox"
-        >
+          class="user-list__checkbox">
           {{ type }}
         </mat-checkbox>
       </div>
-      <button
-        class="ap-btn ap-btn--tiny ap-btn--danger"
-        (click)="onResetButtonClick()"
-      >
-        Reset filters
-      </button>
+      <button class="ap-btn ap-btn--tiny ap-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
     </div>
   </div>
 
-  <table
-    class="user-list__items"
-    [ngClass]="{ 'user-list__no-actions': !showActions }"
-  >
+  <table class="user-list__items" [ngClass]="{ 'user-list__no-actions': !showActions }">
     <app-table-navigation
       (sortTable)="sortTable($event, true)"
-      [navigationName]="'userListNavigation'"
-    ></app-table-navigation>
+      [navigationName]="'userListNavigation'"></app-table-navigation>
     <tbody *ngIf="!isLoading; else loading" class="col user-list__table-body">
-      <app-user-list-item
-        *ngFor="let user of list.data"
-        [user]="user"
-      ></app-user-list-item>
+      <app-user-list-item *ngFor="let user of list.data" [user]="user"></app-user-list-item>
       <tr *ngIf="!list.data.length" class="user-list__loader-container">
         NO RESULTS
       </tr>
@@ -67,7 +53,6 @@
     (page)="handlePaginationEvent($event, true)"
     [length]="total"
     [pageIndex]="page - 1"
-    [pageSize]="pageSize"
-  >
+    [pageSize]="pageSize">
   </mat-paginator>
 </section>

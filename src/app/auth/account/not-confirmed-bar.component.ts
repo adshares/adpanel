@@ -15,37 +15,25 @@ import { HandleSubscription } from 'common/handle-subscription';
   templateUrl: './not-confirmed-bar.component.html',
   styleUrls: ['./not-confirmed-bar.component.scss'],
 })
-export class AccountNotConfirmedBarComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class AccountNotConfirmedBarComponent extends HandleSubscription implements OnInit {
   user: User;
   display: boolean;
   isEmailConfirmed: boolean = true;
   isAdminConfirmed: boolean;
 
-  constructor(
-    private api: ApiService,
-    private dialog: MatDialog,
-    private store: Store<AppState>
-  ) {
+  constructor(private api: ApiService, private dialog: MatDialog, private store: Store<AppState>) {
     super();
   }
 
   ngOnInit(): void {
-    const userDataSubscription = this.store
-      .select('state', 'user', 'data')
-      .subscribe((user: User) => {
-        if (!user.uuid) {
-          return;
-        }
-        this.isAdminConfirmed = user.isAdminConfirmed;
-        this.isEmailConfirmed =
-          user.isEmailConfirmed ||
-          !user.email ||
-          -1 === user.email.indexOf('@');
-        this.display = !this.isAdminConfirmed || !this.isEmailConfirmed;
-      });
+    const userDataSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
+      if (!user.uuid) {
+        return;
+      }
+      this.isAdminConfirmed = user.isAdminConfirmed;
+      this.isEmailConfirmed = user.isEmailConfirmed || !user.email || -1 === user.email.indexOf('@');
+      this.display = !this.isAdminConfirmed || !this.isEmailConfirmed;
+    });
     this.subscriptions.push(userDataSubscription);
   }
 
@@ -60,7 +48,7 @@ export class AccountNotConfirmedBarComponent
           },
         });
       },
-      (err) => {
+      err => {
         this.dialog.open(ErrorResponseDialogComponent, {
           data: {
             title: 'Resend failed',

@@ -28,9 +28,9 @@ export class SiteResolver extends HandleSubscription implements Resolve<Site> {
 
   waitForSiteDataToLoad(id: number, isInEditMode: boolean): Observable<Site> {
     return this.store.select('state', 'publisher', 'sites').pipe(
-      map((sites) => sites.find((site) => site.id === id)),
-      filter((site) => !!site),
-      tap((site) => {
+      map(sites => sites.find(site => site.id === id)),
+      filter(site => !!site),
+      tap(site => {
         if (isInEditMode) {
           this.store.dispatch(new SetLastEditedSite(site));
         } else {

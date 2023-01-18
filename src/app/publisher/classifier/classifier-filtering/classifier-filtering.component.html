@@ -28,23 +28,14 @@
         Filter banners by size
       </mat-panel-title>
       <mat-panel-description>
-        <span
-          *ngIf="sizes.length === 0 && filtering.sizes.length === 0"
-          class="classifier-filtering__chosen-value"
-        >
+        <span *ngIf="sizes.length === 0 && filtering.sizes.length === 0" class="classifier-filtering__chosen-value">
           All
         </span>
-        <span
-          *ngIf="sizeOptions.length === filtering.sizes.length"
-          class="classifier-filtering__chosen-value"
-        >
+        <span *ngIf="sizeOptions.length === filtering.sizes.length" class="classifier-filtering__chosen-value">
           All matching
         </span>
         <ng-container *ngIf="sizes.length !== sizeOptions.length">
-          <span
-            *ngFor="let chosenSize of sizes"
-            class="classifier-filtering__chosen-value"
-          >
+          <span *ngFor="let chosenSize of sizes" class="classifier-filtering__chosen-value">
             {{ chosenSize }}
           </span>
         </ng-container>
@@ -52,16 +43,8 @@
     </mat-expansion-panel-header>
 
     <div class="classifier-filtering__size-controls">
-      <mat-checkbox
-        (change)="sizeOptionChange($event, 'allSizes')"
-        [checked]="allSizes"
-      >
-        All
-      </mat-checkbox>
-      <mat-checkbox
-        (change)="sizeOptionChange($event, 'allSizesMatching')"
-        [checked]="allSizesMatching"
-      >
+      <mat-checkbox (change)="sizeOptionChange($event, 'allSizes')" [checked]="allSizes"> All </mat-checkbox>
+      <mat-checkbox (change)="sizeOptionChange($event, 'allSizesMatching')" [checked]="allSizesMatching">
         All matching
       </mat-checkbox>
     </div>
@@ -69,8 +52,7 @@
     <mat-checkbox
       *ngFor="let sizeOption of sizeOptions"
       (change)="sizeSelect($event, sizeOption)"
-      [checked]="filtering.sizes.includes(sizeOption)"
-    >
+      [checked]="filtering.sizes.includes(sizeOption)">
       {{ sizeOption }}
     </mat-checkbox>
   </mat-expansion-panel>
@@ -87,15 +69,8 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <form (submit)="changeFilteringByLandingUrl()">
-      <label class="classifier-filtering__label" for="landingUrl">
-        Landing url
-      </label>
-      <input
-        id="landingUrl"
-        [formControl]="landingUrl"
-        type="text"
-        class="classifier-filtering__input"
-      />
+      <label class="classifier-filtering__label" for="landingUrl"> Landing url </label>
+      <input id="landingUrl" [formControl]="landingUrl" type="text" class="classifier-filtering__input" />
       <button type="submit" class="classifier-filtering__btn">Search</button>
     </form>
   </mat-expansion-panel>
@@ -112,36 +87,18 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <form (submit)="changeFilteringByBannerId()">
-      <label class="classifier-filtering__label" for="bannerId">
-        Banner id
-      </label>
-      <input
-        id="bannerId"
-        [formControl]="bannerId"
-        type="text"
-        class="classifier-filtering__input"
-      />
+      <label class="classifier-filtering__label" for="bannerId"> Banner id </label>
+      <input id="bannerId" [formControl]="bannerId" type="text" class="classifier-filtering__input" />
       <button type="submit" class="classifier-filtering__btn">Search</button>
-      <button
-        class="classifier-filtering__btn"
-        (click)="changeFilteringByBannerIdReset()"
-      >
-        Clear
-      </button>
+      <button class="classifier-filtering__btn" (click)="changeFilteringByBannerIdReset()">Clear</button>
     </form>
   </mat-expansion-panel>
 </mat-accordion>
 <div
   [ngClass]="
-    classifierOption === 'local-only'
-      ? 'classifier-filtering__hidden'
-      : 'ap-box classifier-filtering__checkbox'
-  "
->
-  <mat-checkbox
-    [checked]="classifierLocalBanners !== 0"
-    (change)="changeFilterByServer($event.checked)"
-  >
+    classifierOption === 'local-only' ? 'classifier-filtering__hidden' : 'ap-box classifier-filtering__checkbox'
+  ">
+  <mat-checkbox [checked]="classifierLocalBanners !== 0" (change)="changeFilterByServer($event.checked)">
     Show banners only from local server
   </mat-checkbox>
 </div>

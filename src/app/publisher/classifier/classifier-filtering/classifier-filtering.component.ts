@@ -31,8 +31,7 @@ export class ClassifierFilteringComponent implements OnInit {
   ngOnInit() {
     this.isGlobal = this.siteId === null;
     this.sizes = this.sizeOptions;
-    this.classifierOption =
-      this.route.snapshot.data.siteOptions.classifierLocalBanners;
+    this.classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners;
     this.filtering = {
       ...this.filtering,
       sizes: this.sizeOptions,
@@ -42,8 +41,7 @@ export class ClassifierFilteringComponent implements OnInit {
 
   checkBannerSizeOptions() {
     this.allSizes = !this.filtering.sizes.length;
-    this.allSizesMatching =
-      this.filtering.sizes.length === this.sizeOptions.length;
+    this.allSizesMatching = this.filtering.sizes.length === this.sizeOptions.length;
   }
 
   sizeOptionChange(e, option) {
@@ -92,7 +90,7 @@ export class ClassifierFilteringComponent implements OnInit {
     if (e.checked) {
       this.sizes = [...this.sizes, size];
     } else {
-      this.sizes = this.sizes.filter((s) => s !== size);
+      this.sizes = this.sizes.filter(s => s !== size);
     }
     this.filtering = {
       ...this.filtering,

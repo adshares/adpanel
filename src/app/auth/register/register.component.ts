@@ -7,10 +7,7 @@ import { ApiService } from 'app/api/api.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { User } from 'models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  HTTP_INTERNAL_SERVER_ERROR,
-  HTTP_NOT_FOUND,
-} from 'common/utilities/codes';
+import { HTTP_INTERNAL_SERVER_ERROR, HTTP_NOT_FOUND } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { AppState } from 'models/app-state.model';
 import { Store } from '@ngrx/store';
@@ -51,12 +48,10 @@ export class RegisterComponent extends HandleSubscription {
   ngOnInit(): void {
     this.activatedRoute.params
       .pipe(
-        switchMap((params) => {
+        switchMap(params => {
           return observableForkJoin([
             this.store.select('state', 'common', 'info').pipe(take(1)),
-            params['token']
-              ? this.common.getRefLinkInfo(params['token'])
-              : observableOf(null),
+            params['token'] ? this.common.getRefLinkInfo(params['token']) : observableOf(null),
           ]);
         })
       )
@@ -69,18 +64,14 @@ export class RegisterComponent extends HandleSubscription {
           if (this.refLinkInfo) {
             this.api.users.setReferralToken(this.refLinkInfo.token);
           }
-          if (
-            this.registrationMode === 'private' ||
-            (this.registrationMode === 'restricted' && !this.refLinkInfo)
-          ) {
+          if (this.registrationMode === 'private' || (this.registrationMode === 'restricted' && !this.refLinkInfo)) {
             return this.router.navigate(['/404']);
           }
           this.registrationEnabled =
-            this.registrationMode === 'public' ||
-            (this.refLinkInfo && this.refLinkInfo.status === 'active');
+            this.registrationMode === 'public' || (this.refLinkInfo && this.refLinkInfo.status === 'active');
           this.isLoading = false;
         },
-        (error) => {
+        error => {
           if (error.status === HTTP_NOT_FOUND) {
             return this.router.navigate(['/404']);
           } else {

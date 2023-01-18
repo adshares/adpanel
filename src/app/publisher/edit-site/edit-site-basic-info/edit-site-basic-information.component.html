@@ -1,17 +1,10 @@
-<app-edit-site-navigation
-  [currentStep]="1"
-  [medium]="medium"
-></app-edit-site-navigation>
+<app-edit-site-navigation [currentStep]="1" [medium]="medium"></app-edit-site-navigation>
 <section class="homepage-view site-edit-basic-information">
   <div class="text-center">
     <h1 class="ap-heading ap-heading--primary">Basic information</h1>
   </div>
 
-  <form
-    [formGroup]="siteBasicInfoForm"
-    class="ap-form"
-    data-test="publisher-edit-site-basic-information-form"
-  >
+  <form [formGroup]="siteBasicInfoForm" class="ap-form" data-test="publisher-edit-site-basic-information-form">
     <div class="ap-box ap-box--large site-edit-basic-information__info-box">
       <div class="ap-form-input__box">
         <label class="ap-form-label ap-form-label--no-margin-top">Medium</label>
@@ -20,13 +13,11 @@
           class="ap-select"
           formControlName="medium"
           (selectionChange)="onMediumChange($event.value)"
-          data-test="publisher-edit-site-basic-information-medium-select"
-        >
+          data-test="publisher-edit-site-basic-information-medium-select">
           <mat-option
             *ngFor="let medium of media"
             [value]="medium.key"
-            data-test="publisher-edit-site-basic-information-medium-option"
-          >
+            data-test="publisher-edit-site-basic-information-medium-option">
             {{ medium.value }}
           </mat-option>
         </mat-select>
@@ -37,13 +28,11 @@
           class="ap-select"
           formControlName="vendor"
           (selectionChange)="onVendorChange($event.value)"
-          data-test="publisher-edit-site-basic-information-vendor-select"
-        >
+          data-test="publisher-edit-site-basic-information-vendor-select">
           <mat-option
             *ngFor="let vendor of vendors"
             [value]="vendor.key"
-            data-test="publisher-edit-site-basic-information-vendor-option"
-          >
+            data-test="publisher-edit-site-basic-information-vendor-option">
             {{ vendor.value }}
           </mat-option>
         </mat-select>
@@ -58,8 +47,7 @@
               Enter your website's URL address.
               Ads will be displayed only under the specified domain."
             matTooltipPosition="right"
-            [icon]="faQuestionCircle"
-          ></fa-icon>
+            [icon]="faQuestionCircle"></fa-icon>
         </label>
 
         <input
@@ -69,40 +57,27 @@
           type="text"
           (focus)="onUrlFocus()"
           (blur)="onUrlBlur()"
-          data-test="publisher-edit-site-basic-information-form-url"
-        />
+          data-test="publisher-edit-site-basic-information-form-url" />
         <span
           class="input-valid"
           *ngIf="
             siteBasicInfoForm.get('url').valid &&
             siteBasicInfoForm.get('domain').valid &&
-            (siteBasicInfoForm.get('url').touched ||
-              siteBasicInfoForm.get('url').dirty)
-          "
-        ></span>
+            (siteBasicInfoForm.get('url').touched || siteBasicInfoForm.get('url').dirty)
+          "></span>
         <span
           class="error-msg"
           *ngIf="
-            siteBasicInfoSubmitted &&
-            (siteBasicInfoForm.get('url').invalid ||
-              siteBasicInfoForm.get('domain').invalid)
-          "
-        >
+            siteBasicInfoSubmitted && (siteBasicInfoForm.get('url').invalid || siteBasicInfoForm.get('domain').invalid)
+          ">
           Please provide a valid URL. Protocol http(s) is required.
         </span>
-        <span
-          class="error-msg"
-          *ngIf="siteBasicInfoForm.get('url').hasError('maxlength')"
-        >
+        <span class="error-msg" *ngIf="siteBasicInfoForm.get('url').hasError('maxlength')">
           Limit the length to at most {{ websiteUrlLengthMax }} characters
         </span>
         <span
           class="error-msg"
-          *ngIf="
-            siteBasicInfoForm.get('url').valid &&
-            siteBasicInfoForm.get('domain').hasError('maxlength')
-          "
-        >
+          *ngIf="siteBasicInfoForm.get('url').valid && siteBasicInfoForm.get('domain').hasError('maxlength')">
           Limit the length of domain to at most
           {{ websiteDomainLengthMax }} characters
         </span>
@@ -119,24 +94,16 @@
         <ng-container *ngIf="isConnectedWallet; else connectWallet">
           <div *ngIf="createSiteMode" class="ap-box row">
             <label class="ap-form-label ap-form-label--inline">Setup</label>
-            <mat-button-toggle-group
-              formControlName="setupVersionControl"
-              aria-label="Font Style"
-            >
-              <mat-button-toggle value="{{ SETUP_VERSION.AUTOMATIC }}"
-                >Automatic</mat-button-toggle
-              >
-              <mat-button-toggle value="{{ SETUP_VERSION.MANUAL }}"
-                >Manual</mat-button-toggle
-              >
+            <mat-button-toggle-group formControlName="setupVersionControl" aria-label="Font Style">
+              <mat-button-toggle value="{{ SETUP_VERSION.AUTOMATIC }}">Automatic</mat-button-toggle>
+              <mat-button-toggle value="{{ SETUP_VERSION.MANUAL }}">Manual</mat-button-toggle>
             </mat-button-toggle-group>
           </div>
 
           <div [ngSwitch]="setupVersionControl.value" class="ap-box row">
             <app-metaverse-instructions
               *ngSwitchCase="SETUP_VERSION.AUTOMATIC"
-              [vendor]="vendor"
-            ></app-metaverse-instructions>
+              [vendor]="vendor"></app-metaverse-instructions>
 
             <ng-container *ngSwitchCase="SETUP_VERSION.MANUAL">
               <ng-container [ngSwitch]="vendor">
@@ -149,8 +116,7 @@
                         Enter your parcel's ID.
                         Ads will be displayed only on specified parcel."
                       matTooltipPosition="right"
-                      [icon]="faQuestionCircle"
-                    ></fa-icon>
+                      [icon]="faQuestionCircle"></fa-icon>
                   </label>
 
                   <input
@@ -160,17 +126,11 @@
                     class="ap-form-input ap-form-input--full"
                     type="number"
                     required
-                    data-test="publisher-edit-site-basic-information-form-parcel-id"
-                  />
-                  <span *ngIf="hasParcelIdError" class="error-msg">
-                    Please provide a parcel's ID
-                  </span>
+                    data-test="publisher-edit-site-basic-information-form-parcel-id" />
+                  <span *ngIf="hasParcelIdError" class="error-msg"> Please provide a parcel's ID </span>
                 </div>
 
-                <div
-                  *ngSwitchCase="DECENTRALAND"
-                  class="ap-form-input__box ap-form-input__box__full"
-                >
+                <div *ngSwitchCase="DECENTRALAND" class="ap-form-input__box ap-form-input__box__full">
                   <label for="parcelCoordinateX" class="ap-form-label">
                     Parcel's coordinates
                     <fa-icon
@@ -179,8 +139,7 @@
                         Enter your parcel's coordinates.
                         Ads will be displayed only on specified parcel."
                       matTooltipPosition="right"
-                      [icon]="faQuestionCircle"
-                    ></fa-icon>
+                      [icon]="faQuestionCircle"></fa-icon>
                   </label>
 
                   <div class="row justify-between">
@@ -191,8 +150,7 @@
                       class="ap-form-input"
                       type="number"
                       required
-                      data-test="publisher-edit-site-basic-information-form-parcel-coordinate-x"
-                    />
+                      data-test="publisher-edit-site-basic-information-form-parcel-coordinate-x" />
                     <input
                       (blur)="overwriteUrl()"
                       formControlName="parcelCoordinateY"
@@ -200,12 +158,9 @@
                       class="ap-form-input"
                       type="number"
                       required
-                      data-test="publisher-edit-site-basic-information-form-parcel-coordinate-y"
-                    />
+                      data-test="publisher-edit-site-basic-information-form-parcel-coordinate-y" />
                   </div>
-                  <span *ngIf="hasParcelCoordinateError" class="error-msg">
-                    Please provide parcel's coordinates
-                  </span>
+                  <span *ngIf="hasParcelCoordinateError" class="error-msg"> Please provide parcel's coordinates </span>
                 </div>
               </ng-container>
             </ng-container>
@@ -221,8 +176,7 @@
               matTooltipClass="ap-mat-tooltip"
               matTooltip="Enter your website custom name to make the navigation easier."
               matTooltipPosition="right"
-              [icon]="faQuestionCircle"
-            ></fa-icon>
+              [icon]="faQuestionCircle"></fa-icon>
           </label>
 
           <input
@@ -230,27 +184,14 @@
             id="siteName"
             class="ap-form-input ap-form-input--full"
             type="text"
-            data-test="publisher-edit-site-basic-information-form-name"
-          />
+            data-test="publisher-edit-site-basic-information-form-name" />
           <span
             class="input-valid"
-            *ngIf="
-              siteBasicInfoForm.get('name').valid &&
-              siteBasicInfoForm.get('name').touched
-            "
-          ></span>
-          <span
-            class="error-msg"
-            *ngIf="
-              siteBasicInfoSubmitted && siteBasicInfoForm.get('name').invalid
-            "
-          >
+            *ngIf="siteBasicInfoForm.get('name').valid && siteBasicInfoForm.get('name').touched"></span>
+          <span class="error-msg" *ngIf="siteBasicInfoSubmitted && siteBasicInfoForm.get('name').invalid">
             Please provide a valid name.
           </span>
-          <span
-            class="error-msg"
-            *ngIf="siteBasicInfoForm.get('name').hasError('maxlength')"
-          >
+          <span class="error-msg" *ngIf="siteBasicInfoForm.get('name').hasError('maxlength')">
             Limit the length to at most {{ websiteNameLengthMax }} characters
           </span>
         </div>
@@ -262,31 +203,20 @@
               matTooltipClass="ap-mat-tooltip"
               matTooltip="Choose the categories that best match your site."
               matTooltipPosition="right"
-              [icon]="faQuestionCircle"
-            ></fa-icon>
+              [icon]="faQuestionCircle"></fa-icon>
           </label>
           <app-targeting-select
             *ngIf="siteCategoriesOptions && siteCategoriesOptions.length > 0"
             [targetingOptions]="siteCategoriesOptions"
             [addedItems]="selectedTargetingOptionValues"
-            (itemsChange)="updateSelectedTargetingOptionValues($event)"
-          ></app-targeting-select>
-          <span
-            class="error-msg"
-            *ngIf="
-              selectedTargetingOptionValues.length === 0 &&
-              siteBasicInfoSubmitted
-            "
-          >
+            (itemsChange)="updateSelectedTargetingOptionValues($event)"></app-targeting-select>
+          <span class="error-msg" *ngIf="selectedTargetingOptionValues.length === 0 && siteBasicInfoSubmitted">
             At least one category is required
           </span>
         </div>
 
         <div class="ap-form-input__box site-edit-basic-information__language">
-          <label
-            for="languageInput"
-            class="ap-form-label ap-form-label--shorter ap-form-label--no-margin-top"
-          >
+          <label for="languageInput" class="ap-form-label ap-form-label--shorter ap-form-label--no-margin-top">
             Content language
           </label>
           <mat-form-field appearance="standard" class="col">
@@ -296,13 +226,9 @@
               id="languageInput"
               formControlName="primaryLanguage"
               type="text"
-              [matAutocomplete]="auto"
-            />
+              [matAutocomplete]="auto" />
             <mat-autocomplete #auto [displayWith]="displayOption">
-              <mat-option
-                *ngFor="let language of filteredOptions | async"
-                [value]="language"
-              >
+              <mat-option *ngFor="let language of filteredOptions | async" [value]="language">
                 {{ language.name }}
               </mat-option>
             </mat-autocomplete>
@@ -313,11 +239,7 @@
 
           <span
             class="error-msg"
-            *ngIf="
-              siteBasicInfoForm.hasError('required', ['primaryLanguage']) &&
-              siteBasicInfoSubmitted
-            "
-          >
+            *ngIf="siteBasicInfoForm.hasError('required', ['primaryLanguage']) && siteBasicInfoSubmitted">
             Content language required
           </span>
         </div>
@@ -330,8 +252,7 @@
         class="ap-btn ap-btn--white ap-blue"
         role="link"
         (click)="onStepBack()"
-        [disabled]="changesSaving"
-      >
+        [disabled]="changesSaving">
         {{ createSiteMode ? 'Back to dashboard' : 'Back' }}
       </button>
 
@@ -340,17 +261,10 @@
         class="ap-btn ap-btn--wide ap-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
         (click)="onSubmit()"
-        [disabled]="changesSaving"
-      >
-        <span *ngIf="!changesSaving; else loading">{{
-          createSiteMode ? 'Save & continue' : 'Update'
-        }}</span>
+        [disabled]="changesSaving">
+        <span *ngIf="!changesSaving; else loading">{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
         <ng-template #loading>
-          <mat-spinner
-            [diameter]="20"
-            [strokeWidth]="2"
-            color="accent"
-          ></mat-spinner>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
       </button>
     </div>
@@ -358,7 +272,5 @@
 </section>
 
 <ng-template #missingTaxonomy>
-  <div class="error-msg">
-    Taxonomy is not available. Please contact support.
-  </div>
+  <div class="error-msg">Taxonomy is not available. Please contact support.</div>
 </ng-template>

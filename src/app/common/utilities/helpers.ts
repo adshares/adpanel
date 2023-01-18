@@ -104,13 +104,7 @@ function formatMoney(
     b = b.replace(/([0-9]{2})0+$/, '$1');
   }
 
-  return (
-    s +
-    (j ? a.substr(0, j) + t : '') +
-    a.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) +
-    d +
-    b
-  );
+  return s + (j ? a.substr(0, j) + t : '') + a.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + d + b;
 }
 
 function isUnixTimePastNow(unixTime): boolean {
@@ -157,10 +151,7 @@ function findValueByPathArray(object, pathArray) {
 }
 
 const adjustCampaignStatus = (campaignInfo, currentDate): number => {
-  if (
-    campaignInfo.dateEnd === null ||
-    campaignInfo.status !== campaignStatusesEnum.ACTIVE
-  ) {
+  if (campaignInfo.dateEnd === null || campaignInfo.status !== campaignStatusesEnum.ACTIVE) {
     return campaignInfo.status;
   } else if (currentDate > moment(campaignInfo.dateEnd)) {
     return campaignStatusesEnum.OUTDATED;
@@ -171,18 +162,13 @@ const adjustCampaignStatus = (campaignInfo, currentDate): number => {
   }
 };
 
-const validCampaignBudget = (
-  config: CampaignsConfig,
-  campaign: Campaign,
-  user: User
-): string[] => {
+const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: User): string[] => {
   let accountError = false;
   let budgetError = false;
   let cpmError = false;
   let cpaError = false;
   const isOutdated =
-    campaign.basicInformation.dateEnd &&
-    moment(new Date()) > moment(campaign.basicInformation.dateEnd);
+    campaign.basicInformation.dateEnd && moment(new Date()) > moment(campaign.basicInformation.dateEnd);
   const isDirectDeal = checkDirectedDeal(campaign);
 
   const currency = user.exchangeRate ? user.exchangeRate.currency : '';
@@ -190,23 +176,15 @@ const validCampaignBudget = (
 
   if (campaign.basicInformation.budget < config.minBudget) {
     budgetError = true;
-  } else if (
-    user.adserverWallet.totalFunds <
-    campaign.basicInformation.budget / rate
-  ) {
+  } else if (user.adserverWallet.totalFunds < campaign.basicInformation.budget / rate) {
     accountError = true;
-  } else if (
-    isDirectDeal &&
-    user.adserverWallet.walletBalance < campaign.basicInformation.budget / rate
-  ) {
+  } else if (isDirectDeal && user.adserverWallet.walletBalance < campaign.basicInformation.budget / rate) {
     accountError = true;
   }
 
   const maxCpm = campaign.basicInformation.maxCpm;
   const maxCpa = campaign.conversions
-    ? campaign.conversions
-        .map((el) => el.value)
-        .reduce((max, val) => Math.max(max, val), 0)
+    ? campaign.conversions.map(el => el.value).reduce((max, val) => Math.max(max, val), 0)
     : 0;
 
   if (maxCpm == 0 && maxCpa == 0) {
@@ -220,22 +198,14 @@ const validCampaignBudget = (
     cpaError = true;
   }
 
-  const campaignBudget = `${formatMoney(
-    campaign.basicInformation.budget,
-    2
-  )} ${currency}`;
-  const minBudget = `${formatMoney(
-    calcCampaignBudgetPerDay(config.minBudget),
-    2
-  )} ${currency}`;
+  const campaignBudget = `${formatMoney(campaign.basicInformation.budget, 2)} ${currency}`;
+  const minBudget = `${formatMoney(calcCampaignBudgetPerDay(config.minBudget), 2)} ${currency}`;
   const minCpm = `${formatMoney(config.minCpm, 2)} ${currency}`;
   const minCpa = `${formatMoney(config.minCpa, 2)} ${currency}`;
 
   let errors = [];
   if (budgetError) {
-    errors.push(
-      `The daily budget of the campaign must be set to a minimum of ${minBudget}.`
-    );
+    errors.push(`The daily budget of the campaign must be set to a minimum of ${minBudget}.`);
   }
 
   if (accountError) {
@@ -261,24 +231,18 @@ const validCampaignBudget = (
     } else {
       error += 'The';
     }
-    errors.push(
-      `${error} conversion value must be set to a minimum of ${minCpa}.`
-    );
+    errors.push(`${error} conversion value must be set to a minimum of ${minCpa}.`);
   }
 
   if (isOutdated) {
-    errors.push(
-      'The campaign is outdated. Unset end date or change to a future date.'
-    );
+    errors.push('The campaign is outdated. Unset end date or change to a future date.');
   }
 
   return errors;
 };
 
 function downloadReport(data: any): void {
-  const fileName =
-    data.headers.get('content-disposition').split('filename=')[1] ||
-    'report.xlsx';
+  const fileName = data.headers.get('content-disposition').split('filename=')[1] || 'report.xlsx';
   const type = data.headers.get('content-type');
   const blob = new Blob([data.body], { type });
   const link = document.createElement('a');
@@ -311,13 +275,8 @@ function formatNumberWithComma(value) {
 
 function checkDirectedDeal(campaign) {
   let isDirectDeal = false;
-  if (
-    campaign.basicInformation.medium === 'metaverse' &&
-    campaign.targeting.requires.site?.domain
-  ) {
-    const isTargetingForParcel = campaign.targeting.requires.site.domain.find(
-      (domain) => domain.startsWith('scene')
-    );
+  if (campaign.basicInformation.medium === 'metaverse' && campaign.targeting.requires.site?.domain) {
+    const isTargetingForParcel = campaign.targeting.requires.site.domain.find(domain => domain.startsWith('scene'));
     if (isTargetingForParcel) {
       isDirectDeal = true;
     }

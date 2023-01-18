@@ -12,18 +12,13 @@
           [formControl]="from"
           required
           [max]="to.value || today"
-          data-test="chart-filter-custom-date-from"
-        />
+          data-test="chart-filter-custom-date-from" />
         <img
           src="assets/images/calendar.svg"
           alt="Add new icon"
           class="user-reports__icon"
-          (click)="dateFromPicker.open()"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dateFromPicker"
-        ></mat-datepicker-toggle>
+          (click)="dateFromPicker.open()" />
+        <mat-datepicker-toggle matSuffix [for]="dateFromPicker"></mat-datepicker-toggle>
         <mat-datepicker #dateFromPicker></mat-datepicker>
       </label>
       <label class="user-reports__label">
@@ -36,19 +31,14 @@
           required
           [min]="from.value"
           [max]="today"
-          data-test="chart-filter-custom-date-to"
-        />
+          data-test="chart-filter-custom-date-to" />
         <img
           src="assets/images/calendar.svg"
           alt="Add new icon"
           class="user-reports__icon user-reports__icon--last"
-          (click)="dateToPicker.open()"
-        />
+          (click)="dateToPicker.open()" />
       </label>
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="dateToPicker"
-      ></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="dateToPicker"></mat-datepicker-toggle>
       <mat-datepicker #dateToPicker></mat-datepicker>
     </div>
     <div class="user-reports__btns-wrapper">
@@ -56,8 +46,7 @@
         class="user-reports__btn"
         data-test="download-report-advertisers-button"
         role="button"
-        (click)="getReportAdvertisers()"
-      >
+        (click)="getReportAdvertisers()">
         <mat-icon> save_alt </mat-icon>
         Generate advertisers' report
       </a>
@@ -65,8 +54,7 @@
         class="user-reports__btn"
         data-test="download-report-publishers-button"
         role="button"
-        (click)="getReportPublishers()"
-      >
+        (click)="getReportPublishers()">
         <mat-icon> save_alt </mat-icon>
         Generate publishers' report
       </a>

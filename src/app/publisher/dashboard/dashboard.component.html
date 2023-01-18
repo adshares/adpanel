@@ -1,7 +1,4 @@
-<section
-  class="ap-publisher-wrapper dashboard-view"
-  *ngIf="sitesLoaded; else loading"
->
+<section class="ap-publisher-wrapper dashboard-view" *ngIf="sitesLoaded; else loading">
   <div class="container">
     <div class="row no-gutters justify-between">
       <div class="col-xs-4">
@@ -9,13 +6,8 @@
         <p class="ap-copy ap-copy--medium">List of all sites</p>
       </div>
       <div class="col-xs-8 row justify-end align-center">
-        <a
-          routerLink="/publisher/classifier"
-          data-test="publisher-navigate-to-classifier"
-        >
-          <button class="ap-btn ap-btn--bordered-light">
-            Reject banner ads
-          </button>
+        <a routerLink="/publisher/classifier" data-test="publisher-navigate-to-classifier">
+          <button class="ap-btn ap-btn--bordered-light">Reject banner ads</button>
         </a>
       </div>
     </div>
@@ -25,10 +17,7 @@
         <div class="row">
           <div class="col-xs-3">
             <a (click)="downloadReport()">
-              <button
-                class="ap-btn ap-btn--white ap-copy--dark"
-                data-test="publisher-download-report-button"
-              >
+              <button class="ap-btn ap-btn--white ap-copy--dark" data-test="publisher-download-report-button">
                 Generate a report
               </button>
             </a>
@@ -36,17 +25,12 @@
           <div class="col-xs-6">
             <app-chart-filter-by-type
               (updateId)="appChartRef.updateChartDataAssetId($event)"
-              (updateSeries)="appChartRef.updateChartDataSeries($event)"
-            ></app-chart-filter-by-type>
+              (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
           </div>
           <div class="col-xs-3">
             <app-chart-filter
               *ngIf="!!sites.length"
-              (filter)="
-                appChartRef.updateChartData($event);
-                loadSites($event.from, $event.to)
-              "
-            ></app-chart-filter>
+              (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"></app-chart-filter>
           </div>
         </div>
         <div class="dashboard__chart-wrapper">
@@ -55,41 +39,22 @@
               class="chart row align-center justify-center"
               (update)="getChartData($event)"
               [barChartData]="barChartData"
-              [barChartLabels]="barChartLabels"
-            ></app-chart>
+              [barChartLabels]="barChartLabels"></app-chart>
           </div>
         </div>
       </div>
-      <app-site-list
-        [dataLoaded]="dataLoaded"
-        [sites]="sites"
-        [sitesTotals]="sitesTotals"
-      ></app-site-list>
+      <app-site-list [dataLoaded]="dataLoaded" [sites]="sites" [sitesTotals]="sitesTotals"></app-site-list>
     </div>
 
     <div *ngIf="!sites.length">
-      <div
-        class="ap-box ap-box--large col align-center justify-center text-center add-new-site-wrapper"
-      >
-        <img
-          src="/assets/images/publisher-account-illustration.svg"
-          alt="Publisher New Site Illustration"
-        />
+      <div class="ap-box ap-box--large col align-center justify-center text-center add-new-site-wrapper">
+        <img src="/assets/images/publisher-account-illustration.svg" alt="Publisher New Site Illustration" />
         <div class="ap-customize__box-description">
           <h2 class="ap-heading ap-heading--primary">Add your first site</h2>
         </div>
-        <a
-          routerLink="/publisher/create-site/basic-information"
-          data-test="publisher-create-new-site"
-        >
-          <button
-            class="row align-center ap-btn ap-btn--large ap-btn--white ap-btn--no-border"
-          >
-            <img
-              src="assets/images/plus-circle--blue.svg"
-              alt="Add new"
-              class="ap-icon ap-icon--prepend"
-            />
+        <a routerLink="/publisher/create-site/basic-information" data-test="publisher-create-new-site">
+          <button class="row align-center ap-btn ap-btn--large ap-btn--white ap-btn--no-border">
+            <img src="assets/images/plus-circle--blue.svg" alt="Add new" class="ap-icon ap-icon--prepend" />
             <span class="ap-heading"> Create now </span>
           </button>
         </a>

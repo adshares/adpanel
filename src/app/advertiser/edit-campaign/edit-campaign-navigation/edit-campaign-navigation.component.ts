@@ -7,10 +7,7 @@ import { HandleSubscription } from 'common/handle-subscription';
   templateUrl: './edit-campaign-navigation.component.html',
   styleUrls: ['./edit-campaign-navigation.component.scss'],
 })
-export class EditCampaignNavigationComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditCampaignNavigationComponent extends HandleSubscription implements OnInit {
   steps = [
     { id: 1, name: 'Basic information' },
     { id: 2, name: 'Targeting' },
@@ -25,9 +22,7 @@ export class EditCampaignNavigationComponent
   }
 
   ngOnInit(): void {
-    const subscription = this.route.url.subscribe((urlSegments) =>
-      this.updateStepByUrl(urlSegments)
-    );
+    const subscription = this.route.url.subscribe(urlSegments => this.updateStepByUrl(urlSegments));
     this.subscriptions.push(subscription);
   }
 

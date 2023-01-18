@@ -20,10 +20,7 @@ export class ClassifierListItemComponent implements OnInit {
 
   isGlobal: boolean;
 
-  constructor(
-    private publisherService: PublisherService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private publisherService: PublisherService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.isGlobal = this.siteId === null;
@@ -39,9 +36,7 @@ export class ClassifierListItemComponent implements OnInit {
   }
 
   get classified(): boolean | null {
-    return this.isGlobal
-      ? this.bannerClassification.classifiedGlobal
-      : this.bannerClassification.classifiedSite;
+    return this.isGlobal ? this.bannerClassification.classifiedGlobal : this.bannerClassification.classifiedSite;
   }
 
   classifyBanner(isApproved: boolean): void {
@@ -49,11 +44,7 @@ export class ClassifierListItemComponent implements OnInit {
     this.setClassificationStatus(isApproved);
 
     this.publisherService
-      .setBannerClassification(
-        this.bannerClassification.bannerId,
-        isApproved,
-        this.siteId
-      )
+      .setBannerClassification(this.bannerClassification.bannerId, isApproved, this.siteId)
       .subscribe(
         () => {
           /* This is intentional */

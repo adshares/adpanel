@@ -1,91 +1,49 @@
-<section
-  class="ap-header ap-header-bg container-fluid row align-center justify-between"
->
+<section class="ap-header ap-header-bg container-fluid row align-center justify-between">
   <div class="row align-center">
-    <a
-      [routerLink]="[
-        '/',
-        userRolesEnum[activeUserType].toLowerCase(),
-        'dashboard'
-      ]"
-      data-test="header-dashboard-link"
-    >
+    <a [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']" data-test="header-dashboard-link">
       <div class="ap-navigation__item col align-center">
         <img
           class="ap-logo"
           src="assets/images/logo--white.png"
-          srcset="
-            assets/images/logo--white@2x.png 2x,
-            assets/images/logo--white@3x.png 3x
-          "
-          alt="Adshares Logo"
-        />
-        <span *ngIf="!!envContext" class="ap-copy ap-header__logo-subtitle">{{
-          envContext
-        }}</span>
+          srcset="assets/images/logo--white@2x.png 2x, assets/images/logo--white@3x.png 3x"
+          alt="Adshares Logo" />
+        <span *ngIf="!!envContext" class="ap-copy ap-header__logo-subtitle">{{ envContext }}</span>
       </div>
     </a>
     <button
       type="button"
-      *ngIf="
-        (session.isAdvertiser() && !session.isModerator()) ||
-        (session.isImpersonated() && actAsAdvertiser)
-      "
+      *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)"
       class="ap-btn--no-border row align-center ap-navigation__item ap-header--userselect ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
       [ngClass]="{ 'active-type': activeUserType === userRolesEnum.ADVERTISER }"
-      (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
-    >
+      (click)="setActiveUserType(userRolesEnum.ADVERTISER)">
       <img
         class="ap-icon ap-navigation__item--hidden ap-icon--prepend"
-        [src]="
-          activeUserType === userRolesEnum.ADVERTISER
-            ? 'assets/images/user.svg'
-            : 'assets/images/user-gray.svg'
-        "
-        alt="user"
-      />
+        [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+        alt="user" />
       Advertiser
     </button>
     <button
       type="button"
-      *ngIf="
-        (session.isPublisher() && !session.isModerator()) ||
-        (session.isImpersonated() && actAsPublisher)
-      "
+      *ngIf="(session.isPublisher() && !session.isModerator()) || (session.isImpersonated() && actAsPublisher)"
       class="ap-btn--no-border row align-center ap-navigation__item ap-header--userselect ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
       [ngClass]="{ 'active-type': activeUserType === userRolesEnum.PUBLISHER }"
-      (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
-    >
+      (click)="setActiveUserType(userRolesEnum.PUBLISHER)">
       <img
         class="ap-navigation__item--hidden ap-icon ap-icon--prepend"
-        [src]="
-          activeUserType === userRolesEnum.PUBLISHER
-            ? 'assets/images/user.svg'
-            : 'assets/images/user-gray.svg'
-        "
-        alt=""
-      />
+        [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+        alt="" />
       Publisher
     </button>
     <button
       type="button"
-      *ngIf="
-        !session.isImpersonated() &&
-        (session.isModerator() || session.isAgency())
-      "
+      *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
       class="ap-btn--no-border row align-center ap-navigation__item ap-header--userselect ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
       [ngClass]="{ 'active-type': activeUserType === userType }"
-      (click)="setActiveUserType(userType)"
-    >
+      (click)="setActiveUserType(userType)">
       <img
         class="ap-icon ap-navigation__item--hidden ap-icon--prepend"
-        [src]="
-          activeUserType === userType
-            ? 'assets/images/user.svg'
-            : 'assets/images/user-gray.svg'
-        "
-        alt=""
-      />
+        [src]="activeUserType === userType ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+        alt="" />
       <span *ngIf="session.isModerator()">Moderator</span>
       <span *ngIf="session.isAgency()">Agency</span>
     </button>
@@ -96,76 +54,40 @@
       *ngIf="!session.isModerator() || session.isImpersonated()"
       class="ap-btn ap-btn--transparent row align-center help-menu"
       (mouseover)="toggleHelpMenu(true)"
-      (mouseleave)="toggleHelpMenu(false)"
-    >
+      (mouseleave)="toggleHelpMenu(false)">
       <fa-icon [icon]="faLifeRing" class="ap-icon ap-icon--prepend"></fa-icon>
       <span>Support</span>
       <img
         class="ap-icon ap-icon--small ap-icon--append settings-menu-chevron"
         [class.up]="helpMenuOpen"
         src="assets/images/chevron--gray.svg"
-        alt=""
-      />
+        alt="" />
       <ul class="settings-menu ap-copy" [class.open]="helpMenuOpen">
         <li class="settings-menu__item" *ngIf="supportChat">
-          <fa-icon
-            [icon]="faComments"
-            class="ap-icon ap-icon--prepend"
-          ></fa-icon>
-          <a
-            href="{{ supportChat }}"
-            target="_blank"
-            rel="noopener nofollow noreferrer"
-            >Community chat</a
-          >
+          <fa-icon [icon]="faComments" class="ap-icon ap-icon--prepend"></fa-icon>
+          <a href="{{ supportChat }}" target="_blank" rel="noopener nofollow noreferrer">Community chat</a>
         </li>
         <li class="settings-menu__item" *ngIf="supportTelegram">
-          <fa-icon
-            [icon]="faPaperPlane"
-            class="ap-icon ap-icon--prepend"
-          ></fa-icon>
-          <a
-            href="https://t.me/{{ supportTelegram }}"
-            target="_blank"
-            rel="noopener nofollow noreferrer"
+          <fa-icon [icon]="faPaperPlane" class="ap-icon ap-icon--prepend"></fa-icon>
+          <a href="https://t.me/{{ supportTelegram }}" target="_blank" rel="noopener nofollow noreferrer"
             >@{{ supportTelegram }}</a
           >
         </li>
         <li class="settings-menu__item" *ngIf="supportEmail">
-          <fa-icon
-            [icon]="faEnvelope"
-            class="ap-icon ap-icon--prepend"
-          ></fa-icon>
-          <a
-            href="mailto:{{ supportEmail }}"
-            target="_blank"
-            rel="noopener nofollow noreferrer"
-            >{{ supportEmail }}</a
-          >
+          <fa-icon [icon]="faEnvelope" class="ap-icon ap-icon--prepend"></fa-icon>
+          <a href="mailto:{{ supportEmail }}" target="_blank" rel="noopener nofollow noreferrer">{{ supportEmail }}</a>
         </li>
       </ul>
     </div>
 
     <button
-      *ngIf="
-        activeUserType === userRolesEnum.ADVERTISER ||
-        activeUserType === userRolesEnum.PUBLISHER
-      "
+      *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
       class="ap-btn ap-btn--with-icon ap-btn--wide ap-bg-blue ap-navigation__item ap-navigation__item--hidden row align-center hidden-md-down"
       (click)="navigateToCreateNewAsset()"
-      data-test="header-create-new-asset-button"
-    >
-      <img
-        class="ap-icon ap-icon--prepend"
-        src="assets/images/plus-circle.svg"
-        alt=""
-      />
-      <span *ngIf="activeUserType === userRolesEnum.ADVERTISER"
-        >Create new campaign</span
-      >
-      <span *ngIf="activeUserType === userRolesEnum.PUBLISHER"
-        >Add new site</span
-      >
+      data-test="header-create-new-asset-button">
+      <img class="ap-icon ap-icon--prepend" src="assets/images/plus-circle.svg" alt="" />
+      <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
+      <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
     </button>
     <div
       *ngIf="!session.isModerator() || session.isImpersonated()"
@@ -176,22 +98,16 @@
       matTooltipPosition="left"
       (mouseover)="toggleSettingsMenu(true)"
       (mouseleave)="toggleSettingsMenu(false)"
-      data-test="header-toggle-settings-menu"
-    >
+      data-test="header-toggle-settings-menu">
       <img
         class="ap-navigation__item--hidden ap-icon ap-icon--prepend"
         src="assets/images/credit-card--white.svg"
-        alt="Wallet balance"
-      />
+        alt="Wallet balance" />
       <div class="col justify-start">
         <span class="ap-tokens" data-test="user-total-funds">
           {{ totalFunds | formatMoney : 2 : crypto : code }}
         </span>
-        <span
-          *ngIf="calculateFunds"
-          class="ap-header__money-in-currency"
-          data-test="user-total-funds"
-        >
+        <span *ngIf="calculateFunds" class="ap-header__money-in-currency" data-test="user-total-funds">
           {{ totalFunds | calculateInCurrency : 2 }}
         </span>
         <span class="ap-usd" data-test="user-total-funds-in-currency"> </span>
@@ -200,55 +116,29 @@
         class="ap-icon ap-icon--small ap-icon--append settings-menu-chevron"
         [class.up]="settingsMenuOpen"
         src="assets/images/chevron--gray.svg"
-        alt=""
-      />
+        alt="" />
       <ul class="settings-menu ap-copy" [class.open]="settingsMenuOpen">
         <li class="settings-menu__item">
           <button
             class="ap-btn ap-btn--blue ap-btn--tiny row justify-between align-center"
             (click)="openAddFundsDialog()"
-            data-test="add-funds-dialog-open-button"
-          >
-            <img
-              class="ap-icon close"
-              src="assets/images/plus-circle.svg"
-              alt=""
-            />
+            data-test="add-funds-dialog-open-button">
+            <img class="ap-icon close" src="assets/images/plus-circle.svg" alt="" />
             Deposit funds
           </button>
         </li>
-        <li
-          class="settings-menu__item"
-          routerLink="/settings/general"
-          data-test="header-account-settings-button"
-        >
+        <li class="settings-menu__item" routerLink="/settings/general" data-test="header-account-settings-button">
           Account settings
         </li>
-        <li
-          class="settings-menu__item"
-          routerLink="/settings/general"
-          data-test="header-account-settings-button"
-        >
+        <li class="settings-menu__item" routerLink="/settings/general" data-test="header-account-settings-button">
           Referral links
         </li>
-        <li
-          class="settings-menu__item"
-          routerLink="/settings/billing"
-          data-test="header-billing-payments-button"
-        >
+        <li class="settings-menu__item" routerLink="/settings/billing" data-test="header-billing-payments-button">
           Billing & payments
         </li>
-        <li
-          class="settings-menu__item"
-          routerLink="/settings/reports"
-          data-test="header-reports-button"
-        >
-          Reports
-        </li>
+        <li class="settings-menu__item" routerLink="/settings/reports" data-test="header-reports-button">Reports</li>
         <li class="settings-menu__item">
-          <span (click)="logout()" data-test="header-log-out-button">
-            Log out
-          </span>
+          <span (click)="logout()" data-test="header-log-out-button"> Log out </span>
         </li>
       </ul>
     </div>
@@ -259,8 +149,7 @@
         'visible-sm': session.isModerator() && !session.isImpersonated()
       }"
       (click)="logout()"
-      data-test="header-log-out-button"
-    >
+      data-test="header-log-out-button">
       <span>
         <small class="user-name">{{ userLabel }}</small>
         Log out

@@ -3,11 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 import { SessionService } from '../../../../session.service';
 import { environment } from 'environments/environment';
-import {
-  ADD_UNIT_CRYPTOVOXELS,
-  ADD_UNIT_DECENTRALAND,
-  ADD_UNIT_DECENTRALAND_SMART,
-} from 'models/enum/link.enum';
+import { ADD_UNIT_CRYPTOVOXELS, ADD_UNIT_DECENTRALAND, ADD_UNIT_DECENTRALAND_SMART } from 'models/enum/link.enum';
 import { UserAdserverWallet } from 'models/user.model';
 import { SiteCodeCryptovoxelsDialogComponent } from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';

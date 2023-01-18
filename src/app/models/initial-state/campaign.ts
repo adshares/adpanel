@@ -1,13 +1,5 @@
-import {
-  Campaign,
-  CampaignConversionItem,
-  CampaignsConfig,
-  CampaignTotals,
-} from 'models/campaign.model';
-import {
-  campaignConversionClick,
-  campaignStatusesEnum,
-} from 'models/enum/campaign.enum';
+import { Campaign, CampaignConversionItem, CampaignsConfig, CampaignTotals } from 'models/campaign.model';
+import { campaignConversionClick, campaignStatusesEnum } from 'models/enum/campaign.enum';
 import * as moment from 'moment';
 
 export const campaignsConfigInitialState: CampaignsConfig = {

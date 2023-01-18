@@ -34,16 +34,10 @@ import {
 import { SettingsService } from 'settings/settings.service';
 import { ApiAuthService } from '../../api/auth.service';
 import { Action } from '@ngrx/store';
-import {
-  ShowDialogOnError,
-  ShowSuccessSnackbar,
-} from 'store/common/common.actions';
+import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { CommonService } from 'common/common.service';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
-import {
-  DELETE_SUCCESS,
-  TRANSACTION_DELETE_SUCCESS,
-} from 'common/utilities/messages';
+import { DELETE_SUCCESS, TRANSACTION_DELETE_SUCCESS } from 'common/utilities/messages';
 
 @Injectable()
 export class SettingsEffects {
@@ -62,10 +56,8 @@ export class SettingsEffects {
           takeUntil(this.actions$.pipe(ofType(USER_LOG_OUT_SUCCESS))),
           switchMap(() =>
             this.authService.check().pipe(
-              map((user) => new GetCurrentBalanceSuccess(user)),
-              catchError((error) =>
-                observableOf(new GetCurrentBalanceFailure(error))
-              )
+              map(user => new GetCurrentBalanceSuccess(user)),
+              catchError(error => observableOf(new GetCurrentBalanceFailure(error)))
             )
           )
         )
@@ -76,23 +68,13 @@ export class SettingsEffects {
   getBillingHistory$ = createEffect(() =>
     this.actions$.pipe(
       ofType<GetBillingHistory>(GET_BILLING_HISTORY),
-      map((action) => action.payload),
-      switchMap((payload) =>
+      map(action => action.payload),
+      switchMap(payload =>
         this.service
-          .getBillingHistory(
-            payload.dateFrom,
-            payload.dateTo,
-            payload.types,
-            payload.limit,
-            payload.offset
-          )
+          .getBillingHistory(payload.dateFrom, payload.dateTo, payload.types, payload.limit, payload.offset)
           .pipe(
-            map(
-              (billingHistory) => new GetBillingHistorySuccess(billingHistory)
-            ),
-            catchError((error) =>
-              observableOf(new GetBillingHistoryFailure(error))
-            )
+            map(billingHistory => new GetBillingHistorySuccess(billingHistory)),
+            catchError(error => observableOf(new GetBillingHistoryFailure(error)))
           )
       )
     )
@@ -101,15 +83,13 @@ export class SettingsEffects {
   cancelAwaitingTransaction$ = createEffect(() =>
     this.actions$.pipe(
       ofType<CancelAwaitingTransaction>(CANCEL_AWAITING_TRANSACTION),
-      switchMap((action) =>
+      switchMap(action =>
         this.service.cancelAwaitingTransaction(action.payload).pipe(
           switchMap(() => [
             new CancelAwaitingTransactionSuccess(),
             new ShowSuccessSnackbar(TRANSACTION_DELETE_SUCCESS),
           ]),
-          catchError((error) =>
-            observableOf(new ShowDialogOnError(error.error.message || ''))
-          )
+          catchError(error => observableOf(new ShowDialogOnError(error.error.message || '')))
         )
       )
     )
@@ -120,14 +100,8 @@ export class SettingsEffects {
       ofType<GetAccessTokens>(GET_ACCESS_TOKENS),
       switchMap(() =>
         this.common.getAccessTokens().pipe(
-          map((accessTokens) => new GetAccessTokensSuccess(accessTokens)),
-          catchError((error) =>
-            observableOf(
-              new ShowDialogOnError(
-                `Token fetch failed. Error code: ${error.status}`
-              )
-            )
-          )
+          map(accessTokens => new GetAccessTokensSuccess(accessTokens)),
+          catchError(error => observableOf(new ShowDialogOnError(`Token fetch failed. Error code: ${error.status}`)))
         )
       )
     )
@@ -136,16 +110,10 @@ export class SettingsEffects {
   addAccessToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType<AddAccessToken>(ADD_ACCESS_TOKEN),
-      switchMap((action) =>
+      switchMap(action =>
         this.common.addAccessToken(action.payload).pipe(
-          map((accessToken) => new AddAccessTokenSuccess(accessToken)),
-          catchError((error) =>
-            observableOf(
-              new ShowDialogOnError(
-                `Token creation failed. Error code: ${error.status}`
-              )
-            )
-          )
+          map(accessToken => new AddAccessTokenSuccess(accessToken)),
+          catchError(error => observableOf(new ShowDialogOnError(`Token creation failed. Error code: ${error.status}`)))
         )
       )
     )
@@ -154,16 +122,10 @@ export class SettingsEffects {
   deleteAccessToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType<DeleteAccessToken>(DELETE_ACCESS_TOKEN),
-      switchMap((action) =>
+      switchMap(action =>
         this.common.deleteAccessToken(action.payload).pipe(
           map(() => new DeleteAccessTokenSuccess(action.payload)),
-          catchError((error) =>
-            observableOf(
-              new ShowDialogOnError(
-                `Token deletion failed. Error code: ${error.status}`
-              )
-            )
-          )
+          catchError(error => observableOf(new ShowDialogOnError(`Token deletion failed. Error code: ${error.status}`)))
         )
       )
     )
@@ -172,10 +134,10 @@ export class SettingsEffects {
   getRefLinks$ = createEffect(() =>
     this.actions$.pipe(
       ofType<GetRefLinks>(GET_REF_LINKS),
-      switchMap((action) =>
+      switchMap(action =>
         this.common.getRefLinks(action.payload.pageUrl).pipe(
-          map((refLinks) => new GetRefLinksSuccess(refLinks)),
-          catchError((error) => observableOf(new GetRefLinksFailure(error)))
+          map(refLinks => new GetRefLinksSuccess(refLinks)),
+          catchError(error => observableOf(new GetRefLinksFailure(error)))
         )
       )
     )
@@ -184,22 +146,15 @@ export class SettingsEffects {
   deleteRefLink$ = createEffect(() =>
     this.actions$.pipe(
       ofType<DeleteRefLink>(DELETE_REF_LINK),
-      switchMap((action) => {
+      switchMap(action => {
         const refLinkId = action.payload;
         return this.common.deleteRefLink(refLinkId).pipe(
-          switchMap(() => [
-            new DeleteRefLinkSuccess(refLinkId),
-            new ShowSuccessSnackbar(DELETE_SUCCESS),
-          ]),
-          catchError((error) => {
+          switchMap(() => [new DeleteRefLinkSuccess(refLinkId), new ShowSuccessSnackbar(DELETE_SUCCESS)]),
+          catchError(error => {
             if (HTTP_INTERNAL_SERVER_ERROR === error.status) {
               return [];
             }
-            return observableOf(
-              new ShowDialogOnError(
-                `Deletion failed. Error code: ${error.status}`
-              )
-            );
+            return observableOf(new ShowDialogOnError(`Deletion failed. Error code: ${error.status}`));
           })
         );
       })

@@ -14,10 +14,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './ref-link-editor.component.html',
   styleUrls: ['./ref-link-editor.component.scss'],
 })
-export class RefLinkEditorComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class RefLinkEditorComponent extends HandleSubscription implements OnInit {
   @Output() public refLinkSaved = new EventEmitter<RefLink>();
   currencyCode: string;
   refundEnabled: boolean;
@@ -48,10 +45,7 @@ export class RefLinkEditorComponent
     this.currencyCode = this.serverOptionsService.getOptions().displayCurrency;
 
     this.form = new FormGroup({
-      token: new FormControl(null, [
-        Validators.minLength(6),
-        Validators.maxLength(32),
-      ]),
+      token: new FormControl(null, [Validators.minLength(6), Validators.maxLength(32)]),
       comment: new FormControl(null),
       keptRefund: new FormControl(1.0, [Validators.min(0), Validators.max(1)]),
     });
@@ -64,17 +58,12 @@ export class RefLinkEditorComponent
       this.form.addControl('validUntil', this.validUntilControl);
       this.form.addControl('singleUse', new FormControl(false));
       this.form.addControl('bonus', new FormControl(null, [Validators.min(0)]));
-      this.form.addControl(
-        'refund',
-        new FormControl(null, [Validators.min(0), Validators.min(1)])
-      );
+      this.form.addControl('refund', new FormControl(null, [Validators.min(0), Validators.min(1)]));
       this.form.addControl('refundValidUntil', this.refundValidUntilControl);
-      const rolesSubscription = this.settings
-        .userRoles()
-        .subscribe((response) => {
-          const roles = response.defaultUserRoles.sort().join(',');
-          this.form.addControl('userRoles', new FormControl(roles));
-        });
+      const rolesSubscription = this.settings.userRoles().subscribe(response => {
+        const roles = response.defaultUserRoles.sort().join(',');
+        this.form.addControl('userRoles', new FormControl(roles));
+      });
       this.subscriptions.push(rolesSubscription);
     }
 
@@ -115,9 +104,7 @@ export class RefLinkEditorComponent
 
     this.showLoader = true;
     const refLink = this.form.getRawValue();
-    Object.keys(refLink).forEach(
-      (key) => refLink[key] == null && delete refLink[key]
-    );
+    Object.keys(refLink).forEach(key => refLink[key] == null && delete refLink[key]);
 
     if (refLink.refund) {
       refLink.refund /= 100.0;
@@ -129,19 +116,17 @@ export class RefLinkEditorComponent
       refLink.validUntil = moment(refLink.validUntil).endOf('day').format();
     }
     if (refLink.refundValidUntil) {
-      refLink.refundValidUntil = moment(refLink.refundValidUntil)
-        .endOf('day')
-        .format();
+      refLink.refundValidUntil = moment(refLink.refundValidUntil).endOf('day').format();
     }
 
     this.subscriptions.push(
       this.common.saveRefLink(refLink).subscribe(
-        (data) => {
+        data => {
           this.refLinkSaved.emit(data);
         },
-        (err) => {
+        err => {
           if (err.error.errors) {
-            Object.keys(err.error.errors).forEach((key) =>
+            Object.keys(err.error.errors).forEach(key =>
               this.form.get(key).setErrors({
                 custom: err.error.errors[key][0],
               })
