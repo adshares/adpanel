@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { CommonService } from 'common/common.service';
@@ -15,7 +15,7 @@ import { HandleSubscriptionComponent } from 'common/handle-subscription.componen
   styleUrls: ['./auth.component.scss'],
   animations: [fadeAnimation],
 })
-export class AuthComponent extends HandleSubscriptionComponent {
+export class AuthComponent extends HandleSubscriptionComponent implements OnInit {
   getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 
   advertiserInstructionLink = ADVERTISER_INSTRUCTION_LINK;
