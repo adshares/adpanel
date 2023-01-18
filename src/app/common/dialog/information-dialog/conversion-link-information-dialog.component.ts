@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AppState } from 'models/app-state.model';
 import { ShowSuccessSnackbar } from 'store/common/common.actions';
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './conversion-link-information-dialog.component.html',
   styleUrls: ['./conversion-link-information-dialog.component.scss'],
 })
-export class ConversionLinkInformationDialogComponent {
+export class ConversionLinkInformationDialogComponent implements OnInit {
   isAdvanced: boolean;
   link: string;
 
