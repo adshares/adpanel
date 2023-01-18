@@ -5,6 +5,7 @@ import { TooltipPosition } from '@angular/material/tooltip';
   selector: 'app-label',
   templateUrl: './labelWithTooltip.component.html',
   styleUrls: ['./labelWithTooltip.component.scss'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { class: 'app-label' },
 })
 export class LabelWithTooltipComponent {
