@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { environment } from 'environments/environment';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'info-page',
   templateUrl: './info-page.component.html',
   styleUrls: ['./info-page.component.scss'],

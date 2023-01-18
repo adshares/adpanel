@@ -5,6 +5,7 @@ import { AppState } from 'models/app-state.model';
 import { Info } from 'models/info.model';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'page-not-found',
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss'],
