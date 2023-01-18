@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import AdsWallet from '@adshares/ads-connector';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { SessionService } from '../../../session.service';
   templateUrl: './account-wallet-settings.component.html',
   styleUrls: ['./account-wallet-settings.component.scss'],
 })
-export class AccountWalletSettingsComponent extends HandleSubscription {
+export class AccountWalletSettingsComponent extends HandleSubscription implements OnInit {
   readonly ADSHARES_WALLET = ADSHARES_WALLET;
   readonly METAMASK_WALLET = METAMASK_WALLET;
   wallet: UserAdserverWallet;
