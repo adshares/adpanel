@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[clickOutside]',
 })
 export class ClickOutsideDirective {
