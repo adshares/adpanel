@@ -16,16 +16,12 @@ export class AccessTokenListItemComponent implements OnInit {
   @Input() accessToken: AccessTokenStore;
   scopes = '';
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog,
-    private store: Store<AppState>
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.scopes = (<AccessTokenScope[]>this.activatedRoute.snapshot.data.scopes)
-      .filter((scope) => this.accessToken.scopes.includes(scope.id))
-      .map((scope) => scope.description)
+      .filter(scope => this.accessToken.scopes.includes(scope.id))
+      .map(scope => scope.description)
       .join(', ');
   }
 
@@ -37,7 +33,7 @@ export class AccessTokenListItemComponent implements OnInit {
         },
       })
       .afterClosed()
-      .subscribe((result) => {
+      .subscribe(result => {
         if (result) {
           this.store.dispatch(new DeleteAccessToken(this.accessToken.id));
         }

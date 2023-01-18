@@ -19,10 +19,7 @@ import {
   ShowDialogOnError,
   ShowSuccessSnackbar,
 } from './common.actions';
-import {
-  UPDATE_CAMPAIGN_FAILURE,
-  UpdateCampaignFailure,
-} from 'store/advertiser/advertiser.actions';
+import { UPDATE_CAMPAIGN_FAILURE, UpdateCampaignFailure } from 'store/advertiser/advertiser.actions';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
@@ -47,13 +44,8 @@ export class CommonEffects {
           info: this.service.getInfo(),
           placeholders: this.service.getLoginPlaceholders(),
         }).pipe(
-          switchMap((result) => [
-            new LoadInfoSuccess(result.info),
-            new LoadPlaceholdersSuccess(result.placeholders),
-          ]),
-          catchError((error) =>
-            observableOf(new ShowDialogOnError(error.message))
-          )
+          switchMap(result => [new LoadInfoSuccess(result.info), new LoadPlaceholdersSuccess(result.placeholders)]),
+          catchError(error => observableOf(new ShowDialogOnError(error.message)))
         )
       )
     )
@@ -62,11 +54,8 @@ export class CommonEffects {
   handleErrors = createEffect(
     () =>
       this.actions$.pipe(
-        ofType<ShowDialogOnError | UpdateCampaignFailure>(
-          SHOW_DIALOG_ON_ERROR,
-          UPDATE_CAMPAIGN_FAILURE
-        ),
-        tap((action) => {
+        ofType<ShowDialogOnError | UpdateCampaignFailure>(SHOW_DIALOG_ON_ERROR, UPDATE_CAMPAIGN_FAILURE),
+        tap(action => {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Error occurred',
@@ -82,7 +71,7 @@ export class CommonEffects {
     () =>
       this.actions$.pipe(
         ofType<ShowSuccessSnackbar>(SHOW_SUCCESS_SNACKBAR),
-        tap((action) => {
+        tap(action => {
           this.snackBar.openFromComponent(SuccessSnackbarComponent, {
             data: `${action.payload}`,
             duration: 500,
@@ -95,20 +84,14 @@ export class CommonEffects {
   requestReport = createEffect(() =>
     this.actions$.pipe(
       ofType<RequestReport>(REQUEST_REPORT),
-      map((action) => action.payload),
-      switchMap((payload) =>
-        this.service
-          .report(payload.type, payload.dateStart, payload.dateEnd, payload.id)
-          .pipe(
-            map(() => new RequestReportSuccess()),
-            catchError(() =>
-              observableOf(
-                new ShowDialogOnError(
-                  'Report cannot be generated at this moment. Please try again later.'
-                )
-              )
-            )
+      map(action => action.payload),
+      switchMap(payload =>
+        this.service.report(payload.type, payload.dateStart, payload.dateEnd, payload.id).pipe(
+          map(() => new RequestReportSuccess()),
+          catchError(() =>
+            observableOf(new ShowDialogOnError('Report cannot be generated at this moment. Please try again later.'))
           )
+        )
       )
     )
   );
@@ -132,10 +115,7 @@ export class CommonEffects {
               },
             })
             .afterClosed()
-            .subscribe(
-              (result) =>
-                result && this.router.navigateByUrl('/settings/reports')
-            );
+            .subscribe(result => result && this.router.navigateByUrl('/settings/reports'));
         })
       ),
     { dispatch: false }

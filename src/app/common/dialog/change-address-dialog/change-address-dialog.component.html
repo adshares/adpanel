@@ -9,20 +9,16 @@
       [formGroup]="changeWithdrawAddressForm"
       (ngSubmit)="changeWithdrawAddress()"
       class="ap-form"
-      data-test="common-change-withdraw-address-form"
-    >
+      data-test="common-change-withdraw-address-form">
       <div class="ap-form-input__box">
-        <label for="user-address" class="ap-form-label">
-          Your wallet address
-        </label>
+        <label for="user-address" class="ap-form-label"> Your wallet address </label>
         <input
           id="user-address"
           class="ap-form-input ap-form-input--full"
           name="user-address"
           [value]="adsharesAddress"
           disabled
-          data-test="common-change-withdraw-address-form-address"
-        />
+          data-test="common-change-withdraw-address-form-address" />
         <span class="input-valid"></span>
       </div>
 
@@ -34,19 +30,9 @@
           type="url"
           name="address"
           formControlName="address"
-          data-test="common-change-withdraw-address-form-address-new"
-        />
-        <span
-          *ngIf="changeWithdrawAddressForm.get('address').valid"
-          class="input-valid"
-        ></span>
-        <span
-          class="error-msg"
-          *ngIf="
-            !changeWithdrawAddressForm.get('address').valid &&
-            changeAddressFormSubmitted
-          "
-        >
+          data-test="common-change-withdraw-address-form-address-new" />
+        <span *ngIf="changeWithdrawAddressForm.get('address').valid" class="input-valid"></span>
+        <span class="error-msg" *ngIf="!changeWithdrawAddressForm.get('address').valid && changeAddressFormSubmitted">
           Please provide a valid address.
         </span>
       </div>
@@ -55,22 +41,14 @@
         <button
           class="ap-btn ap-btn--primary"
           data-test="common-change-withdraw-address-form-submit-button"
-          *ngIf="isConfirmed"
-        >
+          *ngIf="isConfirmed">
           <span *ngIf="!isFormBeingSubmitted; else loading"> Save </span>
           <ng-template #loading>
-            <mat-spinner
-              [diameter]="20"
-              [strokeWidth]="2"
-              color="accent"
-            ></mat-spinner>
+            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
           </ng-template>
         </button>
 
-        <div
-          class="confirm-account-error-block error-msg col-xs-12"
-          *ngIf="!isConfirmed"
-        >
+        <div class="confirm-account-error-block error-msg col-xs-12" *ngIf="!isConfirmed">
           Confirm account to change address
         </div>
       </div>

@@ -15,16 +15,9 @@ import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import {
-  cloneDeep,
-  createInitialDataSet,
-  validCampaignBudget,
-} from 'common/utilities/helpers';
-import {
-  parseTargetingOptionsToArray,
-  processTargeting,
-} from 'common/components/targeting/targeting.helpers';
-import { HandleSubscription } from 'common/handle-subscription';
+import { cloneDeep, createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers';
+import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import {
@@ -53,10 +46,7 @@ import { faCalendar } from '@fortawesome/free-regular-svg-icons';
   templateUrl: './campaign-details.component.html',
   styleUrls: ['./campaign-details.component.scss'],
 })
-export class CampaignDetailsComponent
-  extends HandleSubscription
-  implements OnInit, OnDestroy
-{
+export class CampaignDetailsComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   campaignsConfig: CampaignsConfig;
   dataLoaded: boolean = false;
@@ -101,18 +91,9 @@ export class CampaignDetailsComponent
 
   get canActivateCampaign(): boolean {
     return (
-      this.currentCampaignStatus ===
-        this.campaignStatusesEnum[
-          this.campaignStatusesEnum.DRAFT
-        ].toLowerCase() ||
-      this.currentCampaignStatus ===
-        this.campaignStatusesEnum[
-          this.campaignStatusesEnum.SUSPENDED
-        ].toLowerCase() ||
-      this.currentCampaignStatus ===
-        this.campaignStatusesEnum[
-          this.campaignStatusesEnum.INACTIVE
-        ].toLowerCase()
+      this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.DRAFT].toLowerCase() ||
+      this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.SUSPENDED].toLowerCase() ||
+      this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.INACTIVE].toLowerCase()
     );
   }
 
@@ -133,34 +114,22 @@ export class CampaignDetailsComponent
 
     const chartFilterSubscription = this.store
       .select('state', 'common', 'chartFilterSettings')
-      .subscribe(
-        (chartFilterSettings: ChartFilterSettings) =>
-          (this.currentChartFilterSettings = chartFilterSettings)
-      );
+      .subscribe((chartFilterSettings: ChartFilterSettings) => (this.currentChartFilterSettings = chartFilterSettings));
 
     const campaignSubscription = this.store
       .select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
-        const selectedCampaign = campaigns.find(
-          (campaign) => campaign.id === id
-        );
+        const selectedCampaign = campaigns.find(campaign => campaign.id === id);
 
         if (undefined !== selectedCampaign) {
           this.campaign = cloneDeep(selectedCampaign);
-          this.currentCampaignStatus =
-            campaignStatusesEnum[
-              this.campaign.basicInformation.status
-            ].toLowerCase();
+          this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.updateTargeting();
           this.bidStrategyService
-            .getBidStrategyUuidDefault(
-              this.campaign.basicInformation.medium,
-              this.campaign.basicInformation.vendor
-            )
-            .subscribe((uuid) => {
-              this.isDefaultBidStrategy =
-                this.campaign.bidStrategy.uuid === uuid;
+            .getBidStrategyUuidDefault(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
+            .subscribe(uuid => {
+              this.isDefaultBidStrategy = this.campaign.bidStrategy.uuid === uuid;
             });
           this.prepareMediumLabel(this.campaign);
         }
@@ -179,27 +148,17 @@ export class CampaignDetailsComponent
         this.updateBudgetInfo();
       });
 
-    const userSubscription = this.store
-      .select('state', 'user', 'data')
-      .subscribe((user: User) => {
-        this.user = user;
-        this.updateBudgetInfo();
-      });
+    const userSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
+      this.user = user;
+      this.updateBudgetInfo();
+    });
 
     const refreshSubscription = timer(
       appSettings.AUTOMATIC_REFRESH_INTERVAL,
       appSettings.AUTOMATIC_REFRESH_INTERVAL
     ).subscribe(() => {
-      if (
-        this.currentChartFilterSettings &&
-        this.campaign &&
-        this.campaign.id
-      ) {
-        this.getChartData(
-          this.currentChartFilterSettings,
-          this.campaign.id,
-          false
-        );
+      if (this.currentChartFilterSettings && this.campaign && this.campaign.id) {
+        this.getChartData(this.currentChartFilterSettings, this.campaign.id, false);
       }
     });
 
@@ -214,21 +173,16 @@ export class CampaignDetailsComponent
   }
 
   private prepareMediumLabel(campaign: Campaign): void {
-    const medium =
-      this.route.snapshot.data.media[campaign.basicInformation.medium];
+    const medium = this.route.snapshot.data.media[campaign.basicInformation.medium];
     if (medium) {
       if (campaign.basicInformation.vendor === null) {
         this.mediumLabel = `${medium} campaign`;
         return;
       }
-      this.advertiserService
-        .getMediumVendors(campaign.basicInformation.medium)
-        .subscribe((vendors) => {
-          const vendor = vendors[campaign.basicInformation.vendor];
-          this.mediumLabel = vendor
-            ? `${medium} campaign in ${vendor}`
-            : `${medium} campaign`;
-        });
+      this.advertiserService.getMediumVendors(campaign.basicInformation.medium).subscribe(vendors => {
+        const vendor = vendors[campaign.basicInformation.vendor];
+        this.mediumLabel = vendor ? `${medium} campaign in ${vendor}` : `${medium} campaign`;
+      });
     }
   }
 
@@ -237,11 +191,7 @@ export class CampaignDetailsComponent
     if (!this.campaignsConfig || !this.campaign || !this.user) {
       return;
     }
-    const errors = validCampaignBudget(
-      this.campaignsConfig,
-      this.campaign,
-      this.user
-    );
+    const errors = validCampaignBudget(this.campaignsConfig, this.campaign, this.user);
     if (errors.length > 0) {
       this.budgetInfo = errors.join(' ');
     }
@@ -254,7 +204,7 @@ export class CampaignDetailsComponent
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.store.dispatch(new CloneCampaign(this.campaign.id));
       }
@@ -268,7 +218,7 @@ export class CampaignDetailsComponent
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.store.dispatch(new DeleteCampaign(this.campaign.id));
       }
@@ -284,25 +234,16 @@ export class CampaignDetailsComponent
     if (this.targeting.requires.length || this.targeting.excludes.length) {
       return;
     }
-    if (
-      Array.isArray(this.campaign.targeting.requires) &&
-      Array.isArray(this.campaign.targeting.excludes)
-    ) {
+    if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
       this.targeting = this.campaign.targeting as AssetTargeting;
     } else {
       this.advertiserService
-        .getMedium(
-          this.campaign.basicInformation.medium,
-          this.campaign.basicInformation.vendor
-        )
+        .getMedium(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
         .pipe(take(1))
         .subscribe(
-          (medium) => {
+          medium => {
             this.targetingOptions = processTargeting(medium);
-            this.targeting = parseTargetingOptionsToArray(
-              this.campaign.targeting,
-              this.targetingOptions
-            );
+            this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
           },
           () => (this.isTaxonomyMissing = true)
         );
@@ -324,7 +265,7 @@ export class CampaignDetailsComponent
         campaignId
       )
       .pipe(take(1))
-      .subscribe((data) => {
+      .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].label = chartFilterSettings.currentSeries.label;
         this.barChartLabels = mapDatesToChartLabels(data.timestamps);
@@ -334,14 +275,10 @@ export class CampaignDetailsComponent
       });
 
     this.advertiserService
-      .getCampaignConversionsStatistics(
-        chartFilterSettings.currentFrom,
-        chartFilterSettings.currentTo,
-        campaignId
-      )
+      .getCampaignConversionsStatistics(chartFilterSettings.currentFrom, chartFilterSettings.currentTo, campaignId)
       .pipe(take(1))
       .subscribe(
-        (data) => {
+        data => {
           this.conversionsStatistics = data;
           this.updateConversionTableItems();
         },
@@ -360,12 +297,7 @@ export class CampaignDetailsComponent
   }
 
   navigateToCampaignEdition(path: string): void {
-    this.router.navigate([
-      '/advertiser',
-      'edit-campaign',
-      this.campaign.id,
-      path,
-    ]);
+    this.router.navigate(['/advertiser', 'edit-campaign', this.campaign.id, path]);
   }
 
   onCampaignStatusChange() {
@@ -376,9 +308,7 @@ export class CampaignDetailsComponent
       status = this.campaignStatusesEnum.INACTIVE;
     }
 
-    this.store.dispatch(
-      new UpdateCampaignStatus({ id: this.campaign.id, status })
-    );
+    this.store.dispatch(new UpdateCampaignStatus({ id: this.campaign.id, status }));
   }
 
   downloadReport() {
@@ -402,12 +332,8 @@ export class CampaignDetailsComponent
     const campaignId = this.campaign.id;
     const statistics = this.conversionsStatistics;
 
-    this.conversionTableItems = this.campaign.conversions.map(function (
-      element
-    ) {
-      const statistic = statistics.find(
-        (item) => campaignId === item.campaignId && element.uuid === item.uuid
-      );
+    this.conversionTableItems = this.campaign.conversions.map(function (element) {
+      const statistic = statistics.find(item => campaignId === item.campaignId && element.uuid === item.uuid);
       const cost = statistic ? statistic.cost : 0;
       const occurrences = statistic ? statistic.occurrences : 0;
 

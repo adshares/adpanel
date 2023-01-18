@@ -4,18 +4,14 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { SettingsService } from 'settings/settings.service';
 import { AppState } from 'models/app-state.model';
 import { User, UserAdserverWallet } from 'models/user.model';
 
 import { adsToClicks, formatMoney } from 'common/utilities/helpers';
 import { appSettings } from 'app-settings';
-import {
-  BtcWithdrawInfo,
-  CalculateWithdrawalItem,
-  WithdrawalInfo,
-} from 'models/settings.model';
+import { BtcWithdrawInfo, CalculateWithdrawalItem, WithdrawalInfo } from 'models/settings.model';
 import * as codes from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { WithdrawFundsSuccess } from 'store/settings/settings.actions';
@@ -30,10 +26,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './withdraw-funds-dialog.component.html',
   styleUrls: ['./withdraw-funds-dialog.component.scss'],
 })
-export class WithdrawFundsDialogComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class WithdrawFundsDialogComponent extends HandleSubscriptionComponent implements OnInit {
   crypto: string = CRYPTO;
   code: string = CODE;
   btc: string = CRYPTO_BTC;
@@ -81,40 +74,31 @@ export class WithdrawFundsDialogComponent
     this.isConfirmed = this.user.isConfirmed;
     this.adserverWallet = this.user.adserverWallet;
 
-    const infoSubscription = this.api.config
-      .withdrawalInfo()
-      .subscribe((data: WithdrawalInfo) => {
-        this.btcInfo = data.btc;
+    const infoSubscription = this.api.config.withdrawalInfo().subscribe((data: WithdrawalInfo) => {
+      this.btcInfo = data.btc;
 
-        if (!this.user.email) {
-          if (
-            'ADS' === this.adserverWallet.walletNetwork ||
-            'BSC' === this.adserverWallet.walletNetwork
-          ) {
-            this.selectAdsWithdraw();
-            this.loadingInfo = false;
-          } else if (
-            'BTC' === this.adserverWallet.walletNetwork &&
-            null !== this.btcInfo
-          ) {
-            this.selectBtcWithdraw();
-            this.loadingInfo = false;
-          } else {
-            this.dialog.open(ErrorResponseDialogComponent, {
-              data: {
-                title: 'Withdraw wallet error',
-                message:
-                  'Unsupported wallet network. Please change wallet network or provide e-mail address.',
-              },
-            });
-          }
-        } else if (this.btcInfo === null) {
+      if (!this.user.email) {
+        if ('ADS' === this.adserverWallet.walletNetwork || 'BSC' === this.adserverWallet.walletNetwork) {
           this.selectAdsWithdraw();
           this.loadingInfo = false;
-        } else {
+        } else if ('BTC' === this.adserverWallet.walletNetwork && null !== this.btcInfo) {
+          this.selectBtcWithdraw();
           this.loadingInfo = false;
+        } else {
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: 'Withdraw wallet error',
+              message: 'Unsupported wallet network. Please change wallet network or provide e-mail address.',
+            },
+          });
         }
-      });
+      } else if (this.btcInfo === null) {
+        this.selectAdsWithdraw();
+        this.loadingInfo = false;
+      } else {
+        this.loadingInfo = false;
+      }
+    });
 
     this.subscriptions.push(infoSubscription);
   }
@@ -153,17 +137,12 @@ export class WithdrawFundsDialogComponent
   }
 
   onCalculateWithdrawalSuccess(response: CalculateWithdrawalItem): void {
-    this.withdrawForm
-      .get('amount')
-      .setValue(formatMoney(response.amount, 11, false, '.', ''));
+    this.withdrawForm.get('amount').setValue(formatMoney(response.amount, 11, false, '.', ''));
 
     this.calculatedFee = response.fee;
     this.calculatedTotal = response.total;
-    this.calculatedReceive =
-      response.amount !== response.receive ? response.receive : undefined;
-    this.calculatedLeft = this.adserverWallet
-      ? this.adserverWallet.walletBalance - response.total
-      : undefined;
+    this.calculatedReceive = response.amount !== response.receive ? response.receive : undefined;
+    this.calculatedLeft = this.adserverWallet ? this.adserverWallet.walletBalance - response.total : undefined;
   }
 
   calculateAdsFee(): void {
@@ -174,13 +153,9 @@ export class WithdrawFundsDialogComponent
     }
 
     this.settingsService
-      .calculateWithdrawal(
-        this.withdrawForm.value.address,
-        adsToClicks(this.withdrawForm.value.amount)
-      )
+      .calculateWithdrawal(this.withdrawForm.value.address, adsToClicks(this.withdrawForm.value.amount))
       .subscribe(
-        (response: CalculateWithdrawalItem) =>
-          this.onCalculateWithdrawalSuccess(response),
+        (response: CalculateWithdrawalItem) => this.onCalculateWithdrawalSuccess(response),
         (err: HttpErrorResponse) => this.onCalculateWithdrawalError(err)
       );
   }
@@ -189,26 +164,18 @@ export class WithdrawFundsDialogComponent
     this.isFormBeingSubmitted = false;
     this.adsWithdrawFormSubmitted = false;
     this.addressError = false;
-    this.withdrawForm = this.useBtcWithdraw
-      ? this.createBtcForm()
-      : this.createAdsForm();
+    this.withdrawForm = this.useBtcWithdraw ? this.createBtcForm() : this.createAdsForm();
   }
 
   createAdsForm(): FormGroup {
-    let address =
-      'ADS' === this.adserverWallet.walletNetwork
-        ? this.adserverWallet.walletAddress
-        : '';
+    let address = 'ADS' === this.adserverWallet.walletNetwork ? this.adserverWallet.walletAddress : '';
     if ('BSC' === this.adserverWallet.walletNetwork) {
       address = this.adserverWallet.walletAddress;
     }
     return new FormGroup(
       {
         address: this.user.email
-          ? new FormControl(address, [
-              Validators.required,
-              Validators.pattern(appSettings.ADDRESS_REGEXP),
-            ])
+          ? new FormControl(address, [Validators.required, Validators.pattern(appSettings.ADDRESS_REGEXP)])
           : new FormControl(address),
         amount: new FormControl('', [Validators.required]),
         memo: new FormControl('', Validators.pattern('[0-9a-fA-F]{1,64}')),
@@ -227,16 +194,10 @@ export class WithdrawFundsDialogComponent
   }
 
   createBtcForm(): FormGroup {
-    const address =
-      'BTC' === this.adserverWallet.walletNetwork
-        ? this.adserverWallet.walletAddress
-        : '';
+    const address = 'BTC' === this.adserverWallet.walletNetwork ? this.adserverWallet.walletAddress : '';
     return new FormGroup({
       address: this.user.email
-        ? new FormControl(address, [
-            Validators.required,
-            Validators.pattern(appSettings.BTC_ADDRESS_REGEXP),
-          ])
+        ? new FormControl(address, [Validators.required, Validators.pattern(appSettings.BTC_ADDRESS_REGEXP)])
         : new FormControl(address),
       amount: new FormControl('', [
         Validators.required,
@@ -267,9 +228,7 @@ export class WithdrawFundsDialogComponent
       .withdrawFunds(
         this.withdrawForm.value.address,
         adsToClicks(this.withdrawForm.value.amount),
-        this.withdrawForm.value.memo
-          ? this.withdrawForm.value.memo.padStart(64, '0')
-          : '',
+        this.withdrawForm.value.memo ? this.withdrawForm.value.memo.padStart(64, '0') : '',
         this.useBtcWithdraw ? 'BTC' : 'ADS'
       )
       .subscribe(
@@ -292,21 +251,15 @@ export class WithdrawFundsDialogComponent
       this.addressError = true;
       return;
     }
-    this.settingsService
-      .calculateWithdrawal(this.withdrawForm.get('address').value)
-      .subscribe(
-        (response: CalculateWithdrawalItem) =>
-          this.onCalculateWithdrawalSuccess(response),
-        (err) => this.onCalculateWithdrawalError(err)
-      );
+    this.settingsService.calculateWithdrawal(this.withdrawForm.get('address').value).subscribe(
+      (response: CalculateWithdrawalItem) => this.onCalculateWithdrawalSuccess(response),
+      err => this.onCalculateWithdrawalError(err)
+    );
   }
 
   getMaxBtcWithdrawAmount() {
     const amount = formatMoney(
-      Math.min(
-        this.adserverWallet.walletBalance,
-        1e11 * this.btcInfo.maxAmount
-      ),
+      Math.min(this.adserverWallet.walletBalance, 1e11 * this.btcInfo.maxAmount),
       11,
       false,
       '.',

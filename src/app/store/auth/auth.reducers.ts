@@ -1,17 +1,10 @@
 import * as authActions from './auth.actions';
 import { userInitialState } from 'models/initial-state/user';
-import {
-  GET_CURRENT_BALANCE_SUCCESS,
-  GET_CURRENT_BALANCE_FAILURE,
-  actions,
-} from 'store/settings/settings.actions';
+import { GET_CURRENT_BALANCE_SUCCESS, GET_CURRENT_BALANCE_FAILURE, actions } from 'store/settings/settings.actions';
 
 const initialState = userInitialState;
 
-export function authReducers(
-  state = initialState,
-  action: authActions.actions | actions
-) {
+export function authReducers(state = initialState, action: authActions.actions | actions) {
   switch (action.type) {
     case authActions.SET_USER_SUCCESS:
       return {

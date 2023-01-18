@@ -1,7 +1,4 @@
-import {
-  TargetingOption,
-  TargetingOptionValue,
-} from 'models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 
 const SEPARATOR = '/';
 
@@ -29,9 +26,7 @@ function excludeSiteDomain(targetingOptions: TargetingOption[]): void {
   for (let i = 0; i < targetingOptions.length; i++) {
     const entry = targetingOptions[i];
     if (entry.key === 'site') {
-      const index = entry.children.findIndex(
-        (option) => option.key === 'domain'
-      );
+      const index = entry.children.findIndex(option => option.key === 'domain');
       if (index !== -1) {
         if (entry.children.length > 1) {
           entry.children.splice(index, 1);
@@ -44,10 +39,7 @@ function excludeSiteDomain(targetingOptions: TargetingOption[]): void {
   }
 }
 
-function prepareCustomOption(
-  value: string,
-  parentId: string
-): TargetingOptionValue {
+function prepareCustomOption(value: string, parentId: string): TargetingOptionValue {
   return {
     id: `${parentId}${SEPARATOR}${value}`,
     label: value,

@@ -1,7 +1,4 @@
-import {
-  TargetingOption,
-  TargetingOptionValue,
-} from 'models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { CampaignTargeting } from 'models/campaign.model';
 
 export interface TargetingConverter {
@@ -34,10 +31,7 @@ export interface TargetingConverter {
    * @param targetingObject targeting object from backend
    * @param targetingOptionValues selected targeting options
    */
-  convertSelectedTargetingOptionValues(
-    targetingObject: object,
-    targetingOptionValues: TargetingOptionValue[]
-  ): void;
+  convertSelectedTargetingOptionValues(targetingObject: object, targetingOptionValues: TargetingOptionValue[]): void;
 
   /**
    * Process targeting object for backend, e.g. add default values if missing, change paths

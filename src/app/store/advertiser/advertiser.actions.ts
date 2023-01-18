@@ -1,25 +1,17 @@
 import { Action } from '@ngrx/store';
-import {
-  Ad,
-  Campaign,
-  CampaignBasicInformation,
-  CampaignsConfig,
-  CampaignTotalsResponse,
-} from 'models/campaign.model';
+import { Ad, Campaign, CampaignBasicInformation, CampaignsConfig, CampaignTotalsResponse } from 'models/campaign.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const CLEAR_LAST_EDITED_CAMPAIGN = 'Last edited campaign cleared';
 export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
-export const SAVE_CAMPAIGN_BASIC_INFORMATION =
-  'Basic Campaign Information saved';
+export const SAVE_CAMPAIGN_BASIC_INFORMATION = 'Basic Campaign Information saved';
 export const SAVE_CAMPAIGN_TARGETING = 'Campaign targeting information saved';
 export const SAVE_CAMPAIGN_ADS = 'Campaign ads saved';
 export const SAVE_CONVERSION = 'Save conversion';
 
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
-export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS =
-  'Campaign added to user campaigns success';
+export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
 
 export const LOAD_CAMPAIGNS = 'Campaigns loading';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loading success';
@@ -49,8 +41,7 @@ export const UPDATE_CAMPAIGN_STATUS = 'Update campaign status';
 export const UPDATE_CAMPAIGN_STATUS_SUCCESS = 'Update campaign status success';
 
 export const ACTIVATE_OUTDATED_CAMPAIGN = 'Activate outdated campaign';
-export const ACTIVATE_OUTDATED_CAMPAIGN_SUCCESS =
-  ACTIVATE_OUTDATED_CAMPAIGN + ' success';
+export const ACTIVATE_OUTDATED_CAMPAIGN_SUCCESS = ACTIVATE_OUTDATED_CAMPAIGN + ' success';
 
 export const CLONE_CAMPAIGN = 'Clone campaign';
 export const CLONE_CAMPAIGN_SUCCESS = 'Clone campaign success';
@@ -206,9 +197,7 @@ export class LoadCampaignsConfigFailure implements Action {
 export class LoadCampaignsTotals implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS;
 
-  constructor(
-    public payload: TimespanFilter | { currentFrom: string; currentTo: string }
-  ) {}
+  constructor(public payload: TimespanFilter | { currentFrom: string; currentTo: string }) {}
 }
 
 export class LoadCampaignsTotalsSuccess implements Action {

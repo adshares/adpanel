@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent extends HandleSubscription {
+export class UsersComponent extends HandleSubscriptionComponent {
   constructor() {
     super();
   }
@@ -29,16 +29,10 @@ export class UsersComponent extends HandleSubscription {
   ];
 
   onTabClick() {
-    const localStorageQueryParamsForUsers = JSON.parse(
-      localStorage.getItem('usersQueryParams')
-    );
-    const localStorageQueryParamsForPublishers = JSON.parse(
-      localStorage.getItem('publishersQueryParams')
-    );
-    const localStorageQueryParamsForAdvertisers = JSON.parse(
-      localStorage.getItem('advertisersQueryParams')
-    );
-    this.links.forEach((link) => {
+    const localStorageQueryParamsForUsers = JSON.parse(localStorage.getItem('usersQueryParams'));
+    const localStorageQueryParamsForPublishers = JSON.parse(localStorage.getItem('publishersQueryParams'));
+    const localStorageQueryParamsForAdvertisers = JSON.parse(localStorage.getItem('advertisersQueryParams'));
+    this.links.forEach(link => {
       if (link.label === 'Users') {
         link.queryParams = localStorageQueryParamsForUsers;
       } else if (link.label === 'Publishers') {

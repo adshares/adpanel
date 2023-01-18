@@ -14,10 +14,7 @@ import { GetRefLinks } from 'store/settings/settings.actions';
   templateUrl: './ref-link-settings.component.html',
   styleUrls: ['./ref-link-settings.component.scss'],
 })
-export class RefLinkSettingsComponent
-  extends BaseListComponent
-  implements OnInit
-{
+export class RefLinkSettingsComponent extends BaseListComponent implements OnInit {
   refundEnabled: boolean;
   defaultRefundCommission: number;
   createIcon = faPlus;
@@ -38,36 +35,30 @@ export class RefLinkSettingsComponent
     this.isImpersonated = this.session.isImpersonated();
     this.refundEnabled = user.referralRefundEnabled;
     this.defaultRefundCommission = user.referralRefundCommission;
-    const dataSubscription = this.store
-      .select('state', 'user', 'settings', 'refLinks')
-      .subscribe((refLinks) => {
-        this.list = refLinks;
-        this.pageSize = refLinks.perPage;
-        if (refLinks.data.length < refLinks.perPage) {
-          if (refLinks.currentPage < refLinks.lastPage) {
-            const url = refLinks.links.find((link) => link.active).url;
-            this.store.dispatch(new GetRefLinks({ pageUrl: url }));
+    const dataSubscription = this.store.select('state', 'user', 'settings', 'refLinks').subscribe(refLinks => {
+      this.list = refLinks;
+      this.pageSize = refLinks.perPage;
+      if (refLinks.data.length < refLinks.perPage) {
+        if (refLinks.currentPage < refLinks.lastPage) {
+          const url = refLinks.links.find(link => link.active).url;
+          this.store.dispatch(new GetRefLinks({ pageUrl: url }));
+          return;
+        } else {
+          if (0 === refLinks.data.length && refLinks.prevPageUrl !== null) {
+            this.store.dispatch(new GetRefLinks({ pageUrl: refLinks.prevPageUrl }));
             return;
-          } else {
-            if (0 === refLinks.data.length && refLinks.prevPageUrl !== null) {
-              this.store.dispatch(
-                new GetRefLinks({ pageUrl: refLinks.prevPageUrl })
-              );
-              return;
-            }
           }
         }
-        this.isLoading = false;
-      });
+      }
+      this.isLoading = false;
+    });
     this.subscriptions.push(dataSubscription);
     this.loadList();
   }
 
   create(): void {
     const dialog = this.dialog.open(RefLinkEditorDialogComponent, {});
-    dialog.componentInstance.refLinkSaved.subscribe((_refLink) =>
-      this.loadList()
-    );
+    dialog.componentInstance.refLinkSaved.subscribe(_refLink => this.loadList());
   }
 
   get defaultQueryParams(): object {

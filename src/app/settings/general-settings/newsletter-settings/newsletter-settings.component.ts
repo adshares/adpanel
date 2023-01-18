@@ -4,7 +4,7 @@ import { take } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
 import { SettingsService } from 'settings/settings.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { User } from 'models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
@@ -16,10 +16,7 @@ import { SessionService } from '../../../session.service';
   templateUrl: './newsletter-settings.component.html',
   styleUrls: ['./newsletter-settings.component.scss'],
 })
-export class NewsletterSettingsComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class NewsletterSettingsComponent extends HandleSubscriptionComponent implements OnInit {
   isSubscribed: boolean = false;
   isSettingDisabled: boolean = true;
   isImpersonated: boolean = false;
@@ -51,7 +48,7 @@ export class NewsletterSettingsComponent
       () => {
         this.isSettingDisabled = false;
       },
-      (error) => {
+      error => {
         if (error.status !== HTTP_INTERNAL_SERVER_ERROR) {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {

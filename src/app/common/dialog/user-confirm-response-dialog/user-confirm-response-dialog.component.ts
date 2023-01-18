@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 /**
@@ -24,7 +24,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './user-confirm-response-dialog.component.html',
   styleUrls: ['./user-confirm-response-dialog.component.scss'],
 })
-export class UserConfirmResponseDialogComponent {
+export class UserConfirmResponseDialogComponent implements OnInit {
   title = 'Confirm';
   message = 'Do You confirm?';
 
@@ -34,8 +34,7 @@ export class UserConfirmResponseDialogComponent {
   ) {}
 
   ngOnInit() {
-    this.message =
-      this.data && this.data.message ? this.data.message : this.message;
+    this.message = this.data && this.data.message ? this.data.message : this.message;
     this.title = this.data && this.data.title ? this.data.title : this.title;
   }
 }

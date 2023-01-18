@@ -1,10 +1,6 @@
 import { ChartOptions } from 'chart.js';
 import { ChartComponent } from 'common/components/chart/chart.component';
-import {
-  currencySymbolByCode,
-  formatMoney,
-  formatNumberWithComma,
-} from 'common/utilities/helpers';
+import { currencySymbolByCode, formatMoney, formatNumberWithComma } from 'common/utilities/helpers';
 import { advChartSeriesEnum, pubChartSeriesEnum } from 'models/enum/chart.enum';
 
 export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
@@ -17,15 +13,12 @@ export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
         intersect: false,
         enabled: false,
         callbacks: {
-          label: (context) => {
+          label: context => {
             let label = context.dataset.label || '';
             if (label) {
               label += ': ';
             }
-            label +=
-              Math.round(
-                Number(context.dataset.data[context.dataIndex]) * 100
-              ) / 100;
+            label += Math.round(Number(context.dataset.data[context.dataIndex]) * 100) / 100;
             return label;
           },
         },
@@ -50,26 +43,19 @@ export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
           // Set Text
           if (tooltipModel.body) {
             const titleLines = tooltipModel.title || [];
-            const bodyLines = tooltipModel.body.map(
-              (bodyItem) => bodyItem.lines
-            );
+            const bodyLines = tooltipModel.body.map(bodyItem => bodyItem.lines);
 
             let innerHtml = '<thead>';
-            titleLines.forEach((title) => {
-              innerHtml +=
-                '<tr><th class="chartjs-tooltip__title">' +
-                title +
-                '</th></tr>';
+            titleLines.forEach(title => {
+              innerHtml += '<tr><th class="chartjs-tooltip__title">' + title + '</th></tr>';
             });
             innerHtml += '</thead><tbody>';
 
-            bodyLines.forEach((bodyLine) => {
+            bodyLines.forEach(bodyLine => {
               const value = bodyLine[0].split(': ')[1];
               innerHtml +=
                 '<tr><td><span>' +
-                formatNumberWithComma(
-                  adjustTooltipValueFormat(value, currencyCode)
-                ) +
+                formatNumberWithComma(adjustTooltipValueFormat(value, currencyCode)) +
                 '</span></td></tr>';
             });
             innerHtml += '</tbody>';
@@ -120,11 +106,10 @@ export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
       y: {
         beginAtZero: true,
         grid: {
-          color: (_context) => '#eff2f4',
+          color: _context => '#eff2f4',
         },
         ticks: {
-          callback: (value, _index, _values) =>
-            adjustYAxesTics(value, currencyCode),
+          callback: (value, _index, _values) => adjustYAxesTics(value, currencyCode),
           color: '#9c9c9c',
           font: {
             size: 16,
@@ -146,10 +131,7 @@ export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
   };
 };
 
-const adjustTooltipValueFormat = (
-  value: string,
-  currencyCode: string
-): string => {
+const adjustTooltipValueFormat = (value: string, currencyCode: string): string => {
   const type = ChartComponent.seriesType;
 
   switch (type) {
@@ -179,9 +161,7 @@ const adjustYAxesTics = (value, currencyCode: string) => {
     case pubChartSeriesEnum.sumHour:
     case pubChartSeriesEnum.rpm:
       const val = parseInt(value);
-      return `${currencySymbolByCode(currencyCode)}${
-        val > 0 ? formatMoney(val, 2) : 0
-      }`;
+      return `${currencySymbolByCode(currencyCode)}${val > 0 ? formatMoney(val, 2) : 0}`;
     default:
       return `${value}`;
   }

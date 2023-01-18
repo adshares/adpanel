@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
 import { SessionService } from 'app/session.service';
@@ -16,7 +16,7 @@ import { GET_ADS_FAQ, WITHDRAW_ADS_FAQ } from 'models/enum/link.enum';
   templateUrl: './user-wallet.component.html',
   styleUrls: ['./user-wallet.component.scss'],
 })
-export class UserWalletComponent extends HandleSubscription implements OnInit {
+export class UserWalletComponent extends HandleSubscriptionComponent implements OnInit {
   getAdsFaqLink = GET_ADS_FAQ;
   withdrawAdsFaqLink = WITHDRAW_ADS_FAQ;
   wallet: UserAdserverWallet;

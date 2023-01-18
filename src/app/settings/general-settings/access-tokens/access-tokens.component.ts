@@ -41,17 +41,15 @@ export class AccessTokensComponent extends BaseListComponent implements OnInit {
     const token = {
       ...this.newTokenForm.value,
       scopes: Object.entries(this.newTokenForm.value.scopes)
-        .filter((value) => value[1])
-        .map((value) => value[0]),
+        .filter(value => value[1])
+        .map(value => value[0]),
     };
 
-    this.action$
-      .pipe(ofType<AddAccessTokenSuccess>(ADD_ACCESS_TOKEN_SUCCESS), first())
-      .subscribe((action) => {
-        this.dialog.open(AccessTokenDialogComponent, {
-          data: action.payload.accessToken,
-        });
+    this.action$.pipe(ofType<AddAccessTokenSuccess>(ADD_ACCESS_TOKEN_SUCCESS), first()).subscribe(action => {
+      this.dialog.open(AccessTokenDialogComponent, {
+        data: action.payload.accessToken,
       });
+    });
 
     this.store.dispatch(new AddAccessToken(token));
   }
@@ -60,10 +58,7 @@ export class AccessTokensComponent extends BaseListComponent implements OnInit {
     this.availableScopes = this.activatedRoute.snapshot.data.scopes || [];
 
     const scopesControls = {};
-    this.availableScopes.forEach(
-      (availableScope) =>
-        (scopesControls[availableScope.id] = new FormControl())
-    );
+    this.availableScopes.forEach(availableScope => (scopesControls[availableScope.id] = new FormControl()));
 
     this.newTokenForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -72,7 +67,7 @@ export class AccessTokensComponent extends BaseListComponent implements OnInit {
 
     const accessTokensSubscription = this.store
       .select('state', 'user', 'settings', 'accessTokens')
-      .subscribe((accessTokens) => {
+      .subscribe(accessTokens => {
         this.list = accessTokens;
         this.pageSize = accessTokens.length;
         this.isLoading = false;
@@ -86,7 +81,7 @@ export class AccessTokensComponent extends BaseListComponent implements OnInit {
     return {};
   }
 
-  loadList(nextPage?): void {
+  loadList(_nextPage?): void {
     this.isLoading = true;
     this.store.dispatch(new GetAccessTokens());
   }

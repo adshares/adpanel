@@ -71,12 +71,4 @@ interface CommonState {
   placeholders: Placeholders;
 }
 
-export {
-  AppState,
-  UserState,
-  AdvertiserState,
-  PublisherState,
-  SettingsState,
-  AdminState,
-  CommonState,
-};
+export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState };

@@ -7,12 +7,7 @@ import { Action, Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
-import {
-  Campaign,
-  CampaignConversion,
-  CampaignConversionItem,
-  CampaignsConfig,
-} from 'models/campaign.model';
+import { Campaign, CampaignConversion, CampaignConversionItem, CampaignsConfig } from 'models/campaign.model';
 import { campaignConversionItemInitialState } from 'models/initial-state/campaign';
 import {
   ClearLastEditedCampaign,
@@ -23,18 +18,11 @@ import {
 } from 'store/advertiser/advertiser.actions';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
-import {
-  ShowDialogOnError,
-  ShowSuccessSnackbar,
-} from 'store/common/common.actions';
-import {
-  adsToClicks,
-  clicksToAds,
-  formatMoney,
-} from 'common/utilities/helpers';
+import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
+import { adsToClicks, clicksToAds, formatMoney } from 'common/utilities/helpers';
 import { campaignConversionClick } from 'models/enum/campaign.enum';
 import { CustomValidators } from 'common/utilities/forms';
 import { ServerOptionsService } from 'common/server-options.service';
@@ -44,10 +32,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './edit-campaign-conversion.component.html',
   styleUrls: ['./edit-campaign-conversion.component.scss'],
 })
-export class EditCampaignConversionComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditCampaignConversionComponent extends HandleSubscriptionComponent implements OnInit {
   currencyCode: string;
   readonly TYPE_ADVANCED: string = 'advanced';
   readonly TYPE_BASIC: string = 'basic';
@@ -109,15 +94,11 @@ export class EditCampaignConversionComponent
   }
 
   get conversionItemFormsAdvanced(): FormGroup[] {
-    return this.conversionItemForms.filter(
-      (form) => form.get('isAdvanced').value
-    );
+    return this.conversionItemForms.filter(form => form.get('isAdvanced').value);
   }
 
   get conversionItemFormsBasic(): FormGroup[] {
-    return this.conversionItemForms.filter(
-      (form) => !form.get('isAdvanced').value
-    );
+    return this.conversionItemForms.filter(form => !form.get('isAdvanced').value);
   }
 
   updateCampaignConversion(): void {
@@ -136,27 +117,25 @@ export class EditCampaignConversionComponent
     };
     this.store.dispatch(new SaveConversion(this.campaign));
 
-    this.action$
-      .pipe(ofType(UPDATE_CAMPAIGN_SUCCESS, UPDATE_CAMPAIGN_FAILURE), first())
-      .subscribe((action: Action) => {
-        this.submitted = false;
-        if (action.type === UPDATE_CAMPAIGN_SUCCESS) {
-          this.conversionItemForms.forEach((item) => item.markAsPristine());
-          this.conversionItemForms.forEach((item) => item.markAsUntouched());
-          this.advertiserService
-            .getCampaign(this.campaign.id)
-            .pipe(first())
-            .subscribe(
-              (data) => {
-                this.campaign = data.campaign;
-                this.adjustConversionData(this.campaign.conversions);
-              },
-              (error) => {
-                this.store.dispatch(new ShowDialogOnError(error.code));
-              }
-            );
-        }
-      });
+    this.action$.pipe(ofType(UPDATE_CAMPAIGN_SUCCESS, UPDATE_CAMPAIGN_FAILURE), first()).subscribe((action: Action) => {
+      this.submitted = false;
+      if (action.type === UPDATE_CAMPAIGN_SUCCESS) {
+        this.conversionItemForms.forEach(item => item.markAsPristine());
+        this.conversionItemForms.forEach(item => item.markAsUntouched());
+        this.advertiserService
+          .getCampaign(this.campaign.id)
+          .pipe(first())
+          .subscribe(
+            data => {
+              this.campaign = data.campaign;
+              this.adjustConversionData(this.campaign.conversions);
+            },
+            error => {
+              this.store.dispatch(new ShowDialogOnError(error.code));
+            }
+          );
+      }
+    });
   }
 
   get isConversionClickAdvanced(): boolean {
@@ -165,31 +144,28 @@ export class EditCampaignConversionComponent
 
   get isFormValid(): boolean {
     this.validateAdvancedValueControl();
-    return this.conversionItemForms.every((item) => item.valid);
+    return this.conversionItemForms.every(item => item.valid);
   }
 
   validateAdvancedValueControl() {
     const elementsWithError = this.conversionItemForms.filter(
-      (el) =>
-        el.controls.isAdvanced.value &&
-        !!el.controls.isValueMutable.value === false &&
-        !el.controls.value.value
+      el => el.controls.isAdvanced.value && !!el.controls.isValueMutable.value === false && !el.controls.value.value
     );
     const validElements = this.conversionItemForms.filter(
-      (el) =>
+      el =>
         el.controls.isAdvanced.value &&
         !!el.controls.isValueMutable.value === true &&
         el.controls.value.status === 'INVALID'
     );
 
     if (elementsWithError) {
-      elementsWithError.forEach((el) => {
+      elementsWithError.forEach(el => {
         el.controls.value.setErrors({ required: true });
       });
     }
 
     if (validElements) {
-      validElements.forEach((el) => {
+      validElements.forEach(el => {
         el.controls.value.setErrors(null);
       });
     }
@@ -199,9 +175,7 @@ export class EditCampaignConversionComponent
     const itemUuid = item.uuid;
     const itemIsAdvanced = item.isAdvanced;
 
-    const valueValidators = [
-      CustomValidators.minOrZero(clicksToAds(this.campaignsConfig.minCpa)),
-    ];
+    const valueValidators = [CustomValidators.minOrZero(clicksToAds(this.campaignsConfig.minCpa))];
     if (!itemIsAdvanced) {
       valueValidators.push(Validators.required);
     }
@@ -226,19 +200,15 @@ export class EditCampaignConversionComponent
   }
 
   get conversionsToSave(): CampaignConversion[] {
-    return this.conversionItemForms.map((form) => {
+    return this.conversionItemForms.map(form => {
       const value = form.get('value').value;
 
       return <CampaignConversion>{
         uuid: form.get('uuid').value,
         name: form.get('name').value,
-        limitType: form.get('isInBudget').value
-          ? this.BUDGET_TYPE_IN
-          : this.BUDGET_TYPE_OUT,
+        limitType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
-        type: form.get('isAdvanced').value
-          ? this.TYPE_ADVANCED
-          : this.TYPE_BASIC,
+        type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
         value: value !== null ? adsToClicks(parseFloat(value)) : null,
         isValueMutable: form.get('isValueMutable').value,
         isRepeatable: form.get('isRepeatable').value,
@@ -248,7 +218,7 @@ export class EditCampaignConversionComponent
 
   adjustConversionData(conversions) {
     this.conversionItemForms = [];
-    conversions.forEach((conversion) => {
+    conversions.forEach(conversion => {
       const item = {
         uuid: conversion.uuid,
         name: conversion.name,
@@ -257,10 +227,7 @@ export class EditCampaignConversionComponent
         isInBudget: conversion.limitType !== this.BUDGET_TYPE_OUT,
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
-        value:
-          conversion.value !== null
-            ? formatMoney(conversion.value, 11, true, '.', '')
-            : null,
+        value: conversion.value !== null ? formatMoney(conversion.value, 11, true, '.', '') : null,
         link: conversion.link,
       };
       this.addConversion(item);
@@ -322,10 +289,7 @@ export class EditCampaignConversionComponent
     let listIndexTemporary = -1;
 
     for (; mainListIndex < this.conversionItemForms.length; mainListIndex++) {
-      if (
-        this.conversionItemForms[mainListIndex].get('isAdvanced').value ===
-        isAdvancedList
-      ) {
+      if (this.conversionItemForms[mainListIndex].get('isAdvanced').value === isAdvancedList) {
         listIndexTemporary++;
       }
 

@@ -1,11 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { take, debounceTime } from 'rxjs/operators';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { PublisherService } from 'publisher/publisher.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
@@ -21,10 +17,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './site-code-dialog.component.html',
   styleUrls: ['./site-code-dialog.component.scss'],
 })
-export class SiteCodeDialogComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class SiteCodeDialogComponent extends HandleSubscriptionComponent implements OnInit {
   private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 500;
   faCode = faCode;
 
@@ -57,10 +50,7 @@ export class SiteCodeDialogComponent
       minCpm: new FormControl(0.5),
       isAdBlock: new FormControl(false),
       isFallback: new FormControl(false),
-      fallbackRate: new FormControl(50, [
-        Validators.min(0),
-        Validators.max(100),
-      ]),
+      fallbackRate: new FormControl(50, [Validators.min(0), Validators.max(100)]),
       popCount: new FormControl(1, [Validators.required, Validators.min(1)]),
       popInterval: new FormControl(1, [Validators.required, Validators.min(1)]),
       popBurst: new FormControl(1, [Validators.required, Validators.min(1)]),
@@ -68,20 +58,15 @@ export class SiteCodeDialogComponent
 
     this.currencyCode = this.serverOptionsService.getOptions().displayCurrency;
 
-    const minCpmSubscription = this.codeForm
-      .get('isMinCpm')
-      .valueChanges.subscribe((isMinCpm) => {
-        const minCpmControl = this.codeForm.get('minCpm');
-        if (isMinCpm) {
-          minCpmControl.setValidators([
-            Validators.required,
-            Validators.min(0.0001),
-          ]);
-        } else {
-          minCpmControl.clearValidators();
-        }
-        minCpmControl.updateValueAndValidity();
-      });
+    const minCpmSubscription = this.codeForm.get('isMinCpm').valueChanges.subscribe(isMinCpm => {
+      const minCpmControl = this.codeForm.get('minCpm');
+      if (isMinCpm) {
+        minCpmControl.setValidators([Validators.required, Validators.min(0.0001)]);
+      } else {
+        minCpmControl.clearValidators();
+      }
+      minCpmControl.updateValueAndValidity();
+    });
     this.subscriptions.push(minCpmSubscription);
 
     const codeFormSubscription = this.codeForm.valueChanges
@@ -93,11 +78,9 @@ export class SiteCodeDialogComponent
       });
     this.subscriptions.push(codeFormSubscription);
 
-    const userDataSubscription = this.store
-      .select('state', 'user', 'data')
-      .subscribe((user: User) => {
-        this.isUserConfirmed = user.isConfirmed;
-      });
+    const userDataSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
+      this.isUserConfirmed = user.isConfirmed;
+    });
     this.subscriptions.push(userDataSubscription);
 
     this.updateCodes();
@@ -110,7 +93,7 @@ export class SiteCodeDialogComponent
       .getSiteCodes(this.siteId, this.getCodeOptions())
       .pipe(take(1))
       .subscribe(
-        (response) => {
+        response => {
           this.codes = response.codes;
           this.loadingInfo = false;
           setTimeout(() => this.onChangeTextArea(), 0);
@@ -178,9 +161,7 @@ export class SiteCodeDialogComponent
         },
       })
       .afterClosed()
-      .subscribe(
-        (result) => result && this.codeForm.get('isProxy').setValue(true)
-      );
+      .subscribe(result => result && this.codeForm.get('isProxy').setValue(true));
   }
 
   onChangeTextArea(): void {

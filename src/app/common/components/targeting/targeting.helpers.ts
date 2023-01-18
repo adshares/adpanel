@@ -9,15 +9,9 @@ import { Medium, TargetingItem } from 'models/taxonomy-medium.model';
 import { CampaignTargeting } from 'models/campaign.model';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter';
-import {
-  createPathObject,
-  prepareCustomOption,
-  SEPARATOR,
-} from 'common/components/targeting/targeting.helpers2';
+import { createPathObject, prepareCustomOption, SEPARATOR } from 'common/components/targeting/targeting.helpers2';
 
-export function prepareFilteringChoices(
-  options: (TargetingOption | TargetingOptionValue)[]
-): TargetingOption[] {
+export function prepareFilteringChoices(options: (TargetingOption | TargetingOptionValue)[]): TargetingOption[] {
   const result = [];
 
   for (let option of options) {
@@ -42,11 +36,7 @@ function createFilteringChoice(
     key += option['key'];
   }
   const id = option['value'] ? `${key}${SEPARATOR}${option['value']}` : key;
-  const choiceSublistName = option['children']
-    ? 'children'
-    : option['values']
-    ? 'values'
-    : null;
+  const choiceSublistName = option['children'] ? 'children' : option['values'] ? 'values' : null;
 
   Object.assign(targetingChoice, { id });
 
@@ -54,9 +44,7 @@ function createFilteringChoice(
     const targetingChoiceSublist = [];
 
     for (let targetingChoiceSublistItem of targetingChoice[choiceSublistName]) {
-      targetingChoiceSublist.push(
-        createFilteringChoice(targetingChoiceSublistItem, key, targetingChoice)
-      );
+      targetingChoiceSublist.push(createFilteringChoice(targetingChoiceSublistItem, key, targetingChoice));
     }
 
     Object.assign(targetingChoice[choiceSublistName], targetingChoiceSublist);
@@ -90,7 +78,7 @@ export function processTargeting(medium: Medium): TargetingOption[] {
     const children = [];
     const targetingItems = medium.targeting[rootNode.key] as TargetingItem[];
 
-    targetingItems.forEach((item) => {
+    targetingItems.forEach(item => {
       const id = `${rootNode.key}${SEPARATOR}${item.name}`;
       const option: TargetingOption = {
         valueType: TargetingOptionType.STRING,
@@ -126,14 +114,10 @@ export function processTargeting(medium: Medium): TargetingOption[] {
   return result;
 }
 
-function processTargetingItems(
-  items: object,
-  parentId: string,
-  baseId?: string
-): TargetingOptionValue[] {
+function processTargetingItems(items: object, parentId: string, baseId?: string): TargetingOptionValue[] {
   const result = [];
   const currentBaseId = baseId === undefined ? parentId : baseId;
-  Object.keys(items).forEach((key) => {
+  Object.keys(items).forEach(key => {
     const id = `${currentBaseId}${SEPARATOR}${key}`;
 
     const option: TargetingOptionValue = {
@@ -143,11 +127,7 @@ function processTargetingItems(
       parentId: parentId,
     };
     if (typeof items[key] !== 'string') {
-      option.values = processTargetingItems(
-        items[key].values,
-        id,
-        currentBaseId
-      );
+      option.values = processTargetingItems(items[key].values, id, currentBaseId);
     }
     result.push(option);
   });
@@ -180,7 +160,7 @@ export function findOption(
 ): TargetingOption | TargetingOptionValue {
   const optionList = findOptionList(optionId, options);
 
-  return optionList && optionList.find((option) => optionId === option.id);
+  return optionList && optionList.find(option => optionId === option.id);
 }
 
 export function getPathAndLabel(
@@ -196,48 +176,33 @@ export function getPathAndLabel(
     } else {
       pathChain.unshift(option.label);
     }
-  } while (
-    option.parentId &&
-    (option = findOption(option.parentId, targeting))
-  );
+  } while (option.parentId && (option = findOption(option.parentId, targeting)));
 
-  return [pathChain, labelChain].map((array) => array.join(' / '));
+  return [pathChain, labelChain].map(array => array.join(' / '));
 }
 
-export function parseTargetingForBackend(
-  chosenTargeting: AssetTargeting,
-  vendor?: string | null
-): CampaignTargeting {
+export function parseTargetingForBackend(chosenTargeting: AssetTargeting, vendor?: string | null): CampaignTargeting {
   const parsedTargeting: CampaignTargeting = {
     requires: {},
     excludes: {},
   };
 
-  [chosenTargeting.requires, chosenTargeting.excludes].forEach(
-    (targetingList, index) => {
-      targetingList.forEach((targeting) => {
-        const suffix = `${SEPARATOR}${targeting.value}`;
+  [chosenTargeting.requires, chosenTargeting.excludes].forEach((targetingList, index) => {
+    targetingList.forEach(targeting => {
+      const suffix = `${SEPARATOR}${targeting.value}`;
 
-        if (targeting.id.endsWith(suffix)) {
-          const keyPartials = targeting.id
-            .slice(0, -suffix.length)
-            .split(SEPARATOR);
-          const parsedTargetingList =
-            index === 0 ? parsedTargeting.requires : parsedTargeting.excludes;
-          createPathObject(parsedTargetingList, keyPartials, targeting.value);
-        }
-      });
-    }
-  );
+      if (targeting.id.endsWith(suffix)) {
+        const keyPartials = targeting.id.slice(0, -suffix.length).split(SEPARATOR);
+        const parsedTargetingList = index === 0 ? parsedTargeting.requires : parsedTargeting.excludes;
+        createPathObject(parsedTargetingList, keyPartials, targeting.value);
+      }
+    });
+  });
 
   if (vendor === DecentralandConverter.ID) {
-    new DecentralandConverter().prepareCampaignTargetingForBackend(
-      parsedTargeting
-    );
+    new DecentralandConverter().prepareCampaignTargetingForBackend(parsedTargeting);
   } else if (vendor === CryptovoxelsConverter.ID) {
-    new CryptovoxelsConverter().prepareCampaignTargetingForBackend(
-      parsedTargeting
-    );
+    new CryptovoxelsConverter().prepareCampaignTargetingForBackend(parsedTargeting);
   }
 
   return parsedTargeting;
@@ -251,16 +216,8 @@ export function parseTargetingOptionsToArray(
   const excludesResult = [];
 
   if (targetingObject) {
-    addTargetingOptionToResult(
-      targetingObject.requires,
-      requiresResult,
-      targetingOptions
-    );
-    addTargetingOptionToResult(
-      targetingObject.excludes,
-      excludesResult,
-      targetingOptions
-    );
+    addTargetingOptionToResult(targetingObject.requires, requiresResult, targetingOptions);
+    addTargetingOptionToResult(targetingObject.excludes, excludesResult, targetingOptions);
   }
 
   return {
@@ -270,7 +227,7 @@ export function parseTargetingOptionsToArray(
 }
 
 function targetingNeedsConversion(targetingOptions: any[], id: string) {
-  return targetingOptions.some((option) => option.key === id);
+  return targetingOptions.some(option => option.key === id);
 }
 
 function addTargetingOptionToResult(
@@ -279,19 +236,12 @@ function addTargetingOptionToResult(
   targetingOptions: any[],
   parent: TargetingOption | TargetingOptionValue = undefined
 ): void {
-  Object.keys(targetingObject).forEach((key) => {
+  Object.keys(targetingObject).forEach(key => {
     if (typeof targetingObject[key] === 'object') {
       const id = parent ? `${parent.id}${SEPARATOR}${key}` : key;
-      const option = targetingOptions.find(
-        (targetingOption) => targetingOption.id === id
-      );
+      const option = targetingOptions.find(targetingOption => targetingOption.id === id);
       if (option) {
-        addTargetingOptionToResult(
-          targetingObject[key],
-          result,
-          option.children || option.values,
-          option
-        );
+        addTargetingOptionToResult(targetingObject[key], result, option.children || option.values, option);
       }
     } else {
       const value = targetingObject[key];
@@ -310,17 +260,9 @@ function addTargetingOptionToResult(
   });
   if (!parent) {
     if (targetingNeedsConversion(targetingOptions, DecentralandConverter.ID)) {
-      new DecentralandConverter().convertSelectedTargetingOptionValues(
-        targetingObject,
-        result
-      );
-    } else if (
-      targetingNeedsConversion(targetingOptions, CryptovoxelsConverter.ID)
-    ) {
-      new CryptovoxelsConverter().convertSelectedTargetingOptionValues(
-        targetingObject,
-        result
-      );
+      new DecentralandConverter().convertSelectedTargetingOptionValues(targetingObject, result);
+    } else if (targetingNeedsConversion(targetingOptions, CryptovoxelsConverter.ID)) {
+      new CryptovoxelsConverter().convertSelectedTargetingOptionValues(targetingObject, result);
     }
   }
 }
@@ -335,10 +277,7 @@ function getTargetingOptionValueById(
     }
 
     if (targetingOptionValue.values) {
-      const value = getTargetingOptionValueById(
-        id,
-        targetingOptionValue.values
-      );
+      const value = getTargetingOptionValueById(id, targetingOptionValue.values);
       if (null !== value) {
         return value;
       }

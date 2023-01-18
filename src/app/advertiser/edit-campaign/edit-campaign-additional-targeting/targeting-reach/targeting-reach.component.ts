@@ -4,7 +4,7 @@ import { AssetTargeting } from 'models/targeting-option.model';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { Subject, Subscription } from 'rxjs';
 import { take, debounceTime } from 'rxjs/operators';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { mapToIterable } from 'common/utilities/helpers';
 
 @Component({
@@ -12,7 +12,7 @@ import { mapToIterable } from 'common/utilities/helpers';
   templateUrl: './targeting-reach.component.html',
   styleUrls: ['./targeting-reach.component.scss'],
 })
-export class TargetingReach extends HandleSubscription implements OnChanges {
+export class TargetingReachComponent extends HandleSubscriptionComponent implements OnChanges {
   @Input() ads: Ad[];
   @Input() autoCpm: boolean = false;
   @Input() cpm: number = 0;
@@ -43,9 +43,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.ads) {
-      this.sizes = changes.ads.currentValue.map(
-        (element) => element.creativeSize
-      );
+      this.sizes = changes.ads.currentValue.map(element => element.creativeSize);
     }
     if (changes.targeting) {
       this.isLoading = true;
@@ -65,19 +63,16 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
       .getTargetingReach(this.sizes, this.targeting, this.vendor)
       .pipe(take(1))
       .subscribe(
-        (response) => {
+        response => {
           if (response.occurrences && response.cpmPercentiles) {
             this.occurrencesMaximum = response.occurrences;
             this.impressionsAndCpm = mapToIterable(response.cpmPercentiles)
               .sort((a, b) => parseInt(b.key) - parseInt(a.key))
-              .map((element) => ({
+              .map(element => ({
                 key: Math.round((element.key / 100) * this.occurrencesMaximum),
                 value: Math.round(element.value / 1e9) * 1e9,
               }))
-              .filter(
-                (element, index, array) =>
-                  index === 0 || element.value !== array[index - 1].value
-              )
+              .filter((element, index, array) => index === 0 || element.value !== array[index - 1].value)
               .reverse();
           } else {
             this.occurrencesMaximum = null;
@@ -95,9 +90,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
     if (null !== this.occurrencesMaximum) {
       let impressions;
       const index = this.impressionsAndCpm.findIndex(
-        (element) =>
-          element.key >= this.PRESENTED_REACH_THRESHOLD &&
-          element.value / 1e11 > this.cpm
+        element => element.key >= this.PRESENTED_REACH_THRESHOLD && element.value / 1e11 > this.cpm
       );
 
       if (index !== -1 && !this.autoCpm) {

@@ -4,13 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
-import {
-  BillingHistory,
-  CalculateWithdrawalItem,
-  Invoice,
-  UserRoles,
-  WalletToken,
-} from 'models/settings.model';
+import { BillingHistory, CalculateWithdrawalItem, Invoice, UserRoles, WalletToken } from 'models/settings.model';
 import { User } from 'models/user.model';
 
 @Injectable()
@@ -43,10 +37,7 @@ export class SettingsService {
     }
 
     return this.http
-      .get(
-        `${environment.apiUrl}/wallet/history?` +
-          httpParams.toString().replace(/\+/gi, '%2B')
-      )
+      .get(`${environment.apiUrl}/wallet/history?` + httpParams.toString().replace(/\+/gi, '%2B'))
       .pipe(map((billingHistory: BillingHistory) => billingHistory));
   }
 
@@ -63,22 +54,11 @@ export class SettingsService {
     });
   }
 
-  calculateWithdrawal(
-    to: string,
-    amount?: number
-  ): Observable<CalculateWithdrawalItem> {
-    return this.http.post<CalculateWithdrawalItem>(
-      `${environment.apiUrl}/calculate-withdrawal`,
-      { to, amount }
-    );
+  calculateWithdrawal(to: string, amount?: number): Observable<CalculateWithdrawalItem> {
+    return this.http.post<CalculateWithdrawalItem>(`${environment.apiUrl}/calculate-withdrawal`, { to, amount });
   }
 
-  withdrawFunds(
-    to: string,
-    amount: number,
-    memo: string,
-    currency: string = 'ADS'
-  ) {
+  withdrawFunds(to: string, amount: number, memo: string, currency: string = 'ADS') {
     return this.http.post(`${environment.apiUrl}/wallet/withdraw`, {
       currency,
       to,
@@ -87,11 +67,7 @@ export class SettingsService {
     });
   }
 
-  changeEmail(
-    email: string,
-    UriStep1: string,
-    UriStep2: string
-  ): Observable<User | null> {
+  changeEmail(email: string, UriStep1: string, UriStep2: string): Observable<User | null> {
     return this.http.post<User | null>(`${environment.authUrl}/email`, {
       email,
       UriStep1,
@@ -110,9 +86,7 @@ export class SettingsService {
   }
 
   cancelAwaitingTransaction(id: number): Observable<any> {
-    return this.http.delete<any>(
-      `${environment.apiUrl}/wallet/cancel-withdrawal/${id}`
-    );
+    return this.http.delete<any>(`${environment.apiUrl}/wallet/cancel-withdrawal/${id}`);
   }
 
   saveInvoice(invoice: object): Observable<Invoice> {
@@ -122,47 +96,28 @@ export class SettingsService {
   }
 
   initConnectWallet(): Observable<WalletToken> {
-    return this.http.get<WalletToken>(
-      `${environment.apiUrl}/wallet/connect/init`
-    );
+    return this.http.get<WalletToken>(`${environment.apiUrl}/wallet/connect/init`);
   }
 
-  connectWallet(
-    network: string,
-    address: string,
-    token: string,
-    signature: string
-  ): Observable<User | null> {
-    return this.http.patch<User | null>(
-      `${environment.apiUrl}/wallet/connect`,
-      {
-        network,
-        address,
-        token,
-        signature,
-        uri: '/auth/connection-confirmation/',
-      }
-    );
+  connectWallet(network: string, address: string, token: string, signature: string): Observable<User | null> {
+    return this.http.patch<User | null>(`${environment.apiUrl}/wallet/connect`, {
+      network,
+      address,
+      token,
+      signature,
+      uri: '/auth/connection-confirmation/',
+    });
   }
 
   confirmConnectWallet(token: string): Observable<User> {
-    return this.http.post<User>(
-      `${environment.apiUrl}/wallet/connect/confirm/${token}`,
-      {}
-    );
+    return this.http.post<User>(`${environment.apiUrl}/wallet/connect/confirm/${token}`, {});
   }
 
   changeAutoWithdrawal(autoWithdrawal: number | null): Observable<User> {
-    return this.http.patch<User>(
-      `${environment.apiUrl}/wallet/auto-withdrawal`,
-      { autoWithdrawal }
-    );
+    return this.http.patch<User>(`${environment.apiUrl}/wallet/auto-withdrawal`, { autoWithdrawal });
   }
 
   userRoles(): Observable<UserRoles> {
-    return this.http.get<UserRoles>(
-      `${environment.apiUrl}/options/server/default-user-roles`,
-      {}
-    );
+    return this.http.get<UserRoles>(`${environment.apiUrl}/options/server/default-user-roles`, {});
   }
 }

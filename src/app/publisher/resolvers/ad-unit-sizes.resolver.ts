@@ -11,9 +11,9 @@ export class AdUnitSizesResolver implements Resolve<AdUnitMetaData[]> {
 
   resolve(): Observable<AdUnitMetaData[]> {
     return this.publisherService.getAdUnitSizes().pipe(
-      map((metaDataArray) =>
+      map(metaDataArray =>
         metaDataArray.map(
-          (metaData) =>
+          metaData =>
             <AdUnitMetaData>{
               ...metaData,
               tags: this.TAGS_BY_SIZE[metaData.size] || ['Other'],

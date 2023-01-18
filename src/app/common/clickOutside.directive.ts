@@ -1,12 +1,7 @@
-import {
-  Directive,
-  ElementRef,
-  Output,
-  EventEmitter,
-  HostListener,
-} from '@angular/core';
+import { Directive, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[clickOutside]',
 })
 export class ClickOutsideDirective {
@@ -21,8 +16,7 @@ export class ClickOutsideDirective {
       return;
     }
 
-    const clickedInside =
-      this._elementRef.nativeElement.contains(targetElement);
+    const clickedInside = this._elementRef.nativeElement.contains(targetElement);
     if (!clickedInside) {
       this.clickOutside.emit(event);
     }

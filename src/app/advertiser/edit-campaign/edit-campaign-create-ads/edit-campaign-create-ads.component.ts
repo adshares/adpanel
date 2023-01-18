@@ -13,15 +13,9 @@ import {
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import {
-  adCreativeTypes,
-  adStatusesEnum,
-  fileTypes,
-  validHtmlTypes,
-  validModelTypes,
-} from 'models/enum/ad.enum';
+import { adCreativeTypes, adStatusesEnum, fileTypes, validHtmlTypes, validModelTypes } from 'models/enum/ad.enum';
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { HTTP_REQUEST_ENTITY_TOO_LARGE } from 'common/utilities/codes';
 import { cloneDeep, cutDirectAdSizeAnchor } from 'common/utilities/helpers';
 import { Ad, Campaign } from 'models/campaign.model';
@@ -54,10 +48,7 @@ interface UploadingFile {
   templateUrl: './edit-campaign-create-ads.component.html',
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
-export class EditCampaignCreateAdsComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditCampaignCreateAdsComponent extends HandleSubscriptionComponent implements OnInit {
   readonly ADSHARES_UNITS = ADSHARES_UNITS;
   readonly WIKI_HTML_AD = WIKI_HTML_AD;
   readonly adCreativeTypes = adCreativeTypes;
@@ -101,40 +92,31 @@ export class EditCampaignCreateAdsComponent
 
   ngOnInit(): void {
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
-    const subscription =
-      this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
+    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
     subscription && this.subscriptions.push(subscription);
     const lastCampaignSubscription = this.store
       .select('state', 'advertiser', 'lastEditedCampaign')
       .pipe(first())
-      .subscribe((campaign) => {
+      .subscribe(campaign => {
         this.campaign = campaign;
-        const campaignNameFilled =
-          this.assetHelpers.redirectIfNameNotFilled(campaign);
+        const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(campaign);
         if (!campaignNameFilled) {
           this.changesSaved = true;
           return;
         }
 
         this.advertiserService
-          .getMedium(
-            campaign.basicInformation.medium,
-            campaign.basicInformation.vendor
-          )
+          .getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
           .pipe(take(1))
-          .subscribe((medium) => {
+          .subscribe(medium => {
             const supportedTypes = Object.values(adCreativeTypes);
-            this.formats = medium.formats.filter((format) =>
-              supportedTypes.includes(format.type)
-            );
-            this.adTypes = this.formats.map((format) => format.type);
+            this.formats = medium.formats.filter(format => supportedTypes.includes(format.type));
+            this.adTypes = this.formats.map(format => format.type);
 
             const savedAds = campaign.ads;
             if (savedAds.length > 0) {
               savedAds.forEach((savedAd, index) => {
-                this.adForms.push(
-                  this.generateFormField(savedAd, this.isEditMode)
-                );
+                this.adForms.push(this.generateFormField(savedAd, this.isEditMode));
                 this.ads.push(cloneDeep(savedAd));
                 this.adPanelsStatus[index] = false;
               });
@@ -161,10 +143,7 @@ export class EditCampaignCreateAdsComponent
 
   private getAdInitialState(): Ad {
     const type = this.adTypes[0];
-    const size =
-      type === adCreativeTypes.HTML || type === adCreativeTypes.DIRECT
-        ? this.getAdSizes(type)[0]
-        : null;
+    const size = type === adCreativeTypes.HTML || type === adCreativeTypes.DIRECT ? this.getAdSizes(type)[0] : null;
     return {
       id: 0,
       status: adStatusesEnum.ACTIVE,
@@ -205,26 +184,18 @@ export class EditCampaignCreateAdsComponent
         disabled: disabledMode,
       }),
       creativeContents: new FormControl(
-        cutDirectAdSizeAnchor(
-          ad.creativeContents || this.campaign.basicInformation.targetUrl
-        )
+        cutDirectAdSizeAnchor(ad.creativeContents || this.campaign.basicInformation.targetUrl)
       ),
       status: new FormControl(ad.status),
     });
 
     if (EditCampaignCreateAdsComponent.isUploadAdType(type)) {
       formGroup.addControl('fileName', new FormControl(ad.name));
-      formGroup.addControl(
-        'fileSrc',
-        new FormControl(ad.url || '', Validators.required)
-      );
+      formGroup.addControl('fileSrc', new FormControl(ad.url || '', Validators.required));
     } else {
       formGroup
         .get('creativeContents')
-        .setValidators([
-          Validators.required,
-          Validators.pattern(appSettings.TARGET_URL_REGEXP),
-        ]);
+        .setValidators([Validators.required, Validators.pattern(appSettings.TARGET_URL_REGEXP)]);
     }
 
     formGroup.updateValueAndValidity();
@@ -251,16 +222,13 @@ export class EditCampaignCreateAdsComponent
 
     if (this.isHtmlTypeChosen(form)) {
       const sizeFromName = file.name.match(/[0-9]+x[0-9]+/);
-      if (
-        null !== sizeFromName &&
-        this.getAdSizes(adCreativeTypes.HTML).includes(sizeFromName[0])
-      ) {
+      if (null !== sizeFromName && this.getAdSizes(adCreativeTypes.HTML).includes(sizeFromName[0])) {
         form.get('creativeSize').setValue(sizeFromName[0]);
       }
     }
 
-    this.imagesStatus.validation.forEach((validation) =>
-      Object.keys(validation).forEach((key) => (validation[key] = true))
+    this.imagesStatus.validation.forEach(validation =>
+      Object.keys(validation).forEach(key => (validation[key] = true))
     );
 
     if (event.target) {
@@ -296,9 +264,7 @@ export class EditCampaignCreateAdsComponent
     if (adType === adCreativeTypes.MODEL) {
       return validModelTypes.includes(mimeType);
     }
-    const allowedMimeTypes = this.formats.find(
-      (format) => format.type === adType
-    ).mimes;
+    const allowedMimeTypes = this.formats.find(format => format.type === adType).mimes;
     return allowedMimeTypes.includes(mimeType);
   }
 
@@ -334,8 +300,7 @@ export class EditCampaignCreateAdsComponent
         name = `${name} ${form.get('creativeSize').value}`;
       }
       const matchingNames = this.adForms.filter(
-        (adForm) =>
-          adForm.get('name').value && adForm.get('name').value.includes(name)
+        adForm => adForm.get('name').value && adForm.get('name').value.includes(name)
       );
       if (matchingNames.length > 0) {
         name = `${name} ${matchingNames.length}`;
@@ -374,46 +339,40 @@ export class EditCampaignCreateAdsComponent
     if (null !== form.get('creativeSize').value) {
       data.append('scope', form.get('creativeSize').value);
     }
-    const uploadBannerSubscription = this.advertiserService
-      .uploadBanner(data)
-      .subscribe(
-        (event) => {
-          if (event.type === 1) {
-            this.imagesStatus.upload.processing = true;
-            this.imagesStatus.upload.progress = Math.round(
-              (event.loaded / event.total) * 100
-            );
-          } else {
-            this.imagesStatus.upload.processing = false;
-            this.uploader.queue.pop();
+    const uploadBannerSubscription = this.advertiserService.uploadBanner(data).subscribe(
+      event => {
+        if (event.type === 1) {
+          this.imagesStatus.upload.processing = true;
+          this.imagesStatus.upload.progress = Math.round((event.loaded / event.total) * 100);
+        } else {
+          this.imagesStatus.upload.processing = false;
+          this.uploader.queue.pop();
 
-            if (!event.body) {
-              return;
-            }
-            this.ads[adIndex] = {
-              ...this.ads[adIndex],
-              url: event.body.url,
-            };
-            if (this.isImageTypeChosen(form)) {
-              this.selectProperImageBannerSize(form, event.body.size);
-            } else if (this.isVideoTypeChosen(form)) {
-              form.get('creativeSize').setValue(event.body.size);
-            } else if (this.isModelTypeChosen(form)) {
-              form.get('creativeSize').setValue(event.body.size || 'cube');
-            }
-            form.get('fileName').setValue(file.name);
-            form.get('fileSrc').setValue(event.body.url);
+          if (!event.body) {
+            return;
           }
-        },
-        (error) =>
-          this.store.dispatch(
-            new ShowDialogOnError(
-              error.error.code === HTTP_REQUEST_ENTITY_TOO_LARGE
-                ? 'Payload too large'
-                : error.error.message
-            )
+          this.ads[adIndex] = {
+            ...this.ads[adIndex],
+            url: event.body.url,
+          };
+          if (this.isImageTypeChosen(form)) {
+            this.selectProperImageBannerSize(form, event.body.size);
+          } else if (this.isVideoTypeChosen(form)) {
+            form.get('creativeSize').setValue(event.body.size);
+          } else if (this.isModelTypeChosen(form)) {
+            form.get('creativeSize').setValue(event.body.size || 'cube');
+          }
+          form.get('fileName').setValue(file.name);
+          form.get('fileSrc').setValue(event.body.url);
+        }
+      },
+      error =>
+        this.store.dispatch(
+          new ShowDialogOnError(
+            error.error.code === HTTP_REQUEST_ENTITY_TOO_LARGE ? 'Payload too large' : error.error.message
           )
-      );
+        )
+    );
     this.subscriptions.push(uploadBannerSubscription);
   }
 
@@ -447,15 +406,11 @@ export class EditCampaignCreateAdsComponent
     } else {
       adForm
         .get('creativeContents')
-        .setValidators([
-          Validators.required,
-          Validators.pattern(appSettings.TARGET_URL_REGEXP),
-        ]);
+        .setValidators([Validators.required, Validators.pattern(appSettings.TARGET_URL_REGEXP)]);
     }
 
     const initialCreativeSize =
-      adTypeName === adCreativeTypes.HTML ||
-      adTypeName === adCreativeTypes.DIRECT
+      adTypeName === adCreativeTypes.HTML || adTypeName === adCreativeTypes.DIRECT
         ? this.getAdSizes(adTypeName)[0]
         : null;
     adForm.get('creativeSize').setValue(initialCreativeSize);
@@ -470,15 +425,13 @@ export class EditCampaignCreateAdsComponent
   }
 
   getAdSizes(adType: string): string[] {
-    const scopes = this.formats.find((format) => format.type === adType).scopes;
+    const scopes = this.formats.find(format => format.type === adType).scopes;
 
     if (adType === adCreativeTypes.HTML) {
       return Object.keys(scopes).sort((a, b) => {
-        const sizesA = a.split('x').map((val) => parseInt(val));
-        const sizesB = b.split('x').map((val) => parseInt(val));
-        return sizesA[0] === sizesB[0]
-          ? sizesA[1] - sizesB[1]
-          : sizesA[0] - sizesB[0];
+        const sizesA = a.split('x').map(val => parseInt(val));
+        const sizesB = b.split('x').map(val => parseInt(val));
+        return sizesA[0] === sizesB[0] ? sizesA[1] - sizesB[1] : sizesA[0] - sizesB[0];
       });
     }
 
@@ -495,10 +448,8 @@ export class EditCampaignCreateAdsComponent
     });
 
     const adsValid =
-      this.adForms.every((adForm) => adForm.valid) &&
-      this.imagesStatus.validation.every(
-        (validation) => validation.size && validation.type
-      );
+      this.adForms.every(adForm => adForm.valid) &&
+      this.imagesStatus.validation.every(validation => validation.size && validation.type);
 
     if (adsValid) {
       this.campaign = {
@@ -523,13 +474,9 @@ export class EditCampaignCreateAdsComponent
   }
 
   removeNewAd(adIndex: number): void {
-    [
-      this.adForms,
-      this.ads,
-      this.adPanelsStatus,
-      this.imagesStatus.overDrop,
-      this.imagesStatus.validation,
-    ].forEach((list) => list.splice(adIndex, 1));
+    [this.adForms, this.ads, this.adPanelsStatus, this.imagesStatus.overDrop, this.imagesStatus.validation].forEach(
+      list => list.splice(adIndex, 1)
+    );
   }
 
   onStepBack(): void {
@@ -537,11 +484,7 @@ export class EditCampaignCreateAdsComponent
       this.store.dispatch(new ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     } else {
-      this.router.navigate([
-        '/advertiser',
-        'create-campaign',
-        'additional-targeting',
-      ]);
+      this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting']);
     }
   }
 
@@ -567,12 +510,8 @@ export class EditCampaignCreateAdsComponent
 
   getSupportedFiles(form: FormGroup): string {
     const adType = form.get('type').value;
-    const mimeTypes = this.formats.find(
-      (format) => format.type === adType
-    ).mimes;
-    const extensions = mimeTypes
-      .map((mimeType) => fileTypes[mimeType] || false)
-      .filter((mimeType) => mimeType);
+    const mimeTypes = this.formats.find(format => format.type === adType).mimes;
+    const extensions = mimeTypes.map(mimeType => fileTypes[mimeType] || false).filter(mimeType => mimeType);
     if (extensions.length > 1) {
       extensions[extensions.length - 2] += ` and ${extensions.pop()}`;
     }

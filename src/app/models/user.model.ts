@@ -51,10 +51,4 @@ interface LocalStorageUser extends User {
   expiration: number;
 }
 
-export {
-  OAuthAuthorizeResponse,
-  UserAdserverWallet,
-  User,
-  LocalStorageUser,
-  ExchangeRate,
-};
+export { OAuthAuthorizeResponse, UserAdserverWallet, User, LocalStorageUser, ExchangeRate };

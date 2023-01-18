@@ -19,11 +19,7 @@ export class AssetHelpersService {
       if (this.isSite(asset)) {
         this.router.navigate(['publisher', 'create-site', 'basic-information']);
       } else {
-        this.router.navigate([
-          'advertiser',
-          'create-campaign',
-          'basic-information',
-        ]);
+        this.router.navigate(['advertiser', 'create-campaign', 'basic-information']);
       }
     }
 

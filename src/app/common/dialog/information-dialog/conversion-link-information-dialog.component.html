@@ -10,27 +10,20 @@
       role="button"
       tabindex="0"
       (click)="copyToClipboard(link)"
-      class="material-icons information-dialog__copy-icon information-dialog__copy-icon"
-    >
+      class="material-icons information-dialog__copy-icon information-dialog__copy-icon">
       file_copy
     </i>
   </div>
   <p *ngIf="isAdvanced" class="ap-copy">
-    The link above is a conversion address, that must be used to execute a
-    conversion. Please, place it on your site (e.g. as a src attribute of an img
-    element). Before you proceed further, please
-    <a
-      href="https://github.com/adshares/adserver/wiki/Conversions"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
+    The link above is a conversion address, that must be used to execute a conversion. Please, place it on your site
+    (e.g. as a src attribute of an img element). Before you proceed further, please
+    <a href="https://github.com/adshares/adserver/wiki/Conversions" rel="noopener noreferrer" target="_blank">
       read the instruction
     </a>
     .
   </p>
   <p *ngIf="!isAdvanced" class="ap-copy">
-    The link above is a conversion address, that must be used to execute a
-    conversion. Please, place it on your site (e.g. as a src attribute of an img
-    element).
+    The link above is a conversion address, that must be used to execute a conversion. Please, place it on your site
+    (e.g. as a src attribute of an img element).
   </p>
 </mat-dialog-content>

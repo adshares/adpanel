@@ -1,9 +1,6 @@
 import * as PublisherActions from './publisher.actions';
 import * as AuthActions from '../auth/auth.actions';
-import {
-  siteInitialState,
-  sitesTotalsInitialState,
-} from 'models/initial-state/site';
+import { siteInitialState, sitesTotalsInitialState } from 'models/initial-state/site';
 import { PublisherState } from 'models/app-state.model';
 
 const initialState: PublisherState = {
@@ -27,10 +24,7 @@ const unitStatsInitialState = {
  * set to help modify data in less repetitive more readable way
  */
 
-export function publisherReducers(
-  state = initialState,
-  action: PublisherActions.actions | AuthActions.actions
-) {
+export function publisherReducers(state = initialState, action: PublisherActions.actions | AuthActions.actions) {
   switch (action.type) {
     case PublisherActions.LOAD_SITES:
       return {
@@ -51,7 +45,7 @@ export function publisherReducers(
       };
     case PublisherActions.LOAD_SITE_SUCCESS: {
       const _sites = [...state.sites];
-      const i = _sites.findIndex((el) => el.id === action.payload.id);
+      const i = _sites.findIndex(el => el.id === action.payload.id);
       if (-1 !== i) {
         _sites[i] = action.payload;
       } else {
@@ -72,17 +66,16 @@ export function publisherReducers(
         };
       }
 
-      const sitesWithTotal = [state.sites, action.payload.data].reduce(
-        (sites, data) =>
-          sites.map((site) => {
-            const elWithStats = data.find((el) => el.siteId === site.id);
-            return elWithStats
-              ? {
-                  ...site,
-                  ...elWithStats,
-                }
-              : site;
-          })
+      const sitesWithTotal = [state.sites, action.payload.data].reduce((sites, data) =>
+        sites.map(site => {
+          const elWithStats = data.find(el => el.siteId === site.id);
+          return elWithStats
+            ? {
+                ...site,
+                ...elWithStats,
+              }
+            : site;
+        })
       );
 
       return {
@@ -94,28 +87,23 @@ export function publisherReducers(
 
     case PublisherActions.LOAD_SITE_TOTALS_SUCCESS: {
       const _sites = [...state.sites];
-      const i = _sites.findIndex((el) => el.id === action.payload.total.siteId);
+      const i = _sites.findIndex(el => el.id === action.payload.total.siteId);
 
       let unitStats = [];
-      if (
-        action.payload.data.length > 0 &&
-        _sites[i].adUnits !== undefined &&
-        _sites[i].adUnits.length > 0
-      ) {
-        unitStats = [_sites[i].adUnits, action.payload.data].reduce(
-          (units, data) =>
-            units.map((unit) => {
-              const elementWithStats = data.find((el) => el.zoneId === unit.id);
-              return elementWithStats
-                ? {
-                    ...unit,
-                    ...elementWithStats,
-                  }
-                : unit;
-            })
+      if (action.payload.data.length > 0 && _sites[i].adUnits !== undefined && _sites[i].adUnits.length > 0) {
+        unitStats = [_sites[i].adUnits, action.payload.data].reduce((units, data) =>
+          units.map(unit => {
+            const elementWithStats = data.find(el => el.zoneId === unit.id);
+            return elementWithStats
+              ? {
+                  ...unit,
+                  ...elementWithStats,
+                }
+              : unit;
+          })
         );
       } else {
-        unitStats = _sites[i].adUnits.map((el) => {
+        unitStats = _sites[i].adUnits.map(el => {
           return {
             ...el,
             ...unitStatsInitialState,
@@ -188,20 +176,17 @@ export function publisherReducers(
 
     case PublisherActions.UPDATE_SITE_SUCCESS:
     case PublisherActions.UPDATE_SITE_STATUS_SUCCESS:
-      const siteIndex = state.sites.findIndex(
-        (site) => site.id === action.payload.id
-      );
+      const siteIndex = state.sites.findIndex(site => site.id === action.payload.id);
       const oldSites = [...state.sites];
       const oldSite = oldSites.splice(siteIndex, 1)[0];
+      const updatedSite = {
+        ...oldSite,
+        ...action.payload,
+      };
+      oldSites.splice(siteIndex, 0, updatedSite);
       return {
         ...state,
-        sites: [
-          ...oldSites,
-          {
-            ...oldSite,
-            ...action.payload,
-          },
-        ],
+        sites: [...oldSites],
       };
 
     case AuthActions.USER_LOG_IN_SUCCESS:

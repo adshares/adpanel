@@ -10,7 +10,7 @@ import { AssetHelpersService } from 'common/asset-helpers.service';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { adStatusesEnum } from 'models/enum/ad.enum';
 import { AddCampaignToCampaigns } from 'store/advertiser/advertiser.actions';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -20,10 +20,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './edit-campaign-summary.component.html',
   styleUrls: ['./edit-campaign-summary.component.scss'],
 })
-export class EditCampaignSummaryComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditCampaignSummaryComponent extends HandleSubscriptionComponent implements OnInit {
   campaign: Campaign;
   targetingOptionsToAdd: TargetingOption[] = [];
   targetingOptionsToExclude: TargetingOption[] = [];
@@ -41,20 +38,15 @@ export class EditCampaignSummaryComponent
     const lastCampaignSubscription = this.store
       .select('state', 'advertiser', 'lastEditedCampaign')
       .pipe(first())
-      .subscribe((campaign) => {
+      .subscribe(campaign => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
         this.campaign = campaign;
         const targetingSubscription = this.advertiserService
-          .getMedium(
-            campaign.basicInformation.medium,
-            campaign.basicInformation.vendor
-          )
+          .getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
           .pipe(take(1))
-          .subscribe((medium) => {
+          .subscribe(medium => {
             this.targetingOptionsToAdd = processTargeting(medium);
-            this.targetingOptionsToExclude = cloneDeep(
-              this.targetingOptionsToAdd
-            );
+            this.targetingOptionsToExclude = cloneDeep(this.targetingOptionsToAdd);
           });
         this.subscriptions.push(targetingSubscription);
       });
@@ -66,7 +58,7 @@ export class EditCampaignSummaryComponent
     if (!isDraft) {
       this.campaign = {
         ...this.campaign,
-        ads: this.campaign.ads.map((ad) => {
+        ads: this.campaign.ads.map(ad => {
           return {
             ...ad,
             status: adStatusesEnum.ACTIVE,

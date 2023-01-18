@@ -1,15 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
-import {
-  TargetingOption,
-  TargetingOptionValue,
-} from 'models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { getPathAndLabel } from 'common/components/targeting/targeting.helpers';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
@@ -24,9 +15,7 @@ export class TargetingDisplayComponent implements OnChanges {
   @Input() isExclude: boolean;
   @Input() targetingOptions: TargetingOption[];
   @Output()
-  itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<
-    TargetingOptionValue[]
-  >();
+  itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   viewModel: {
     parentPath: string;
     chosenTargeting: {
@@ -42,21 +31,17 @@ export class TargetingDisplayComponent implements OnChanges {
 
   prepareItemsToDisplay(): void {
     this.viewModel = [];
-    this.items.forEach((item) => {
+    this.items.forEach(item => {
       const [path, label] = getPathAndLabel(item, this.targetingOptions);
       const chosenTargetingItem = {
         id: item.id,
         label: label,
       };
 
-      const viewModelParentPathIndex = this.viewModel.findIndex(
-        (viewModelItem) => viewModelItem.parentPath === path
-      );
+      const viewModelParentPathIndex = this.viewModel.findIndex(viewModelItem => viewModelItem.parentPath === path);
 
       if (viewModelParentPathIndex >= 0) {
-        this.viewModel[viewModelParentPathIndex].chosenTargeting.push(
-          chosenTargetingItem
-        );
+        this.viewModel[viewModelParentPathIndex].chosenTargeting.push(chosenTargetingItem);
         return;
       }
 
@@ -70,9 +55,7 @@ export class TargetingDisplayComponent implements OnChanges {
   removeItem(id: string): void {
     let index;
     let idToRemove = id;
-    while (
-      (index = this.items.findIndex((item) => item.id === idToRemove)) !== -1
-    ) {
+    while ((index = this.items.findIndex(item => item.id === idToRemove)) !== -1) {
       const item = this.items.splice(index, 1)[0];
       idToRemove = item.parentId;
     }

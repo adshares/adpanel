@@ -1,18 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {
-  TargetingOption,
-  TargetingOptionType,
-  TargetingOptionValue,
-} from 'models/targeting-option.model';
+import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model';
 import { prepareCustomOption } from 'common/components/targeting/targeting.helpers2';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -26,9 +15,7 @@ export class TargetingCustomOptionInputComponent {
   @Input() option: TargetingOption;
   @Input() addedItems: TargetingOptionValue[];
   @Output()
-  itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<
-    TargetingOptionValue[]
-  >();
+  itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   readonly separatorKeysCodes: number[] = [COMMA, SPACE, ENTER];
   readonly TargetingOptionType = TargetingOptionType;
   inputShown = false;

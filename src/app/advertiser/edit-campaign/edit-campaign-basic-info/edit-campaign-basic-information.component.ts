@@ -6,19 +6,11 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
-import {
-  Campaign,
-  CampaignBasicInformation,
-  CampaignsConfig,
-} from 'models/campaign.model';
+import { Campaign, CampaignBasicInformation, CampaignsConfig } from 'models/campaign.model';
 import { campaignInitialState } from 'models/initial-state/campaign';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { Entry } from 'models/targeting-option.model';
-import {
-  LoadCampaignsConfig,
-  SaveCampaignBasicInformation,
-  UpdateCampaign,
-} from 'store/advertiser/advertiser.actions';
+import { LoadCampaignsConfig, SaveCampaignBasicInformation, UpdateCampaign } from 'store/advertiser/advertiser.actions';
 
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
@@ -31,7 +23,7 @@ import {
   mapToIterable,
 } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { CustomValidators } from 'common/utilities/forms';
 import { ServerOptionsService } from 'common/server-options.service';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
@@ -41,20 +33,14 @@ import { faCalendar } from '@fortawesome/free-regular-svg-icons';
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss'],
 })
-export class EditCampaignBasicInformationComponent
-  extends HandleSubscription
-  implements OnInit, OnDestroy
-{
+export class EditCampaignBasicInformationComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
   currencyCode: string;
   campaignsConfig: CampaignsConfig;
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;
   budgetValue: number;
-  dateStart = new FormControl(
-    campaignInitialState.basicInformation.dateStart.toString(),
-    Validators.required
-  );
+  dateStart = new FormControl(campaignInitialState.basicInformation.dateStart.toString(), Validators.required);
   dateEnd = new FormControl();
   calcBudgetToHour: boolean = false;
   today = moment();
@@ -93,16 +79,11 @@ export class EditCampaignBasicInformationComponent
       medium: campaignBasicInfoValue.medium,
       vendor: campaignBasicInfoValue.vendor,
       dateStart: moment(this.dateStart.value._d).format(),
-      dateEnd:
-        this.dateEnd.value !== null
-          ? moment(this.dateEnd.value._d).format()
-          : null,
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null,
     };
   }
 
-  private static convertBasicInfo(
-    lastEditedCampaign: CampaignBasicInformation
-  ) {
+  private static convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
     const basicInformation = {
       status: lastEditedCampaign.status,
       name: lastEditedCampaign.name,
@@ -114,14 +95,10 @@ export class EditCampaignBasicInformationComponent
       budget: null,
     };
     if (lastEditedCampaign.maxCpm !== null) {
-      basicInformation.maxCpm = parseFloat(
-        formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', '')
-      );
+      basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
     }
     if (lastEditedCampaign.budget !== null) {
-      basicInformation.budget = parseFloat(
-        formatMoney(lastEditedCampaign.budget, 4, true, '.', '')
-      );
+      basicInformation.budget = parseFloat(formatMoney(lastEditedCampaign.budget, 4, true, '.', ''));
     }
     return basicInformation;
   }
@@ -130,13 +107,8 @@ export class EditCampaignBasicInformationComponent
     this.currencyCode = this.serverOptionsService.getOptions().displayCurrency;
     this.store.dispatch(new LoadCampaignsConfig());
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
-    this.route.queryParams.subscribe(
-      (params) => (this.goesToSummary = !!params.summary)
-    );
-    const subscription =
-      this.advertiserService.cleanEditedCampaignOnRouteChange(
-        !this.createCampaignMode
-      );
+    this.route.queryParams.subscribe(params => (this.goesToSummary = !!params.summary));
+    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
 
     const campaignsConfigSubscription = this.store
       .select('state', 'advertiser', 'campaignsConfig')
@@ -155,21 +127,13 @@ export class EditCampaignBasicInformationComponent
       return;
     }
     this.campaignBasicInformationSubmitted = false;
-    this.createCampaignMode
-      ? this.saveCampaignBasicInformation()
-      : this.updateCampaignBasicInfo();
+    this.createCampaignMode ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
   }
 
   saveCampaignBasicInformation() {
-    this.store.dispatch(
-      new SaveCampaignBasicInformation(this.campaignBasicInfo)
-    );
+    this.store.dispatch(new SaveCampaignBasicInformation(this.campaignBasicInfo));
     this.changesSaved = true;
-    this.router.navigate([
-      '/advertiser',
-      'create-campaign',
-      'additional-targeting',
-    ]);
+    this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting']);
   }
 
   updateCampaignBasicInfo() {
@@ -193,9 +157,7 @@ export class EditCampaignBasicInformationComponent
 
     this.budgetPerDay = new FormControl('', [
       Validators.required,
-      Validators.min(
-        clicksToAds(calcCampaignBudgetPerDay(this.campaignsConfig.minBudget))
-      ),
+      Validators.min(clicksToAds(calcCampaignBudgetPerDay(this.campaignsConfig.minBudget))),
     ]);
 
     this.campaignBasicInfoForm = new FormGroup({
@@ -232,21 +194,16 @@ export class EditCampaignBasicInformationComponent
         this.campaign = lastEditedCampaign;
         this.isAutoCpm = lastEditedCampaign.basicInformation.maxCpm === null;
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
-        const basicInformation =
-          EditCampaignBasicInformationComponent.convertBasicInfo(
-            lastEditedCampaign.basicInformation
-          );
+        const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(
+          lastEditedCampaign.basicInformation
+        );
         this.campaignBasicInfoForm.patchValue(basicInformation);
         this.onMediumChange(basicInformation.medium);
 
-        this.dateStart.setValue(
-          moment(lastEditedCampaign.basicInformation.dateStart)
-        );
+        this.dateStart.setValue(moment(lastEditedCampaign.basicInformation.dateStart));
 
         if (lastEditedCampaign.basicInformation.dateEnd) {
-          this.dateEnd.setValue(
-            moment(lastEditedCampaign.basicInformation.dateEnd)
-          );
+          this.dateEnd.setValue(moment(lastEditedCampaign.basicInformation.dateEnd));
         }
       });
     this.subscriptions.push(subscription);
@@ -270,25 +227,20 @@ export class EditCampaignBasicInformationComponent
     let subscription: Subscription;
 
     // calculate budget: hour -> day
-    subscription = this.campaignBasicInfoForm
-      .get('budget')
-      .valueChanges.subscribe((val) => {
-        if (!this.calcBudgetToHour) {
-          this.setBudgetValue(val);
-          const budgetPerDayValue =
-            val !== null ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
-          this.budgetPerDay.setValue(budgetPerDayValue);
-        }
-      });
+    subscription = this.campaignBasicInfoForm.get('budget').valueChanges.subscribe(val => {
+      if (!this.calcBudgetToHour) {
+        this.setBudgetValue(val);
+        const budgetPerDayValue = val !== null ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
+        this.budgetPerDay.setValue(budgetPerDayValue);
+      }
+    });
     this.subscriptions.push(subscription);
 
     // calculate budget: day -> hour
-    subscription = this.budgetPerDay.valueChanges.subscribe((val) => {
+    subscription = this.budgetPerDay.valueChanges.subscribe(val => {
       if (this.calcBudgetToHour) {
         this.setBudgetValue(calcCampaignBudgetPerHour(val));
-        this.campaignBasicInfoForm
-          .get('budget')
-          .setValue(this.budgetValue.toFixed(4));
+        this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
       }
     });
     this.subscriptions.push(subscription);
@@ -302,7 +254,7 @@ export class EditCampaignBasicInformationComponent
     const subscription = this.advertiserService
       .getMediumVendors(medium)
       .pipe(take(1))
-      .subscribe((vendors) => {
+      .subscribe(vendors => {
         this.vendors = mapToIterable(vendors);
         if (this.createCampaignMode) {
           const value = this.vendors.length > 0 ? this.vendors[0].key : null;

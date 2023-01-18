@@ -1,13 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import * as moment from 'moment';
@@ -22,12 +16,11 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./billing-history-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BillingHistoryFilterComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class BillingHistoryFilterComponent extends HandleSubscriptionComponent implements OnInit {
   @Output() filter: EventEmitter<BillingHistoryFilter> = new EventEmitter();
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('closed') closedStream: EventEmitter<boolean>;
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('opened') openedStream: EventEmitter<boolean>;
 
   dateFrom = new FormControl(moment().subtract(30, 'days').startOf('day'));
@@ -45,8 +38,7 @@ export class BillingHistoryFilterComponent
   constructor(private store: Store<AppState>) {
     super();
 
-    this.transactionTypes =
-      BillingHistoryFilterComponent.prepareTransactionTypes();
+    this.transactionTypes = BillingHistoryFilterComponent.prepareTransactionTypes();
   }
 
   private static prepareTransactionTypes(): any[] {
@@ -54,9 +46,7 @@ export class BillingHistoryFilterComponent
     types.shift(); // remove UNKNOWN type
 
     types = types.map(function (item) {
-      item.name =
-        item.name.charAt(0).toUpperCase() +
-        item.name.slice(1).replace('_', ' ');
+      item.name = item.name.charAt(0).toUpperCase() + item.name.slice(1).replace('_', ' ');
       item.checked = false;
 
       return item;
@@ -92,7 +82,7 @@ export class BillingHistoryFilterComponent
     }
 
     let checkedTypes = [];
-    this.transactionTypes.forEach((element) => {
+    this.transactionTypes.forEach(element => {
       if (element.checked) {
         checkedTypes.push(element.id);
       }
@@ -102,16 +92,13 @@ export class BillingHistoryFilterComponent
   }
 
   onCheckboxChange($event, id: number): void {
-    this.transactionTypes.find((element) => element.id === id).checked =
-      $event.checked;
+    this.transactionTypes.find(element => element.id === id).checked = $event.checked;
     this.isCheckedAll = false;
   }
 
   onCheckboxAllChange($event): void {
     this.isCheckedAll = $event.checked;
-    this.transactionTypes.forEach(
-      (element) => (element.checked = this.isCheckedAll)
-    );
+    this.transactionTypes.forEach(element => (element.checked = this.isCheckedAll));
   }
 
   showDatepicker() {

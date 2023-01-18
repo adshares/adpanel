@@ -1,17 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import {
-  faCheck,
-  faEnvelope,
-  faUserSecret,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEnvelope, faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { UserInfo } from 'models/settings.model';
 import { AdminService } from 'admin/admin.service';
 import { AppState } from 'models/app-state.model';
 import { ImpersonationService } from '../../../../impersonation/impersonation.service';
 import { SessionService } from '../../../../session.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { CODE, CRYPTO } from 'common/utilities/consts';
 import { User } from 'models/user.model';
 import { ServerOptionsService } from 'common/server-options.service';
@@ -21,10 +17,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './user-list-item.component.html',
   styleUrls: ['./user-list-item.component.scss'],
 })
-export class UserListItemComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class UserListItemComponent extends HandleSubscriptionComponent implements OnInit {
   @Input() user: UserInfo;
   loggedUser: User;
   faIconEmailConfirmed = faEnvelope;
@@ -52,28 +45,20 @@ export class UserListItemComponent
   }
 
   handleImpersonating(): void {
-    this.adminService.impersonateUser(this.user.id).subscribe((token) => {
+    this.adminService.impersonateUser(this.user.id).subscribe(token => {
       this.impersonationService.setImpersonationToken(token);
       if (this.user.isPublisher) {
         this.router.navigate(['/publisher', 'dashboard']);
-        this.sessionService.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_PUBLISHER
-        );
+        this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER);
       } else {
         this.router.navigate(['/advertiser', 'dashboard']);
-        this.sessionService.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_ADVERTISER
-        );
+        this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER);
       }
     });
   }
 
   get canImpersonate(): boolean {
-    return (
-      !this.user.isAdmin &&
-      !this.user.isModerator &&
-      this.user.id !== this.loggedUser.id
-    );
+    return !this.user.isAdmin && !this.user.isModerator && this.user.id !== this.loggedUser.id;
   }
 
   get userRole(): string {

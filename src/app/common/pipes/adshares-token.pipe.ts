@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ServerOptionsService } from 'common/server-options.service';
 import { CRYPTO, CRYPTO_BTC } from 'common/utilities/consts';
 import {
@@ -21,10 +21,7 @@ function removeDecimalPart(value: number | string) {
 @Pipe({
   name: 'formatMoney',
 })
-export class AdsharesTokenPipe
-  extends HandleSubscription
-  implements PipeTransform
-{
+export class AdsharesTokenPipe extends HandleSubscriptionComponent implements PipeTransform {
   private readonly appCurrencyCode: string;
   private readonly currencyCode: string;
 
@@ -46,40 +43,32 @@ export class AdsharesTokenPipe
     if (format === 'none') {
       symbol = code = '';
     } else if (currency === CRYPTO) {
-      symbol =
-        format === 'symbol' ? currencySymbolByCode(this.appCurrencyCode) : '';
+      symbol = format === 'symbol' ? currencySymbolByCode(this.appCurrencyCode) : '';
       code = format !== 'symbol' ? this.appCurrencyCode : '';
     } else if (currency === CRYPTO_BTC) {
       symbol = format === 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
       code = format !== 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
     } else {
-      symbol =
-        format === 'symbol' ? currencySymbolByCode(this.currencyCode) : '';
+      symbol = format === 'symbol' ? currencySymbolByCode(this.currencyCode) : '';
       code = format !== 'symbol' ? this.currencyCode : '';
     }
 
-    return `${symbol}${formatMoney(
-      removeDecimalPart(value),
-      precision
-    )} ${code}`;
+    return `${symbol}${formatMoney(removeDecimalPart(value), precision)} ${code}`;
   }
 }
 
 @Pipe({
   name: 'calculateInCurrency',
 })
-export class CalculateInCurrency
-  extends HandleSubscription
-  implements PipeTransform
-{
+export class CalculateInCurrency extends HandleSubscriptionComponent implements PipeTransform {
   private rate: ExchangeRate = null;
 
   constructor(private store: Store<AppState>) {
     super();
     const exchangeDataSubscription = store
       .select('state', 'user', 'data', 'exchangeRate')
-      .pipe(filter((exchangeRate) => null !== exchangeRate))
-      .subscribe((exchangeRate) => {
+      .pipe(filter(exchangeRate => null !== exchangeRate))
+      .subscribe(exchangeRate => {
         this.rate = exchangeRate;
       });
     this.subscriptions.push(exchangeDataSubscription);
@@ -90,9 +79,7 @@ export class CalculateInCurrency
       return NOT_AVAILABLE;
     }
     const calculateInCurrency = value > 0 ? value * this.rate.value : 0;
-    return `${formatMoney(removeDecimalPart(calculateInCurrency), precision)} ${
-      this.rate.currency
-    }`;
+    return `${formatMoney(removeDecimalPart(calculateInCurrency), precision)} ${this.rate.currency}`;
   }
 }
 
@@ -101,10 +88,7 @@ export class CalculateInCurrency
 })
 export class ClickToADSPipe implements PipeTransform {
   transform(value: number, precision: number = 11): number {
-    const formattedMoney = formatMoney(removeDecimalPart(value), precision)
-      .split('.')[0]
-      .split(',')
-      .join('');
+    const formattedMoney = formatMoney(removeDecimalPart(value), precision).split('.')[0].split(',').join('');
     return parseInt(formattedMoney);
   }
 }

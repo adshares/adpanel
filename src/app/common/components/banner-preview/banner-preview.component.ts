@@ -32,8 +32,7 @@ export class BannerPreviewComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    const isBannerInputTypeAd =
-      (<BannerClassification>this.banner).size === undefined;
+    const isBannerInputTypeAd = (<BannerClassification>this.banner).size === undefined;
     if (!isBannerInputTypeAd) {
       this.url = (<BannerClassification>this.banner).url;
 
@@ -44,10 +43,7 @@ export class BannerPreviewComponent implements OnInit {
           width: bannerSizeArray[0] + 'px',
           height: bannerSizeArray[1] + 'px',
         };
-        this.scale = this.computeScale(
-          parseInt(bannerSizeArray[0]),
-          parseInt(bannerSizeArray[1])
-        );
+        this.scale = this.computeScale(parseInt(bannerSizeArray[0]), parseInt(bannerSizeArray[1]));
       } else {
         this.bannerChosenSize = {
           width: '100%',
@@ -63,10 +59,7 @@ export class BannerPreviewComponent implements OnInit {
         width: bannerSizeArray[0] + 'px',
         height: bannerSizeArray[1] + 'px',
       };
-      this.scale = this.computeScale(
-        parseInt(bannerSizeArray[0]),
-        parseInt(bannerSizeArray[1])
-      );
+      this.scale = this.computeScale(parseInt(bannerSizeArray[0]), parseInt(bannerSizeArray[1]));
     }
 
     if (isBannerInputTypeAd && this.isHtml) {
@@ -91,7 +84,7 @@ export class BannerPreviewComponent implements OnInit {
 
   canLoadIframeContent(url: string): void {
     fetch(url, { method: 'HEAD' })
-      .then((res) => {
+      .then(res => {
         this.isLoading = false;
         this.showIframe = res.status === HTTP_OK;
       })
@@ -134,8 +127,6 @@ export class BannerPreviewComponent implements OnInit {
   }
 
   get type(): string {
-    return (<Ad>this.banner).creativeType
-      ? (<Ad>this.banner).creativeType
-      : (<BannerClassification>this.banner).type;
+    return (<Ad>this.banner).creativeType ? (<Ad>this.banner).creativeType : (<BannerClassification>this.banner).type;
   }
 }

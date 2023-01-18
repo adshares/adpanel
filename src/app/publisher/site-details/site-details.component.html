@@ -1,5 +1,5 @@
-<div *ngIf="dataLoaded; else loading" class="dashboard-view">
-  <div class="site-details container">
+<div *ngIf='dataLoaded; else loading' class='dashboard-view'>
+  <div class='site-details container'>
     <div class="row justify-between">
       <div
         class="row align-center breadcrumbs"
@@ -21,18 +21,18 @@
           {{ site.name }}
         </p>
       </div>
-
+    
       <button
         *ngIf="site.onlyAcceptedBanners"
         class="ap-btn ap-btn--primary"
-        (click)="navigateToClassification()"
+        (click)='navigateToClassification()'
         data-test="publisher-site-navigate-to-classifier"
       >
         <fa-icon class="ap-icon ap-icon--prepend" [icon]="faEdit"></fa-icon>
         Select banners for approval
       </button>
     </div>
-
+    
     <div class="ap-box">
       <div class="row justify-between align-start box-title">
         <div class="row">
@@ -117,15 +117,15 @@
         </div>
       </div>
     </div>
-
+    
     <!-- chart-->
-    <div class="ap-box">
+    <div class='ap-box'>
       <h1 class="ap-heading ap-heading--h2 box-title">Statistics</h1>
       <div class="box-content">
         <div class="row justify-between">
           <app-chart-filter-by-type
-            class="details-filters"
-            [detailsPage]="true"
+            class='details-filters'
+            [detailsPage]='true'
             (updateSeries)="appChartRef.updateChartDataSeries($event)"
           ></app-chart-filter-by-type>
           <app-chart-filter
@@ -133,11 +133,11 @@
             (filter)="appChartRef.updateChartData($event)"
           ></app-chart-filter>
         </div>
-        <div class="row align-center chart-wrapper">
+        <div class='row align-center chart-wrapper'>
           <app-chart
-            class="chart row align-center justify-center"
-            (update)="getChartData($event, site.id)"
-            [barChartData]="barChartData"
+            class='chart row align-center justify-center'
+            (update)='getChartData($event, site.id)'
+            [barChartData]='barChartData'
             [barChartLabels]="barChartLabels"
           ></app-chart>
         </div>
@@ -153,7 +153,7 @@
       </div>
     </div>
     <!-- chart end-->
-
+    
     <div class="ap-box">
       <div class="row justify-between box-title">
         <h1 class="ap-heading ap-heading--h2">Exclusions & Targeting</h1>
@@ -164,11 +164,9 @@
         >
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           {{
-            !filtering.requires.length &&
-            !filtering.excludes.length &&
-            !site.onlyAcceptedBanners
-              ? 'Add exclusions'
-              : 'Edit exclusions'
+            !filtering.requires.length && !filtering.excludes.length && !site.onlyAcceptedBanners
+            ? 'Add exclusions'
+            : 'Edit exclusions'
           }}
         </button>
       </div>
@@ -212,7 +210,7 @@
           ></app-targeting-display>
         </div>
       </div>
-
+      
       <div *ngIf="!!filtering.excludes.length" class="box-content">
         <h3 class="ap-heading ap-heading--h3">Exclusions:</h3>
         <div class="targeting-display-wrapper">
@@ -225,7 +223,7 @@
         </div>
       </div>
     </div>
-
+    
     <div *ngIf="editPopups" class="ap-box">
       <div class="box-title row justify-between align-center">
         <h2 class="ap-heading ap-heading--h2">List of enabled pops</h2>
@@ -249,10 +247,10 @@
         class="box-content site-details__scrollable-table"
         *ngIf="!!popAdUnits.length"
       >
-        <table class="site-details__table">
+        <table class='site-details__table'>
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
-            (sortTable)="sortTable($event)"
+            (sortTable)='sortTable($event)'
             class="row ap-copy"
           ></app-table-navigation>
           <app-poster-units
@@ -263,12 +261,12 @@
         </table>
       </div>
     </div>
-
+    
     <div class="col ap-box">
       <div class="row justify-between align-center box-title">
         <h2 class="ap-heading ap-heading--h2">List of ad units</h2>
         <button
-          *ngIf="editAds"
+          *ngIf='editAds'
           class="ap-btn ap-btn--text ap-btn--edit ap-btn--no-border"
           (click)="navigateToEditSite('create-ad-units')"
           data-test="publisher-site-edit-ad-units-button"
@@ -291,10 +289,10 @@
         class="box-content site-details__scrollable-table"
         *ngIf="!!displayAdUnits.length"
       >
-        <table class="site-details__table">
+        <table class='site-details__table'>
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
-            (sortTable)="sortTable($event)"
+            (sortTable)='sortTable($event)'
             class="row ap-copy"
           ></app-table-navigation>
           <app-poster-units
@@ -314,7 +312,7 @@
         </button>
       </div>
     </div>
-
+    
     <div class="ap-box">
       <div class="box-content row justify-center">
         <button
@@ -333,7 +331,7 @@
   </div>
 </div>
 <ng-template #loading>
-  <div class="loading-wrapper">
-    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+  <div class='loading-wrapper'>
+    <mat-spinner [diameter]='30' [strokeWidth]='4'></mat-spinner>
   </div>
 </ng-template>

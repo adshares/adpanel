@@ -14,10 +14,7 @@ import {
 } from 'models/campaign.model';
 import { adCreativeTypes } from 'models/enum/ad.enum';
 import { campaignInitialState } from 'models/initial-state/campaign';
-import {
-  AssetTargeting,
-  TargetingReachResponse,
-} from 'models/targeting-option.model';
+import { AssetTargeting, TargetingReachResponse } from 'models/targeting-option.model';
 import { Media, Medium } from 'models/taxonomy-medium.model';
 import { forkJoin, Observable, of, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
@@ -25,11 +22,7 @@ import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
 
 @Injectable()
 export class AdvertiserService {
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private store: Store<AppState>
-  ) {}
+  constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {}
 
   uploadBanner(data): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/campaigns/banner`, data, {
@@ -42,11 +35,7 @@ export class AdvertiserService {
     return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }
 
-  getCampaignsTotals(
-    dateStart: string,
-    dateEnd: string,
-    campaignId?: number
-  ): Observable<CampaignTotalsResponse> {
+  getCampaignsTotals(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotalsResponse> {
     const options = campaignId && {
       params: { campaign_id: `${campaignId}` },
     };
@@ -57,26 +46,24 @@ export class AdvertiserService {
   }
 
   getCampaign(id: number): Observable<{ campaign: Campaign }> {
-    return this.http
-      .get<{ campaign: Campaign }>(`${environment.apiUrl}/campaigns/${id}`)
-      .pipe(
-        switchMap((response) => {
-          const directAds = {};
-          response.campaign.ads.forEach((ad, index) => {
-            if (adCreativeTypes.DIRECT === ad.creativeType) {
-              directAds[index] = this.getDirectLinkContent(ad.url);
-            }
-          });
-          return forkJoin(directAds).pipe(
-            switchMap((contents) => {
-              Object.keys(contents).forEach((index) => {
-                response.campaign.ads[index].creativeContents = contents[index];
-              });
-              return of(response);
-            })
-          );
-        })
-      );
+    return this.http.get<{ campaign: Campaign }>(`${environment.apiUrl}/campaigns/${id}`).pipe(
+      switchMap(response => {
+        const directAds = {};
+        response.campaign.ads.forEach((ad, index) => {
+          if (adCreativeTypes.DIRECT === ad.creativeType) {
+            directAds[index] = this.getDirectLinkContent(ad.url);
+          }
+        });
+        return forkJoin(directAds).pipe(
+          switchMap(contents => {
+            Object.keys(contents).forEach(index => {
+              response.campaign.ads[index].creativeContents = contents[index];
+            });
+            return of(response);
+          })
+        );
+      })
+    );
   }
 
   getDirectLinkContent(url: string): Observable<string> {
@@ -102,10 +89,7 @@ export class AdvertiserService {
   }
 
   cloneCampaign(id: number): Observable<Campaign> {
-    return this.http.post<Campaign>(
-      `${environment.apiUrl}/campaigns/${id}/clone`,
-      {}
-    );
+    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns/${id}/clone`, {});
   }
 
   deleteCampaign(id: number): Observable<Campaign> {
@@ -119,19 +103,15 @@ export class AdvertiserService {
   }
 
   updateCampaign(campaign: Campaign): Observable<null> {
-    return this.http.patch<null>(
-      `${environment.apiUrl}/campaigns/${campaign.id}`,
-      { campaign: AdvertiserService.convertCampaignForBackend(campaign) }
-    );
+    return this.http.patch<null>(`${environment.apiUrl}/campaigns/${campaign.id}`, {
+      campaign: AdvertiserService.convertCampaignForBackend(campaign),
+    });
   }
 
   private static convertCampaignForBackend(campaign: Campaign): Campaign {
     if (campaign.targetingArray) {
       const { targetingArray, ...reducedCampaign } = campaign;
-      reducedCampaign.targeting = parseTargetingForBackend(
-        targetingArray,
-        campaign.basicInformation.vendor
-      );
+      reducedCampaign.targeting = parseTargetingForBackend(targetingArray, campaign.basicInformation.vendor);
       return reducedCampaign;
     }
     return campaign;
@@ -147,22 +127,15 @@ export class AdvertiserService {
   }
 
   activateOutdatedCampaign(id: number) {
-    return this.http.patch(
-      `${environment.apiUrl}/campaigns/${id}/activate-outdated`,
-      null
-    );
+    return this.http.patch(`${environment.apiUrl}/campaigns/${id}/activate-outdated`, null);
   }
 
   getBannersConfig(): Observable<BannersConfig> {
-    return this.http.get<BannersConfig>(
-      `${environment.apiUrl}/options/banners`
-    );
+    return this.http.get<BannersConfig>(`${environment.apiUrl}/options/banners`);
   }
 
   getCampaignsConfig(): Observable<CampaignsConfig> {
-    return this.http.get<CampaignsConfig>(
-      `${environment.apiUrl}/options/campaigns`
-    );
+    return this.http.get<CampaignsConfig>(`${environment.apiUrl}/options/campaigns`);
   }
 
   getMedium(
@@ -170,9 +143,7 @@ export class AdvertiserService {
     vendor: string | null = null,
     excludeInternal: boolean = false
   ): Observable<Medium> {
-    let url = `${environment.apiUrl}/options/campaigns/media/${medium}?e=${
-      excludeInternal ? 1 : 0
-    }`;
+    let url = `${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}`;
     if (vendor) {
       url = `${url}&vendor=${vendor}`;
     }
@@ -180,9 +151,7 @@ export class AdvertiserService {
   }
 
   getMediumVendors(medium: string): Observable<Media> {
-    return this.http.get<Media>(
-      `${environment.apiUrl}/options/campaigns/media/${medium}/vendors`
-    );
+    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${medium}/vendors`);
   }
 
   getTargetingReach(
@@ -191,42 +160,30 @@ export class AdvertiserService {
     vendor?: string | null
   ): Observable<TargetingReachResponse> {
     const body = {
-      targeting: targetingArray
-        ? parseTargetingForBackend(targetingArray, vendor)
-        : campaignInitialState.targeting,
+      targeting: targetingArray ? parseTargetingForBackend(targetingArray, vendor) : campaignInitialState.targeting,
     };
     if (sizes.length > 0) {
       body.targeting.requires['size'] = sizes;
     }
 
-    return this.http.post<TargetingReachResponse>(
-      `${environment.apiUrl}/options/campaigns/targeting-reach`,
-      body
-    );
+    return this.http.post<TargetingReachResponse>(`${environment.apiUrl}/options/campaigns/targeting-reach`, body);
   }
 
-  updateAdStatus(
-    campaignId: number,
-    adId: number,
-    status: number
-  ): Observable<Object> {
+  updateAdStatus(campaignId: number, adId: number, status: number): Observable<Object> {
     const body = {
       banner: {
         status,
       },
     };
 
-    return this.http.put(
-      `${environment.apiUrl}/campaigns/${campaignId}/banner/${adId}/status`,
-      body
-    );
+    return this.http.put(`${environment.apiUrl}/campaigns/${campaignId}/banner/${adId}/status`, body);
   }
 
   cleanEditedCampaignOnRouteChange(shouldSubscribe: boolean): Subscription {
     return (
       shouldSubscribe &&
       this.router.events
-        .pipe(filter((event) => event instanceof NavigationStart))
+        .pipe(filter(event => event instanceof NavigationStart))
         .subscribe(() => this.store.dispatch(new ClearLastEditedCampaign()))
     );
   }

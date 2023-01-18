@@ -34,11 +34,7 @@ export class RefLinkListItemComponent implements OnInit {
   }
 
   getRefLinkUrl(): string {
-    const domain =
-      location.protocol +
-      '//' +
-      location.hostname +
-      (location.port ? ':' + location.port : '');
+    const domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
     return `${domain}/ref/${this.refLink.token}`;
   }
 
@@ -60,7 +56,7 @@ export class RefLinkListItemComponent implements OnInit {
         },
       })
       .afterClosed()
-      .subscribe((result) => {
+      .subscribe(result => {
         if (result) {
           this.store.dispatch(new DeleteRefLink(this.refLink.id));
         }

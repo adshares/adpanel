@@ -14,8 +14,6 @@ export class FilteringCriteriaResolver implements Resolve<TargetingOption[]> {
   resolve(): Observable<TargetingOption[]> {
     return this.publisherService
       .getFilteringCriteria()
-      .pipe(
-        map((filteringOptions) => prepareFilteringChoices(filteringOptions))
-      );
+      .pipe(map(filteringOptions => prepareFilteringChoices(filteringOptions)));
   }
 }

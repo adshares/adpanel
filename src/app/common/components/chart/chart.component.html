@@ -1,16 +1,12 @@
 <canvas
-  *ngIf="
-    barChartData[0].data.length > 0 && barChartLabels.length > 0;
-    else loading
-  "
+  *ngIf="barChartData[0].data.length > 0 && barChartLabels.length > 0; else loading"
   baseChart
   [datasets]="barChartData"
   [labels]="barChartLabels"
   [options]="barChartOptions"
   [legend]="false"
   [type]="'bar'"
-  data-test="chart-bar-chart-canvas"
-></canvas>
+  data-test="chart-bar-chart-canvas"></canvas>
 <ng-template #loading>
   <mat-spinner [diameter]="30" [strokeWidth]="3" color="primary"></mat-spinner>
 </ng-template>

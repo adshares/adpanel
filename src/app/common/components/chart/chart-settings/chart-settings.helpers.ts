@@ -25,8 +25,8 @@ function getFormatByDaysSpan(daysSpan: number): string {
 }
 
 export const mapDatesToChartLabels = (dates: string[]): string[] => {
-  const values = dates.map((item) => moment(item));
+  const values = dates.map(item => moment(item));
   const daysSpan = values[values.length - 1].diff(values[0], 'days');
   const format = getFormatByDaysSpan(daysSpan);
-  return values.map((value) => value.format(format));
+  return values.map(value => value.format(format));
 };

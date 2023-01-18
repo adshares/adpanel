@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 
 import { Ad, Campaign } from 'models/campaign.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
@@ -29,10 +23,6 @@ export class AdListComponent implements OnChanges {
   }
 
   sortTable(event: TableSortEvent) {
-    this.adList = sortArrayByKeys(
-      this.campaign.ads,
-      event.keys,
-      event.sortDesc
-    );
+    this.adList = sortArrayByKeys(this.campaign.ads, event.keys, event.sortDesc);
   }
 }

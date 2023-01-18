@@ -10,10 +10,7 @@ const initialState: CommonState = {
   placeholders: null,
 };
 
-export function commonReducers(
-  state = initialState,
-  action: commonActions.actions
-) {
+export function commonReducers(state = initialState, action: commonActions.actions) {
   switch (action.type) {
     case commonActions.LOAD_INFO_SUCCESS:
       return {

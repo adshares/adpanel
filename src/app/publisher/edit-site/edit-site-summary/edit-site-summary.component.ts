@@ -8,7 +8,7 @@ import { siteStatusEnum } from 'models/enum/site.enum';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { AddSiteToSites } from 'store/publisher/publisher.actions';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
@@ -19,10 +19,7 @@ import { first } from 'rxjs/operators';
   templateUrl: './edit-site-summary.component.html',
   styleUrls: ['./edit-site-summary.component.scss'],
 })
-export class EditSiteSummaryComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class EditSiteSummaryComponent extends HandleSubscriptionComponent implements OnInit {
   site: Site;
   filteringOptions: TargetingOption[];
   canSubmit: boolean;
@@ -43,9 +40,7 @@ export class EditSiteSummaryComponent
       .select('state', 'publisher', 'lastEditedSite')
       .pipe(first())
       .subscribe((lastEditedSite: Site) => {
-        this.filteringOptions = cloneDeep(
-          this.route.parent.snapshot.data.filteringOptions
-        );
+        this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
         this.site = lastEditedSite;
         this.displayAds = this.site.medium !== 'metaverse';
       });
@@ -55,13 +50,13 @@ export class EditSiteSummaryComponent
   }
 
   get popAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter((adUnit) => {
+    return this.site.adUnits.filter(adUnit => {
       return adUnit.type === adUnitTypesEnum.POP;
     });
   }
 
   get displayAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter((adUnit) => {
+    return this.site.adUnits.filter(adUnit => {
       return adUnit.type === adUnitTypesEnum.DISPLAY;
     });
   }

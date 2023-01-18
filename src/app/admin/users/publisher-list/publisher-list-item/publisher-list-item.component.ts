@@ -39,7 +39,7 @@ export class PublisherListItemComponent implements OnInit {
     this.store
       .select('state', 'admin', 'settings')
       .pipe(take(1))
-      .subscribe((settings) => {
+      .subscribe(settings => {
         this.adUserInfoUrl = settings.adUserInfoUrl;
       });
   }
@@ -49,12 +49,10 @@ export class PublisherListItemComponent implements OnInit {
   }
 
   handleImpersonating(userId: number): void {
-    this.adminService.impersonateUser(userId).subscribe((token) => {
+    this.adminService.impersonateUser(userId).subscribe(token => {
       this.impersonationService.setImpersonationToken(token);
       this.router.navigate(['/publisher', 'dashboard']);
-      this.sessionService.setAccountTypeChoice(
-        SessionService.ACCOUNT_TYPE_PUBLISHER
-      );
+      this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER);
     });
   }
 

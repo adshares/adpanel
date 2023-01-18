@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Campaign } from 'models/campaign.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
@@ -34,15 +29,14 @@ export class CampaignListItemComponent implements OnChanges {
   ) {}
 
   ngOnChanges() {
-    this.currentCampaignStatus =
-      campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
+    this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
   }
 
   onCampaignStatusChange(status) {
     this.store.dispatch(
       new UpdateCampaignStatus({
         id: this.campaign.id,
-        status: this.campaignStatusesEnumArray.findIndex((el) => el === status),
+        status: this.campaignStatusesEnumArray.findIndex(el => el === status),
       })
     );
   }

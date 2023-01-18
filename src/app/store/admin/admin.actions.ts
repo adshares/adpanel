@@ -1,11 +1,5 @@
 import { Action } from '@ngrx/store';
-import {
-  AdminSettingsResponse,
-  AdvertiserInfo,
-  License,
-  PublisherInfo,
-  UserInfo,
-} from 'models/settings.model';
+import { AdminSettingsResponse, AdvertiserInfo, License, PublisherInfo, UserInfo } from 'models/settings.model';
 
 export const LOAD_USERS = 'Users loading';
 export const LOAD_USERS_SUCCESS = 'Users loading success';

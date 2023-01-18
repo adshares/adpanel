@@ -20,19 +20,19 @@ export class SiteListItemComponent implements OnInit {
   constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.currentSiteStatus =
-      typeof this.site.status === 'number' &&
-      this.siteStatusEnum[this.site.status].toLowerCase();
+    this.setStatusLabel();
   }
 
-  onSiteStatusChange(status: string): void {
+  onSiteStatusChange(status: number): void {
     this.site = {
       ...this.site,
-      status: this.siteStatuses.findIndex((el) => el.value === status),
+      status: status,
     };
-    this.currentSiteStatus = status;
-    this.store.dispatch(
-      new UpdateSiteStatus({ id: this.site.id, status: this.site.status })
-    );
+    this.setStatusLabel();
+    this.store.dispatch(new UpdateSiteStatus({ id: this.site.id, status: status }));
+  }
+
+  private setStatusLabel(): void {
+    this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
   }
 }

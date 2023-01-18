@@ -33,19 +33,13 @@ export class AdminEffects {
     this.actions$.pipe(
       ofType<LoadUsers>(LOAD_USERS),
       debounceTime(100),
-      map((action) => action.payload),
-      switchMap((payload) => {
+      map(action => action.payload),
+      switchMap(payload => {
         return this.service
-          .getUsers(
-            payload.nextPage,
-            payload.searchPhrase,
-            payload.filters,
-            payload.orderBy,
-            payload.direction
-          )
+          .getUsers(payload.nextPage, payload.searchPhrase, payload.filters, payload.orderBy, payload.direction)
           .pipe(
-            map((users) => new LoadUsersSuccess(users)),
-            catchError((error) => observableOf(new LoadUsersFailure(error)))
+            map(users => new LoadUsersSuccess(users)),
+            catchError(error => observableOf(new LoadUsersFailure(error)))
           );
       })
     )
@@ -55,20 +49,13 @@ export class AdminEffects {
     this.actions$.pipe(
       ofType<LoadAdvertisers>(LOAD_ADVERTISERS),
       debounceTime(100),
-      map((action) => action.payload),
-      switchMap((payload) =>
+      map(action => action.payload),
+      switchMap(payload =>
         this.service
-          .getAdvertisers(
-            payload.groupBy,
-            payload.interval,
-            payload.searchPhrase,
-            payload.minDailyViews
-          )
+          .getAdvertisers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
           .pipe(
-            map((advertisers) => new LoadAdvertisersSuccess(advertisers)),
-            catchError((error) =>
-              observableOf(new LoadAdvertisersFailure(error))
-            )
+            map(advertisers => new LoadAdvertisersSuccess(advertisers)),
+            catchError(error => observableOf(new LoadAdvertisersFailure(error)))
           )
       )
     )
@@ -78,21 +65,12 @@ export class AdminEffects {
     this.actions$.pipe(
       ofType<LoadPublishers>(LOAD_PUBLISHERS),
       debounceTime(100),
-      map((action) => action.payload),
-      switchMap((payload) =>
-        this.service
-          .getPublishers(
-            payload.groupBy,
-            payload.interval,
-            payload.searchPhrase,
-            payload.minDailyViews
-          )
-          .pipe(
-            map((publishers) => new LoadPublishersSuccess(publishers)),
-            catchError((error) =>
-              observableOf(new LoadPublishersFailure(error))
-            )
-          )
+      map(action => action.payload),
+      switchMap(payload =>
+        this.service.getPublishers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews).pipe(
+          map(publishers => new LoadPublishersSuccess(publishers)),
+          catchError(error => observableOf(new LoadPublishersFailure(error)))
+        )
       )
     )
   );
@@ -102,16 +80,12 @@ export class AdminEffects {
       ofType(GET_LICENSE),
       switchMap(() =>
         this.service.getLicense().pipe(
-          map((license) => new GetLicenseSuccess(license)),
-          catchError((error) => {
+          map(license => new GetLicenseSuccess(license)),
+          catchError(error => {
             if (error.status === HTTP_NOT_FOUND) {
               return observableOf(new GetLicenseFailure());
             }
-            return observableOf(
-              new GetLicenseFailure(
-                "We weren't able to get your license. Please, try again later"
-              )
-            );
+            return observableOf(new GetLicenseFailure("We weren't able to get your license. Please, try again later"));
           })
         )
       )
@@ -123,10 +97,8 @@ export class AdminEffects {
       ofType(LOAD_ADMIN_SETTINGS),
       switchMap(() =>
         this.service.getAdminSettings().pipe(
-          map((settings) => new LoadAdminSettingsSuccess(settings)),
-          catchError((error) =>
-            observableOf(new LoadAdminSettingsFailure(error))
-          )
+          map(settings => new LoadAdminSettingsSuccess(settings)),
+          catchError(error => observableOf(new LoadAdminSettingsFailure(error)))
         )
       )
     )

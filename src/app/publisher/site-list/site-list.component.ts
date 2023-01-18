@@ -1,8 +1,8 @@
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Site, SitesTotals } from 'models/site.model';
-import { enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
+import { enumToObjectArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { TableNavigationComponent } from 'common/components/table-navigation/table-navigation.component';
@@ -13,7 +13,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './site-list.component.html',
   styleUrls: ['./site-list.component.scss'],
 })
-export class SiteListComponent extends HandleSubscription {
+export class SiteListComponent extends HandleSubscriptionComponent implements OnChanges {
   @Input() dataLoaded: boolean;
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;
@@ -29,9 +29,10 @@ export class SiteListComponent extends HandleSubscription {
   }
 
   private static addLabelsToStatuses() {
-    return enumToArray(siteStatusEnum).map((item) => {
+    return enumToObjectArray(siteStatusEnum).map(item => {
+      const name = item.name;
       let label;
-      switch (item) {
+      switch (name) {
         case 'active':
           label = 'Activate';
           break;
@@ -39,12 +40,12 @@ export class SiteListComponent extends HandleSubscription {
           label = 'Deactivate';
           break;
         default:
-          label = item;
+          label = name.charAt(0).toUpperCase() + name.slice(1);
           break;
       }
 
       return {
-        value: item,
+        value: item.id,
         label: label,
       };
     });

@@ -17,18 +17,12 @@ import { LocalStorageUser } from 'models/user.model';
 import { SessionService } from 'app/session.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { environment } from 'environments/environment';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
-import {
-  HTTP_INTERNAL_SERVER_ERROR,
-  HTTP_UNAUTHORIZED,
-} from 'common/utilities/codes';
+import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNAUTHORIZED } from 'common/utilities/codes';
 
 @Injectable()
-export class RequestInterceptor
-  extends HandleSubscription
-  implements HttpInterceptor
-{
+export class RequestInterceptor extends HandleSubscriptionComponent implements HttpInterceptor {
   openedErrorDialogs: number = 0;
   maxOpenedErrorDialogs: number = 1;
 
@@ -72,8 +66,7 @@ export class RequestInterceptor
     }
 
     if (
-      Date.now() - this.connectionErrorFirstTimestamp >
-        this.connectionErrorMaxPeriodWithoutNotification &&
+      Date.now() - this.connectionErrorFirstTimestamp > this.connectionErrorMaxPeriodWithoutNotification &&
       !this.connectionErrorHandled
     ) {
       this.connectionErrorHandled = true;
@@ -85,10 +78,7 @@ export class RequestInterceptor
     }
   }
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.session.getUser() && this.session.getUser().apiToken) {
       request = request.clone({
         setHeaders: {
@@ -125,10 +115,7 @@ export class RequestInterceptor
           return event;
         },
         (err: any) => {
-          if (
-            err instanceof HttpErrorResponse &&
-            err.status === HTTP_UNAUTHORIZED
-          ) {
+          if (err instanceof HttpErrorResponse && err.status === HTTP_UNAUTHORIZED) {
             const noUser = !this.session.getUser();
             const isSessionActive = this.session.isActive;
             this.session.drop();
@@ -139,10 +126,7 @@ export class RequestInterceptor
             }
 
             if (noUser) {
-              this.dialogError(
-                'Login required',
-                'Last request required logged-in user.'
-              );
+              this.dialogError('Login required', 'Last request required logged-in user.');
             } else {
               this.dialogError(
                 'Session timed-out (server)',
@@ -153,11 +137,7 @@ export class RequestInterceptor
             return err;
           }
 
-          if (
-            err instanceof HttpErrorResponse &&
-            err.status === 0 &&
-            err.statusText == 'Unknown Error'
-          ) {
+          if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == 'Unknown Error') {
             this.onConnectionFailure();
             return err;
           }

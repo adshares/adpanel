@@ -13,13 +13,7 @@ import { EmailProcessingComponent } from 'auth/account/email-processing.componen
 import { ResetPasswordComponent } from 'auth/reset-password/reset-password.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AppCommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AuthRoutingModule,
-  ],
+  imports: [CommonModule, AppCommonModule, FormsModule, ReactiveFormsModule, AuthRoutingModule],
   declarations: [
     EmailProcessingComponent,
     AuthComponent,

@@ -6,10 +6,10 @@ import { Site } from 'models/site.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { LoadSite, SetLastEditedSite } from 'store/publisher/publisher.actions';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Injectable()
-export class SiteResolver extends HandleSubscription implements Resolve<Site> {
+export class SiteResolver extends HandleSubscriptionComponent implements Resolve<Site> {
   constructor(private store: Store<AppState>) {
     super();
   }
@@ -28,9 +28,9 @@ export class SiteResolver extends HandleSubscription implements Resolve<Site> {
 
   waitForSiteDataToLoad(id: number, isInEditMode: boolean): Observable<Site> {
     return this.store.select('state', 'publisher', 'sites').pipe(
-      map((sites) => sites.find((site) => site.id === id)),
-      filter((site) => !!site),
-      tap((site) => {
+      map(sites => sites.find(site => site.id === id)),
+      filter(site => !!site),
+      tap(site => {
         if (isInEditMode) {
           this.store.dispatch(new SetLastEditedSite(site));
         } else {

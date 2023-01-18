@@ -3,15 +3,8 @@
     <div class="col">
       <h2 class="ap-heading ap-heading--h2">Referral links</h2>
       <div class="row justify-end">
-        <button
-          [disabled]="isImpersonated"
-          class="ap-btn ap-btn--blue"
-          (click)="create()"
-        >
-          <fa-icon
-            class="ap-icon ap-icon--prepend"
-            [icon]="createIcon"
-          ></fa-icon>
+        <button [disabled]="isImpersonated" class="ap-btn ap-btn--blue" (click)="create()">
+          <fa-icon class="ap-icon ap-icon--prepend" [icon]="createIcon"></fa-icon>
           Generate new link
         </button>
       </div>
@@ -20,25 +13,11 @@
         <table class="billing-table ap-copy">
           <thead class="ref-link-settings-table__head">
             <tr class="row justify-between">
-              <th class="ref-link-settings__token" scope="col">
-                Referral token
-              </th>
-              <th
-                class="ref-link-settings__refund"
-                scope="col"
-                *ngIf="refundEnabled"
-              >
-                You Receive/Friends Receive
-              </th>
+              <th class="ref-link-settings__token" scope="col">Referral token</th>
+              <th class="ref-link-settings__refund" scope="col" *ngIf="refundEnabled">You Receive/Friends Receive</th>
               <th class="ref-link-settings__comment" scope="col">Note</th>
               <th class="ref-link-settings__usage" scope="col">Friends</th>
-              <th
-                class="ref-link-settings__refunded"
-                scope="col"
-                *ngIf="refundEnabled"
-              >
-                You Earned
-              </th>
+              <th class="ref-link-settings__refunded" scope="col" *ngIf="refundEnabled">You Earned</th>
               <th class="ref-link-settings__actions" scope="col">Action</th>
             </tr>
           </thead>
@@ -47,8 +26,7 @@
               *ngFor="let refLink of list.data"
               [refundEnabled]="refundEnabled"
               [defaultRefundCommission]="defaultRefundCommission"
-              [refLink]="refLink"
-            >
+              [refLink]="refLink">
             </app-ref-link-list-item>
           </tbody>
           <ng-template #loading>
@@ -62,8 +40,7 @@
           (page)="handlePaginationEvent($event, true)"
           [length]="total"
           [pageIndex]="page - 1"
-          [pageSize]="pageSize"
-        >
+          [pageSize]="pageSize">
         </mat-paginator>
       </div>
     </div>

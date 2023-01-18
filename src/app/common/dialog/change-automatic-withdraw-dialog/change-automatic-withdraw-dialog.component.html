@@ -9,8 +9,7 @@
       [formGroup]="automaticWithdrawForm"
       (ngSubmit)="saveNewAutomaticWithdrawOptions()"
       class="ap-form"
-      data-test="common-automatic-withdraw-options-form"
-    >
+      data-test="common-automatic-withdraw-options-form">
       <div class="select">
         <div class="ap-form-input__box">
           <label class="ap-form-label"> Period of Time </label>
@@ -20,23 +19,15 @@
             formControlName="period"
             required
             [(ngModel)]="currentPeriod"
-            data-test="common-automatic-withdraw-options-form-period-select"
-          >
+            data-test="common-automatic-withdraw-options-form-period-select">
             <mat-option
               *ngFor="let period of periods; let periodIndex = index"
               [value]="periodIndex"
-              data-test="common-automatic-withdraw-options-form-period-option"
-            >
+              data-test="common-automatic-withdraw-options-form-period-option">
               {{ periodsEnum[periodIndex] }}
             </mat-option>
           </mat-select>
-          <span
-            class="error-msg"
-            *ngIf="
-              !automaticWithdrawForm.get('period').valid &&
-              automaticWithdrawFormSubmitted
-            "
-          >
+          <span class="error-msg" *ngIf="!automaticWithdrawForm.get('period').valid && automaticWithdrawFormSubmitted">
             Please provide a valid address.
           </span>
         </div>
@@ -51,23 +42,15 @@
             formControlName="amount"
             required
             [(ngModel)]="currentAmount"
-            data-test="common-automatic-withdraw-options-form-amount-select"
-          >
+            data-test="common-automatic-withdraw-options-form-amount-select">
             <mat-option
               *ngFor="let amount of amounts"
               [value]="amount"
-              data-test="common-automatic-withdraw-options-form-amount-option"
-            >
+              data-test="common-automatic-withdraw-options-form-amount-option">
               {{ amount }}
             </mat-option>
           </mat-select>
-          <span
-            class="error-msg"
-            *ngIf="
-              !automaticWithdrawForm.get('amount').valid &&
-              automaticWithdrawFormSubmitted
-            "
-          >
+          <span class="error-msg" *ngIf="!automaticWithdrawForm.get('amount').valid && automaticWithdrawFormSubmitted">
             Please provide a valid address.
           </span>
         </div>
@@ -77,21 +60,14 @@
         <button
           class="ap-btn ap-btn--primary"
           data-test="common-automatic-withdraw-options-form-submit-button"
-          *ngIf="isConfirmed"
-        >
+          *ngIf="isConfirmed">
           <span *ngIf="!isFormBeingSubmitted; else loading"> Save </span>
           <ng-template #loading>
-            <mat-spinner
-              [diameter]="20"
-              [strokeWidth]="2"
-              color="accent"
-            ></mat-spinner>
+            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
           </ng-template>
         </button>
 
-        <span class="error-msg col-xs-12" *ngIf="!isConfirmed">
-          Confirm account to change withdraw
-        </span>
+        <span class="error-msg col-xs-12" *ngIf="!isConfirmed"> Confirm account to change withdraw </span>
       </div>
     </form>
   </div>

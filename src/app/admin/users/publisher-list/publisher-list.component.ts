@@ -21,21 +21,12 @@ export interface PublishersQueryParams {
   styleUrls: ['./publisher-list.component.scss'],
   animations: [
     trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate('400ms', style({ opacity: 0 })),
-      ]),
+      transition(':enter', [style({ opacity: 0 }), animate('400ms', style({ opacity: 1 }))]),
+      transition(':leave', [style({ opacity: 1 }), animate('400ms', style({ opacity: 0 }))]),
     ]),
   ],
 })
-export class PublisherListComponent
-  extends BaseListComponent
-  implements OnInit
-{
+export class PublisherListComponent extends BaseListComponent implements OnInit {
   readonly defaultParams: PublishersQueryParams = {
     searchPhrase: '',
     groupBy: 'domain',
@@ -44,11 +35,7 @@ export class PublisherListComponent
   };
   localStorageName = 'publishersQueryParams';
 
-  constructor(
-    store: Store<AppState>,
-    router: Router,
-    activatedRoute: ActivatedRoute
-  ) {
+  constructor(store: Store<AppState>, router: Router, activatedRoute: ActivatedRoute) {
     super(store, router, activatedRoute);
   }
 
@@ -67,13 +54,11 @@ export class PublisherListComponent
   }
 
   ngOnInit(): void {
-    const publishersSubscription = this.store
-      .select('state', 'admin', 'publishers')
-      .subscribe((publishers) => {
-        this.list = publishers;
-        this.isLoading = !this.list;
-        this.onPageChange();
-      });
+    const publishersSubscription = this.store.select('state', 'admin', 'publishers').subscribe(publishers => {
+      this.list = publishers;
+      this.isLoading = !this.list;
+      this.onPageChange();
+    });
     this.subscriptions.push(publishersSubscription);
     this.queryParams = {
       ...this.defaultParams,

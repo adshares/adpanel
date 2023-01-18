@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'app/api/api.service';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { Info } from 'models/info.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 
@@ -14,10 +14,7 @@ import { AppState } from 'models/app-state.model';
   templateUrl: './forgotten-password.component.html',
   styleUrls: ['./forgotten-password.component.scss'],
 })
-export class ForgottenPasswordComponent
-  extends HandleSubscription
-  implements OnInit
-{
+export class ForgottenPasswordComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild('remindPasswordForm') remindPasswordForm: NgForm;
 
   registrationMode: string;
@@ -34,11 +31,9 @@ export class ForgottenPasswordComponent
   }
 
   ngOnInit() {
-    const infoSubscription = this.store
-      .select('state', 'common', 'info')
-      .subscribe((info: Info) => {
-        this.registrationMode = info.registrationMode;
-      });
+    const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
+      this.registrationMode = info.registrationMode;
+    });
     this.subscriptions.push(infoSubscription);
   }
 

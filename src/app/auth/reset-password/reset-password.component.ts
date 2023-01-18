@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'app/api/api.service';
@@ -12,7 +12,7 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnInit {
   token: any;
   @ViewChild('confirmPasswordForm') confirmPasswordForm: NgForm;
   isPasswordConfirm = false;
@@ -26,7 +26,7 @@ export class ResetPasswordComponent {
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe(params => {
       this.token = params['token'];
       this.api.auth.recoveryGet(this.token).subscribe(
         () => [],
@@ -35,8 +35,7 @@ export class ResetPasswordComponent {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Invalid password recovery token',
-              message:
-                'The token is outdated or already used before.\nPlease request new password recovery email.',
+              message: 'The token is outdated or already used before.\nPlease request new password recovery email.',
             },
           });
         }
@@ -67,7 +66,7 @@ export class ResetPasswordComponent {
           },
         });
       },
-      (err) => {
+      err => {
         this.confirmErrors = err.error.errors;
         this.isPasswordConfirm = false;
       }

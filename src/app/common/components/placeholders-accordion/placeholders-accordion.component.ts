@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-placeholders-accordion',
-  templateUrl: './placeholders-accordion.html',
-  styleUrls: ['./placeholders-accordion.scss'],
+  templateUrl: './placeholders-accordion.component.html',
+  styleUrls: ['./placeholders-accordion.component.scss'],
 })
-export class PlaceholdersAccordion {
+export class PlaceholdersAccordionComponent {
   readonly PLACEHOLDERS = [
     { id: '{aid}', description: 'server id' },
     { id: '{pid}', description: 'publisher id' },

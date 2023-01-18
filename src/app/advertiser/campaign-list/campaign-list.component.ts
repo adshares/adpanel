@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Campaign, CampaignTotals } from 'models/campaign.model';
@@ -12,7 +12,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './campaign-list.component.html',
   styleUrls: ['./campaign-list.component.scss'],
 })
-export class CampaignListComponent {
+export class CampaignListComponent implements OnChanges {
   @Input() dataLoaded: boolean;
   @Input() campaigns: Campaign[];
   @Input() campaignsTotals: CampaignTotals;
@@ -29,18 +29,10 @@ export class CampaignListComponent {
   }
 
   sortTable(event: TableSortEvent): void {
-    this.campaigns = sortArrayByKeys(
-      this.campaigns,
-      event.keys,
-      event.sortDesc
-    );
+    this.campaigns = sortArrayByKeys(this.campaigns, event.keys, event.sortDesc);
   }
 
   navigateToCreateCampaign(): void {
-    this.router.navigate([
-      'advertiser',
-      'create-campaign',
-      'basic-information',
-    ]);
+    this.router.navigate(['advertiser', 'create-campaign', 'basic-information']);
   }
 }

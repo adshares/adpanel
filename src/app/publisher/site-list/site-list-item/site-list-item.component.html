@@ -21,12 +21,12 @@
             *ngFor="let option of siteStatuses"
             [ngClass]="{
               hidden:
-                option.value ===
-                siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()
+                siteStatusEnum.DRAFT === option.value ||
+                siteStatusEnum.PENDING === option.value ||
+                siteStatusEnum.REJECTED === option.value
             }"
             [value]="option.value"
-            data-test="publisher-site-status-select-option"
-          >
+            data-test="publisher-site-status-select-option">
             {{ option.label }}
           </mat-option>
         </mat-select>
@@ -37,16 +37,12 @@
     <a
       class="ap-copy ap-copy--bold clickable-row-a"
       routerLink="/publisher/site/{{ site.id }}"
-      data-test="publisher-site-url"
-    >
+      data-test="publisher-site-url">
       {{ site.name }}
     </a>
   </td>
   <td class="col-xs-1 row align-center">
-    <span
-      data-test="publisher-site-estimated-earnings"
-      [title]="site.revenue || 0 | formatMoney : 4"
-    >
+    <span data-test="publisher-site-estimated-earnings" [title]="site.revenue || 0 | formatMoney : 4">
       {{ site.revenue || 0 | formatMoney : 2 }}
     </span>
   </td>
@@ -66,22 +62,13 @@
     </span>
   </td>
   <td class="col-xs-1 row align-center">
-    <span
-      data-test="publisher-site-rpm"
-      [title]="site.averageRpm || 0 | formatMoney : 4"
-    >
+    <span data-test="publisher-site-rpm" [title]="site.averageRpm || 0 | formatMoney : 4">
       {{ site.averageRpm || 0 | formatMoney : 2 }}
     </span>
   </td>
-  <td
-    class="col-xs-1 row align-center justify-center ap-site-list__item-site-details"
-    role="link"
-  >
+  <td class="col-xs-1 row align-center justify-center ap-site-list__item-site-details" role="link">
     <a routerLink="/publisher/site/{{ site.id }}" class="clickable-row-a">
-      <img
-        src="/assets/images/chevron--right.svg"
-        [alt]="'Go to  ' + site.name + ' details'"
-      />
+      <img src="/assets/images/chevron--right.svg" [alt]="'Go to  ' + site.name + ' details'" />
     </a>
   </td>
 </tr>

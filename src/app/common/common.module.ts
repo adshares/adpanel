@@ -12,10 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {
-  MatSlideToggle,
-  MatSlideToggleModule,
-} from '@angular/material/slide-toggle';
+import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -63,7 +60,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TargetingCustomOptionInputComponent } from 'common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component';
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { LabelWithTooltipComponent } from 'common/components/labelWithTooltip/labelWithTooltip.component';
-import { PlaceholdersAccordion } from 'common/components/placeholders-accordion/placeholders-accordion';
+import { PlaceholdersAccordionComponent } from 'common/components/placeholders-accordion/placeholders-accordion.component';
 import { ReportsListComponent } from 'common/components/reports-list/reports-list.component';
 import { ReportsListItemComponent } from 'common/components/reports-list/reports-list-item/reports-list-item.component';
 import { BidStrategySettingsComponent } from 'common/components/bid-strategy/bid-strategy-settings/bid-strategy-settings.component';
@@ -132,7 +129,7 @@ const appComponents = [
   SettingsMenuItemComponent,
   SuccessSnackbarComponent,
   LabelWithTooltipComponent,
-  PlaceholdersAccordion,
+  PlaceholdersAccordionComponent,
   ReportsListComponent,
   ReportsListItemComponent,
   BidStrategySettingsComponent,

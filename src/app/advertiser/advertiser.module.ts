@@ -13,10 +13,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
-import {
-  NGX_MAT_DATE_FORMATS,
-  NgxMatDatetimePickerModule,
-} from '@angular-material-components/datetime-picker';
+import { NGX_MAT_DATE_FORMATS, NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppCommonModule } from 'common/common.module';
@@ -44,7 +41,7 @@ import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resol
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
 import { EditCampaignNavigationComponent } from 'advertiser/edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
-import { TargetingReach } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
+import { TargetingReachComponent } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
 import { MapToIterablePipe } from 'common/pipes/map-to-iterable.pipe';
 
 const matModules = [
@@ -79,7 +76,7 @@ const advertiserComponents = [
   AdListComponent,
   AdListItemComponent,
   EditCampaignNavigationComponent,
-  TargetingReach,
+  TargetingReachComponent,
 ];
 
 @NgModule({
@@ -104,11 +101,6 @@ const advertiserComponents = [
     { provide: NGX_MAT_DATE_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS },
   ],
 
-  declarations: [
-    CampaignBudgetPerDayPipe,
-    MapToIterablePipe,
-    ...advertiserComponents,
-    ...editCampaignComponents,
-  ],
+  declarations: [CampaignBudgetPerDayPipe, MapToIterablePipe, ...advertiserComponents, ...editCampaignComponents],
 })
 export class AdvertiserModule {}

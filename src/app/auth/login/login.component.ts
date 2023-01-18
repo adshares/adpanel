@@ -6,7 +6,7 @@ import { ApiService } from 'app/api/api.service';
 import { SessionService } from 'app/session.service';
 import { LocalStorageUser, User } from 'models/user.model';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { appSettings } from 'app-settings';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
 import { Store } from '@ngrx/store';
@@ -17,17 +17,14 @@ import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum';
 import { WalletToken } from 'models/settings.model';
 import { stringToHex } from 'web3-utils';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import {
-  HTTP_FORBIDDEN,
-  HTTP_INTERNAL_SERVER_ERROR,
-} from 'common/utilities/codes';
+import { HTTP_FORBIDDEN, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent extends HandleSubscription implements OnInit {
+export class LoginComponent extends HandleSubscriptionComponent implements OnInit {
   readonly ADSHARES_WALLET = ADSHARES_WALLET;
   readonly METAMASK_WALLET = METAMASK_WALLET;
   registrationMode: string;
@@ -60,17 +57,15 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   ngOnInit(): void {
     const loginPlaceholdersSubscription = this.store
       .select('state', 'common', 'placeholders')
-      .subscribe((placeholders) => {
+      .subscribe(placeholders => {
         this.advertiserApplyFormUrl = placeholders?.advertiserApplyFormUrl;
         this.publisherApplyFormUrl = placeholders?.publisherApplyFormUrl;
       });
     this.subscriptions.push(loginPlaceholdersSubscription);
-    const infoSubscription = this.store
-      .select('state', 'common', 'info')
-      .subscribe((info) => {
-        this.registrationMode = info.registrationMode;
-        this.supportEmail = info.supportEmail;
-      });
+    const infoSubscription = this.store.select('state', 'common', 'info').subscribe(info => {
+      this.registrationMode = info.registrationMode;
+      this.supportEmail = info.supportEmail;
+    });
     this.subscriptions.push(infoSubscription);
     this.createForm();
 
@@ -87,21 +82,14 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   createForm(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-      ]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
   }
 
   checkIfUserRemembered(): void {
     const userData = JSON.parse(localStorage.getItem('adshUser'));
 
-    if (
-      userData &&
-      userData.remember &&
-      !isUnixTimePastNow(userData.expiration)
-    ) {
+    if (userData && userData.remember && !isUnixTimePastNow(userData.expiration)) {
       this.loginForm.get('email').setValue(userData.email);
       this.loginForm.get('password').setValue('********');
     }
@@ -116,27 +104,25 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     this.isLoggingIn = true;
 
-    this.api.auth
-      .login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe(
-        (user: User) => {
-          this.processLogin(user);
-        },
-        (res) => {
-          if (HTTP_FORBIDDEN === res.status) {
-            this.dialog.open(ErrorResponseDialogComponent, {
-              data: {
-                title: 'Your account is banned',
-                message: `Info: ${res.error.reason} \n\n In case of doubts, please contact support ${this.supportEmail}`,
-              },
-            });
-            this.isLoggingIn = false;
-            return;
-          }
-          this.criteriaError = true;
+    this.api.auth.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
+      (user: User) => {
+        this.processLogin(user);
+      },
+      res => {
+        if (HTTP_FORBIDDEN === res.status) {
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: 'Your account is banned',
+              message: `Info: ${res.error.reason} \n\n In case of doubts, please contact support ${this.supportEmail}`,
+            },
+          });
           this.isLoggingIn = false;
+          return;
         }
-      );
+        this.criteriaError = true;
+        this.isLoggingIn = false;
+      }
+    );
   }
 
   redirectAfterLogin(user: User): void {
@@ -158,24 +144,14 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
 
     if (redirectUrl) {
-      if (
-        redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) &&
-        user.isAdvertiser
-      ) {
-        this.session.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_ADVERTISER
-        );
+      if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) && user.isAdvertiser) {
+        this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER);
         this.navigateByUrl(redirectUrl);
         return;
       }
 
-      if (
-        redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) &&
-        user.isPublisher
-      ) {
-        this.session.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_PUBLISHER
-        );
+      if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) && user.isPublisher) {
+        this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER);
         this.navigateByUrl(redirectUrl);
         return;
       }
@@ -224,10 +200,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
 
     if (
-      (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType &&
-        user.isAdvertiser) ||
-      (SessionService.ACCOUNT_TYPE_PUBLISHER === accountType &&
-        user.isPublisher)
+      (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType && user.isAdvertiser) ||
+      (SessionService.ACCOUNT_TYPE_PUBLISHER === accountType && user.isPublisher)
     ) {
       this.session.setAccountTypeChoice(accountType);
       this.navigateByUrl(`/${accountType}/dashboard`);
@@ -254,7 +228,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   private redirectIfReferralTokenPresent(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe(params => {
       const referralToken = params['r'];
       if (referralToken) {
         this.router.navigate(['ref', referralToken]);
@@ -263,14 +237,10 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   private navigateByUrl(url: string): void {
-    this.router.navigateByUrl(url).catch((e) => console.error(e));
+    this.router.navigateByUrl(url).catch(e => console.error(e));
   }
 
-  setWalletLoginStatus(
-    submitted: boolean,
-    network: string | null = null,
-    error: string | null = null
-  ): void {
+  setWalletLoginStatus(submitted: boolean, network: string | null = null, error: string | null = null): void {
     this.walletLoginError = error;
     if (null === network || 'ADS' === network) {
       this.isAdsLoggingIn = submitted;
@@ -283,7 +253,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   initWalletLogin(network: string): void {
     this.setWalletLoginStatus(true, network);
     this.api.auth.initWalletLogin().subscribe(
-      (token) => {
+      token => {
         switch (network) {
           case 'ADS':
             this.walletLoginAds(token);
@@ -303,7 +273,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     const adsWallet = new AdsWallet();
     adsWallet
       .authenticate(token.message)
-      .then((response) => {
+      .then(response => {
         if (response.status !== 'accepted') {
           this.setWalletLoginStatus(false, 'ADS', 'Connection was rejected');
           return;
@@ -312,12 +282,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.setWalletLoginStatus(false, 'ADS', 'Testnet is not supported');
           return;
         }
-        this.walletLogin(
-          'ADS',
-          response.account.address,
-          token.token,
-          response.signature
-        );
+        this.walletLogin('ADS', response.account.address, token.token, response.signature);
       })
       .catch(() => {
         this.adsWalletAvailable = false;
@@ -333,48 +298,37 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       return;
     }
     ethereum.request({ method: 'eth_requestAccounts' }).then(
-      (accounts) => {
+      accounts => {
         ethereum
           .request({
             method: 'personal_sign',
             params: [stringToHex(token.message), accounts[0]],
           })
           .then(
-            (result) => {
+            result => {
               this.walletLogin('BSC', accounts[0], token.token, result);
             },
-            (error) => {
+            error => {
               this.setWalletLoginStatus(false, 'BSC', error.message);
             }
           );
       },
-      (error) => {
+      error => {
         this.setWalletLoginStatus(false, 'BSC', error.message);
       }
     );
   }
 
-  walletLogin(
-    network: string,
-    address: string,
-    token: string,
-    signature: string
-  ): void {
+  walletLogin(network: string, address: string, token: string, signature: string): void {
     const referralToken = this.api.users.getReferralToken();
-    this.api.auth
-      .walletLogin(network, address, token, signature, referralToken)
-      .subscribe(
-        (user) => {
-          this.processLogin(user);
-        },
-        () => {
-          this.setWalletLoginStatus(
-            false,
-            network,
-            'Account or signature is invalid.'
-          );
-        }
-      );
+    this.api.auth.walletLogin(network, address, token, signature, referralToken).subscribe(
+      user => {
+        this.processLogin(user);
+      },
+      () => {
+        this.setWalletLoginStatus(false, network, 'Account or signature is invalid.');
+      }
+    );
   }
 
   isOauth(): boolean {
@@ -382,23 +336,19 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   oauthRedirect(): void {
-    this.api.auth
-      .oauthAuthorize(this.route.snapshot.queryParams.redirect_uri)
-      .subscribe(
-        (response) => (window.location.href = response.location),
-        (error) => {
-          if (HTTP_INTERNAL_SERVER_ERROR === error?.status) {
-            return;
-          }
-          this.dialog.open(ErrorResponseDialogComponent, {
-            data: {
-              title: `Authorization failed`,
-              message: `Server respond with an error ${
-                error.status ? error.status : 0
-              }`,
-            },
-          });
+    this.api.auth.oauthAuthorize(this.route.snapshot.queryParams.redirect_uri).subscribe(
+      response => (window.location.href = response.location),
+      error => {
+        if (HTTP_INTERNAL_SERVER_ERROR === error?.status) {
+          return;
         }
-      );
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            title: `Authorization failed`,
+            message: `Server respond with an error ${error.status ? error.status : 0}`,
+          },
+        });
+      }
+    );
   }
 }
