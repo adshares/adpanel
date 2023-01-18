@@ -4,17 +4,14 @@
       <h2 class="ap-heading ap-heading--h2">Email & password</h2>
       <p class="ap-copy">Here you can change your email and password.</p>
 
-      <div class="error-msg" *ngIf="isImpersonated">
-        You cannot change user preferences during impersonation.
-      </div>
+      <div class="error-msg" *ngIf="isImpersonated">You cannot change user preferences during impersonation.</div>
 
       <form
         *ngIf="!isImpersonated"
         [formGroup]="changeEmailForm"
         (ngSubmit)="onChangeEmail()"
         class="ap-form"
-        data-test="settings-change-email-form"
-      >
+        data-test="settings-change-email-form">
         <div class="row align-start change-form">
           <div class="ap-form-input__box">
             <label for="email" class="ap-form-label"> Email address </label>
@@ -25,38 +22,19 @@
               name="email"
               formControlName="email"
               data-test="settings-change-email-form-email"
-              [placeholder]="user.email || ''"
-            />
-            <span
-              class="input-valid"
-              *ngIf="changeEmailForm.get('email').valid"
-            ></span>
-            <span
-              class="error-msg"
-              *ngIf="
-                changeEmailForm.hasError('email', ['email']) &&
-                changeEmailFormSubmitted
-              "
-            >
+              [placeholder]="user.email || ''" />
+            <span class="input-valid" *ngIf="changeEmailForm.get('email').valid"></span>
+            <span class="error-msg" *ngIf="changeEmailForm.hasError('email', ['email']) && changeEmailFormSubmitted">
               Invalid email!
             </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                changeEmailForm.hasError('required', ['email']) &&
-                changeEmailFormSubmitted
-              "
-            >
+            <span class="error-msg" *ngIf="changeEmailForm.hasError('required', ['email']) && changeEmailFormSubmitted">
               Email is required!
             </span>
             <span class="error-msg" *ngIf="errorEmailChange">
               {{ errorEmailChange }}
             </span>
           </div>
-          <button
-            class="ap-btn ap-btn--blue"
-            data-test="settings-change-email-form-submit"
-          >
+          <button class="ap-btn ap-btn--blue" data-test="settings-change-email-form-submit">
             <ng-container *ngIf="user.email">Change email</ng-container>
             <ng-container *ngIf="!user.email">Set email</ng-container>
           </button>
@@ -68,68 +46,42 @@
         [formGroup]="changePasswordForm"
         (ngSubmit)="onChangePassword()"
         class="ap-form"
-        data-test="settings-change-password-form"
-      >
+        data-test="settings-change-password-form">
         <div class="row align-start change-form">
           <div class="row">
             <div class="ap-form-input__box" *ngIf="user.hasPassword">
-              <label for="currentPassword" class="ap-form-label">
-                Current Password
-              </label>
+              <label for="currentPassword" class="ap-form-label"> Current Password </label>
               <input
                 id="currentPassword"
                 class="ap-form-input"
                 type="password"
                 name="currentPassword"
                 formControlName="currentPassword"
-                data-test="settings-change-password-form-current-password"
-              />
-              <span
-                class="error-msg"
-                *ngIf="
-                  errorsPasswordChange &&
-                  ObjectKeys(errorsPasswordChange).length > 0
-                "
-              >
-                <span
-                  *ngFor="let errorForm of ObjectKeys(errorsPasswordChange)"
-                  >{{ errorsPasswordChange[errorForm] }}</span
-                >
+                data-test="settings-change-password-form-current-password" />
+              <span class="error-msg" *ngIf="errorsPasswordChange && ObjectKeys(errorsPasswordChange).length > 0">
+                <span *ngFor="let errorForm of ObjectKeys(errorsPasswordChange)">{{
+                  errorsPasswordChange[errorForm]
+                }}</span>
               </span>
               <span
                 class="error-msg"
-                *ngIf="
-                  changePasswordForm.hasError('required', [
-                    'currentPassword'
-                  ]) && changePasswordFormSubmitted
-                "
-              >
+                *ngIf="changePasswordForm.hasError('required', ['currentPassword']) && changePasswordFormSubmitted">
                 Current password required!
               </span>
             </div>
             <div class="ap-form-input__box">
-              <label for="newPassword" class="ap-form-label">
-                New password
-              </label>
+              <label for="newPassword" class="ap-form-label"> New password </label>
               <input
                 id="newPassword"
                 class="ap-form-input"
                 type="password"
                 name="newPassword"
                 formControlName="newPassword"
-                data-test="settings-change-password-form-new-password"
-              />
-              <span
-                class="input-valid"
-                *ngIf="changePasswordForm.get('newPassword').valid"
-              ></span>
+                data-test="settings-change-password-form-new-password" />
+              <span class="input-valid" *ngIf="changePasswordForm.get('newPassword').valid"></span>
               <span
                 class="error-msg"
-                *ngIf="
-                  changePasswordForm.hasError('required', ['newPassword']) &&
-                  changePasswordFormSubmitted
-                "
-              >
+                *ngIf="changePasswordForm.hasError('required', ['newPassword']) && changePasswordFormSubmitted">
                 New password required
               </span>
               <span
@@ -137,52 +89,39 @@
                 *ngIf="
                   changePasswordForm.hasError('minlength', ['newPassword']) &&
                   changePasswordForm.get('newPassword').touched
-                "
-              >
+                ">
                 Minimum 8 signs required!
               </span>
             </div>
 
             <div class="ap-form-input__box">
-              <label for="newPasswordConfirm" class="ap-form-label">
-                Confirm password
-              </label>
+              <label for="newPasswordConfirm" class="ap-form-label"> Confirm password </label>
               <input
                 id="newPasswordConfirm"
                 class="ap-form-input"
                 type="password"
                 name="newPasswordConfirm"
                 [formControl]="newPasswordConfirm"
-                data-test="settings-change-password-form-new-password-confirm-password"
-              />
+                data-test="settings-change-password-form-new-password-confirm-password" />
               <span
                 class="input-valid"
                 *ngIf="
-                  newPasswordConfirm.value ===
-                    changePasswordForm.get('newPassword').value &&
+                  newPasswordConfirm.value === changePasswordForm.get('newPassword').value &&
                   changePasswordForm.get('newPassword').valid
-                "
-              ></span>
+                "></span>
               <span
                 class="error-msg"
                 *ngIf="
-                  newPasswordConfirm.value !==
-                    changePasswordForm.get('newPassword').value &&
+                  newPasswordConfirm.value !== changePasswordForm.get('newPassword').value &&
                   newPasswordConfirm.touched &&
                   changePasswordForm.get('newPassword').touched
-                "
-              >
+                ">
                 Passwords don't match!
               </span>
             </div>
           </div>
-          <button
-            class="ap-btn ap-btn--blue"
-            data-test="settings-change-password-form-submit"
-          >
-            <ng-container *ngIf="user.hasPassword"
-              >Change password</ng-container
-            >
+          <button class="ap-btn ap-btn--blue" data-test="settings-change-password-form-submit">
+            <ng-container *ngIf="user.hasPassword">Change password</ng-container>
             <ng-container *ngIf="!user.hasPassword">Set password</ng-container>
           </button>
         </div>

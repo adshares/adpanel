@@ -5,13 +5,8 @@
     (input)="onSearchTermChange()"
     title="Search for targeting option"
     class="targeting-select__input"
-    data-test="common-targeting-select-search-input"
-  />
-  <img
-    src="/assets/images/search.svg"
-    alt=""
-    class="targeting-select__search-icon"
-  />
+    data-test="common-targeting-select-search-input" />
+  <img src="/assets/images/search.svg" alt="" class="targeting-select__search-icon" />
 </div>
 
 <button
@@ -20,13 +15,9 @@
   (click)="changeViewModel(parentViewModel)"
   role="button"
   class="targeting-select__option targeting-select__option--back"
-  data-test="common-targeting-select-navigate-to-parent-button"
->
+  data-test="common-targeting-select-navigate-to-parent-button">
   <fa-icon class="ap-icon ap-icon--prepend" [icon]="faArrowLeft"></fa-icon>
-  <span
-    class="targeting-select__parent-option"
-    data-test="common-targeting-select-parent-option"
-  >
+  <span class="targeting-select__parent-option" data-test="common-targeting-select-parent-option">
     {{ parentOption.label }}
   </span>
 </button>
@@ -42,8 +33,7 @@
           ? handleOptionClick(option)
           : toggleItem(option)
       "
-      data-test="common-targeting-select-option"
-    >
+      data-test="common-targeting-select-option">
       {{ option.label }}
       <span *ngIf="option.description">
         <fa-icon
@@ -51,8 +41,7 @@
           matTooltipClass="ap-mat-tooltip"
           [matTooltip]="option.description"
           matTooltipPosition="above"
-          [icon]="faQuestionCircle"
-        ></fa-icon>
+          [icon]="faQuestionCircle"></fa-icon>
       </span>
 
       <span
@@ -62,22 +51,17 @@
           selected: option.selected,
           'sub-selected': !option.selected && option.subSelected
         }"
-        class="{{ checkClass }}-unselected"
-      ></span>
+        class="{{ checkClass }}-unselected"></span>
 
       <fa-icon
-        *ngIf="
-          option.hasOwnProperty('children') || option.hasOwnProperty('values')
-        "
+        *ngIf="option.hasOwnProperty('children') || option.hasOwnProperty('values')"
         class="ap-icon ap-icon--append"
-        [icon]="faArrowRight"
-      ></fa-icon>
+        [icon]="faArrowRight"></fa-icon>
     </div>
     <app-targeting-custom-option-input
       *ngIf="option.allowInput"
       [option]="toTargetingOption(option)"
-      (itemsChange)="handleAddCustomItem($event, option)"
-    >
+      (itemsChange)="handleAddCustomItem($event, option)">
     </app-targeting-custom-option-input>
   </li>
 </ul>

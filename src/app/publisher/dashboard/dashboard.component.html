@@ -1,14 +1,10 @@
-<section
-  class="ap-publisher-wrapper dashboard-view"
-  *ngIf="sitesLoaded; else loading"
->
+<section class="ap-publisher-wrapper dashboard-view" *ngIf="sitesLoaded; else loading">
   <div class="container">
     <div class="row no-gutters justify-end">
       <button
         routerLink="/publisher/classifier"
         data-test="publisher-navigate-to-classifier"
-        class="ap-btn ap-btn--primary"
-      >
+        class="ap-btn ap-btn--primary">
         Reject banner ads
       </button>
     </div>
@@ -20,15 +16,10 @@
           <div class="row justify-between">
             <app-chart-filter-by-type
               (updateId)="appChartRef.updateChartDataAssetId($event)"
-              (updateSeries)="appChartRef.updateChartDataSeries($event)"
-            ></app-chart-filter-by-type>
+              (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
             <app-chart-filter
               *ngIf="!!sites.length"
-              (filter)="
-                appChartRef.updateChartData($event);
-                loadSites($event.from, $event.to)
-              "
-            ></app-chart-filter>
+              (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"></app-chart-filter>
           </div>
           <div class="dashboard__chart-wrapper">
             <div class="dashboard__chart">
@@ -36,16 +27,14 @@
                 class="chart row align-center justify-center"
                 (update)="getChartData($event)"
                 [barChartData]="barChartData"
-                [barChartLabels]="barChartLabels"
-              ></app-chart>
+                [barChartLabels]="barChartLabels"></app-chart>
             </div>
           </div>
           <div class="row justify-end">
             <button
               (click)="downloadReport()"
               class="ap-btn ap-btn--secondary"
-              data-test="publisher-download-report-button"
-            >
+              data-test="publisher-download-report-button">
               Generate a report
             </button>
           </div>
@@ -55,35 +44,22 @@
       <div class="ap-box ap-copy">
         <h2 class="ap-heading ap-heading--h2 box-title">List of all sites</h2>
         <div class="box-content">
-          <app-site-list
-            [dataLoaded]="dataLoaded"
-            [sites]="sites"
-            [sitesTotals]="sitesTotals"
-          ></app-site-list>
+          <app-site-list [dataLoaded]="dataLoaded" [sites]="sites" [sitesTotals]="sitesTotals"></app-site-list>
         </div>
       </div>
     </ng-container>
 
     <ng-container *ngIf="!sites.length">
-      <div
-        class="ap-box col align-center justify-center text-center add-new-site-wrapper"
-      >
-        <img
-          src="/assets/images/publisher-account-illustration.svg"
-          alt="Publisher New Site Illustration"
-        />
+      <div class="ap-box col align-center justify-center text-center add-new-site-wrapper">
+        <img src="/assets/images/publisher-account-illustration.svg" alt="Publisher New Site Illustration" />
         <div class="ap-customize__box-description">
           <h2 class="ap-heading ap-heading--h2">Add your first site</h2>
         </div>
         <button
           routerLink="/publisher/create-site/basic-information"
           data-test="publisher-create-new-site"
-          class="row align-center ap-btn ap-btn--primary"
-        >
-          <fa-icon
-            class="ap-icon ap-icon--prepend"
-            [icon]="faPlusCircle"
-          ></fa-icon>
+          class="row align-center ap-btn ap-btn--primary">
+          <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
           Create now
         </button>
       </div>

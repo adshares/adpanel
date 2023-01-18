@@ -11,11 +11,7 @@
       <app-reports-list-item [item]="report"></app-reports-list-item>
     </div>
   </div>
-  <div
-    *ngIf="
-      0 === reportsListAdvertiser.length && 0 === reportsListPublisher.length
-    "
-  >
+  <div *ngIf="0 === reportsListAdvertiser.length && 0 === reportsListPublisher.length">
     <p class="ap-copy">Report list is empty</p>
   </div>
 </div>

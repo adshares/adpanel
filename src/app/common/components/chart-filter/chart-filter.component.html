@@ -1,11 +1,8 @@
 <div class="filters" (clickOutside)="hideDatepicker()">
   <div class="ap-select" (click)="showDatepicker()">
-    <span class="mat-select-trigger" *ngIf="currentFilterPreset">{{
-      currentFilterPreset.name
-    }}</span>
+    <span class="mat-select-trigger" *ngIf="currentFilterPreset">{{ currentFilterPreset.name }}</span>
     <span class="mat-select-trigger" *ngIf="!currentFilterPreset"
-      >From {{ ' ' + currentFromFilter + ' ' }} to
-      {{ ' ' + currentToFilter }}</span
+      >From {{ ' ' + currentFromFilter + ' ' }} to {{ ' ' + currentToFilter }}</span
     >
   </div>
   <div class="chart-filters ap-box" [class.visible]="datepickerVisible">
@@ -17,8 +14,7 @@
         class="ap-btn ap-btn--secondary"
         [class.selected]="preset.id === currentDaysSpan"
         (click)="filterChart(preset.id, 0, false)"
-        data-test="chart-filter-preset"
-      >
+        data-test="chart-filter-preset">
         {{ preset.name }}
       </button>
     </div>
@@ -28,8 +24,7 @@
       <label class="ap-copy ap-copy--small"> From </label>
       <mat-form-field
         (click)="dateFromPicker.open()"
-        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row"
-      >
+        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
         <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
         <input
           matInput
@@ -37,20 +32,17 @@
           [formControl]="dateFrom"
           required
           [max]="dateTo.value || today"
-          data-test="chart-filter-custom-date-from"
-        />
+          data-test="chart-filter-custom-date-from" />
         <mat-datepicker
           #dateFromPicker
           (opened)="setCalendarStatus(true)"
-          (closed)="setCalendarStatus(false)"
-        ></mat-datepicker>
+          (closed)="setCalendarStatus(false)"></mat-datepicker>
       </mat-form-field>
 
       <label class="ap-copy ap-copy--small"> To </label>
       <mat-form-field
         (click)="dateToPicker.open()"
-        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row"
-      >
+        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
         <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
         <input
           matInput
@@ -59,26 +51,20 @@
           required
           [min]="dateFrom.value"
           [max]="today"
-          data-test="chart-filter-custom-date-to"
-        />
+          data-test="chart-filter-custom-date-to" />
         <mat-datepicker
           #dateToPicker
           (opened)="setCalendarStatus(true)"
-          (closed)="setCalendarStatus(false)"
-        ></mat-datepicker>
+          (closed)="setCalendarStatus(false)"></mat-datepicker>
       </mat-form-field>
       <button
         type="button"
         class="ap-btn ap-btn--primary"
         [class.disabled]="!dateTo.value || !dateFrom.value"
         (click)="filterChartByDatepicker()"
-        data-test="chart-filter-apply-datespan-button"
-      >
+        data-test="chart-filter-apply-datespan-button">
         Apply
-        <fa-icon
-          [icon]="faArrowAltCircleRight"
-          class="ap-icon ap-icon--append"
-        ></fa-icon>
+        <fa-icon [icon]="faArrowAltCircleRight" class="ap-icon ap-icon--append"></fa-icon>
       </button>
     </div>
   </div>

@@ -3,9 +3,7 @@
   <div class="ap-box">
     <div class="box-title">
       <h1 class="ap-heading ap-heading--h2">Summary</h1>
-      <p class="ap-copy box-subtitle">
-        Below is summary of all the data defining your campaign.
-      </p>
+      <p class="ap-copy box-subtitle">Below is summary of all the data defining your campaign.</p>
     </div>
   </div>
 
@@ -21,10 +19,7 @@
     <div class="box-content row justify-around ap-copy">
       <div class="col row--gap8">
         <p class="ap-copy--small label">Campaign name:</p>
-        <p
-          class="ap-copy--dark ap-copy--semi"
-          data-test="advertiser-campaign-name"
-        >
+        <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-name">
           {{ campaign.basicInformation.name }}
         </p>
       </div>
@@ -37,48 +32,27 @@
           rel="nofollow noopener noreferrer"
           target="_blank"
           class="ap-copy--dark ap-copy--semi"
-          data-test="advertiser-campaign-target-url"
-        >
+          data-test="advertiser-campaign-target-url">
           {{ campaign.basicInformation.targetUrl }}
         </a>
       </div>
-      <div
-        *ngIf="campaign.basicInformation.maxCpm != null"
-        class="col row--gap8"
-      >
+      <div *ngIf="campaign.basicInformation.maxCpm !== null" class="col row--gap8">
         <p class="ap-copy--small label">Max CPM</p>
-        <p
-          class="ap-copy--dark ap-copy--semi"
-          data-test="advertiser-campaign-max-cpm"
-        >
+        <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-max-cpm">
           {{ campaign.basicInformation.maxCpm | formatMoney : 2 }}
         </p>
       </div>
       <div class="col row--gap8">
         <p class="ap-copy--small label">Budget</p>
-        <p
-          class="ap-copy--dark ap-copy--semi"
-          data-test="advertiser-campaign-budget"
-        >
-          {{
-            campaign.basicInformation.budget
-              | campaignBudgetPerDay
-              | formatMoney : 4
-          }}
+        <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-budget">
+          {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney : 4 }}
         </p>
       </div>
       <div class="col row--gap8">
         <p class="ap-copy--small label">Start date</p>
         <div class="row align-center">
-          <img
-            class="ap-icon ap-icon--prepend"
-            src="/assets/images/calendar.svg"
-            alt="Calendar Icon"
-          />
-          <p
-            class="ap-copy--dark ap-copy--semi"
-            data-test="advertiser-campaign-start-date"
-          >
+          <img class="ap-icon ap-icon--prepend" src="/assets/images/calendar.svg" alt="Calendar Icon" />
+          <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-start-date">
             {{ campaign.basicInformation.dateStart | formatDate }}
           </p>
         </div>
@@ -86,16 +60,11 @@
       <div class="col row--gap8">
         <p class="ap-copy--small label">End date</p>
         <div class="row align-center">
-          <img
-            class="ap-icon ap-icon--prepend"
-            src="/assets/images/calendar.svg"
-            alt="Calendar Icon"
-          />
+          <img class="ap-icon ap-icon--prepend" src="/assets/images/calendar.svg" alt="Calendar Icon" />
           <p
             *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
             class="ap-copy--dark ap-copy--semi"
-            data-test="advertiser-campaign-end-date"
-          >
+            data-test="advertiser-campaign-end-date">
             {{ campaign.basicInformation.dateEnd | formatDate }}
           </p>
           <ng-template #dateEndEmpty> - </ng-template>
@@ -115,30 +84,24 @@
 
     <div class="box-content">
       <h3 class="ap-heading ap-heading--h3 targeting-title">Targeting:</h3>
-      <span class="ap-copy" *ngIf="!campaign.targetingArray.requires.length"
-        >(none)</span
-      >
+      <span class="ap-copy" *ngIf="!campaign.targetingArray.requires.length">(none)</span>
       <app-targeting-display
         *ngIf="campaign.targetingArray"
         [items]="campaign.targetingArray.requires"
         [isExclude]="false"
         [canRemove]="false"
-        [targetingOptions]="targetingOptionsToAdd"
-      ></app-targeting-display>
+        [targetingOptions]="targetingOptionsToAdd"></app-targeting-display>
     </div>
 
     <div class="box-content">
       <h3 class="ap-heading ap-heading--h3 targeting-title">Exclusions:</h3>
-      <span class="ap-copy" *ngIf="!campaign.targetingArray.excludes.length"
-        >(none)</span
-      >
+      <span class="ap-copy" *ngIf="!campaign.targetingArray.excludes.length">(none)</span>
       <app-targeting-display
         *ngIf="campaign.targetingArray"
         [items]="campaign.targetingArray.excludes"
         [isExclude]="true"
         [canRemove]="false"
-        [targetingOptions]="targetingOptionsToExclude"
-      ></app-targeting-display>
+        [targetingOptions]="targetingOptionsToExclude"></app-targeting-display>
     </div>
   </div>
 
@@ -152,57 +115,39 @@
     </div>
 
     <div class="box-content row justify-between">
-      <span *ngIf="!campaign.ads.length" class="ap-copy ap-copy--error"
-        >(none)
-      </span>
-      <div
-        #appBannerPreviewContainer
-        *ngFor="let ad of campaign.ads"
-        class="campaign-poster"
-      >
+      <span *ngIf="!campaign.ads.length" class="ap-copy ap-copy--error">(none) </span>
+      <div #appBannerPreviewContainer *ngFor="let ad of campaign.ads" class="campaign-poster">
         <app-banner-preview
           [banner]="ad"
           [landingUrl]="campaign.basicInformation.targetUrl"
-          [maxWidth]="appBannerPreviewContainer.clientWidth"
-        ></app-banner-preview>
+          [maxWidth]="appBannerPreviewContainer.clientWidth"></app-banner-preview>
       </div>
     </div>
   </div>
 
   <p class="ap-alert ap-alert--info">
-    Please note that it is possible to base your campaign on conversions - i.e.
-    set specific actions you want to pay for – e.g. registrations or sales. In
-    case you want to use this feature, please go to your campaign settings and
-    select “Edit conversions”. Click
-    <a
-      href="https://github.com/adshares/adserver/wiki/Conversions"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      here
-    </a>
+    Please note that it is possible to base your campaign on conversions - i.e. set specific actions you want to pay for
+    – e.g. registrations or sales. In case you want to use this feature, please go to your campaign settings and select
+    “Edit conversions”. Click
+    <a href="https://github.com/adshares/adserver/wiki/Conversions" rel="noopener noreferrer" target="_blank"> here </a>
     to read more about conversion handling.
   </p>
 
   <div class="ap-box">
     <div class="row justify-between">
-      <button routerLink="../create-ad" class="ap-btn ap-btn--secondary">
-        Back
-      </button>
+      <button routerLink="../create-ad" class="ap-btn ap-btn--secondary">Back</button>
 
       <div class="row row--gap8">
         <button
           class="ap-btn ap-btn--secondary"
           (click)="saveCampaign(true)"
-          data-test="advertiser-edit-campaign-save-as-draft"
-        >
+          data-test="advertiser-edit-campaign-save-as-draft">
           Save as draft
         </button>
         <button
           class="ap-btn ap-btn--primary"
           (click)="saveCampaign(false)"
-          data-test="advertiser-edit-campaign-start-campaign"
-        >
+          data-test="advertiser-edit-campaign-start-campaign">
           Start campaign
         </button>
       </div>

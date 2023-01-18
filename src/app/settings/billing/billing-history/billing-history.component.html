@@ -8,24 +8,15 @@
             From {{ dateFrom.format(DATE_FORMAT) }} to
             {{ dateTo.format(DATE_FORMAT) }}
           </label>
-          <app-billing-history-filter
-            (filter)="updateFilterData($event)"
-          ></app-billing-history-filter>
+          <app-billing-history-filter (filter)="updateFilterData($event)"></app-billing-history-filter>
         </div>
       </div>
 
       <p class="ap-copy">List of all events on your account.</p>
 
       <div class="row justify-end">
-        <button
-          class="ap-btn ap-btn--primary"
-          (click)="refresh()"
-          data-test="settings-billing-history-refresh-button"
-        >
-          <fa-icon
-            class="ap-icon ap-icon--prepend"
-            [icon]="refreshIcon"
-          ></fa-icon>
+        <button class="ap-btn ap-btn--primary" (click)="refresh()" data-test="settings-billing-history-refresh-button">
+          <fa-icon class="ap-icon ap-icon--prepend" [icon]="refreshIcon"></fa-icon>
           Refresh
         </button>
       </div>
@@ -46,8 +37,7 @@
             <app-billing-history-withdrawal
               *ngFor="let billingHistoryItem of billingHistory.items"
               [billingHistoryItem]="billingHistoryItem"
-              data-test="settings-billing-history-item"
-            >
+              data-test="settings-billing-history-item">
             </app-billing-history-withdrawal>
           </tbody>
           <mat-paginator
@@ -55,8 +45,7 @@
             [showFirstLastButtons]="true"
             [length]="billingHistory.itemsCountAll"
             [pageSize]="billingHistory.limit"
-            (page)="handlePaginationEvent($event)"
-          >
+            (page)="handlePaginationEvent($event)">
           </mat-paginator>
           <ng-template #loading>
             <div class="loading-wrapper">

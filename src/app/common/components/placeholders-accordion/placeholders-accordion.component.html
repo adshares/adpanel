@@ -6,15 +6,17 @@
     <p class="ap-copy">List of available placeholders to use in target URL:</p>
     <ng-container *ngFor="let placeholder of PLACEHOLDERS">
       <p class="ap-copy">
-        <span class="col-xs-2"><code>{{placeholder.id}}</code></span> -
-        <span class="col-xs-10">{{placeholder.description}}</span>
+        <span class="col-xs-2"
+          ><code>{{ placeholder.id }}</code></span
+        >
+        -
+        <span class="col-xs-10">{{ placeholder.description }}</span>
       </p>
     </ng-container>
     <p class="ap-copy">
-      Place selected placeholders in the target URL. Any of these placeholders
-      will be replaced with the proper value.<br />
-      For example <code>{{ PLACEHOLDERS[0].id }}</code> will be replaced with
-      the {{ PLACEHOLDERS[0].description }}.
+      Place selected placeholders in the target URL. Any of these placeholders will be replaced with the proper
+      value.<br />
+      For example <code>{{ PLACEHOLDERS[0].id }}</code> will be replaced with the {{ PLACEHOLDERS[0].description }}.
     </p>
   </mat-expansion-panel>
 </mat-accordion>

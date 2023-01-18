@@ -1,7 +1,4 @@
-<app-edit-site-navigation
-  [currentStep]="4"
-  [medium]="site.medium"
-></app-edit-site-navigation>
+<app-edit-site-navigation [currentStep]="4" [medium]="site.medium"></app-edit-site-navigation>
 <section class="homepage-view site-edit-additional-targeting">
   <div class="ap-box">
     <h1 class="ap-heading ap-heading--h2 box-title">Classification</h1>
@@ -9,16 +6,14 @@
       <mat-checkbox
         id="require-classified-checkbox"
         [(ngModel)]="isCheckedOnlyAcceptedBanners"
-        data-test="publisher-edit-site-require-classified-checkbox"
-      >
+        data-test="publisher-edit-site-require-classified-checkbox">
         Manual approval of banners
         <fa-icon
           [icon]="faQuestionCircle"
           class="ap-icon ap-icon--append ap-copy--secondary"
           matTooltip="After set this setting you will be able to approve banners for this particular site."
           matTooltipClass="ap-mat-tooltip"
-          matTooltipPosition="right"
-        ></fa-icon>
+          matTooltipPosition="right"></fa-icon>
       </mat-checkbox>
     </div>
 
@@ -26,14 +21,12 @@
       <mat-accordion
         multi="true"
         class="targeting-accordion"
-        data-test="publisher-edit-site-additional-targeting-accordion"
-      >
+        data-test="publisher-edit-site-additional-targeting-accordion">
         <div *ngIf="showRequiresSection">
           <mat-expansion-panel
             (opened)="requirePanelOpenState = true"
             (closed)="requirePanelOpenState = false"
-            data-test="publisher-edit-site-additional-targeting-accordion-panel-required"
-          >
+            data-test="publisher-edit-site-additional-targeting-accordion-panel-required">
             <mat-expansion-panel-header class="ap-heading ap-heading--h3">
               <mat-panel-title> Targeting </mat-panel-title>
             </mat-expansion-panel-header>
@@ -41,20 +34,16 @@
             <div class="row">
               <div class="col-xs-6 no-gutters">
                 <p class="ap-copy">
-                  In this window you can select the keywords that will help you
-                  choose the ads that are related to your site and meet your
-                  requirements.
+                  In this window you can select the keywords that will help you choose the ads that are related to your
+                  site and meet your requirements.
                 </p>
 
                 <div class="targeting-select-wrapper">
                   <app-targeting-select
-                    *ngIf="
-                      targetingOptionsToAdd && targetingOptionsToAdd.length > 0
-                    "
+                    *ngIf="targetingOptionsToAdd && targetingOptionsToAdd.length > 0"
                     [targetingOptions]="targetingOptionsToAdd"
                     [addedItems]="addedItems"
-                    (itemsChange)="updateAddedItems($event)"
-                  ></app-targeting-select>
+                    (itemsChange)="updateAddedItems($event)"></app-targeting-select>
                 </div>
               </div>
 
@@ -64,8 +53,7 @@
                   [canRemove]="true"
                   [isExclude]="false"
                   [targetingOptions]="targetingOptionsToAdd"
-                  (itemsChange)="updateAddedItems($event)"
-                ></app-targeting-display>
+                  (itemsChange)="updateAddedItems($event)"></app-targeting-display>
               </div>
             </div>
           </mat-expansion-panel>
@@ -77,16 +65,14 @@
               [isExclude]="false"
               [targetingOptions]="targetingOptionsToAdd"
               (itemsChange)="updateAddedItems($event)"
-              *ngIf="!requirePanelOpenState"
-            ></app-targeting-display>
+              *ngIf="!requirePanelOpenState"></app-targeting-display>
           </div>
         </div>
         <mat-expansion-panel
           (opened)="excludePanelOpenState = true"
           (closed)="excludePanelOpenState = false"
           [expanded]="true"
-          data-test="publisher-edit-site-additional-targeting-accordion-panel-excluded"
-        >
+          data-test="publisher-edit-site-additional-targeting-accordion-panel-excluded">
           <mat-expansion-panel-header class="ap-heading ap-heading--h3">
             <mat-panel-title> Exclusions </mat-panel-title>
           </mat-expansion-panel-header>
@@ -94,37 +80,28 @@
           <div class="row">
             <div class="col-xs-6">
               <p class="ap-copy">
-                Please select banner ad categories that you don’t want to
-                display on your site. If you don’t exclude any categories, all
-                available ads will be displayed on your site - e.g. adult,
-                gambling, investment etc.
+                Please select banner ad categories that you don’t want to display on your site. If you don’t exclude any
+                categories, all available ads will be displayed on your site - e.g. adult, gambling, investment etc.
               </p>
 
               <div class="targeting-select-wrapper">
                 <app-targeting-select
-                  *ngIf="
-                    targetingOptionsToExclude &&
-                    targetingOptionsToExclude.length > 0
-                  "
+                  *ngIf="targetingOptionsToExclude && targetingOptionsToExclude.length > 0"
                   [targetingOptions]="targetingOptionsToExclude"
                   [addedItems]="excludedItems"
                   [checkClass]="'stopmark'"
-                  (itemsChange)="updateExcludedItems($event)"
-                ></app-targeting-select>
+                  (itemsChange)="updateExcludedItems($event)"></app-targeting-select>
               </div>
             </div>
 
             <div class="col-xs-6">
-              <p _ngcontent-c7="" class="ap-copy--redder ap-copy--plus">
-                These ads will NOT appear on your website:
-              </p>
+              <p _ngcontent-c7="" class="ap-copy--redder ap-copy--plus">These ads will NOT appear on your website:</p>
               <app-targeting-display
                 [items]="excludedItems"
                 [canRemove]="true"
                 [isExclude]="true"
                 (itemsChange)="updateExcludedItems($event)"
-                [targetingOptions]="targetingOptionsToExclude"
-              ></app-targeting-display>
+                [targetingOptions]="targetingOptionsToExclude"></app-targeting-display>
             </div>
           </div>
         </mat-expansion-panel>
@@ -136,17 +113,14 @@
             [isExclude]="true"
             (itemsChange)="updateExcludedItems($event)"
             [targetingOptions]="targetingOptionsToExclude"
-            *ngIf="!excludePanelOpenState"
-          ></app-targeting-display>
+            *ngIf="!excludePanelOpenState"></app-targeting-display>
         </div>
       </mat-accordion>
     </div>
   </div>
 
   <div class="ap-box ap-box--large row justify-between">
-    <button class="ap-btn ap-btn--secondary" role="link" (click)="onStepBack()">
-      Back
-    </button>
+    <button class="ap-btn ap-btn--secondary" role="link" (click)="onStepBack()">Back</button>
 
     <div class="row row--gap8">
       <button
@@ -154,24 +128,13 @@
         (click)="saveSite(true)"
         [disabled]="changesSaved"
         class="ap-btn ap-btn--secondary"
-        data-test="publisher-edit-site-save-as-draft"
-      >
+        data-test="publisher-edit-site-save-as-draft">
         Save as draft
       </button>
-      <button
-        (click)="onSubmit()"
-        class="ap-btn ap-btn--primary"
-        data-test="publisher-edit-site-save-and-continue"
-      >
-        <span *ngIf="!changesSaved; else loading">{{
-          createSiteMode ? 'Save & continue' : 'Update'
-        }}</span>
+      <button (click)="onSubmit()" class="ap-btn ap-btn--primary" data-test="publisher-edit-site-save-and-continue">
+        <span *ngIf="!changesSaved; else loading">{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
         <ng-template #loading>
-          <mat-spinner
-            [diameter]="20"
-            [strokeWidth]="2"
-            color="accent"
-          ></mat-spinner>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
       </button>
     </div>

@@ -11,30 +11,20 @@
   <!--    <div class="ap-auth__content ap-bg-white justify-between">-->
   <div [@fadeAnimation]="getRouterOutletState(o)">
     <router-outlet #o="outlet"></router-outlet>
-    <div
-      class="ap-login__footer row align-center justify-between ap-copy ap-copy--small"
-    >
-      <a
-        href="https://adshares.net?utm_source={{ source }}&utm_campaign=auth"
-        target="_blank"
-      >
+    <div class="ap-login__footer row align-center justify-between ap-copy ap-copy--small">
+      <a href="https://adshares.net?utm_source={{ source }}&utm_campaign=auth" target="_blank">
         <img
           alt=""
           class="ap-logo"
           src="assets/images/logo--white.png"
-          srcset="
-            assets/images/logo--white@2x.png 2x,
-            assets/images/logo--white@3x.png 3x
-          "
-        />
+          srcset="assets/images/logo--white@2x.png 2x, assets/images/logo--white@3x.png 3x" />
       </a>
       <a
         class="ap-copy--white"
         [href]="termsOfServiceLink"
         rel="noopener noreferrer"
         target="_blank"
-        data-test="common-terms-of-service-link"
-      >
+        data-test="common-terms-of-service-link">
         Terms of Service
       </a>
       <a
@@ -42,8 +32,7 @@
         [href]="privacyPolicyLink"
         rel="noopener noreferrer"
         target="_blank"
-        data-test="common-privacy-policy-link"
-      >
+        data-test="common-privacy-policy-link">
         Privacy Policy
       </a>
       <span>{{ version }}</span>

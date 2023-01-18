@@ -1,13 +1,8 @@
 <tr
   *ngIf="site; else loading"
   class="ap-site-list__item row justify-between align-center ap-copy"
-  data-test="publisher-navigate-to-site-details"
->
-  <td
-    class="row ap-site-list__status-cell align-center"
-    (click)="statusSelect.open()"
-    role="button"
-  >
+  data-test="publisher-navigate-to-site-details">
+  <td class="row ap-site-list__status-cell align-center" (click)="statusSelect.open()" role="button">
     <div class="ap-status" [attr.data-status]="currentSiteStatus">
       {{ currentSiteStatus }}
       <div class="status-wrapper__list-item">
@@ -15,8 +10,7 @@
           #statusSelect
           [value]=""
           (selectionChange)="onSiteStatusChange($event.value)"
-          data-test="publisher-site-status-select"
-        >
+          data-test="publisher-site-status-select">
           <mat-option
             *ngFor="let option of siteStatuses"
             [ngClass]="{

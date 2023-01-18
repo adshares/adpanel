@@ -11,8 +11,7 @@
             class="publisher-list__input"
             data-test="admin-user-search-input"
             id="search"
-            placeholder="Search by email or domain"
-          />
+            placeholder="Search by email or domain" />
         </label>
       </div>
       <div class="publisher-list__filters">
@@ -20,15 +19,13 @@
         <mat-checkbox
           (change)="onParamChange('groupBy', 'campaign')"
           [checked]="'domain' === queryParams.groupBy"
-          class="publisher-list__checkbox"
-        >
+          class="publisher-list__checkbox">
           domain
         </mat-checkbox>
         <mat-checkbox
           (change)="onParamChange('groupBy', 'user')"
           [checked]="'user' === queryParams.groupBy"
-          class="publisher-list__checkbox"
-        >
+          class="publisher-list__checkbox">
           email
         </mat-checkbox>
       </div>
@@ -37,22 +34,19 @@
         <mat-checkbox
           (change)="onParamChange('interval', 'week')"
           [checked]="'week' === queryParams.interval"
-          class="publisher-list__checkbox"
-        >
+          class="publisher-list__checkbox">
           week
         </mat-checkbox>
         <mat-checkbox
           (change)="onParamChange('interval', 'day')"
           [checked]="'day' === queryParams.interval"
-          class="publisher-list__checkbox"
-        >
+          class="publisher-list__checkbox">
           day
         </mat-checkbox>
         <mat-checkbox
           (change)="onParamChange('interval', 'hour')"
           [checked]="'hour' === queryParams.interval"
-          class="publisher-list__checkbox"
-        >
+          class="publisher-list__checkbox">
           hour
         </mat-checkbox>
       </div>
@@ -66,29 +60,19 @@
             min="0"
             step="1"
             class="publisher-list__input"
-            id="minViews"
-          />
+            id="minViews" />
         </label>
       </div>
-      <button class="ap-btn ap-btn--danger" (click)="onResetButtonClick()">
-        Reset filters
-      </button>
+      <button class="ap-btn ap-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
     </div>
   </div>
 
   <table class="publisher-list__items">
     <app-table-navigation
       (sortTable)="sortTable($event)"
-      navigationName="publisherListNavigationItems"
-    ></app-table-navigation>
-    <tbody
-      *ngIf="!isLoading; else loading"
-      class="col publisher-list__table-body"
-    >
-      <app-publisher-list-item
-        *ngFor="let publisher of filteredList"
-        [publisher]="publisher"
-      ></app-publisher-list-item>
+      navigationName="publisherListNavigationItems"></app-table-navigation>
+    <tbody *ngIf="!isLoading; else loading" class="col publisher-list__table-body">
+      <app-publisher-list-item *ngFor="let publisher of filteredList" [publisher]="publisher"></app-publisher-list-item>
       <tr *ngIf="!filteredList.length" class="publisher-list__loader-container">
         NO RESULTS
       </tr>
@@ -108,7 +92,6 @@
     (page)="handlePaginationEvent($event)"
     [length]="list ? list.data.length : 0"
     [pageIndex]="page - 1"
-    [pageSize]="pageSize"
-  >
+    [pageSize]="pageSize">
   </mat-paginator>
 </section>

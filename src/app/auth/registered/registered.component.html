@@ -5,15 +5,12 @@
     <button
       class="ap-btn ap-btn--submit ap-btn--primary"
       routerLink="/auth/login"
-      data-test="auth-redirect-to-first-login"
-    >
+      data-test="auth-redirect-to-first-login">
       Log in
     </button>
   </div>
   <div class="ap-box ap-box--light ap-box--large">
-    <p class="ap-copy">
-      Please contact support if you will encounter any issue.
-    </p>
+    <p class="ap-copy">Please contact support if you will encounter any issue.</p>
     <p class="ap-copy ap-blue">
       <a [href]="'mailto:' + supportEmail" data-test="common-support-email">
         {{ supportEmail }}

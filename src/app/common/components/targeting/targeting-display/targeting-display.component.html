@@ -1,13 +1,9 @@
 <section class="app-targeting-display">
-  <mat-chip-list
-    *ngFor="let groupedTargeting of viewModel"
-    class="app-targeting-display__chip-list"
-  >
+  <mat-chip-list *ngFor="let groupedTargeting of viewModel" class="app-targeting-display__chip-list">
     <div
       class="ap-copy ap-copy--semi"
       [ngClass]="{ 'targeting-display__exclude-text': isExclude }"
-      data-test="common-targeting-display-selected-item"
-    >
+      data-test="common-targeting-display-selected-item">
       {{ groupedTargeting.parentPath }}:
     </div>
 
@@ -17,16 +13,11 @@
         [ngClass]="{ 'hide-remove': !canRemove }"
         (removed)="removeItem(targetingItem.id)"
         data-test="common-targeting-display-remove-item"
-        disableRipple
-      >
+        disableRipple>
         <p class="ap-copy ap-copy--secondary ap-copy--semi">
           {{ targetingItem.label }}
         </p>
-        <fa-icon
-          matChipRemove
-          class="ap-icon ap-icon--append"
-          [icon]="faClose"
-        ></fa-icon>
+        <fa-icon matChipRemove class="ap-icon ap-icon--append" [icon]="faClose"></fa-icon>
       </mat-chip>
     </div>
   </mat-chip-list>

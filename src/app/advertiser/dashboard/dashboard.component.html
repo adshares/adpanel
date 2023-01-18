@@ -1,7 +1,4 @@
-<section
-  class="ap-advertiser-wrapper dashboard-view"
-  *ngIf="campaignsLoaded; else loading"
->
+<section class="ap-advertiser-wrapper dashboard-view" *ngIf="campaignsLoaded; else loading">
   <div class="container">
     <div *ngIf="!!campaigns.length">
       <div class="ap-box">
@@ -10,33 +7,24 @@
           <div class="row justify-between">
             <app-chart-filter-by-type
               (updateId)="appChartRef.updateChartDataAssetId($event)"
-              (updateSeries)="appChartRef.updateChartDataSeries($event)"
-            ></app-chart-filter-by-type>
+              (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
             <app-chart-filter
               *ngIf="!!campaigns.length"
-              (filter)="
-                appChartRef.updateChartData($event);
-                loadCampaigns($event.from, $event.to)
-              "
-            ></app-chart-filter>
+              (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"></app-chart-filter>
           </div>
 
-          <div
-            class="dashboard__chart-wrapper row align-center justify-center chart-wrapper"
-          >
+          <div class="dashboard__chart-wrapper row align-center justify-center chart-wrapper">
             <app-chart
               class="dashboard__chart chart row align-center justify-center"
               (update)="getChartData($event)"
               [barChartData]="barChartData"
-              [barChartLabels]="barChartLabels"
-            ></app-chart>
+              [barChartLabels]="barChartLabels"></app-chart>
           </div>
           <div class="row justify-end">
             <button
               (click)="downloadReport()"
               class="ap-btn ap-btn--secondary"
-              data-test="advertiser-download-report-button"
-            >
+              data-test="advertiser-download-report-button">
               Generate a report
             </button>
           </div>
@@ -44,39 +32,25 @@
       </div>
 
       <div class="ap-box">
-        <h2 class="ap-heading ap-heading--h2 box-title">
-          List of all campaigns
-        </h2>
+        <h2 class="ap-heading ap-heading--h2 box-title">List of all campaigns</h2>
         <div class="box-content">
           <app-campaign-list
             [dataLoaded]="dataLoaded"
             [campaigns]="campaigns"
-            [campaignsTotals]="campaignsTotals"
-          ></app-campaign-list>
+            [campaignsTotals]="campaignsTotals"></app-campaign-list>
         </div>
       </div>
     </div>
 
     <div *ngIf="!campaigns.length">
-      <div
-        class="ap-box col align-center justify-center text-center create-new-campaign-wrapper"
-      >
-        <img
-          src="/assets/images/advertiser-account-illustration.svg"
-          alt="Advertiser Account Illustration"
-        />
+      <div class="ap-box col align-center justify-center text-center create-new-campaign-wrapper">
+        <img src="/assets/images/advertiser-account-illustration.svg" alt="Advertiser Account Illustration" />
         <div class="ap-customize__box-description">
           <h2 class="ap-heading ap-heading--h2">Create your first campaign</h2>
         </div>
-        <a
-          routerLink="/advertiser/create-campaign/basic-information"
-          data-test="advertiser-create-new-campaign"
-        >
+        <a routerLink="/advertiser/create-campaign/basic-information" data-test="advertiser-create-new-campaign">
           <button class="ap-btn ap-btn--primary">
-            <fa-icon
-              class="ap-icon ap-icon--prepend"
-              [icon]="faPlusCircle"
-            ></fa-icon>
+            <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
             Create now
           </button>
         </a>

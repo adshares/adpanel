@@ -1,10 +1,6 @@
 <mat-dialog-content class="mat-dialog-content">
   <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
-  <h1 class="text-center ap-heading ap-heading--h2">
-    Integration instructions
-  </h1>
+  <h1 class="text-center ap-heading ap-heading--h2">Integration instructions</h1>
 
-  <app-metaverse-instructions
-    [vendor]="data.vendor"
-  ></app-metaverse-instructions>
+  <app-metaverse-instructions [vendor]="data.vendor"></app-metaverse-instructions>
 </mat-dialog-content>

@@ -3,14 +3,9 @@
     <app-table-navigation
       [navigationName]="'siteListNavigation'"
       class="site-list__table-header"
-      (sortTable)="sortTable($event)"
-    ></app-table-navigation>
+      (sortTable)="sortTable($event)"></app-table-navigation>
     <tbody *ngIf="dataLoaded; else loading">
-      <app-site-list-item
-        *ngFor="let site of sites"
-        [site]="site"
-        [siteStatuses]="siteStatuses"
-      ></app-site-list-item>
+      <app-site-list-item *ngFor="let site of sites" [site]="site" [siteStatuses]="siteStatuses"></app-site-list-item>
       <tr class="site-list__totals-row">
         <td class="site-list__totals-status"></td>
         <td class="col-xs-3 site-list__totals-title">Total - All sites</td>
@@ -40,11 +35,7 @@
   </div>
 </ng-template>
 <div class="site-list__add-new-site-row">
-  <button
-    class="ap-btn ap-btn--secondary"
-    (click)="navigateToCreateSite()"
-    data-test="publisher-create-new-site"
-  >
+  <button class="ap-btn ap-btn--secondary" (click)="navigateToCreateSite()" data-test="publisher-create-new-site">
     <fa-icon [icon]="faPlusCircle" class="ap-icon ap-icon--prepend"></fa-icon>
     Add new site
   </button>

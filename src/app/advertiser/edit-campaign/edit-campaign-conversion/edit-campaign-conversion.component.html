@@ -3,10 +3,8 @@
     <div class="box-title">
       <h2 class="ap-heading ap-heading--h2">Conversions</h2>
       <p class="ap-copy box-subtitle">
-        Here you can define conversions and the amount you are willing to spend
-        on a single conversion.<br />
-        This dashboard lets you set specific actions you want to pay for – e.g.
-        registrations or sales.
+        Here you can define conversions and the amount you are willing to spend on a single conversion.<br />
+        This dashboard lets you set specific actions you want to pay for – e.g. registrations or sales.
       </p>
     </div>
   </div>
@@ -19,76 +17,54 @@
         <mat-tab label="Basic">
           <div class="col row--gap18">
             <p class="ap-copy description-type">
-              In this mode each conversion has a constant value. All conversion
-              expenses are limited by the total campaign budget. It is possible
-              to execute one conversion type per impression.
+              In this mode each conversion has a constant value. All conversion expenses are limited by the total
+              campaign budget. It is possible to execute one conversion type per impression.
             </p>
             <div class="row justify-end align-center">
               <button
                 class="ap-btn ap-btn--secondary"
                 (click)="addConversionEmpty(TYPE_BASIC)"
-                data-test="advertiser-conversion-add-basic-button"
-              >
+                data-test="advertiser-conversion-add-basic-button">
                 Add conversion
               </button>
             </div>
 
-            <div
-              *ngIf="conversionItemFormsBasic.length > 0"
-              class="row align-center justify-between ap-copy"
-            >
+            <div *ngIf="conversionItemFormsBasic.length > 0" class="row align-center justify-between ap-copy">
               <app-label
                 class="col-xs-3 row justify-start align-center"
                 forId="name"
                 label="Name"
                 tooltipPosition="after"
-                tooltip="Enter the conversion name here – e.g. sales, registration"
-              >
+                tooltip="Enter the conversion name here – e.g. sales, registration">
               </app-label>
               <app-label
                 class="col-xs-4 row justify-start align-center"
                 label="Type"
                 tooltip="Select the type of conversion"
-                forId="type"
-              ></app-label>
+                forId="type"></app-label>
               <app-label
                 class="col-xs-3 row justify-start align-center"
                 label="Value ({{ currencyCode }})"
                 tooltip="Enter the amount you are willing to spend on a single conversion.
                      Activate this option if you want to use various values provided dynamically - e.g. a percentage of the amount spent in an online store"
-                forId="value"
-              ></app-label>
+                forId="value"></app-label>
               <div class="col-xs-1 row justify-center">Delete</div>
               <div class="col-xs-1 row justify-center">Generate link</div>
             </div>
 
-            <div
-              *ngIf="conversionItemFormsBasic.length > 0"
-              class="col row--gap8"
-            >
+            <div *ngIf="conversionItemFormsBasic.length > 0" class="col row--gap8">
               <form
-                *ngFor="
-                  let conversionItemForm of conversionItemFormsBasic;
-                  let conversionItemFormIndex = index
-                "
+                *ngFor="let conversionItemForm of conversionItemFormsBasic; let conversionItemFormIndex = index"
                 [formGroup]="conversionItemForm"
-                data-test="advertiser-conversion-item"
-              >
+                data-test="advertiser-conversion-item">
                 <div class="row align-start justify-between ap-copy">
                   <div class="col-xs-3 row align-center">
                     <input
                       id="name"
                       class="ap-form-input"
                       formControlName="name"
-                      data-test="advertiser-conversion-item-name"
-                    />
-                    <span
-                      class="error-msg"
-                      *ngIf="
-                        validateForm &&
-                        'INVALID' === conversionItemForm.get('name').status
-                      "
-                    >
+                      data-test="advertiser-conversion-item-name" />
+                    <span class="error-msg" *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status">
                       Cannot be empty.
                     </span>
                   </div>
@@ -97,23 +73,15 @@
                       id="type"
                       class="ap-select campaign-edit-conversion__select"
                       formControlName="type"
-                      data-test="advertiser-conversion-item-type-select"
-                    >
+                      data-test="advertiser-conversion-item-type-select">
                       <mat-option
                         *ngFor="let type of availableEventTypes"
                         [value]="type"
-                        data-test="advertiser-conversion-item-type-option"
-                      >
+                        data-test="advertiser-conversion-item-type-option">
                         {{ type }}
                       </mat-option>
                     </mat-select>
-                    <span
-                      class="error-msg"
-                      *ngIf="
-                        validateForm &&
-                        'INVALID' === conversionItemForm.get('type').status
-                      "
-                    >
+                    <span class="error-msg" *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status">
                       Cannot be empty.
                     </span>
                   </div>
@@ -124,22 +92,16 @@
                         class="row align-self-center"
                         [id]="'isMutable' + conversionItemFormIndex"
                         formControlName="isValueMutable"
-                        data-test="advertiser-conversion-item-is-value-mutable"
-                      >
+                        data-test="advertiser-conversion-item-is-value-mutable">
                       </mat-slide-toggle>
                       <input
-                        [attr.disabled]="
-                          conversionItemForm.get('isValueMutable').value
-                            ? ''
-                            : null
-                        "
+                        [attr.disabled]="conversionItemForm.get('isValueMutable').value ? '' : null"
                         id="value"
                         type="number"
                         step="0.01"
                         class="ap-form-input campaign-edit-conversion__value-input"
                         formControlName="value"
-                        data-test="advertiser-conversion-item-value"
-                      />
+                        data-test="advertiser-conversion-item-value" />
                     </div>
                     <span
                       class="error-msg"
@@ -147,8 +109,7 @@
                         validateForm &&
                         'INVALID' === conversionItemForm.get('value').status &&
                         !conversionItemForm.get('isAdvanced').value
-                      "
-                    >
+                      ">
                       Must be greater than zero.
                     </span>
                   </div>
@@ -157,8 +118,7 @@
                       id="delete"
                       class="ap-icon-btn ap-icon-btn--error"
                       title="Click to remove conversion"
-                      (click)="deleteConversion(false, conversionItemFormIndex)"
-                    >
+                      (click)="deleteConversion(false, conversionItemFormIndex)">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </div>
@@ -167,8 +127,7 @@
                       *ngIf="conversionItemForm.get('link').value"
                       class="ap-icon-btn ap-icon-btn--secondary"
                       title="Get Link"
-                      (click)="openDialogForForm(conversionItemForm)"
-                    >
+                      (click)="openDialogForForm(conversionItemForm)">
                       <mat-icon> link</mat-icon>
                     </button>
                   </div>
@@ -181,21 +140,15 @@
         <mat-tab label="Advanced">
           <div class="col row--gap18">
             <p class="ap-copy description-type">
-              In this mode each conversion has a unique HTTP request which must
-              be created dynamically. The advertiser has more control over the
-              conversion settings compared to the basic mode. It is possible to
-              set different amount for each conversion.
+              In this mode each conversion has a unique HTTP request which must be created dynamically. The advertiser
+              has more control over the conversion settings compared to the basic mode. It is possible to set different
+              amount for each conversion.
             </p>
 
             <p *ngIf="campaign.secret" class="ap-copy">
-              Secret phrase is a character string necessary to sign the
-              transferred data. If you would like to learn how to use the secret
-              phrase please
-              <a
-                href="https://github.com/adshares/adserver/wiki/Conversions"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              Secret phrase is a character string necessary to sign the transferred data. If you would like to learn how
+              to use the secret phrase please
+              <a href="https://github.com/adshares/adserver/wiki/Conversions" rel="noopener noreferrer" target="_blank">
                 refer to the instruction
               </a>
               .
@@ -210,8 +163,7 @@
                 role="button"
                 tabindex="0"
                 (click)="copyToClipboard(campaign.secret)"
-                class="material-icons campaign-edit-conversion__copy-icon"
-              >
+                class="material-icons campaign-edit-conversion__copy-icon">
                 file_copy
               </i>
             </p>
@@ -220,80 +172,57 @@
               <button
                 class="ap-btn ap-btn--secondary"
                 (click)="addConversionEmpty(TYPE_ADVANCED)"
-                data-test="advertiser-conversion-add-advanced-button"
-              >
+                data-test="advertiser-conversion-add-advanced-button">
                 Add conversion
               </button>
             </div>
 
-            <div
-              *ngIf="conversionItemFormsAdvanced.length > 0"
-              class="row align-center justify-between ap-copy"
-            >
+            <div *ngIf="conversionItemFormsAdvanced.length > 0" class="row align-center justify-between ap-copy">
               <app-label
                 class="col-xs-2 row justify-start"
                 forId="name"
                 label="Name"
                 tooltipPosition="after"
-                tooltip="Enter the conversion name here – e.g. sales, registration"
-              ></app-label>
+                tooltip="Enter the conversion name here – e.g. sales, registration"></app-label>
               <app-label
                 class="col-xs-2 row justify-start align-center"
                 label="Type"
                 tooltip="Select the type of conversion"
-                forId="typeAdv"
-              ></app-label>
+                forId="typeAdv"></app-label>
               <app-label
                 class="col-xs-2 row justify-start align-center"
                 label="Value ({{ currencyCode }})"
                 tooltip="Enter the amount you are willing to spend on a single conversion.
                      Activate this option if you want to use various values provided dynamically - e.g. a percentage of the amount spent in an online store"
-                forId="valueAdv"
-              ></app-label>
+                forId="valueAdv"></app-label>
               <app-label
                 class="col-xs-2 row justify-center cell align-center"
                 label="Within the&nbsp;budget"
                 tooltip="With this option active you will not exceed your total budget for this campaign (CPM & CPA-based).
                      If you deactivate this option, the total budget for the selected conversion type will be limited by your account balance."
-                forId="budget"
-              ></app-label>
+                forId="budget"></app-label>
               <app-label
                 class="col-xs-2 row justify-center cell align-center"
                 label="Make the conversion repeatable"
                 tooltip="With this option active multiple conversions of the same type will be allowed within a single impression – e.g. multiple purchases in advertiser’s online store done by the same user will be registered"
-                forId="isRepeatable"
-              ></app-label>
+                forId="isRepeatable"></app-label>
               <div class="col-xs-1 row justify-center">Delete</div>
               <div class="col-xs-1 row justify-center">Generate link</div>
             </div>
 
-            <div
-              *ngIf="conversionItemFormsAdvanced.length > 0"
-              class="col row--gap8"
-            >
+            <div *ngIf="conversionItemFormsAdvanced.length > 0" class="col row--gap8">
               <form
-                *ngFor="
-                  let conversionItemForm of conversionItemFormsAdvanced;
-                  let conversionItemFormIndex = index
-                "
+                *ngFor="let conversionItemForm of conversionItemFormsAdvanced; let conversionItemFormIndex = index"
                 [formGroup]="conversionItemForm"
-                data-test="advertiser-conversion-item"
-              >
+                data-test="advertiser-conversion-item">
                 <div class="row align-start justify-between ap-copy">
                   <div class="col-xs-2 row align-center">
                     <input
                       id="nameAdv"
                       class="ap-form-input"
                       formControlName="name"
-                      data-test="advertiser-conversion-item-name"
-                    />
-                    <span
-                      class="error-msg"
-                      *ngIf="
-                        validateForm &&
-                        'INVALID' === conversionItemForm.get('name').status
-                      "
-                    >
+                      data-test="advertiser-conversion-item-name" />
+                    <span class="error-msg" *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status">
                       Cannot be empty.
                     </span>
                   </div>
@@ -302,23 +231,15 @@
                       id="typeAdv"
                       class="ap-select campaign-edit-conversion__select"
                       formControlName="type"
-                      data-test="advertiser-conversion-item-type-select"
-                    >
+                      data-test="advertiser-conversion-item-type-select">
                       <mat-option
                         *ngFor="let type of availableEventTypes"
                         [value]="type"
-                        data-test="advertiser-conversion-item-type-option"
-                      >
+                        data-test="advertiser-conversion-item-type-option">
                         {{ type }}
                       </mat-option>
                     </mat-select>
-                    <span
-                      class="error-msg"
-                      *ngIf="
-                        validateForm &&
-                        'INVALID' === conversionItemForm.get('type').status
-                      "
-                    >
+                    <span class="error-msg" *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status">
                       Cannot be empty.
                     </span>
                   </div>
@@ -329,30 +250,20 @@
                         class="row align-self-center"
                         [id]="'isMutableAdv' + conversionItemFormIndex"
                         formControlName="isValueMutable"
-                        data-test="advertiser-conversion-item-is-value-mutable"
-                      >
+                        data-test="advertiser-conversion-item-is-value-mutable">
                       </mat-slide-toggle>
                       <input
-                        [attr.disabled]="
-                          conversionItemForm.get('isValueMutable').value
-                            ? ''
-                            : null
-                        "
+                        [attr.disabled]="conversionItemForm.get('isValueMutable').value ? '' : null"
                         id="valueAdv"
                         type="number"
                         step="0.01"
                         class="ap-form-input campaign-edit-conversion__value-input"
                         formControlName="value"
-                        data-test="advertiser-conversion-item-value"
-                      />
+                        data-test="advertiser-conversion-item-value" />
                     </div>
                     <span
                       class="error-msg"
-                      *ngIf="
-                        validateForm &&
-                        'INVALID' === conversionItemForm.get('value').status
-                      "
-                    >
+                      *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status">
                       Allowed minimum is
                       {{ this.campaignsConfig.minCpa | formatMoney : 2 : '' }}
                     </span>
@@ -362,8 +273,7 @@
                       color="primary"
                       [id]="'budget' + conversionItemFormIndex"
                       formControlName="isInBudget"
-                      data-test="advertiser-conversion-item-is-in-budget"
-                    >
+                      data-test="advertiser-conversion-item-is-in-budget">
                     </mat-slide-toggle>
                   </div>
 
@@ -372,16 +282,14 @@
                       color="primary"
                       [id]="'isRepeatable' + conversionItemFormIndex"
                       formControlName="isRepeatable"
-                      data-test="advertiser-conversion-item-is-repeatable"
-                    >
+                      data-test="advertiser-conversion-item-is-repeatable">
                     </mat-slide-toggle>
                   </div>
                   <div class="col-xs-1 row cell justify-center align-center">
                     <button
                       class="ap-icon-btn ap-icon-btn--error"
                       title="Click to remove conversion"
-                      (click)="deleteConversion(true, conversionItemFormIndex)"
-                    >
+                      (click)="deleteConversion(true, conversionItemFormIndex)">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </div>
@@ -390,8 +298,7 @@
                       *ngIf="conversionItemForm.get('link').value"
                       class="ap-icon-btn ap-icon-btn--secondary"
                       title="Get Link"
-                      (click)="openDialogForForm(conversionItemForm)"
-                    >
+                      (click)="openDialogForForm(conversionItemForm)">
                       <mat-icon> link</mat-icon>
                     </button>
                   </div>
@@ -408,14 +315,11 @@
     <div class="box-title">
       <h2 class="ap-heading ap-heading--h2">Click conversion</h2>
       <p class="ap-copy box-subtitle">
-        Click conversion type defines how clicks are registered. By default all
-        click events are registered when user clicks the ad banner. If you
-        change the setting to basic or advanced, link click events won’t be
-        registered unless a predefined action takes place (e.g. unless a user
-        scrolls down on advertiser’s landing page).<br />
-        In case you change the click conversion type, please make sure to SAVE
-        CHANGES before you proceed, otherwise your changes will not be
-        effective. Click the link icon to get more information.
+        Click conversion type defines how clicks are registered. By default all click events are registered when user
+        clicks the ad banner. If you change the setting to basic or advanced, link click events won’t be registered
+        unless a predefined action takes place (e.g. unless a user scrolls down on advertiser’s landing page).<br />
+        In case you change the click conversion type, please make sure to SAVE CHANGES before you proceed, otherwise
+        your changes will not be effective. Click the link icon to get more information.
       </p>
     </div>
 
@@ -425,13 +329,11 @@
         <mat-select
           class="ap-select"
           [(value)]="campaign.conversionClick"
-          data-test="advertiser-conversion-click-select"
-        >
+          data-test="advertiser-conversion-click-select">
           <mat-option
             *ngFor="let clickConversionType of clickConversionTypes"
             [value]="clickConversionType.value"
-            data-test="advertiser-conversion-click-option"
-          >
+            data-test="advertiser-conversion-click-option">
             {{ clickConversionType.label }}
           </mat-option>
         </mat-select>
@@ -440,10 +342,7 @@
         *ngIf="campaign.conversionClickLink"
         class="ap-icon-btn ap-icon-btn--secondary"
         title="Get Link"
-        (click)="
-          openDialog(campaign.conversionClickLink, isConversionClickAdvanced)
-        "
-      >
+        (click)="openDialog(campaign.conversionClickLink, isConversionClickAdvanced)">
         <mat-icon> link</mat-icon>
       </button>
     </div>
@@ -456,8 +355,7 @@
         class="ap-btn ap-btn--secondary"
         (click)="onStepBack()"
         [disabled]="submitted"
-        data-test="advertiser-navigate-to-dashboard"
-      >
+        data-test="advertiser-navigate-to-dashboard">
         Back
       </button>
 
@@ -465,15 +363,10 @@
         class="ap-btn ap-btn--primary"
         (click)="updateCampaignConversion()"
         [disabled]="submitted"
-        data-test="advertiser-edit-campaign-save-and-continue"
-      >
+        data-test="advertiser-edit-campaign-save-and-continue">
         <span *ngIf="!submitted; else loading"> Save </span>
         <ng-template #loading>
-          <mat-spinner
-            [diameter]="20"
-            [strokeWidth]="2"
-            color="accent"
-          ></mat-spinner>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
       </button>
     </div>

@@ -11,12 +11,8 @@
         [disabled]="!canImpersonate(userId)"
         *ngFor="let userId of advertiser.userIds"
         (click)="handleImpersonating(userId)"
-        class="ap-icon-btn"
-      >
-        <fa-icon
-          [icon]="faIconImpersonation"
-          class="ap-icon ap-icon--large fa-lg"
-        ></fa-icon>
+        class="ap-icon-btn">
+        <fa-icon [icon]="faIconImpersonation" class="ap-icon ap-icon--large fa-lg"></fa-icon>
       </button>
       {{ advertiser.email }}
     </div>
@@ -29,8 +25,7 @@
     [ngClass]="{
       change__positive: advertiser.viewsChange > 0,
       change__negative: advertiser.viewsChange < 0
-    }"
-  >
+    }">
     <div>{{ advertiser.viewsDiff | number }}</div>
     <div>{{ advertiser.viewsChange | percent : '1.1-1' }}</div>
   </td>
@@ -42,8 +37,7 @@
     [ngClass]="{
       change__positive: advertiser.viewsUniqueChange > 0,
       change__negative: advertiser.viewsUniqueChange < 0
-    }"
-  >
+    }">
     <div>{{ advertiser.viewsUniqueDiff | number }}</div>
     <div>{{ advertiser.viewsUniqueChange | percent : '1.1-1' }}</div>
   </td>
@@ -55,8 +49,7 @@
     [ngClass]="{
       change__positive: advertiser.clicksChange > 0,
       change__negative: advertiser.clicksChange < 0
-    }"
-  >
+    }">
     <div>{{ advertiser.clicksDiff | number }}</div>
     <div>{{ advertiser.clicksChange | percent : '1.1-1' }}</div>
   </td>
@@ -68,8 +61,7 @@
     [ngClass]="{
       change__positive: advertiser.ctrChange > 0,
       change__negative: advertiser.ctrChange < 0
-    }"
-  >
+    }">
     <div>{{ advertiser.ctrDiff * 100 | number : '1.2-2' }}</div>
     <div>{{ advertiser.ctrChange | percent : '1.1-1' }}</div>
   </td>
@@ -81,8 +73,7 @@
     [ngClass]="{
       change__positive: advertiser.costChange > 0,
       change__negative: advertiser.costChange < 0
-    }"
-  >
+    }">
     <div>{{ advertiser.costDiff | formatMoney : 2 : 'other' : 'none' }}</div>
     <div>{{ advertiser.costChange | percent : '1.1-1' }}</div>
   </td>
@@ -94,8 +85,7 @@
     [ngClass]="{
       change__positive: advertiser.cpmChange > 0,
       change__negative: advertiser.cpmChange < 0
-    }"
-  >
+    }">
     <div>{{ advertiser.cpmDiff | formatMoney : 2 : 'other' : 'none' }}</div>
     <div>{{ advertiser.cpmChange | percent : '1.1-1' }}</div>
   </td>
@@ -107,8 +97,7 @@
     [ngClass]="{
       change__positive: advertiser.cpcChange > 0,
       change__negative: advertiser.cpcChange < 0
-    }"
-  >
+    }">
     <div>{{ advertiser.cpcDiff | formatMoney : 2 : 'other' : 'none' }}</div>
     <div>{{ advertiser.cpcChange | percent : '1.1-1' }}</div>
   </td>

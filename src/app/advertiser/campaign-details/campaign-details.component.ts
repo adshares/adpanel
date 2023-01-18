@@ -33,12 +33,7 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
-import {
-  faPlusCircle,
-  faTrash,
-  faEdit,
-  faArrowLeft,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faTrash, faEdit, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({

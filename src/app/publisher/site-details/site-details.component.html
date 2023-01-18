@@ -1,60 +1,37 @@
-<div *ngIf='dataLoaded; else loading' class='dashboard-view'>
-  <div class='site-details container'>
+<div *ngIf="dataLoaded; else loading" class="dashboard-view">
+  <div class="site-details container">
     <div class="row justify-between">
-      <div
-        class="row align-center breadcrumbs"
-        [ngClass]="{ 'box-margin': !site.onlyAcceptedBanners }"
-      >
-        <a
-          routerLink="/publisher/dashboard"
-          data-test="publisher-navigate-to-dashboard"
-        >
+      <div class="row align-center breadcrumbs" [ngClass]="{ 'box-margin': !site.onlyAcceptedBanners }">
+        <a routerLink="/publisher/dashboard" data-test="publisher-navigate-to-dashboard">
           <p class="ap-copy ap-copy--small">My sites</p>
         </a>
-        <div
-          class="ap-circle ap-circle--x-small ap-circle--navy breadcrumbs-divider"
-        ></div>
-        <p
-          class="ap-copy ap-copy--small ap-copy--x-dark ap-copy--semi"
-          data-test="publisher-site-url"
-        >
+        <div class="ap-circle ap-circle--x-small ap-circle--navy breadcrumbs-divider"></div>
+        <p class="ap-copy ap-copy--small ap-copy--x-dark ap-copy--semi" data-test="publisher-site-url">
           {{ site.name }}
         </p>
       </div>
-    
+
       <button
         *ngIf="site.onlyAcceptedBanners"
         class="ap-btn ap-btn--primary"
-        (click)='navigateToClassification()'
-        data-test="publisher-site-navigate-to-classifier"
-      >
+        (click)="navigateToClassification()"
+        data-test="publisher-site-navigate-to-classifier">
         <fa-icon class="ap-icon ap-icon--prepend" [icon]="faEdit"></fa-icon>
         Select banners for approval
       </button>
     </div>
-    
+
     <div class="ap-box">
       <div class="row justify-between align-start box-title">
         <div class="row">
           <div class="col">
-            <h2
-              class="ap-heading ap-heading--h2"
-              data-test="publisher-site-url"
-            >
+            <h2 class="ap-heading ap-heading--h2" data-test="publisher-site-url">
               {{ site.name }}
               <span class="ap-copy" *ngIf="!isMetaverse">
                 {{ site.domain }}
               </span>
-              <a
-                *ngIf="siteLinkUrl"
-                href="{{ siteLinkUrl }}"
-                target="_blank"
-                rel="noopener nofollow noreferrer"
-              >
-                <fa-icon
-                  [icon]="faExternalLinkSquareAlt"
-                  class="ap-icon link-icon"
-                ></fa-icon>
+              <a *ngIf="siteLinkUrl" href="{{ siteLinkUrl }}" target="_blank" rel="noopener nofollow noreferrer">
+                <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon link-icon"></fa-icon>
               </a>
             </h2>
             <p *ngIf="mediumLabel !== undefined" class="ap-copy box-subtitle">
@@ -66,8 +43,7 @@
         <button
           class="ap-btn ap-btn--text"
           (click)="navigateToEditSite('basic-information')"
-          data-test="publisher-site-edit-basic-info-button"
-        >
+          data-test="publisher-site-edit-basic-info-button">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit basic info
         </button>
@@ -87,11 +63,7 @@
           <div class="row row--gap8 status-button-wrapper align-center">
             <span class="ap-copy">
               This site is
-              <span
-                class="ap-copy"
-                data-test="publisher-site-status"
-                [attr.data-status]="currentSiteStatus"
-              >
+              <span class="ap-copy" data-test="publisher-site-status" [attr.data-status]="currentSiteStatus">
                 {{ currentSiteStatus }}
               </span>
             </span>
@@ -99,100 +71,74 @@
               class="ap-btn ap-btn--secondary ap-status--btn"
               (click)="onSiteStatusChange()"
               data-test="publisher-site-status-change-button"
-              [ngClass]="{ 'ap-btn-success': currentSiteStatus === 'inactive' }"
-            >
+              [ngClass]="{ 'ap-btn-success': currentSiteStatus === 'inactive' }">
               {{ statusButtonLabel }}
             </button>
           </div>
           <button
             class="ap-btn ap-btn-error ap-btn--secondary ap-btn--with-icon btn-delete ap-copy--dark"
-            (click)="deleteSite()"
-          >
-            <fa-icon
-              [icon]="faRemove"
-              class="ap-icon ap-icon--prepend"
-            ></fa-icon>
+            (click)="deleteSite()">
+            <fa-icon [icon]="faRemove" class="ap-icon ap-icon--prepend"></fa-icon>
             Remove
           </button>
         </div>
       </div>
     </div>
-    
+
     <!-- chart-->
-    <div class='ap-box'>
+    <div class="ap-box">
       <h1 class="ap-heading ap-heading--h2 box-title">Statistics</h1>
       <div class="box-content">
         <div class="row justify-between">
           <app-chart-filter-by-type
-            class='details-filters'
-            [detailsPage]='true'
-            (updateSeries)="appChartRef.updateChartDataSeries($event)"
-          ></app-chart-filter-by-type>
-          <app-chart-filter
             class="details-filters"
-            (filter)="appChartRef.updateChartData($event)"
-          ></app-chart-filter>
+            [detailsPage]="true"
+            (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
+          <app-chart-filter class="details-filters" (filter)="appChartRef.updateChartData($event)"></app-chart-filter>
         </div>
-        <div class='row align-center chart-wrapper'>
+        <div class="row align-center chart-wrapper">
           <app-chart
-            class='chart row align-center justify-center'
-            (update)='getChartData($event, site.id)'
-            [barChartData]='barChartData'
-            [barChartLabels]="barChartLabels"
-          ></app-chart>
+            class="chart row align-center justify-center"
+            (update)="getChartData($event, site.id)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"></app-chart>
         </div>
         <div class="row justify-end">
           <button
             (click)="downloadReport()"
             class="ap-btn ap-btn--secondary ap-copy--dark"
-            data-test="publisher-site-download-report-button"
-          >
+            data-test="publisher-site-download-report-button">
             Generate a report
           </button>
         </div>
       </div>
     </div>
     <!-- chart end-->
-    
+
     <div class="ap-box">
       <div class="row justify-between box-title">
         <h1 class="ap-heading ap-heading--h2">Exclusions & Targeting</h1>
         <button
           class="ap-btn ap-btn--text"
           (click)="navigateToEditSite('additional-filtering')"
-          data-test="publisher-site-edit-filtering-button"
-        >
+          data-test="publisher-site-edit-filtering-button">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           {{
             !filtering.requires.length && !filtering.excludes.length && !site.onlyAcceptedBanners
-            ? 'Add exclusions'
-            : 'Edit exclusions'
+              ? 'Add exclusions'
+              : 'Edit exclusions'
           }}
         </button>
       </div>
-      <div
-        *ngIf="
-          !!filtering.requires.length ||
-          !!filtering.excludes.length ||
-          site.onlyAcceptedBanners
-        "
-      >
-        <div
-          *ngIf="site.onlyAcceptedBanners"
-          class="ap-copy row align-center box-content"
-        >
-          <mat-checkbox
-            class="site-details__checkbox"
-            checked="checked"
-            disabled
-          >
+      <div *ngIf="!!filtering.requires.length || !!filtering.excludes.length || site.onlyAcceptedBanners">
+        <div *ngIf="site.onlyAcceptedBanners" class="ap-copy row align-center box-content">
+          <mat-checkbox class="site-details__checkbox" checked="checked" disabled>
             Manual approval of banners
           </mat-checkbox>
           <button
             class="ap-btn ap-btn--text"
             (click)="navigateToClassification()"
-            data-test="publisher-site-edit-filtering-button"
-          >
+            data-test="publisher-site-edit-filtering-button">
             <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
             Select banners for approval
           </button>
@@ -206,11 +152,10 @@
             [items]="filtering.requires"
             [isExclude]="false"
             [canRemove]="false"
-            [targetingOptions]="filteringOptions"
-          ></app-targeting-display>
+            [targetingOptions]="filteringOptions"></app-targeting-display>
         </div>
       </div>
-      
+
       <div *ngIf="!!filtering.excludes.length" class="box-content">
         <h3 class="ap-heading ap-heading--h3">Exclusions:</h3>
         <div class="targeting-display-wrapper">
@@ -218,112 +163,75 @@
             [items]="filtering.excludes"
             [isExclude]="true"
             [canRemove]="false"
-            [targetingOptions]="filteringOptions"
-          ></app-targeting-display>
+            [targetingOptions]="filteringOptions"></app-targeting-display>
         </div>
       </div>
     </div>
-    
+
     <div *ngIf="editPopups" class="ap-box">
       <div class="box-title row justify-between align-center">
         <h2 class="ap-heading ap-heading--h2">List of enabled pops</h2>
         <button
           class="ap-btn ap-btn--text"
           (click)="navigateToEditSite('pops-settings')"
-          data-test="publisher-site-edit-pops-button"
-        >
+          data-test="publisher-site-edit-pops-button">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit pops
         </button>
       </div>
 
       <div *ngIf="!popAdUnits.length" class="box-content">
-        <span class="ap-copy ap-copy--semi ad-units-warning"
-          >Pops disabled</span
-        >
+        <span class="ap-copy ap-copy--semi ad-units-warning">Pops disabled</span>
       </div>
 
-      <div
-        class="box-content site-details__scrollable-table"
-        *ngIf="!!popAdUnits.length"
-      >
-        <table class='site-details__table'>
+      <div class="box-content site-details__scrollable-table" *ngIf="!!popAdUnits.length">
+        <table class="site-details__table">
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
-            (sortTable)='sortTable($event)'
-            class="row ap-copy"
-          ></app-table-navigation>
-          <app-poster-units
-            *ngFor="let adUnit of popAdUnits"
-            [adUnit]="adUnit"
-            class="ap-copy"
-          ></app-poster-units>
+            (sortTable)="sortTable($event)"
+            class="row ap-copy"></app-table-navigation>
+          <app-poster-units *ngFor="let adUnit of popAdUnits" [adUnit]="adUnit" class="ap-copy"></app-poster-units>
         </table>
       </div>
     </div>
-    
+
     <div class="col ap-box">
       <div class="row justify-between align-center box-title">
         <h2 class="ap-heading ap-heading--h2">List of ad units</h2>
         <button
-          *ngIf='editAds'
+          *ngIf="editAds"
           class="ap-btn ap-btn--text ap-btn--edit ap-btn--no-border"
           (click)="navigateToEditSite('create-ad-units')"
-          data-test="publisher-site-edit-ad-units-button"
-        >
+          data-test="publisher-site-edit-ad-units-button">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit ad units
         </button>
       </div>
 
       <div class="box-content">
-        <p
-          class="ap-copy ap-copy--semi ad-units-warning"
-          *ngIf="!displayAdUnits.length"
-        >
-          No active ad units
-        </p>
+        <p class="ap-copy ap-copy--semi ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</p>
       </div>
 
-      <div
-        class="box-content site-details__scrollable-table"
-        *ngIf="!!displayAdUnits.length"
-      >
-        <table class='site-details__table'>
+      <div class="box-content site-details__scrollable-table" *ngIf="!!displayAdUnits.length">
+        <table class="site-details__table">
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
-            (sortTable)='sortTable($event)'
-            class="row ap-copy"
-          ></app-table-navigation>
-          <app-poster-units
-            *ngFor="let adUnit of displayAdUnits"
-            [adUnit]="adUnit"
-            class="ap-copy"
-          ></app-poster-units>
+            (sortTable)="sortTable($event)"
+            class="row ap-copy"></app-table-navigation>
+          <app-poster-units *ngFor="let adUnit of displayAdUnits" [adUnit]="adUnit" class="ap-copy"></app-poster-units>
         </table>
       </div>
       <div class="box-content row justify-center">
-        <button
-          class="ap-btn ap-btn--secondary"
-          (click)="openGetCodeDialog()"
-          data-test="publisher-get-code-button"
-        >
+        <button class="ap-btn ap-btn--secondary" (click)="openGetCodeDialog()" data-test="publisher-get-code-button">
           Get the ad codes
         </button>
       </div>
     </div>
-    
+
     <div class="ap-box">
       <div class="box-content row justify-center">
-        <button
-          routerLink="/publisher/dashboard"
-          class="ap-btn ap-btn--primary"
-          data-test="publisher-get-code-button"
-        >
-          <fa-icon
-            [icon]="faArrowLeft"
-            class="ap-icon ap-icon--prepend"
-          ></fa-icon>
+        <button routerLink="/publisher/dashboard" class="ap-btn ap-btn--primary" data-test="publisher-get-code-button">
+          <fa-icon [icon]="faArrowLeft" class="ap-icon ap-icon--prepend"></fa-icon>
           Dashboard
         </button>
       </div>
@@ -331,7 +239,7 @@
   </div>
 </div>
 <ng-template #loading>
-  <div class='loading-wrapper'>
-    <mat-spinner [diameter]='30' [strokeWidth]='4'></mat-spinner>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
   </div>
 </ng-template>
