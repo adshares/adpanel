@@ -41,7 +41,7 @@ import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resol
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
 import { EditCampaignNavigationComponent } from 'advertiser/edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
-import { TargetingReach } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
+import { TargetingReachComponent } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
 import { MapToIterablePipe } from 'common/pipes/map-to-iterable.pipe';
 
 const matModules = [
@@ -76,7 +76,7 @@ const advertiserComponents = [
   AdListComponent,
   AdListItemComponent,
   EditCampaignNavigationComponent,
-  TargetingReach,
+  TargetingReachComponent,
 ];
 
 @NgModule({

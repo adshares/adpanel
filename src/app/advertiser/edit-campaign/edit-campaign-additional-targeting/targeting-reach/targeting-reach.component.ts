@@ -12,7 +12,7 @@ import { mapToIterable } from 'common/utilities/helpers';
   templateUrl: './targeting-reach.component.html',
   styleUrls: ['./targeting-reach.component.scss'],
 })
-export class TargetingReach extends HandleSubscription implements OnChanges {
+export class TargetingReachComponent extends HandleSubscription implements OnChanges {
   @Input() ads: Ad[];
   @Input() autoCpm: boolean = false;
   @Input() cpm: number = 0;
