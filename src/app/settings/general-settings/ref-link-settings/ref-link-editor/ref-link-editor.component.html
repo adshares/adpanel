@@ -18,7 +18,7 @@
           <label
             *ngFor="let option of [1, 0.75, 0.5, 0.25, 0]"
             [for]="'keptRefund' + option"
-            [class.checked]="form.get('keptRefund').value == option">
+            [class.checked]="form.get('keptRefund').value === option">
             <input
               [id]="'keptRefund' + option"
               [value]="option"
@@ -140,7 +140,7 @@
         </div>
 
         <div class="form-footer">
-          <mat-checkbox formControlName="singleUse" *ngIf="form.get('singleUse')"> Single use link </mat-checkbox>
+          <mat-checkbox formControlName="singleUse" *ngIf="form.get('singleUse')"> Single use link</mat-checkbox>
 
           <button *ngIf="!showLoader; else loading" type="submit" class="ap-btn ap-btn--blue">Generate link</button>
         </div>
