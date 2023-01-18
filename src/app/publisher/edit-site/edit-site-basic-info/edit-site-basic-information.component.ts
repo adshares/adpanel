@@ -170,6 +170,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   }
 
   updateSite(): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { adUnits, ...reducedSite } = this.site;
     this.store.dispatch(new UpdateSite(reducedSite));
   }

@@ -86,6 +86,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
       excludes: [...this.excludedItems],
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { adUnits, ...reducedSite } = this.site;
     return {
       ...reducedSite,

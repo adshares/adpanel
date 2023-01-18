@@ -57,6 +57,7 @@ export class PublisherService {
       const filteringObject = parseTargetingForBackend(site.filteringArray);
       Object.assign(temporarySiteObject, { filtering: filteringObject });
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { filteringArray, ...reducedSite } = temporarySiteObject;
 
     return this.http.post<Site>(`${environment.apiUrl}/sites`, {
