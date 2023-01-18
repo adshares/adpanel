@@ -28,5 +28,6 @@ export const siteInitialState: Site = {
     requires: [],
     excludes: []
   },
-  adUnits: []
+  adUnits: [],
+  rejectReason: null,
 };

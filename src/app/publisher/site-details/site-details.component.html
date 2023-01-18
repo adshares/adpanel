@@ -75,7 +75,7 @@
             data-test="publisher-site-url"
           >
             {{ site.name }}
-            <small *ngIf="displayAds">{{ site.domain }}</small>
+            <small *ngIf="!isMetaverse">{{ site.domain }}</small>
             <a *ngIf="siteLinkUrl" href="{{siteLinkUrl}}" target="_blank" rel="noopener nofollow noreferrer">
               <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--small link-icon"></fa-icon>
             </a>
@@ -105,8 +105,23 @@
                 data-test="publisher-site-status"
                 [attr.data-status]="currentSiteStatus">
               {{ currentSiteStatus }}
+            <fa-icon
+              *ngIf="siteStatusEnum.PENDING === site.status"
+              [icon]="faQuestionCircle"
+              matTooltip="Site is pending approval of support team"
+              matTooltipClass="ap-mat-tooltip"
+              matTooltipPosition="right"
+            ></fa-icon>
+            <fa-icon
+              *ngIf="siteStatusEnum.REJECTED === site.status && site.rejectReason"
+              [icon]="faQuestionCircle"
+              [matTooltip]="site.rejectReason"
+              matTooltipClass="ap-mat-tooltip"
+              matTooltipPosition="right"
+            ></fa-icon>
             </span>
           <button class="ap-btn ap-btn--white ap-status--btn"
+                  *ngIf="siteStatusEnum.DRAFT === site.status ||siteStatusEnum.INACTIVE === site.status ||siteStatusEnum.ACTIVE === site.status"
                   (click)="onSiteStatusChange()"
                   data-test="publisher-site-status-change-button"
                   [attr.data-status]="currentSiteStatus">
