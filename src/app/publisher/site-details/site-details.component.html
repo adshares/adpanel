@@ -1,7 +1,7 @@
 <div *ngIf="dataLoaded; else loading" class="dashboard-view">
   <div class="site-details container">
     <div class="row justify-between">
-      <div class="row align-center breadcrumbs" [ngClass]="{ 'box-margin': !site.onlyAcceptedBanners }">
+      <div class="row align-center breadcrumbs">
         <a routerLink="/publisher/dashboard" data-test="publisher-navigate-to-dashboard">
           <p class="ap-copy ap-copy--small">My sites</p>
         </a>

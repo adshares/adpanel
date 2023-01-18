@@ -56,7 +56,7 @@
 
       <div
         *ngIf="!session.isModerator() || session.isImpersonated()"
-        class="ap-btn ap-btn--text ap-btn-light row align-center help-menu"
+        class="ap-btn ap-btn--text ap-btn-light row align-center help-menu no-underline"
         (mouseover)="toggleHelpMenu(true)"
         (mouseleave)="toggleHelpMenu(false)">
         <fa-icon [icon]="faLifeRing" class="ap-icon ap-icon--prepend"></fa-icon>
@@ -88,7 +88,7 @@
 
       <div
         *ngIf="!session.isModerator() || session.isImpersonated()"
-        class="ap-btn ap-btn--text ap-btn-light row align-center relative ap-navigation__item"
+        class="ap-btn ap-btn--text ap-btn-light row align-center relative ap-navigation__item no-underline"
         [class.ap-btn--invalid]="!isTotalFundsValid"
         matTooltipClass="ap-mat-tooltip"
         [matTooltip]="!isTotalFundsValid ? 'Connection temporarily lost' : null"
@@ -138,7 +138,7 @@
       </div>
 
       <button
-        class="ap-btn ap-btn--text ap-btn-light row align-center hidden-sm"
+        class="ap-btn ap-btn--text ap-btn-light row align-center hidden-sm no-underline"
         [ngClass]="{
           'visible-sm': session.isModerator() && !session.isImpersonated()
         }"

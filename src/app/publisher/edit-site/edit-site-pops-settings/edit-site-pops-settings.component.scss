@@ -1,21 +1,13 @@
 @import '../../../../styles.scss';
 
 .site-edit-create-posters-units {
-  width: 80%;
+  width: 95%;
   max-width: 1200px;
   margin: 24px auto;
 
   & > .ap-heading {
     margin-top: 18px;
     margin-bottom: 18px;
-  }
-
-  @include media(xxl-up) {
-    max-width: 1500px;
-  }
-
-  @include media(xxxl-up) {
-    max-width: 2000px;
   }
 
   & .error-msg:not(.error-msg--small) {

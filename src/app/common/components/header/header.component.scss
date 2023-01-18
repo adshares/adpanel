@@ -27,6 +27,10 @@
   &__money-in-currency {
     @include font(12);
   }
+
+  & .no-underline {
+    text-decoration: none;
+  }
 }
 
 .ap-btn.ap-btn--invalid {

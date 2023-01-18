@@ -1,19 +1,12 @@
 @import '../../../../styles.scss';
 
 .site-edit-basic-information {
+  width: 95%;
   max-width: 1200px;
   margin: 24px auto;
 
   & .ap-form-input__box:not(:last-child) {
     margin-bottom: 24px;
-  }
-
-  @include media(xxl-up) {
-    max-width: 900px;
-  }
-
-  @include media(xxxl-up) {
-    max-width: 1100px;
   }
 
   &__info-box {

@@ -38,5 +38,9 @@
     &--reversed {
       flex-direction: row-reverse;
     }
+
+    & .classifier-btn {
+      min-width: 0;
+    }
   }
 }

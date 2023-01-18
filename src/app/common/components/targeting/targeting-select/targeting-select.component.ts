@@ -36,7 +36,6 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     this.prepareTargetingOptionsForSearch();
     this.viewModel = this.targetingOptions;
     this.selectSavedItemOnList();
-    console.log(this.viewModel);
   }
 
   ngOnChanges(): void {

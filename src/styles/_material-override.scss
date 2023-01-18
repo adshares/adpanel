@@ -58,11 +58,7 @@ mat-chip:not(.mat-basic-chip) {
 .mat-chip-list-wrapper {
   align-items: flex-start;
   flex-direction: column;
-  margin: 0 8px 0 0;
-}
-
-.mat-chip:not(.mat-basic-chip) {
-  margin: 8px 8px 0 0 !important;
+  margin: 0 !important;
 }
 
 .mat-chip .mat-chip-remove.mat-icon {

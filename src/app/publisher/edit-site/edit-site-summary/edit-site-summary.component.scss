@@ -1,16 +1,9 @@
 @import '../../../../styles.scss';
 
 .site-edit-summary {
+  width: 95%;
   max-width: 1200px;
   margin: 24px auto;
-
-  @include media(xxl-up) {
-    max-width: 1300px;
-  }
-
-  @include media(xxxl-up) {
-    max-width: 2000px;
-  }
 
   & > .ap-heading {
     margin-top: 18px;

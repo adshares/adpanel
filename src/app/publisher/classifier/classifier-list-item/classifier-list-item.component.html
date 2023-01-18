@@ -31,14 +31,14 @@
         'classifier-list-item__btns--reversed': classified === REJECTED
       }">
       <button
-        class="ap-btn ap-btn--secondary"
+        class="ap-btn ap-btn--secondary classifier-btn"
         (click)="classifyBanner(APPROVED)"
         [disabled]="classified === APPROVED"
         [ngClass]="{ 'ap-btn-success': !isGlobal }">
         {{ classified === APPROVED ? (isGlobal ? 'Omitted' : 'Approved') : isGlobal ? 'Omit' : 'Approve' }}
       </button>
       <button
-        class="ap-btn ap-btn--secondary"
+        class="ap-btn ap-btn--secondary classifier-btn"
         (click)="classifyBanner(REJECTED)"
         [disabled]="classified === REJECTED"
         [ngClass]="{ 'ap-btn-error': isGlobal }">
