@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
@@ -12,7 +12,7 @@ import { TableNavigationComponent } from 'common/components/table-navigation/tab
   templateUrl: './site-list.component.html',
   styleUrls: ['./site-list.component.scss'],
 })
-export class SiteListComponent extends HandleSubscription {
+export class SiteListComponent extends HandleSubscription implements OnChanges {
   @Input() dataLoaded: boolean;
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;
