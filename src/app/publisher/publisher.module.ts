@@ -42,7 +42,7 @@ import { LanguagesListResolver } from 'publisher/resolvers/languages-list.resolv
 import { DomainCheckerComponent } from 'publisher/site-details/domain-checker/domain-checker.component';
 import { SiteCodeCryptovoxelsDialogComponent } from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component';
 import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component';
-import { MetaverseInstructions } from 'publisher/edit-site/edit-site-basic-info/metaverse-instructions/metaverse-instructions.component';
+import { MetaverseInstructionsComponent } from 'publisher/edit-site/edit-site-basic-info/metaverse-instructions/metaverse-instructions.component';
 import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver';
 
 const editSiteComponents = [
@@ -69,7 +69,7 @@ const publisherComponents = [
   ClassifierListItemComponent,
   ClassifierFilteringComponent,
   DomainCheckerComponent,
-  MetaverseInstructions,
+  MetaverseInstructionsComponent,
 ];
 
 @NgModule({

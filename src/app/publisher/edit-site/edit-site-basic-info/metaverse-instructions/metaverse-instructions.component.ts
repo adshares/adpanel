@@ -14,7 +14,7 @@ import { DecentralandConverter } from 'common/utilities/targeting-converter/dece
   templateUrl: './metaverse-instructions.component.html',
   styleUrls: ['./metaverse-instructions.component.scss'],
 })
-export class MetaverseInstructions {
+export class MetaverseInstructionsComponent {
   readonly ADD_UNIT_CRYPTOVOXELS = ADD_UNIT_CRYPTOVOXELS;
   readonly ADD_UNIT_DECENTRALAND = ADD_UNIT_DECENTRALAND;
   readonly ADD_UNIT_DECENTRALAND_SMART = ADD_UNIT_DECENTRALAND_SMART;
