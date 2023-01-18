@@ -81,7 +81,7 @@ export class AccessTokensComponent extends BaseListComponent implements OnInit {
     return {};
   }
 
-  loadList(nextPage?): void {
+  loadList(_nextPage?): void {
     this.isLoading = true;
     this.store.dispatch(new GetAccessTokens());
   }
