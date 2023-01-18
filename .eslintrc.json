@@ -16,6 +16,7 @@
       ],
       "rules": {
         "angular/document-service": "off",
+        "angular/window-service": "off",
         "angular/timeout-service": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
