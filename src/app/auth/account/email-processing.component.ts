@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -13,7 +13,7 @@ import { SettingsService } from 'settings/settings.service';
   selector: 'app-email-processing',
   template: '',
 })
-export class EmailProcessingComponent {
+export class EmailProcessingComponent implements OnInit {
   action: string;
   token: any;
   error: boolean = false;
