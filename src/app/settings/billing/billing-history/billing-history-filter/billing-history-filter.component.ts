@@ -18,7 +18,9 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 })
 export class BillingHistoryFilterComponent extends HandleSubscriptionComponent implements OnInit {
   @Output() filter: EventEmitter<BillingHistoryFilter> = new EventEmitter();
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('closed') closedStream: EventEmitter<boolean>;
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('opened') openedStream: EventEmitter<boolean>;
 
   dateFrom = new FormControl(moment().subtract(30, 'days').startOf('day'));

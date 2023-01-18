@@ -17,7 +17,9 @@ import { DATE_FORMAT } from 'common/utilities/consts';
 })
 export class ChartFilterComponent extends HandleSubscriptionComponent implements OnInit {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('closed') closedStream: EventEmitter<boolean>;
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('opened') openedStream: EventEmitter<boolean>;
   @Input() small: boolean = false;
 
