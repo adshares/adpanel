@@ -16,8 +16,10 @@
       ],
       "rules": {
         "angular/document-service": "off",
+        "angular/timeout-service": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@angular-eslint/no-output-rename": [1],
         "@angular-eslint/component-class-suffix": [
           "error",
           {
