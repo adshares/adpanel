@@ -7,20 +7,20 @@ import { PublisherService } from 'publisher/publisher.service';
 import {
   BannerClassification,
   BannerClassificationFilters,
-  BannerClassificationResponse
+  BannerClassificationResponse,
 } from 'models/classifier.model';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
-import { HandleSubscription } from "common/handle-subscription";
-import { Site } from 'models/site.model'
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
+import { Site } from 'models/site.model';
 
 @Component({
   selector: 'app-classifier',
   templateUrl: './classifier.component.html',
-  styleUrls: ['./classifier.component.scss']
+  styleUrls: ['./classifier.component.scss'],
 })
-export class ClassifierComponent extends HandleSubscription implements OnInit {
+export class ClassifierComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
 
   readonly PAGE_SIZE: number = 20;
@@ -33,10 +33,10 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   totalCount: number = 0;
   refreshIcon = faSyncAlt;
   adSizesOptions: string[];
-  classifierLocalBanners: number
+  classifierLocalBanners: number;
   filtering: BannerClassificationFilters = {
     status: {
-      unclassified: 1
+      unclassified: 1,
     },
     sizes: [],
   };
@@ -46,28 +46,28 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     private route: ActivatedRoute,
     private publisherService: PublisherService,
     private router: Router,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
-    super()
+    super();
   }
 
   ngOnInit(): void {
     const site: Site = this.route.snapshot.data.site;
-    const classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners
+    const classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners;
     this.siteId = site ? site.id : null;
     this.siteName = site ? site.name : null;
     this.isGlobal = site === undefined;
     this.adSizesOptions = this.route.snapshot.data.sizes.sizes;
     this.bannerId = this.route.snapshot.params['bannerId'];
     this.isSingleBanner = this.bannerId !== undefined;
-    this.classifierLocalBanners = classifierOption === 'all-by-default' ? 0 : 1
-    this.filtering.classifierLocalBanners = this.classifierLocalBanners
-    this.filtering.sizes = this.route.snapshot.data.sizes.sizes
+    this.classifierLocalBanners = classifierOption === 'all-by-default' ? 0 : 1;
+    this.filtering.classifierLocalBanners = this.classifierLocalBanners;
+    this.filtering.sizes = this.route.snapshot.data.sizes.sizes;
     if (this.isSingleBanner) {
       this.filtering = {
         ...this.filtering,
         bannerId: this.bannerId,
-      }
+      };
     }
 
     this.getBannerClassification();
@@ -76,12 +76,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   getBannerClassification(offset?: number) {
     this.isLoading = true;
     const bannersForClassificationSubscription = this.publisherService
-      .getBannerClassification(
-        this.siteId,
-        this.PAGE_SIZE,
-        this.filtering,
-        offset
-      )
+      .getBannerClassification(this.siteId, this.PAGE_SIZE, this.filtering, offset)
       .subscribe(
         (bannerClassificationResponse: BannerClassificationResponse) => {
           this.bannerClassifications = bannerClassificationResponse.items;
@@ -94,7 +89,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
               data: {
                 title: `Error ${error.status}`,
                 message: `Banner list is not available at this moment. Please, try again later.`,
-              }
+              },
             });
           }
           this.bannerClassifications = [];
@@ -107,9 +102,9 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
 
   onStepBack(): void {
     if (this.isGlobal) {
-      this.router.navigate(['/publisher', 'dashboard'])
+      this.router.navigate(['/publisher', 'dashboard']);
     } else {
-      this.router.navigate(['/publisher', 'site', this.siteId])
+      this.router.navigate(['/publisher', 'site', this.siteId]);
     }
   }
 
@@ -128,7 +123,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   }
 
   updateBannersList(filtering: BannerClassificationFilters): void {
-    this.filtering = {...this.filtering, ...filtering};
-    this.getBannerClassification()
+    this.filtering = { ...this.filtering, ...filtering };
+    this.getBannerClassification();
   }
 }

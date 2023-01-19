@@ -10,12 +10,7 @@ import { Campaign, CampaignBasicInformation, CampaignsConfig } from 'models/camp
 import { campaignInitialState } from 'models/initial-state/campaign';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { Entry } from 'models/targeting-option.model';
-import {
-  LoadCampaignsConfig,
-  SaveCampaignBasicInformation,
-  UpdateCampaign,
-} from 'store/advertiser/advertiser.actions';
-
+import { LoadCampaignsConfig, SaveCampaignBasicInformation, UpdateCampaign } from 'store/advertiser/advertiser.actions';
 
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
@@ -28,16 +23,16 @@ import {
   mapToIterable,
 } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { HandleSubscription } from 'common/handle-subscription';
-import { CustomValidators } from "common/utilities/forms";
-import { ServerOptionsService } from 'common/server-options.service'
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
+import { CustomValidators } from 'common/utilities/forms';
+import { ServerOptionsService } from 'common/server-options.service';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
   templateUrl: './edit-campaign-basic-information.component.html',
-  styleUrls: ['./edit-campaign-basic-information.component.scss']
+  styleUrls: ['./edit-campaign-basic-information.component.scss'],
 })
-export class EditCampaignBasicInformationComponent extends HandleSubscription implements OnInit, OnDestroy {
+export class EditCampaignBasicInformationComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
   currencyCode: string;
   campaignsConfig: CampaignsConfig;
   campaignBasicInfoForm: FormGroup;
@@ -61,7 +56,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
-    private serverOptionsService: ServerOptionsService,
+    private serverOptionsService: ServerOptionsService
   ) {
     super();
   }
@@ -75,13 +70,15 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       targetUrl: campaignBasicInfoValue.targetUrl,
       maxCpc: 0,
       maxCpm:
-        this.isAutoCpm || campaignBasicInfoValue.maxCpm === null ? null : adsToClicks(campaignBasicInfoValue.maxCpm || 0),
+        this.isAutoCpm || campaignBasicInfoValue.maxCpm === null
+          ? null
+          : adsToClicks(campaignBasicInfoValue.maxCpm || 0),
       budget: adsToClicks(this.budgetValue || 0),
       medium: campaignBasicInfoValue.medium,
       vendor: campaignBasicInfoValue.vendor,
       dateStart: moment(this.dateStart.value._d).format(),
-      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
-    }
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null,
+    };
   }
 
   private static convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
@@ -105,13 +102,14 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   ngOnInit(): void {
-    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency;
     this.store.dispatch(new LoadCampaignsConfig());
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
-    this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
+    this.route.queryParams.subscribe(params => (this.goesToSummary = !!params.summary));
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
 
-    const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+    const campaignsConfigSubscription = this.store
+      .select('state', 'advertiser', 'campaignsConfig')
       .subscribe((campaignsConfig: CampaignsConfig) => {
         this.campaignsConfig = campaignsConfig;
         this.createForm();
@@ -140,7 +138,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     this.changesSaved = true;
     this.campaign = {
       ...this.campaign,
-      basicInformation: {...this.campaignBasicInfo, status: this.campaign.basicInformation.status},
+      basicInformation: {
+        ...this.campaignBasicInfo,
+        status: this.campaign.basicInformation.status,
+      },
     };
 
     this.store.dispatch(new UpdateCampaign(this.campaign));
@@ -161,7 +162,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       name: new FormControl(initialBasicInfo.name, Validators.required),
       targetUrl: new FormControl(initialBasicInfo.targetUrl, [
         Validators.required,
-        Validators.pattern(appSettings.TARGET_URL_REGEXP)
+        Validators.pattern(appSettings.TARGET_URL_REGEXP),
       ]),
       maxCpm: new FormControl(initialBasicInfo.maxCpm, [
         CustomValidators.minOrZero(clicksToAds(this.campaignsConfig.minCpm)),
@@ -185,14 +186,17 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   loadFormDataFromStore() {
-    const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+    const subscription = this.store
+      .select('state', 'advertiser', 'lastEditedCampaign')
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
         this.isAutoCpm = lastEditedCampaign.basicInformation.maxCpm === null;
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
-        const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
+        const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(
+          lastEditedCampaign.basicInformation
+        );
         this.campaignBasicInfoForm.patchValue(basicInformation);
-        this.onMediumChange(basicInformation.medium)
+        this.onMediumChange(basicInformation.medium);
 
         this.dateStart.setValue(moment(lastEditedCampaign.basicInformation.dateStart));
 
@@ -208,8 +212,9 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   onStepBack(): void {
-    this.createCampaignMode ? this.router.navigate(['/advertiser', 'dashboard']) :
-      this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+    this.createCampaignMode
+      ? this.router.navigate(['/advertiser', 'dashboard'])
+      : this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
   }
 
   private setBudgetValue(value?: number): void {
@@ -220,45 +225,44 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     let subscription: Subscription;
 
     // calculate budget: hour -> day
-    subscription = this.campaignBasicInfoForm.get('budget').valueChanges
-      .subscribe((val) => {
-        if (!this.calcBudgetToHour) {
-          this.setBudgetValue(val);
-          const budgetPerDayValue = (val !== null) ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
-          this.budgetPerDay.setValue(budgetPerDayValue);
-        }
-      });
+    subscription = this.campaignBasicInfoForm.get('budget').valueChanges.subscribe(val => {
+      if (!this.calcBudgetToHour) {
+        this.setBudgetValue(val);
+        const budgetPerDayValue = val !== null ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
+        this.budgetPerDay.setValue(budgetPerDayValue);
+      }
+    });
     this.subscriptions.push(subscription);
 
     // calculate budget: day -> hour
-    subscription = this.budgetPerDay.valueChanges
-      .subscribe((val) => {
-        if (this.calcBudgetToHour) {
-          this.setBudgetValue(calcCampaignBudgetPerHour(val));
-          this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
+    subscription = this.budgetPerDay.valueChanges.subscribe(val => {
+      if (this.calcBudgetToHour) {
+        this.setBudgetValue(calcCampaignBudgetPerHour(val));
+        this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
+      }
+    });
+    this.subscriptions.push(subscription);
+  }
+
+  changeAutoCpm(checked: boolean) {
+    this.isAutoCpm = checked;
+  }
+
+  onMediumChange(medium: string): void {
+    const subscription = this.advertiserService
+      .getMediumVendors(medium)
+      .pipe(take(1))
+      .subscribe(vendors => {
+        this.vendors = mapToIterable(vendors);
+        if (this.createCampaignMode) {
+          const value = this.vendors.length > 0 ? this.vendors[0].key : null;
+          this.campaignBasicInfoForm.get('vendor').patchValue(value);
         }
       });
     this.subscriptions.push(subscription);
   }
 
-  changeAutoCpm (checked: boolean) {
-    this.isAutoCpm = checked;
-  }
-
-  onMediumChange (medium: string): void {
-    const subscription = this.advertiserService.getMediumVendors(medium)
-      .pipe(take(1))
-      .subscribe(vendors => {
-        this.vendors = mapToIterable(vendors)
-        if (this.createCampaignMode) {
-          const value = this.vendors.length > 0 ? this.vendors[0].key : null
-          this.campaignBasicInfoForm.get('vendor').patchValue(value)
-        }
-      })
-    this.subscriptions.push(subscription)
-  }
-
   get isTaxonomy(): boolean {
-    return this.media.length > 0
+    return this.media.length > 0;
   }
 }

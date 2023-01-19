@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AdPreview } from 'models/campaign.model';
 import { adCreativeTypes } from 'models/enum/ad.enum';
@@ -8,7 +8,7 @@ import { adCreativeTypes } from 'models/enum/ad.enum';
   templateUrl: './ad-preview-dialog.component.html',
   styleUrls: ['./ad-preview-dialog.component.scss'],
 })
-export class AdPreviewDialogComponent {
+export class AdPreviewDialogComponent implements OnInit {
   readonly adCreativeTypes = adCreativeTypes;
   type: string;
   width: string;
@@ -16,9 +16,8 @@ export class AdPreviewDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AdPreviewDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AdPreview,
-  ) {
-  }
+    @Inject(MAT_DIALOG_DATA) public data: AdPreview
+  ) {}
 
   ngOnInit(): void {
     this.type = this.data.type;

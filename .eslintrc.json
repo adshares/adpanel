@@ -1,0 +1,110 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json", "e2e/tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:angular/johnpapa",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "angular/document-service": "off",
+        "angular/window-service": "off",
+        "angular/timeout-service": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@angular-eslint/no-output-rename": [1],
+        "@angular-eslint/component-class-suffix": [
+          "error",
+          {
+            "suffixes": ["Page", "Component"]
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/member-ordering": 0,
+        "@typescript-eslint/naming-convention": 0,
+        "prettier/prettier" : [
+          "error",
+          {
+            "printWidth": 120,
+            "tabWidth": 2,
+            "useTabs": false,
+            "singleQuote": true,
+            "semi": true,
+            "bracketSpacing": true,
+            "arrowParens": "avoid",
+            "trailingComma": "es5",
+            "bracketSameLine": true,
+            "endOfLine": "lf"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended", "plugin:prettier/recommended"],
+      "rules": {
+        "prettier/prettier" : [
+          "error",
+          {
+            "printWidth": 120,
+            "tabWidth": 2,
+            "useTabs": false,
+            "singleQuote": true,
+            "semi": true,
+            "bracketSpacing": true,
+            "arrowParens": "avoid",
+            "trailingComma": "es5",
+            "bracketSameLine": true,
+            "endOfLine": "lf"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "excludedFiles": ["*inline-template-*.component.html"],
+      "extends": ["plugin:prettier/recommended"],
+      "rules": {
+        "prettier/prettier" : [
+          "error",
+          {
+            "parser": "angular",
+            "printWidth": 120,
+            "tabWidth": 2,
+            "useTabs": false,
+            "singleQuote": true,
+            "semi": true,
+            "bracketSpacing": true,
+            "arrowParens": "avoid",
+            "trailingComma": "es5",
+            "bracketSameLine": true,
+            "endOfLine": "lf"
+          }
+        ]
+      }
+    }
+  ]
+}

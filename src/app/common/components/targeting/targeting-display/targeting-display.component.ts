@@ -6,7 +6,7 @@ import { getPathAndLabel } from 'common/components/targeting/targeting.helpers';
 @Component({
   selector: 'app-targeting-display',
   templateUrl: './targeting-display.component.html',
-  styleUrls: ['./targeting-display.component.scss']
+  styleUrls: ['./targeting-display.component.scss'],
 })
 export class TargetingDisplayComponent implements OnChanges {
   @Input() items: TargetingOptionValue[];
@@ -20,7 +20,7 @@ export class TargetingDisplayComponent implements OnChanges {
     chosenTargeting: {
       id: string;
       label: string;
-    }[]
+    }[];
   }[];
 
   ngOnChanges() {
@@ -29,16 +29,14 @@ export class TargetingDisplayComponent implements OnChanges {
 
   prepareItemsToDisplay(): void {
     this.viewModel = [];
-    this.items.forEach((item) => {
+    this.items.forEach(item => {
       const [path, label] = getPathAndLabel(item, this.targetingOptions);
       const chosenTargetingItem = {
         id: item.id,
         label: label,
       };
 
-      const viewModelParentPathIndex = this.viewModel.findIndex(
-        viewModelItem => viewModelItem.parentPath === path
-      );
+      const viewModelParentPathIndex = this.viewModel.findIndex(viewModelItem => viewModelItem.parentPath === path);
 
       if (viewModelParentPathIndex >= 0) {
         this.viewModel[viewModelParentPathIndex].chosenTargeting.push(chosenTargetingItem);
@@ -53,13 +51,13 @@ export class TargetingDisplayComponent implements OnChanges {
   }
 
   removeItem(id: string): void {
-    let index
-    let idToRemove = id
+    let index;
+    let idToRemove = id;
     while ((index = this.items.findIndex(item => item.id === idToRemove)) !== -1) {
-      const item = this.items.splice(index, 1)[0]
-      idToRemove = item.parentId
+      const item = this.items.splice(index, 1)[0];
+      idToRemove = item.parentId;
     }
-    this.itemsChange.emit(this.items)
-    this.prepareItemsToDisplay()
+    this.itemsChange.emit(this.items);
+    this.prepareItemsToDisplay();
   }
 }

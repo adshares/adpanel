@@ -1,27 +1,23 @@
 <section class="app-targeting-display">
-  <mat-chip-list *ngFor="let groupedTargeting of viewModel"
-                 class="app-targeting-display__chip-list">
+  <mat-chip-list *ngFor="let groupedTargeting of viewModel" class="app-targeting-display__chip-list">
     <div
       class="ap-copy"
-      [ngClass]="{'targeting-display__exclude-text': isExclude}"
-      data-test="common-targeting-display-selected-item"
-    >
+      [ngClass]="{ 'targeting-display__exclude-text': isExclude }"
+      data-test="common-targeting-display-selected-item">
       {{ groupedTargeting.parentPath }}:
     </div>
 
     <div class="row align-center">
       <mat-chip
         *ngFor="let targetingItem of groupedTargeting.chosenTargeting"
-        [ngClass]="{'hide-remove': !canRemove}"
+        [ngClass]="{ 'hide-remove': !canRemove }"
         (removed)="removeItem(targetingItem.id)"
-        data-test="common-targeting-display-remove-item"
-      >
+        data-test="common-targeting-display-remove-item">
         <p class="ap-copy ap-copy--x-dark ap-copy--semi">
           {{ targetingItem.label }}
         </p>
-          <mat-icon matChipRemove>cancel</mat-icon>
+        <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
     </div>
   </mat-chip-list>
 </section>
-

@@ -11,20 +11,20 @@ import {
   LoadCampaignsConfig,
   SaveConversion,
   UPDATE_CAMPAIGN_FAILURE,
-  UPDATE_CAMPAIGN_SUCCESS
+  UPDATE_CAMPAIGN_SUCCESS,
 } from 'store/advertiser/advertiser.actions';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { BidStrategyService } from 'common/bid-strategy.service';
 import { SAVE_SUCCESS } from 'common/utilities/messages';
 
 @Component({
   selector: 'app-edit-campaign-bid-strategy',
   templateUrl: './edit-campaign-bid-strategy.component.html',
-  styleUrls: ['./edit-campaign-bid-strategy.component.scss']
+  styleUrls: ['./edit-campaign-bid-strategy.component.scss'],
 })
-export class EditCampaignBidStrategyComponent extends HandleSubscription implements OnInit {
+export class EditCampaignBidStrategyComponent extends HandleSubscriptionComponent implements OnInit {
   campaignsConfig: CampaignsConfig;
   campaign: Campaign;
   submitted: boolean = false;
@@ -39,7 +39,7 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
     private advertiserService: AdvertiserService,
     private bidStrategyService: BidStrategyService,
     private dialog: MatDialog,
-    private action$: Actions,
+    private action$: Actions
   ) {
     super();
   }
@@ -50,27 +50,35 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
   }
 
   fetchBidStrategies(): void {
-    this.campaign = this.route.snapshot.parent.data.campaign
-    this.bidStrategyService.getBidStrategies(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor, true).subscribe(
-      (bidStrategies) => {
-        this.bidStrategies = bidStrategies;
-        const bidStrategyUuid = this.campaign.bidStrategy.uuid;
-        if (bidStrategyUuid && (-1 !== this.bidStrategies.findIndex((bidStrategy) => bidStrategy.uuid === bidStrategyUuid))) {
-          this.bidStrategyUuidSelected = bidStrategyUuid;
+    this.campaign = this.route.snapshot.parent.data.campaign;
+    this.bidStrategyService
+      .getBidStrategies(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor, true)
+      .subscribe(
+        bidStrategies => {
+          this.bidStrategies = bidStrategies;
+          const bidStrategyUuid = this.campaign.bidStrategy.uuid;
+          if (
+            bidStrategyUuid &&
+            -1 !== this.bidStrategies.findIndex(bidStrategy => bidStrategy.uuid === bidStrategyUuid)
+          ) {
+            this.bidStrategyUuidSelected = bidStrategyUuid;
+          }
+          this.isLoading = false;
+        },
+        error => {
+          const status = error.status ? error.status : 0;
+          this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
+          this.isLoading = false;
         }
-        this.isLoading = false;
-      },
-      (error) => {
-        const status = error.status ? error.status : 0;
-        this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
-        this.isLoading = false;
-      });
+      );
   }
 
   onBidStrategySelect(): void {
     this.submitted = true;
 
-    const bigStrategySelected = this.bidStrategies.find((bidStrategy) => bidStrategy.uuid === this.bidStrategyUuidSelected);
+    const bigStrategySelected = this.bidStrategies.find(
+      bidStrategy => bidStrategy.uuid === this.bidStrategyUuidSelected
+    );
 
     this.campaign = {
       ...this.campaign,
@@ -81,13 +89,7 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
     };
     this.store.dispatch(new SaveConversion(this.campaign));
 
-    this.action$.pipe(
-      ofType(
-        UPDATE_CAMPAIGN_SUCCESS,
-        UPDATE_CAMPAIGN_FAILURE
-      ),
-      first()
-    ).subscribe((action: Action) => {
+    this.action$.pipe(ofType(UPDATE_CAMPAIGN_SUCCESS, UPDATE_CAMPAIGN_FAILURE), first()).subscribe((action: Action) => {
       this.submitted = false;
       if (UPDATE_CAMPAIGN_SUCCESS === action.type) {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));

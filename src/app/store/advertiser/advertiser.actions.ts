@@ -53,288 +53,243 @@ export const DELETE_CAMPAIGN_SUCCESS = 'Delete campaign success';
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class SetLastEditedCampaign implements Action {
   readonly type = SET_LAST_EDITED_CAMPAIGN;
 
-  constructor(public payload: Campaign) {
-  }
+  constructor(public payload: Campaign) {}
 }
 
 export class SaveCampaignBasicInformation implements Action {
   readonly type = SAVE_CAMPAIGN_BASIC_INFORMATION;
 
-  constructor(public payload: CampaignBasicInformation) {
-  }
+  constructor(public payload: CampaignBasicInformation) {}
 }
 
 export class SaveCampaignTargeting implements Action {
   readonly type = SAVE_CAMPAIGN_TARGETING;
 
-  constructor(public payload: AssetTargeting) {
-  }
+  constructor(public payload: AssetTargeting) {}
 }
 
 export class SaveCampaignAds implements Action {
   readonly type = SAVE_CAMPAIGN_ADS;
 
-  constructor(public payload: Ad[]) {
-  }
+  constructor(public payload: Ad[]) {}
 }
 
 export class SaveConversion implements Action {
   readonly type = SAVE_CONVERSION;
 
-  constructor(public payload: Campaign) {
-  }
+  constructor(public payload: Campaign) {}
 }
 
 export class UpdateCampaign implements Action {
   readonly type = UPDATE_CAMPAIGN;
 
-  constructor(public payload: Campaign) {
-  }
+  constructor(public payload: Campaign) {}
 }
 
 export class UpdateCampaignSuccess implements Action {
   readonly type = UPDATE_CAMPAIGN_SUCCESS;
 
-  constructor(public payload: Campaign) {
-  }
+  constructor(public payload: Campaign) {}
 }
 
 export class UpdateCampaignFailure implements Action {
   readonly type = UPDATE_CAMPAIGN_FAILURE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class UpdateCampaignStatus implements Action {
   readonly type = UPDATE_CAMPAIGN_STATUS;
 
-  constructor(public payload: { id: number, status: number }) {
-  }
+  constructor(public payload: { id: number; status: number }) {}
 }
 
 export class UpdateCampaignStatusSuccess implements Action {
   readonly type = UPDATE_CAMPAIGN_STATUS_SUCCESS;
 
-  constructor(public payload?: Campaign) {
-  }
+  constructor(public payload?: Campaign) {}
 }
 
 export class ActivateOutdatedCampaignStatus implements Action {
   readonly type = ACTIVATE_OUTDATED_CAMPAIGN;
 
-  constructor(public payload: { campaignId: number }) {
-  }
+  constructor(public payload: { campaignId: number }) {}
 }
 
 export class ActivateOutdatedCampaignStatusSuccess implements Action {
   readonly type = ACTIVATE_OUTDATED_CAMPAIGN_SUCCESS;
 
-  constructor(public payload: { campaignId: number }) {
-  }
+  constructor(public payload: { campaignId: number }) {}
 }
 
 export class AddCampaignToCampaigns implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS;
 
-  constructor(public payload: Campaign) {
-  }
+  constructor(public payload: Campaign) {}
 }
 
 export class AddCampaignToCampaignsSuccess implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS;
 
-  constructor(public payload: Campaign) {
-  }
+  constructor(public payload: Campaign) {}
 }
 
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class LoadCampaignsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_SUCCESS;
 
-  constructor(public payload: Campaign[]) {
-  }
+  constructor(public payload: Campaign[]) {}
 }
 
 export class LoadCampaignsFailure implements Action {
   readonly type: string = LOAD_CAMPAIGNS_FAILURE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class LoadCampaign implements Action {
   readonly type: string = LOAD_CAMPAIGN;
 
-  constructor(public payload?: number) {
-  }
+  constructor(public payload?: number) {}
 }
 
 export class LoadCampaignSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGN_SUCCESS;
 
-  constructor(public payload: Campaign) {
-  }
+  constructor(public payload: Campaign) {}
 }
 
 export class LoadCampaignFailure implements Action {
   readonly type: string = LOAD_CAMPAIGN_FAILURE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class LoadCampaignsConfig implements Action {
   readonly type: string = LOAD_CAMPAIGNS_CONFIG;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class LoadCampaignsConfigSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_CONFIG_SUCCESS;
 
-  constructor(public payload: CampaignsConfig) {
-  }
+  constructor(public payload: CampaignsConfig) {}
 }
 
 export class LoadCampaignsConfigFailure implements Action {
   readonly type: string = LOAD_CAMPAIGNS_CONFIG_FAILURE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class LoadCampaignsTotals implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS;
 
-  constructor(public payload: TimespanFilter | { currentFrom: string, currentTo: string }) {
-  }
+  constructor(public payload: TimespanFilter | { currentFrom: string; currentTo: string }) {}
 }
 
 export class LoadCampaignsTotalsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS_SUCCESS;
 
-  constructor(public payload: any) {
-  }
+  constructor(public payload: any) {}
 }
 
 export class LoadCampaignsTotalsFailure implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS_FAILURE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class LoadCampaignTotals implements Action {
   readonly type: string = LOAD_CAMPAIGN_TOTALS;
 
-  constructor(public payload: { from: string, to: string, id: number }) {
-  }
+  constructor(public payload: { from: string; to: string; id: number }) {}
 }
 
 export class LoadCampaignTotalsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGN_TOTALS_SUCCESS;
 
-  constructor(public payload: CampaignTotalsResponse) {
-  }
+  constructor(public payload: CampaignTotalsResponse) {}
 }
 
 export class LoadCampaignTotalsFailure implements Action {
   readonly type: string = LOAD_CAMPAIGN_TOTALS_FAILURE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class CloneCampaign implements Action {
   readonly type: string = CLONE_CAMPAIGN;
 
-  constructor(public payload: number) {
-  }
+  constructor(public payload: number) {}
 }
 
 export class CloneCampaignSuccess implements Action {
   readonly type: string = CLONE_CAMPAIGN_SUCCESS;
 
-  constructor(public payload: any) {
-  }
+  constructor(public payload: any) {}
 }
 
 export class CloneCampaignFailure implements Action {
   readonly type: string = CLONE_CAMPAIGN_FAILURE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class DeleteCampaign implements Action {
   readonly type: string = DELETE_CAMPAIGN;
 
-  constructor(public payload: number) {
-  }
+  constructor(public payload: number) {}
 }
 
 export class DeleteCampaignSuccess implements Action {
   readonly type: string = DELETE_CAMPAIGN_SUCCESS;
 
-  constructor(public payload: any) {
-  }
+  constructor(public payload: any) {}
 }
 
 export type actions =
-  ClearLastEditedCampaign |
-  SetLastEditedCampaign |
-  SaveCampaignBasicInformation |
-  SaveCampaignTargeting |
-  SaveCampaignAds |
-  SaveConversion |
-
-  AddCampaignToCampaigns |
-  AddCampaignToCampaignsSuccess |
-
-  LoadCampaigns |
-  LoadCampaignsSuccess |
-  LoadCampaignsFailure |
-
-  LoadCampaign |
-  LoadCampaignSuccess |
-  LoadCampaignFailure |
-
-  LoadCampaignsConfig |
-  LoadCampaignsConfigSuccess |
-  LoadCampaignsConfigFailure |
-
-  LoadCampaignTotals |
-  LoadCampaignTotalsSuccess |
-  LoadCampaignTotalsFailure |
-
-  LoadCampaignsTotals |
-  LoadCampaignsTotalsSuccess |
-  LoadCampaignsTotalsFailure |
-
-  UpdateCampaign |
-  UpdateCampaignSuccess |
-  UpdateCampaignFailure |
-
-  DeleteCampaign |
-  DeleteCampaignSuccess |
-
-  UpdateCampaignStatus |
-  UpdateCampaignStatusSuccess |
-
-  ActivateOutdatedCampaignStatus |
-  ActivateOutdatedCampaignStatusSuccess;
+  | ClearLastEditedCampaign
+  | SetLastEditedCampaign
+  | SaveCampaignBasicInformation
+  | SaveCampaignTargeting
+  | SaveCampaignAds
+  | SaveConversion
+  | AddCampaignToCampaigns
+  | AddCampaignToCampaignsSuccess
+  | LoadCampaigns
+  | LoadCampaignsSuccess
+  | LoadCampaignsFailure
+  | LoadCampaign
+  | LoadCampaignSuccess
+  | LoadCampaignFailure
+  | LoadCampaignsConfig
+  | LoadCampaignsConfigSuccess
+  | LoadCampaignsConfigFailure
+  | LoadCampaignTotals
+  | LoadCampaignTotalsSuccess
+  | LoadCampaignTotalsFailure
+  | LoadCampaignsTotals
+  | LoadCampaignsTotalsSuccess
+  | LoadCampaignsTotalsFailure
+  | UpdateCampaign
+  | UpdateCampaignSuccess
+  | UpdateCampaignFailure
+  | DeleteCampaign
+  | DeleteCampaignSuccess
+  | UpdateCampaignStatus
+  | UpdateCampaignStatusSuccess
+  | ActivateOutdatedCampaignStatus
+  | ActivateOutdatedCampaignStatusSuccess;

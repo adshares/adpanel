@@ -1,30 +1,30 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormControl, FormGroup} from '@angular/forms';
-import {Store} from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
-import {PublisherService} from 'publisher/publisher.service';
-import {cloneDeep} from 'common/utilities/helpers';
-import {AdUnit, AdUnitMetaData, Site} from 'models/site.model';
-import {AppState} from 'models/app-state.model';
-import {HandleSubscription} from "common/handle-subscription";
+import { PublisherService } from 'publisher/publisher.service';
+import { cloneDeep } from 'common/utilities/helpers';
+import { AdUnit, AdUnitMetaData, Site } from 'models/site.model';
+import { AppState } from 'models/app-state.model';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import {
   AddSiteToSites,
   ClearLastEditedSite,
   SaveLastEditedSiteAdUnits,
-  UpdateSiteUnits
-} from "store/publisher/publisher.actions";
-import {faCheck, faTimes} from '@fortawesome/free-solid-svg-icons';
-import {AssetHelpersService} from "common/asset-helpers.service";
-import {adUnitStatusesEnum, adUnitTypesEnum} from "models/enum/ad.enum";
-import {siteStatusEnum} from "models/enum/site.enum";
+  UpdateSiteUnits,
+} from 'store/publisher/publisher.actions';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { adUnitStatusesEnum, adUnitTypesEnum } from 'models/enum/ad.enum';
+import { siteStatusEnum } from 'models/enum/site.enum';
 
 @Component({
   selector: 'app-edit-site-pops-settings',
   templateUrl: './edit-site-pops-settings.component.html',
-  styleUrls: ['./edit-site-pops-settings.component.scss']
+  styleUrls: ['./edit-site-pops-settings.component.scss'],
 })
-export class EditSitePopsSettingsComponent extends HandleSubscription implements OnInit {
+export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent implements OnInit {
   faCheck = faCheck;
   faTimes = faTimes;
   popsSettingsForm: FormGroup;
@@ -38,25 +38,28 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>,
+    private store: Store<AppState>
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(item => item.type === adUnitTypesEnum.POP);
+    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
+      item => item.type === adUnitTypesEnum.POP
+    );
 
     this.createForm();
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .subscribe((site: Site) => {
-        this.site = site;
-        site.adUnits.filter(item => item.type === adUnitTypesEnum.POP).forEach(adUnit => {
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').subscribe((site: Site) => {
+      this.site = site;
+      site.adUnits
+        .filter(item => item.type === adUnitTypesEnum.POP)
+        .forEach(adUnit => {
           const control = this.popsSettingsForm.get(adUnit.size);
           control.get('selected').setValue(true);
           control.get('id').setValue(adUnit.id);
         });
-      });
+    });
     this.subscriptions.push(lastSiteSubscription);
   }
 
@@ -64,9 +67,9 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
     const controls = {};
     this.adUnitSizes.forEach(adUnitSize => {
       controls[adUnitSize.size] = new FormGroup({
-        'selected': new FormControl(false),
-        'id': new FormControl(null),
-      })
+        selected: new FormControl(false),
+        id: new FormControl(null),
+      });
     });
 
     this.popsSettingsForm = new FormGroup(controls);
@@ -97,7 +100,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
     if (isDraft) {
       this.site = {
         ...this.site,
-        status: siteStatusEnum.DRAFT
+        status: siteStatusEnum.DRAFT,
       };
       this.store.dispatch(new AddSiteToSites(this.site));
     } else {
@@ -115,9 +118,11 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
   }
 
   get adUnitsToSave(): AdUnit[] {
-    const units = [...this.site.adUnits.filter(adUnit => {
-      return adUnit.type !== adUnitTypesEnum.POP
-    })];
+    const units = [
+      ...this.site.adUnits.filter(adUnit => {
+        return adUnit.type !== adUnitTypesEnum.POP;
+      }),
+    ];
     this.adUnitSizes.forEach(adUnit => {
       const control = this.popsSettingsForm.get(adUnit.size);
       if (control.get('selected').value) {

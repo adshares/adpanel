@@ -1,7 +1,7 @@
-import { Action } from '@ngrx/store'
-import { AccessToken, AccessTokenResponse, AccessTokenResponseWithSecret } from 'models/access-token.model'
-import { BillingHistory, PaginatorResponse, RefLink } from 'models/settings.model'
-import { User } from 'models/user.model'
+import { Action } from '@ngrx/store';
+import { AccessToken, AccessTokenResponse, AccessTokenResponseWithSecret } from 'models/access-token.model';
+import { BillingHistory, PaginatorResponse, RefLink } from 'models/settings.model';
+import { User } from 'models/user.model';
 
 export const GET_ACCESS_TOKENS = 'Get access tokens';
 export const GET_ACCESS_TOKENS_SUCCESS = 'Get access tokens success';
@@ -21,7 +21,7 @@ export const CANCEL_AWAITING_TRANSACTION_SUCCESS = 'Cancel awaiting transaction 
 
 export const GET_BILLING_HISTORY = 'Get billing history';
 export const GET_BILLING_HISTORY_SUCCESS = 'Get billing history success';
-export const GET_BILLING_HISTORY_FAILURE = 'Get billing history failure'
+export const GET_BILLING_HISTORY_FAILURE = 'Get billing history failure';
 
 export const GET_REF_LINKS = 'Get ref links';
 export const GET_REF_LINKS_SUCCESS = 'Get ref links success';
@@ -35,145 +35,133 @@ export const WITHDRAW_FUNDS_SUCCESS = 'Withdraw funds success';
 export class GetAccessTokens implements Action {
   readonly type: string = GET_ACCESS_TOKENS;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class GetAccessTokensSuccess implements Action {
   readonly type: string = GET_ACCESS_TOKENS_SUCCESS;
 
-  constructor(public payload: AccessTokenResponse[]) {
-  }
+  constructor(public payload: AccessTokenResponse[]) {}
 }
 
 export class AddAccessToken implements Action {
   readonly type: string = ADD_ACCESS_TOKEN;
 
-  constructor(public payload: AccessToken) {
-  }
+  constructor(public payload: AccessToken) {}
 }
 
 export class AddAccessTokenSuccess implements Action {
   readonly type: string = ADD_ACCESS_TOKEN_SUCCESS;
 
-  constructor(public payload: AccessTokenResponseWithSecret) {
-  }
+  constructor(public payload: AccessTokenResponseWithSecret) {}
 }
 
 export class DeleteAccessToken implements Action {
   readonly type: string = DELETE_ACCESS_TOKEN;
 
-  constructor(public payload: string) {
-  }
+  constructor(public payload: string) {}
 }
 
 export class DeleteAccessTokenSuccess implements Action {
   readonly type: string = DELETE_ACCESS_TOKEN_SUCCESS;
 
-  constructor(public payload: string) {
-  }
+  constructor(public payload: string) {}
 }
 
 export class GetCurrentBalance implements Action {
   readonly type: string = GET_CURRENT_BALANCE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class GetCurrentBalanceSuccess implements Action {
   readonly type: string = GET_CURRENT_BALANCE_SUCCESS;
 
-  constructor(public payload: User) {
-  }
+  constructor(public payload: User) {}
 }
 
 export class GetCurrentBalanceFailure implements Action {
   readonly type: string = GET_CURRENT_BALANCE_FAILURE;
 
-  constructor(public payload: any) {
-  }
+  constructor(public payload: any) {}
 }
 
 export class CancelAwaitingTransaction implements Action {
   readonly type: string = CANCEL_AWAITING_TRANSACTION;
 
-  constructor(public payload: number) {
-  }
+  constructor(public payload: number) {}
 }
 
 export class CancelAwaitingTransactionSuccess implements Action {
   readonly type: string = CANCEL_AWAITING_TRANSACTION_SUCCESS;
 
-  constructor(public payload?: number) {
-  }
+  constructor(public payload?: number) {}
 }
 
 export class GetBillingHistory implements Action {
   readonly type: string = GET_BILLING_HISTORY;
 
-  constructor(public payload?: { dateFrom: string, dateTo: string, types: number[], limit?: number, offset?: number }) {
-  }
+  constructor(
+    public payload?: {
+      dateFrom: string;
+      dateTo: string;
+      types: number[];
+      limit?: number;
+      offset?: number;
+    }
+  ) {}
 }
 
 export class GetBillingHistorySuccess implements Action {
   readonly type: string = GET_BILLING_HISTORY_SUCCESS;
 
-  constructor(public payload: BillingHistory) {
-  }
+  constructor(public payload: BillingHistory) {}
 }
 
 export class GetBillingHistoryFailure implements Action {
   readonly type: string = GET_BILLING_HISTORY_FAILURE;
 
-  constructor(public payload: string) {
-  }
+  constructor(public payload: string) {}
 }
 
 export class WithdrawFundsSuccess implements Action {
   readonly type: string = WITHDRAW_FUNDS_SUCCESS;
 
-  constructor(public payload: any) {
-  }
+  constructor(public payload: any) {}
 }
 
 export class GetRefLinks implements Action {
   readonly type: string = GET_REF_LINKS;
 
-  constructor(public payload: { pageUrl: string|undefined }) {
-  }
+  constructor(public payload: { pageUrl: string | undefined }) {}
 }
 
 export class GetRefLinksSuccess implements Action {
   readonly type: string = GET_REF_LINKS_SUCCESS;
 
-  constructor(public payload: PaginatorResponse<RefLink>) {
-  }
+  constructor(public payload: PaginatorResponse<RefLink>) {}
 }
 
 export class GetRefLinksFailure implements Action {
   readonly type: string = GET_REF_LINKS_FAILURE;
 
-  constructor(public payload: string) {
-  }
+  constructor(public payload: string) {}
 }
 
 export class DeleteRefLink implements Action {
-  readonly type: string = DELETE_REF_LINK
+  readonly type: string = DELETE_REF_LINK;
 
-  constructor(public payload: number) {
-  }
+  constructor(public payload: number) {}
 }
 
 export class DeleteRefLinkSuccess implements Action {
-  readonly type: string = DELETE_REF_LINK_SUCCESS
+  readonly type: string = DELETE_REF_LINK_SUCCESS;
 
-  constructor(public payload: number) {
-  }
+  constructor(public payload: number) {}
 }
 
 export type actions =
-  AddAccessToken
+  | AddAccessToken
   | AddAccessTokenSuccess
   | GetCurrentBalance
   | GetCurrentBalanceSuccess

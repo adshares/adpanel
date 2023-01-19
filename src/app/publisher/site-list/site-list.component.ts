@@ -1,27 +1,26 @@
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Site, SitesTotals } from 'models/site.model';
 import { enumToObjectArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
-import { TableNavigationComponent } from "common/components/table-navigation/table-navigation.component";
+import { TableNavigationComponent } from 'common/components/table-navigation/table-navigation.component';
 
 @Component({
   selector: 'app-site-list',
   templateUrl: './site-list.component.html',
-  styleUrls: ['./site-list.component.scss']
+  styleUrls: ['./site-list.component.scss'],
 })
-export class SiteListComponent extends HandleSubscription {
+export class SiteListComponent extends HandleSubscriptionComponent implements OnChanges {
   @Input() dataLoaded: boolean;
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;
-  @ViewChild(TableNavigationComponent) tableNavigationRef: TableNavigationComponent;
+  @ViewChild(TableNavigationComponent)
+  tableNavigationRef: TableNavigationComponent;
   siteStatuses: any[];
 
-  constructor(
-    private router: Router,
-  ) {
+  constructor(private router: Router) {
     super();
 
     this.siteStatuses = SiteListComponent.addLabelsToStatuses();

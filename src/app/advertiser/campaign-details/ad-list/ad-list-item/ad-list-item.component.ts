@@ -26,13 +26,12 @@ export class AdListItemComponent {
     private advertiserService: AdvertiserService,
     private dialog: MatDialog,
     private store: Store<AppState>,
-    private router: Router) {
-  }
+    private router: Router
+  ) {}
 
   changeAdStatus(active: boolean): void {
-    const previousStatus = this.ad.status
-    this.ad.status =
-      active ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.INACTIVE;
+    const previousStatus = this.ad.status;
+    this.ad.status = active ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.INACTIVE;
 
     this.advertiserService.updateAdStatus(this.campaign.id, this.ad.id, this.ad.status).subscribe(
       () => {
@@ -45,7 +44,7 @@ export class AdListItemComponent {
             data: {
               title: `Error during status change`,
               message: `Change is not available at this moment. Please, try again later.`,
-            }
+            },
           });
         }
       }

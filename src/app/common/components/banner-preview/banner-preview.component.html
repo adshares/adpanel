@@ -1,32 +1,16 @@
-<div
-  [ngSwitch]="type"
-  class="banner-preview"
->
+<div [ngSwitch]="type" class="banner-preview">
   <ng-container *ngSwitchCase="adCreativeTypes.IMAGE">
-    <img
-      [src]="url"
-      [style.max-width.px]="maxWidth"
-      alt="banner miniature"
-      class="banner-preview__banner"
-    />
+    <img [src]="url" [style.max-width.px]="maxWidth" alt="banner miniature" class="banner-preview__banner" />
   </ng-container>
   <ng-container *ngSwitchCase="adCreativeTypes.VIDEO">
-    <video
-      autoplay
-      loop
-      [muted]="'muted'"
-      [style.max-width.px]="maxWidth"
-      class="banner-preview__banner"
-    >
-      <source [src]="url">
+    <video autoplay loop [muted]="'muted'" [style.max-width.px]="maxWidth" class="banner-preview__banner">
+      <source [src]="url" />
       Sorry, your browser doesn't support embedded videos.
     </video>
   </ng-container>
   <ng-container *ngSwitchCase="adCreativeTypes.MODEL">
     <div class="square-preview">
-      <app-model-preview
-        [modelUrl]="url"
-      ></app-model-preview>
+      <app-model-preview [modelUrl]="url"></app-model-preview>
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="adCreativeTypes.HTML">
@@ -37,46 +21,26 @@
         title="Ad Preview"
         scrolling="no"
         [ngStyle]="{
-          'width': bannerChosenSize.width,
-          'height': bannerChosenSize.height,
-          'overflow': 'hidden',
-          'transform': 'scale(' + scale + ')',
+          width: bannerChosenSize.width,
+          height: bannerChosenSize.height,
+          overflow: 'hidden',
+          transform: 'scale(' + scale + ')',
           'transform-origin': 'left'
-        }"
-      ></iframe>
+        }"></iframe>
     </ng-container>
   </ng-container>
   <ng-container *ngSwitchCase="adCreativeTypes.DIRECT">
-    <div
-      [style.width.px]="maxWidth"
-      class="banner-preview__direct"
-    >
-      <a
-        [href]="url | testPlaceholders"
-        [title]="url"
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-      ><code>{{ url }}</code></a>
+    <div [style.width.px]="maxWidth" class="banner-preview__direct">
+      <a [href]="url | testPlaceholders" [title]="url" target="_blank" rel="nofollow noopener noreferrer"
+        ><code>{{ url }}</code></a
+      >
     </div>
   </ng-container>
 
-  <div
-    *ngIf="isLoading"
-    class="row justify-center"
-  >
+  <div *ngIf="isLoading" class="row justify-center">
     <mat-spinner [diameter]="30" [strokeWidth]="2" color="#55a8fd"></mat-spinner>
   </div>
-  <div
-    *ngIf="!showIframe && !isLoading"
-    class="error-msg"
-  >
-    Content not available
-  </div>
+  <div *ngIf="!showIframe && !isLoading" class="error-msg">Content not available</div>
 
-  <div
-    *ngIf="isZoomAvailable"
-    [style.width.px]="maxWidth"
-    (click)="zoomIn()"
-    class="banner-preview__overlay"
-  ></div>
+  <div *ngIf="isZoomAvailable" [style.width.px]="maxWidth" (click)="zoomIn()" class="banner-preview__overlay"></div>
 </div>

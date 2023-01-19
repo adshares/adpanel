@@ -9,11 +9,11 @@ import {
   Publishers,
   RefLink,
   Users,
-} from './settings.model'
+} from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
-import { AccessTokenStore } from 'models/access-token.model'
-import { Info, Placeholders } from 'models/info.model'
+import { AccessTokenStore } from 'models/access-token.model';
+import { Info, Placeholders } from 'models/info.model';
 
 interface AppState {
   state: {

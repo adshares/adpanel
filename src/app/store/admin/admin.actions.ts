@@ -1,11 +1,5 @@
-import { Action } from '@ngrx/store'
-import {
-  AdminSettingsResponse,
-  AdvertiserInfo,
-  License,
-  PublisherInfo,
-  UserInfo,
-} from 'models/settings.model'
+import { Action } from '@ngrx/store';
+import { AdminSettingsResponse, AdvertiserInfo, License, PublisherInfo, UserInfo } from 'models/settings.model';
 
 export const LOAD_USERS = 'Users loading';
 export const LOAD_USERS_SUCCESS = 'Users loading success';
@@ -30,125 +24,128 @@ export const GET_LICENSE_FAILURE = 'Get license failure';
 export class LoadUsers implements Action {
   readonly type: string = LOAD_USERS;
 
-  constructor(public payload: { nextPage?: string, searchPhrase?: string, filters: string[], orderBy?: string, direction?: string }) {
-  }
+  constructor(
+    public payload: {
+      nextPage?: string;
+      searchPhrase?: string;
+      filters: string[];
+      orderBy?: string;
+      direction?: string;
+    }
+  ) {}
 }
 
 export class LoadUsersSuccess implements Action {
   readonly type: string = LOAD_USERS_SUCCESS;
 
-  constructor(public payload: UserInfo[]) {
-  }
+  constructor(public payload: UserInfo[]) {}
 }
 
 export class LoadUsersFailure implements Action {
   readonly type: string = LOAD_USERS_FAILURE;
 
-  constructor(public payload?: string) {
-  }
+  constructor(public payload?: string) {}
 }
 
 export class LoadAdvertisers implements Action {
   readonly type: string = LOAD_ADVERTISERS;
 
-  constructor(public payload: { groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number }) {
-  }
+  constructor(
+    public payload: {
+      groupBy?: string;
+      interval?: string;
+      searchPhrase?: string;
+      minDailyViews?: number;
+    }
+  ) {}
 }
 
 export class LoadAdvertisersSuccess implements Action {
   readonly type: string = LOAD_ADVERTISERS_SUCCESS;
 
-  constructor(public payload: AdvertiserInfo[]) {
-  }
+  constructor(public payload: AdvertiserInfo[]) {}
 }
 
 export class LoadAdvertisersFailure implements Action {
   readonly type: string = LOAD_ADVERTISERS_FAILURE;
 
-  constructor(public payload?: string) {
-  }
+  constructor(public payload?: string) {}
 }
 
 export class LoadPublishers implements Action {
   readonly type: string = LOAD_PUBLISHERS;
 
-  constructor(public payload: { groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number }) {
-  }
+  constructor(
+    public payload: {
+      groupBy?: string;
+      interval?: string;
+      searchPhrase?: string;
+      minDailyViews?: number;
+    }
+  ) {}
 }
 
 export class LoadPublishersSuccess implements Action {
   readonly type: string = LOAD_PUBLISHERS_SUCCESS;
 
-  constructor(public payload: PublisherInfo[]) {
-  }
+  constructor(public payload: PublisherInfo[]) {}
 }
 
 export class LoadPublishersFailure implements Action {
   readonly type: string = LOAD_PUBLISHERS_FAILURE;
 
-  constructor(public payload?: string) {
-  }
+  constructor(public payload?: string) {}
 }
 
 export class LoadAdminSettings implements Action {
   readonly type: string = LOAD_ADMIN_SETTINGS;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class LoadAdminSettingsSuccess implements Action {
   readonly type: string = LOAD_ADMIN_SETTINGS_SUCCESS;
 
-  constructor(public payload: AdminSettingsResponse) {
-  }
+  constructor(public payload: AdminSettingsResponse) {}
 }
 
 export class LoadAdminSettingsFailure implements Action {
   readonly type: string = LOAD_ADMIN_SETTINGS_FAILURE;
 
-  constructor(public payload?: string) {
-  }
+  constructor(public payload?: string) {}
 }
 
 export class GetLicense implements Action {
   readonly type: string = GET_LICENSE;
 
-  constructor(public payload?: any) {
-  }
+  constructor(public payload?: any) {}
 }
 
 export class GetLicenseSuccess implements Action {
   readonly type: string = GET_LICENSE_SUCCESS;
 
-  constructor(public payload: License | null) {
-  }
+  constructor(public payload: License | null) {}
 }
 
 export class GetLicenseFailure implements Action {
   readonly type: string = GET_LICENSE_FAILURE;
 
-  constructor(public payload?: string) {
-  }
+  constructor(public payload?: string) {}
 }
 
 export type actions =
-  LoadUsers |
-  LoadUsersSuccess |
-  LoadUsersFailure |
-
-  LoadAdvertisers |
-  LoadAdvertisersSuccess |
-  LoadAdvertisersFailure |
-
-  LoadPublishers |
-  LoadPublishersSuccess |
-  LoadPublishersFailure |
-
-  LoadAdminSettings |
-  LoadAdminSettingsSuccess |
-  LoadAdminSettingsFailure |
-
-  GetLicense |
-  GetLicenseSuccess |
-  GetLicenseFailure;
+  | LoadUsers
+  | LoadUsersSuccess
+  | LoadUsersFailure
+  | LoadAdvertisers
+  | LoadAdvertisersSuccess
+  | LoadAdvertisersFailure
+  | LoadPublishers
+  | LoadPublishersSuccess
+  | LoadPublishersFailure
+  | LoadAdminSettings
+  | LoadAdminSettingsSuccess
+  | LoadAdminSettingsFailure
+  | GetLicense
+  | GetLicenseSuccess
+  | GetLicenseFailure;

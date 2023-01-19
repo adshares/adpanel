@@ -40,17 +40,10 @@ import { ClassifierFilteringComponent } from 'publisher/classifier/classifier-fi
 import { MatchingBannerSizesResolver } from 'publisher/resolvers/matching-banner-sizes.resolver';
 import { LanguagesListResolver } from 'publisher/resolvers/languages-list.resolver';
 import { DomainCheckerComponent } from 'publisher/site-details/domain-checker/domain-checker.component';
-import {
-  SiteCodeCryptovoxelsDialogComponent
-} from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component'
-import {
-  SiteCodeMetaverseDialogComponent
-} from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component'
-import {
-  MetaverseInstructions
-} from 'publisher/edit-site/edit-site-basic-info/metaverse-instructions/metaverse-instructions.component'
-import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver'
-
+import { SiteCodeCryptovoxelsDialogComponent } from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component';
+import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component';
+import { MetaverseInstructionsComponent } from 'publisher/edit-site/edit-site-basic-info/metaverse-instructions/metaverse-instructions.component';
+import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver';
 
 const editSiteComponents = [
   EditSiteComponent,
@@ -76,7 +69,7 @@ const publisherComponents = [
   ClassifierListItemComponent,
   ClassifierFilteringComponent,
   DomainCheckerComponent,
-  MetaverseInstructions,
+  MetaverseInstructionsComponent,
 ];
 
 @NgModule({
@@ -108,14 +101,10 @@ const publisherComponents = [
     SiteOptionsResolver,
     LanguagesListResolver,
   ],
-  declarations: [
-    ...publisherComponents,
-    ...editSiteComponents,
-  ],
+  declarations: [...publisherComponents, ...editSiteComponents],
 })
-
 export class PublisherModule {
-  constructor (library: FaIconLibrary) {
-    library.addIconPacks(fas)
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas);
   }
 }

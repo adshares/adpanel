@@ -1,14 +1,15 @@
-import { Component } from '@angular/core'
-import { HandleSubscription } from 'common/handle-subscription';
+import { Component } from '@angular/core';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent extends HandleSubscription {
-  constructor (
-  ) {super()}
+export class UsersComponent extends HandleSubscriptionComponent {
+  constructor() {
+    super();
+  }
   links = [
     {
       label: 'Users',
@@ -25,22 +26,20 @@ export class UsersComponent extends HandleSubscription {
       path: './advertisers',
       queryParams: JSON.parse(localStorage.getItem('advertisersQueryParams')),
     },
-  ]
+  ];
 
-  onTabClick(){
-    const localStorageQueryParamsForUsers = JSON.parse(localStorage.getItem('usersQueryParams'))
-    const localStorageQueryParamsForPublishers = JSON.parse(localStorage.getItem('publishersQueryParams'))
-    const localStorageQueryParamsForAdvertisers = JSON.parse(localStorage.getItem('advertisersQueryParams'))
+  onTabClick() {
+    const localStorageQueryParamsForUsers = JSON.parse(localStorage.getItem('usersQueryParams'));
+    const localStorageQueryParamsForPublishers = JSON.parse(localStorage.getItem('publishersQueryParams'));
+    const localStorageQueryParamsForAdvertisers = JSON.parse(localStorage.getItem('advertisersQueryParams'));
     this.links.forEach(link => {
-      if(link.label === 'Users'){
-        link.queryParams = localStorageQueryParamsForUsers
+      if (link.label === 'Users') {
+        link.queryParams = localStorageQueryParamsForUsers;
+      } else if (link.label === 'Publishers') {
+        link.queryParams = localStorageQueryParamsForPublishers;
+      } else if (link.label === 'Advertisers') {
+        link.queryParams = localStorageQueryParamsForAdvertisers;
       }
-      else if(link.label === 'Publishers'){
-        link.queryParams = localStorageQueryParamsForPublishers
-      }
-      else if(link.label === 'Advertisers'){
-        link.queryParams = localStorageQueryParamsForAdvertisers
-      }
-    })
+    });
   }
 }

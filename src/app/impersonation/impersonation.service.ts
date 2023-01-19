@@ -8,17 +8,17 @@ export class ImpersonationService {
 
   setImpersonationToken(token: string) {
     localStorage.setItem(IMPERSONATION_TOKEN, token);
-    this.impersonationMode.emit(token)
+    this.impersonationMode.emit(token);
   }
 
   getTokenFromStorage(): string {
     const token = localStorage.getItem(IMPERSONATION_TOKEN);
     this.impersonationMode.emit(token);
-    return token
+    return token;
   }
 
   getTokenRawValue() {
-    return localStorage.getItem(IMPERSONATION_TOKEN)
+    return localStorage.getItem(IMPERSONATION_TOKEN);
   }
 
   getImpersonationToken(): EventEmitter<null | string> {
@@ -27,6 +27,6 @@ export class ImpersonationService {
 
   dropImpersonationToken() {
     localStorage.removeItem(IMPERSONATION_TOKEN);
-    this.impersonationMode.emit(null)
+    this.impersonationMode.emit(null);
   }
 }

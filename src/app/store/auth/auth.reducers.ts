@@ -1,6 +1,6 @@
 import * as authActions from './auth.actions';
 import { userInitialState } from 'models/initial-state/user';
-import { GET_CURRENT_BALANCE_SUCCESS, GET_CURRENT_BALANCE_FAILURE, actions } from "store/settings/settings.actions";
+import { GET_CURRENT_BALANCE_SUCCESS, GET_CURRENT_BALANCE_FAILURE, actions } from 'store/settings/settings.actions';
 
 const initialState = userInitialState;
 
@@ -15,17 +15,23 @@ export function authReducers(state = initialState, action: authActions.actions |
     case authActions.UPDATE_USER_ADDRESS:
       return {
         ...state,
-        adserverWallet: Object.assign({}, state.adserverWallet, {adsharesAddress: action.payload})
+        adserverWallet: Object.assign({}, state.adserverWallet, {
+          adsharesAddress: action.payload,
+        }),
       };
     case authActions.UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD:
       return {
         ...state,
-        adserverWallet: Object.assign({}, state.adserverWallet, {autoWithdrawPeriod: action.payload})
+        adserverWallet: Object.assign({}, state.adserverWallet, {
+          autoWithdrawPeriod: action.payload,
+        }),
       };
     case authActions.UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT:
       return {
         ...state,
-        adserverWallet: Object.assign({}, state.adserverWallet, {autoWithdrawAmount: action.payload})
+        adserverWallet: Object.assign({}, state.adserverWallet, {
+          autoWithdrawAmount: action.payload,
+        }),
       };
     case GET_CURRENT_BALANCE_SUCCESS:
       return {

@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent } from 'moderator/dashboard/dashboard.component'
-import { ModeratorGuard } from './moderator-guard.service'
-import { AdminComponent } from 'admin/admin.component'
-import { UsersComponent } from 'admin/users/users.component'
-import { UserListComponent } from 'admin/users/user-list/user-list.component'
-import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component'
-import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component'
-import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
+import { DashboardComponent } from 'moderator/dashboard/dashboard.component';
+import { ModeratorGuard } from './moderator-guard.service';
+import { AdminComponent } from 'admin/admin.component';
+import { UsersComponent } from 'admin/users/users.component';
+import { UserListComponent } from 'admin/users/user-list/user-list.component';
+import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component';
+import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
+import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
 
 const moderatorRoutes: Routes = [
   {
@@ -26,7 +26,7 @@ const moderatorRoutes: Routes = [
           {
             path: '',
             redirectTo: 'users',
-            pathMatch: 'full'
+            pathMatch: 'full',
           },
           {
             path: 'users',
@@ -35,36 +35,30 @@ const moderatorRoutes: Routes = [
               {
                 path: '',
                 redirectTo: 'all',
-                pathMatch: 'full'
+                pathMatch: 'full',
               },
               {
                 path: 'all',
-                component: UserListComponent
+                component: UserListComponent,
               },
               {
                 path: 'advertisers',
-                component: AdvertiserListComponent
+                component: AdvertiserListComponent,
               },
               {
                 path: 'publishers',
-                component: PublisherListComponent
+                component: PublisherListComponent,
               },
-            ]
+            ],
           },
         ],
       },
     ],
   },
-]
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(moderatorRoutes),
-  ],
-  exports: [
-    RouterModule,
-  ],
+  imports: [RouterModule.forRoot(moderatorRoutes)],
+  exports: [RouterModule],
 })
-
-export class ModeratorRoutingModule {
-}
+export class ModeratorRoutingModule {}

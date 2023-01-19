@@ -41,9 +41,8 @@ import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resol
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
 import { EditCampaignNavigationComponent } from 'advertiser/edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
-import { TargetingReach } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
+import { TargetingReachComponent } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
 import { MapToIterablePipe } from 'common/pipes/map-to-iterable.pipe';
-
 
 const matModules = [
   MatCheckboxModule,
@@ -77,7 +76,7 @@ const advertiserComponents = [
   AdListComponent,
   AdListItemComponent,
   EditCampaignNavigationComponent,
-  TargetingReach,
+  TargetingReachComponent,
 ];
 
 @NgModule({
@@ -99,15 +98,9 @@ const advertiserComponents = [
     BannersConfigResolver,
     CampaignResolver,
     CampaignsConfigResolver,
-    {provide: NGX_MAT_DATE_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
+    { provide: NGX_MAT_DATE_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS },
   ],
 
-  declarations: [
-    CampaignBudgetPerDayPipe,
-    MapToIterablePipe,
-    ...advertiserComponents,
-    ...editCampaignComponents,
-  ]
+  declarations: [CampaignBudgetPerDayPipe, MapToIterablePipe, ...advertiserComponents, ...editCampaignComponents],
 })
-export class AdvertiserModule {
-}
+export class AdvertiserModule {}

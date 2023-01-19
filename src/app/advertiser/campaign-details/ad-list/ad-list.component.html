@@ -2,17 +2,10 @@
   <table class="ap-posters-list__table">
     <app-table-navigation
       [navigationName]="'adListNavigation'"
-      class="
-          row
-          ap-copy"
-      (sortTable)="sortTable($event)"
-    ></app-table-navigation>
+      class="row ap-copy"
+      (sortTable)="sortTable($event)"></app-table-navigation>
     <tbody>
-    <app-poster-list-item
-      *ngFor="let ad of adList"
-      [ad]="ad"
-      [campaign]="campaign"
-    ></app-poster-list-item>
+      <app-poster-list-item *ngFor="let ad of adList" [ad]="ad" [campaign]="campaign"></app-poster-list-item>
     </tbody>
   </table>
 </section>

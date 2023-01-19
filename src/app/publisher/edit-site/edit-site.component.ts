@@ -8,29 +8,26 @@ import { AppState } from 'models/app-state.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { Site } from 'models/site.model';
-import { HandleSubscription } from "common/handle-subscription";
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-edit-site',
   templateUrl: './edit-site.component.html',
   styleUrls: ['./edit-site.component.scss'],
-  animations: [fadeAnimation]
+  animations: [fadeAnimation],
 })
-export class EditSiteComponent extends HandleSubscription implements OnInit, OnDestroy {
-  getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
+export class EditSiteComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
+  getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
   isEditMode: boolean;
 
-  constructor(
-    private store: Store<AppState>,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {
+  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router: Router) {
     super();
   }
 
   ngOnInit(): void {
     this.isEditMode = !!this.router.url.match('/edit-site/');
-    const lastEditedSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+    const lastEditedSiteSubscription = this.store
+      .select('state', 'publisher', 'lastEditedSite')
       .pipe(take(1))
       .subscribe((lastEditedSite: Site) => {
         const filteringOptions = this.route.snapshot.data.filteringOptions;
@@ -39,14 +36,13 @@ export class EditSiteComponent extends HandleSubscription implements OnInit, OnD
             parseTargetingOptionsToArray(lastEditedSite.filtering, filteringOptions)
           )
         );
-
       });
     this.subscriptions.push(lastEditedSiteSubscription);
   }
 
   ngOnDestroy(): void {
     if (this.isEditMode) {
-      this.store.dispatch(new publisherActions.ClearLastEditedSite())
+      this.store.dispatch(new publisherActions.ClearLastEditedSite());
     }
   }
 }

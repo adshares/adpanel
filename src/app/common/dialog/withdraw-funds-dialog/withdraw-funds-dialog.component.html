@@ -1,64 +1,38 @@
-<mat-dialog-content
-  class="
-    text-center
-    mat-dialog-content--narrow"
->
-  <div
-    (click)="dialogRef.close()"
-    class="ap-dialog-close"
-  ></div>
-  <h1
-    class="
-      ap-heading
-      ap-heading--primary"
-  >
+<mat-dialog-content class="text-center mat-dialog-content--narrow">
+  <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
+  <h1 class="ap-heading ap-heading--primary">
     <span *ngIf="useAdsWithdraw">Withdraw ADS</span>
     <span *ngIf="useBtcWithdraw">Withdraw BTC</span>
     <span *ngIf="!useAdsWithdraw && !useBtcWithdraw">Withdraw funds</span>
   </h1>
 
-
   <div *ngIf="!loadingInfo; else loading">
     <div
-      *ngIf="!useAdsWithdraw && !useBtcWithdraw;
-        else useAdsWithdraw && adsWithdrawForm || useBtcWithdraw && btcWithdrawForm"
-      class="withdraw-funds-selector"
-    >
+      *ngIf="
+        !useAdsWithdraw && !useBtcWithdraw;
+        else (useAdsWithdraw && adsWithdrawForm) || (useBtcWithdraw && btcWithdrawForm)
+      "
+      class="withdraw-funds-selector">
       <p class="ap-copy ap-copy--large dialog-description">
         Select your preferred withdraw method. You can choose between the native ADS coin and Bitcoin.
       </p>
       <div class="add-funds-content dialog-main-content">
-        <button
-          (click)="selectAdsWithdraw()"
-          class="ap-btn ap-btn--blue ap-btn--block"
-        >
-          Withdraw ADS
-        </button>
-        <p class="ap-copy ap-copy--medium">
-          No fee, super fast.
-        </p>
+        <button (click)="selectAdsWithdraw()" class="ap-btn ap-btn--blue ap-btn--block">Withdraw ADS</button>
+        <p class="ap-copy ap-copy--medium">No fee, super fast.</p>
 
-        <button
-          (click)="selectBtcWithdraw()"
-          class="ap-btn ap-btn--blue ap-btn--block"
-        >
-          Withdraw BTC
-        </button>
+        <button (click)="selectBtcWithdraw()" class="ap-btn ap-btn--blue ap-btn--block">Withdraw BTC</button>
       </div>
     </div>
   </div>
 
   <ng-template #adsWithdrawForm>
-    <p class="ap-copy ap-copy--large ap-customize-subheading">
-      Fill in the form below to withdraw your funds.
-    </p>
+    <p class="ap-copy ap-copy--large ap-customize-subheading">Fill in the form below to withdraw your funds.</p>
     <div class="dialog-main-content dialog-main-content--short">
       <form
         (ngSubmit)="withdrawFunds()"
         [formGroup]="withdrawForm"
         class="ap-form"
-        data-test="common-withdraw-funds-form"
-      >
+        data-test="common-withdraw-funds-form">
         <div class="ap-form-input__box">
           <label class="ap-form-label" for="adsAddress">
             Account address
@@ -67,8 +41,7 @@
               [icon]="faQuestionCircle"
               matTooltip="e.g. address of your ADS Wallet or an exchange"
               matTooltipClass="ap-mat-tooltip"
-              matTooltipPosition="above"
-            ></fa-icon>
+              matTooltipPosition="above"></fa-icon>
           </label>
           <input
             class="ap-form-input ap-form-input--full"
@@ -76,40 +49,30 @@
             formControlName="address"
             id="adsAddress"
             name="address"
-            [readOnly]="!user.email"
-          >
-          <span
-            *ngIf="withdrawForm.get('address').valid"
-            class="input-valid"
-          ></span>
+            [readOnly]="!user.email" />
+          <span *ngIf="withdrawForm.get('address').valid" class="input-valid"></span>
           <span
             *ngIf="(!this.withdrawForm.get('address').valid && this.adsWithdrawFormSubmitted) || this.addressError"
-            class="error-msg"
-          >
+            class="error-msg">
             Please provide a valid address.
           </span>
         </div>
         <p class="ap-copy ap-copy--blue ap-customize-subheading">
           Your funds will be transferred to the address above.
-          <ng-container *ngIf="user.email">Please, remember to confirm the withdrawal via email within one hour.</ng-container>
+          <ng-container *ngIf="user.email"
+            >Please, remember to confirm the withdrawal via email within one hour.</ng-container
+          >
         </p>
 
         <div class="total-funds">
-          <p class="ap-form-label">
-            Total balance:
-          </p>
-          <h1
-            class="ap-heading ap-heading--primary"
-            data-test="user-total-funds"
-          >
-            {{ adserverWallet.walletBalance | formatMoney:11:crypto:code}}
+          <p class="ap-form-label">Total balance:</p>
+          <h1 class="ap-heading ap-heading--primary" data-test="user-total-funds">
+            {{ adserverWallet.walletBalance | formatMoney : 11 : crypto : code }}
           </h1>
         </div>
 
         <div class="ap-form-input__box">
-          <label class="ap-form-label" for="adsAmount">
-            Withdrawal amount ({{appCurrency}})
-          </label>
+          <label class="ap-form-label" for="adsAmount"> Withdrawal amount ({{ appCurrency }}) </label>
           <input
             class="ap-form-input ap-form-input--full"
             data-test="common-withdraw-funds-form-withdraw-amount"
@@ -117,32 +80,22 @@
             id="adsAmount"
             min="0.01"
             name="amount"
-            type="number"
-          >
-          <span
-            *ngIf="withdrawForm.get('amount').valid"
-            class="input-valid"
-          ></span>
-          <span
-            *ngIf="!withdrawForm.get('amount').valid && adsWithdrawFormSubmitted"
-            class="error-msg"
-          >
+            type="number" />
+          <span *ngIf="withdrawForm.get('amount').valid" class="input-valid"></span>
+          <span *ngIf="!withdrawForm.get('amount').valid && adsWithdrawFormSubmitted" class="error-msg">
             Provide withdrawal amount
           </span>
-          <span
-            *ngIf="withdrawForm.get('amount').value > adserverWallet.walletBalance/1e11"
-            class="error-msg"
-          >
+          <span *ngIf="withdrawForm.get('amount').value > adserverWallet.walletBalance / 1e11" class="error-msg">
             The amount exceeds your balance
           </span>
         </div>
 
         <div class="withdraw-funds__btns-wrapper row justify-between">
-          <button (click)="getMaxAdsWithdrawAmount()"
-                  class="ap-btn ap-btn--white ap-copy--blue"
-                  data-test="common-withdraw-funds-form-btn-withdraw-max"
-                  type="button"
-          >
+          <button
+            (click)="getMaxAdsWithdrawAmount()"
+            class="ap-btn ap-btn--white ap-copy--blue"
+            data-test="common-withdraw-funds-form-btn-withdraw-max"
+            type="button">
             Withdraw max
           </button>
         </div>
@@ -152,139 +105,94 @@
             (click)="calculateAdsFee()"
             class="ap-btn ap-btn--blue"
             data-test="common-withdraw-funds-form-btn-calc-fee"
-            type="button"
-          >
+            type="button">
             Calculate fee
           </button>
         </div>
 
         <div
           *ngIf="calculatedFee !== undefined"
-          class="withdraw-funds__btns-wrapper ap-copy ap-copy--plus ap-copy--x-dark ap-copy--semi"
-        >
+          class="withdraw-funds__btns-wrapper ap-copy ap-copy--plus ap-copy--x-dark ap-copy--semi">
           <p>
             Transaction fee:
-            <span
-              class="fee"
-              data-test="common-withdraw-funds-form-fee"
-            >
-              {{ calculatedFee | formatMoney:11:crypto:code }}
+            <span class="fee" data-test="common-withdraw-funds-form-fee">
+              {{ calculatedFee | formatMoney : 11 : crypto : code }}
             </span>
           </p>
           <p>
             Total withdrawal:
-            <span
-              class="total-amount"
-              data-test="common-withdraw-funds-form-total-withdraw-amount"
-            >
-              {{ calculatedTotal | formatMoney:11:crypto:code }}
+            <span class="total-amount" data-test="common-withdraw-funds-form-total-withdraw-amount">
+              {{ calculatedTotal | formatMoney : 11 : crypto : code }}
             </span>
           </p>
           <p *ngIf="calculatedReceive !== undefined">
             You''ll receive approx.:
-            <span
-              class="total-amount"
-              data-test="common-withdraw-funds-form-total-withdraw-amount"
-            >
-              {{ calculatedReceive | formatMoney:11:crypto:code }}
+            <span class="total-amount" data-test="common-withdraw-funds-form-total-withdraw-amount">
+              {{ calculatedReceive | formatMoney : 11 : crypto : code }}
             </span>
           </p>
           <p *ngIf="calculatedLeft !== undefined">
             Left:
             <span data-test="common-withdraw-funds-form-funds-left">
-              {{ calculatedLeft | formatMoney:11:crypto:code }}
+              {{ calculatedLeft | formatMoney : 11 : crypto : code }}
             </span>
           </p>
         </div>
 
         <ng-container *ngIf="user.email">
-          <div
-            class="ap-form-input__box"
-          >
-            <label
-              class="ap-form-label"
-              for="memo"
-            >
-              Message
-            </label>
+          <div class="ap-form-input__box">
+            <label class="ap-form-label" for="memo"> Message </label>
             <input
               class="ap-form-input ap-form-input--full"
               data-test="common-withdraw-funds-form-memo-input"
               formControlName="memo"
               id="memo"
-              name="memo"
-            >
-            <span
-              *ngIf="withdrawForm.hasError('pattern', ['memo'])"
-              class="error-msg"
-            >
-              Invalid message format
-            </span>
+              name="memo" />
+            <span *ngIf="withdrawForm.hasError('pattern', ['memo'])" class="error-msg"> Invalid message format </span>
 
-            <span
-                    *ngIf="this.withdrawForm.hasError('memoError')"
-                    class="error-msg"
-            >
+            <span *ngIf="this.withdrawForm.hasError('memoError')" class="error-msg">
               Exchange address provided. You must include a message provided by the exchange.
             </span>
           </div>
           <p class="ap-copy ap-copy--blue ap-customize-subheading">
-            It’s necessary to add a message (aka Payment ID or Memo) when transferring your funds directly to an exchange.
+            It’s necessary to add a message (aka Payment ID or Memo) when transferring your funds directly to an
+            exchange.
             <fa-icon
               [icon]="faQuestionCircle"
               matTooltip="
                     The message is provided by your exchange.
                     Please check the deposit section of your exchange and copy-paste the message."
               matTooltipClass="ap-mat-tooltip"
-              matTooltipPosition="above"
-            ></fa-icon>
+              matTooltipPosition="above"></fa-icon>
           </p>
         </ng-container>
 
         <div class="row justify-center withdraw-funds__btns-wrapper">
           <button
             *ngIf="isConfirmed"
-            class="ap-btn ap-btn--blue  ap-btn--block "
-            data-test="common-withdraw-funds-form-submit-button"
-          >
+            class="ap-btn ap-btn--blue ap-btn--block"
+            data-test="common-withdraw-funds-form-submit-button">
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Withdraw</span>
           </button>
-          <span
-            *ngIf="!isConfirmed"
-            class="error-msg col-xs-12"
-          >
-            Confirm account to withdraw funds
-          </span>
-          <span
-            *ngIf="withdrawServerError"
-            class="error-msg col-xs-12"
-          >
+          <span *ngIf="!isConfirmed" class="error-msg col-xs-12"> Confirm account to withdraw funds </span>
+          <span *ngIf="withdrawServerError" class="error-msg col-xs-12">
             An unexpected error occurred, please try again later.
           </span>
         </div>
       </form>
     </div>
 
-    <button
-      (click)="restartWithdrawMethod()"
-      *ngIf="btcInfo"
-      class="ap-btn ap-btn--white"
-    >
-      Back
-    </button>
+    <button (click)="restartWithdrawMethod()" *ngIf="btcInfo" class="ap-btn ap-btn--white">Back</button>
   </ng-template>
 
   <ng-template #btcWithdrawForm>
-    <p class="ap-copy ap-copy--large ap-customize-subheading">
-      Fill in the form below to withdraw your funds.
-    </p>
+    <p class="ap-copy ap-copy--large ap-customize-subheading">Fill in the form below to withdraw your funds.</p>
     <div class="dialog-main-content dialog-main-content--short">
       <form
         (ngSubmit)="withdrawFunds()"
         [formGroup]="withdrawForm"
         class="ap-form"
-        data-test="common-withdraw-funds-form"
-      >
+        data-test="common-withdraw-funds-form">
         <div class="ap-form-input__box">
           <label class="ap-form-label" for="btcAddress">
             Bitcoin address
@@ -292,8 +200,7 @@
               [icon]="faQuestionCircle"
               matTooltip="e.g. address of your BTC Wallet or an exchange"
               matTooltipClass="ap-mat-tooltip"
-              matTooltipPosition="above"
-            ></fa-icon>
+              matTooltipPosition="above"></fa-icon>
           </label>
           <input
             class="ap-form-input ap-form-input--full"
@@ -301,121 +208,83 @@
             formControlName="address"
             id="btcAddress"
             name="address"
-            [readOnly]="!user.email"
-          >
-          <span
-            *ngIf="withdrawForm.get('address').valid"
-            class="input-valid"
-          ></span>
+            [readOnly]="!user.email" />
+          <span *ngIf="withdrawForm.get('address').valid" class="input-valid"></span>
           <span
             *ngIf="(!this.withdrawForm.get('address').valid && this.adsWithdrawFormSubmitted) || this.addressError"
-            class="error-msg"
-          >
+            class="error-msg">
             Please provide a valid address.
           </span>
         </div>
         <p class="ap-copy ap-copy--blue ap-customize-subheading">
           Your funds will be transferred to the address above.
-          <ng-container *ngIf="user.email">Please, remember to confirm the withdrawal via email within one hour.</ng-container>
+          <ng-container *ngIf="user.email"
+            >Please, remember to confirm the withdrawal via email within one hour.</ng-container
+          >
         </p>
         <div class="total-funds">
-          <p class="ap-form-label">
-            Total balance:
-          </p>
-          <h1
-            class="ap-heading ap-heading--primary"
-            data-test="user-total-funds"
-          >
-            {{ adserverWallet.walletBalance | formatMoney:11:crypto:code}}
+          <p class="ap-form-label">Total balance:</p>
+          <h1 class="ap-heading ap-heading--primary" data-test="user-total-funds">
+            {{ adserverWallet.walletBalance | formatMoney : 11 : crypto : code }}
           </h1>
         </div>
         <div class="ap-form-input__box">
-          <label class="ap-form-label" for="btcAmount">
-            Withdrawal amount ({{appCurrency}})
-          </label>
+          <label class="ap-form-label" for="btcAmount"> Withdrawal amount ({{ appCurrency }}) </label>
           <input
             (keyup)="keyupBtcWithdrawAdsAmount($event)"
             class="ap-form-input ap-form-input--full"
             data-test="common-withdraw-funds-form-withdraw-amount"
             formControlName="amount"
             id="btcAmount"
-            max="{{btcInfo.maxAmount}}"
-            min="{{btcInfo.minAmount}}"
+            max="{{ btcInfo.maxAmount }}"
+            min="{{ btcInfo.minAmount }}"
             step="0.01"
             name="amount"
-            type="number"
-          >
-          <span
-            *ngIf="withdrawForm.get('amount').valid"
-            class="input-valid"
-          ></span>
-          <span
-            *ngIf="!withdrawForm.get('amount').valid && adsWithdrawFormSubmitted"
-            class="error-msg"
-          >
+            type="number" />
+          <span *ngIf="withdrawForm.get('amount').valid" class="input-valid"></span>
+          <span *ngIf="!withdrawForm.get('amount').valid && adsWithdrawFormSubmitted" class="error-msg">
             Provide withdrawal amount
           </span>
-          <span
-            *ngIf="withdrawForm.get('amount').value > adserverWallet.walletBalance/1e11"
-            class="error-msg"
-          >
+          <span *ngIf="withdrawForm.get('amount').value > adserverWallet.walletBalance / 1e11" class="error-msg">
             The amount exceeds your balance
           </span>
         </div>
         <p class="ap-form-label">
-          The min. withdraw is <strong>{{btcInfo.minAmount}} {{appCurrency}}</strong>
-          and the max. is <strong>{{btcInfo.maxAmount}} {{appCurrency}}</strong>
+          The min. withdraw is
+          <strong>{{ btcInfo.minAmount }} {{ appCurrency }}</strong> and the max. is
+          <strong>{{ btcInfo.maxAmount }} {{ appCurrency }}</strong>
         </p>
         <div class="withdraw-funds__btns-wrapper row justify-between">
-          <button (click)="getMaxBtcWithdrawAmount()"
-                  class="ap-btn ap-btn--white ap-copy--blue"
-                  data-test="common-withdraw-funds-form-btn-withdraw-max"
-                  type="button"
-          >
+          <button
+            (click)="getMaxBtcWithdrawAmount()"
+            class="ap-btn ap-btn--white ap-copy--blue"
+            data-test="common-withdraw-funds-form-btn-withdraw-max"
+            type="button">
             Withdraw max
           </button>
         </div>
         <div class="btc-amount">
-          <span class="ap-form-label">
-            Your withdraw will amount to approx.
-          </span>
-          <span
-            class="ap-copy ap-copy--large"
-            data-test="common-now-payments-dialog-ads-amount"
-          >
-            {{ calculatedBtcAmount ? (calculatedBtcAmount | formatMoney:6:btc:code) : '? ' + btc.toUpperCase() }}
+          <span class="ap-form-label"> Your withdraw will amount to approx. </span>
+          <span class="ap-copy ap-copy--large" data-test="common-now-payments-dialog-ads-amount">
+            {{ calculatedBtcAmount ? (calculatedBtcAmount | formatMoney : 6 : btc : code) : '? ' + btc.toUpperCase() }}
           </span>
         </div>
         <div class="row justify-center withdraw-funds__btns-wrapper">
           <button
             *ngIf="isConfirmed"
-            class="ap-btn ap-btn--blue  ap-btn--block "
-            data-test="common-withdraw-funds-form-submit-button"
-          >
+            class="ap-btn ap-btn--blue ap-btn--block"
+            data-test="common-withdraw-funds-form-submit-button">
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Withdraw</span>
           </button>
-          <span
-            *ngIf="!isConfirmed"
-            class="error-msg col-xs-12"
-          >
-            Confirm account to withdraw funds
-          </span>
-          <span
-            *ngIf="withdrawServerError"
-            class="error-msg col-xs-12"
-          >
+          <span *ngIf="!isConfirmed" class="error-msg col-xs-12"> Confirm account to withdraw funds </span>
+          <span *ngIf="withdrawServerError" class="error-msg col-xs-12">
             An unexpected error occurred, please try again later.
           </span>
         </div>
       </form>
     </div>
 
-    <button
-      (click)="restartWithdrawMethod()"
-      class="ap-btn ap-btn--white"
-    >
-      Back
-    </button>
+    <button (click)="restartWithdrawMethod()" class="ap-btn ap-btn--white">Back</button>
   </ng-template>
 
   <ng-template #loading>
@@ -427,5 +296,4 @@
   <ng-template #loadingBtn>
     <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
   </ng-template>
-
 </mat-dialog-content>

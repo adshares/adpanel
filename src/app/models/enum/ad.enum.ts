@@ -1,6 +1,6 @@
 export enum adUnitTypesEnum {
   DISPLAY = 'display',
-  MODEL ='model',
+  MODEL = 'model',
   POP = 'pop',
 }
 
@@ -10,7 +10,7 @@ export const adCreativeTypes = {
   DIRECT: 'direct',
   VIDEO: 'video',
   MODEL: 'model',
-}
+};
 
 export enum adStatusesEnum {
   DRAFT,
@@ -31,12 +31,9 @@ export const validHtmlTypes = [
   'application/x-zip-compressed',
   'application/zip',
   'multipart/x-zip',
-]
+];
 
-export const validModelTypes = [
-  'application/octet-stream',
-  '',
-]
+export const validModelTypes = ['application/octet-stream', ''];
 
 export const fileTypes = {
   'image/gif': 'GIF',
@@ -46,4 +43,4 @@ export const fileTypes = {
   'model/gltf-binary': 'GLB',
   'model/voxel': 'VOX',
   'video/mp4': 'MP4',
-}
+};

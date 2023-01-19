@@ -97,11 +97,7 @@
   max-width: $max-width;
 }
 
-@mixin label(
-  $margin-top: 10px,
-  $margin-bottom: 4px,
-  $margin-horizontal: 0
-) {
+@mixin label($margin-top: 10px, $margin-bottom: 4px, $margin-horizontal: 0) {
   @include font(16, medium);
   color: pal(gray, mid-dark);
   margin: $margin-top $margin-horizontal $margin-bottom;

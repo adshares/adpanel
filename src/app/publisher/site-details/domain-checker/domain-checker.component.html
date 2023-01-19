@@ -1,24 +1,22 @@
 <div class="row">
-  <div class="domain-checker q-{{cpaQuality()}} row">
+  <div class="domain-checker q-{{ cpaQuality() }} row">
     <div class="align-self-center justify-center">
-      CPA: {{cpaMessage()}}
+      CPA: {{ cpaMessage() }}
       <fa-icon
         matTooltipClass="ap-mat-tooltip"
         [matTooltip]="cpaTooltip()"
         matTooltipPosition="right"
-        [icon]="faQuestionCircle"
-      ></fa-icon>
+        [icon]="faQuestionCircle"></fa-icon>
     </div>
   </div>
-  <div class="domain-checker q-{{cpmQuality()}} row">
+  <div class="domain-checker q-{{ cpmQuality() }} row">
     <div class="align-self-center justify-center">
-      CPM: {{cpmMessage()}}
+      CPM: {{ cpmMessage() }}
       <fa-icon
         matTooltipClass="ap-mat-tooltip"
         [matTooltip]="cpmTooltip()"
         matTooltipPosition="right"
-        [icon]="faQuestionCircle"
-      ></fa-icon>
+        [icon]="faQuestionCircle"></fa-icon>
     </div>
   </div>
 </div>

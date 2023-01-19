@@ -41,7 +41,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
     case PublisherActions.LOAD_SITE:
       return {
         ...state,
-        dataLoaded: false
+        dataLoaded: false,
       };
     case PublisherActions.LOAD_SITE_SUCCESS: {
       const _sites = [...state.sites];
@@ -62,16 +62,19 @@ export function publisherReducers(state = initialState, action: PublisherActions
         return {
           ...state,
           dataLoaded: true,
-          sitesTotals: action.payload.total
-        }
+          sitesTotals: action.payload.total,
+        };
       }
 
-      const sitesWithTotal = [state.sites, action.payload.data].reduce((sites, data) => sites.map(site => {
+      const sitesWithTotal = [state.sites, action.payload.data].reduce((sites, data) =>
+        sites.map(site => {
           const elWithStats = data.find(el => el.siteId === site.id);
-          return elWithStats ? {
-            ...site,
-            ...elWithStats
-          } : site;
+          return elWithStats
+            ? {
+                ...site,
+                ...elWithStats,
+              }
+            : site;
         })
       );
 
@@ -79,7 +82,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ...state,
         dataLoaded: true,
         sites: sitesWithTotal,
-        sitesTotals: action.payload.total
+        sitesTotals: action.payload.total,
       };
 
     case PublisherActions.LOAD_SITE_TOTALS_SUCCESS: {
@@ -88,20 +91,23 @@ export function publisherReducers(state = initialState, action: PublisherActions
 
       let unitStats = [];
       if (action.payload.data.length > 0 && _sites[i].adUnits !== undefined && _sites[i].adUnits.length > 0) {
-        unitStats = [_sites[i].adUnits, action.payload.data].reduce((units, data) => units.map((unit) => {
+        unitStats = [_sites[i].adUnits, action.payload.data].reduce((units, data) =>
+          units.map(unit => {
             const elementWithStats = data.find(el => el.zoneId === unit.id);
-            return elementWithStats ? {
-              ...unit,
-              ...elementWithStats,
-            } : unit;
+            return elementWithStats
+              ? {
+                  ...unit,
+                  ...elementWithStats,
+                }
+              : unit;
           })
         );
       } else {
         unitStats = _sites[i].adUnits.map(el => {
           return {
             ...el,
-            ...unitStatsInitialState
-          }
+            ...unitStatsInitialState,
+          };
         });
       }
 
@@ -109,7 +115,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ..._sites[i],
         ...action.payload.total,
         adUnits: unitStats,
-      }
+      };
 
       return {
         ...state,
@@ -120,58 +126,58 @@ export function publisherReducers(state = initialState, action: PublisherActions
     case PublisherActions.SAVE_LAST_EDITED_SITE:
       return {
         ...state,
-        lastEditedSite: {...state.lastEditedSite, ...action.payload}
+        lastEditedSite: { ...state.lastEditedSite, ...action.payload },
       };
     case PublisherActions.CLEAR_LAST_EDITED_SITE:
       return {
         ...state,
-        lastEditedSite: {...siteInitialState}
+        lastEditedSite: { ...siteInitialState },
       };
     case PublisherActions.SET_LAST_EDITED_SITE:
       return {
         ...state,
-        lastEditedSite: {...action.payload}
+        lastEditedSite: { ...action.payload },
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE_FILTERING:
       return {
         ...state,
         lastEditedSite: {
           ...state.lastEditedSite,
-          filteringArray: action.payload
-        }
+          filteringArray: action.payload,
+        },
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE_ONLY_ACCEPTED_BANNERS:
       return {
         ...state,
         lastEditedSite: {
           ...state.lastEditedSite,
-          onlyAcceptedBanners: action.payload
-        }
+          onlyAcceptedBanners: action.payload,
+        },
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE_AD_UNITS:
       return {
         ...state,
         lastEditedSite: {
           ...state.lastEditedSite,
-          adUnits: action.payload
-        }
+          adUnits: action.payload,
+        },
       };
     case PublisherActions.ADD_SITE_TO_SITES_SUCCESS:
       return {
         ...state,
-        sites: [...state.sites, action.payload]
+        sites: [...state.sites, action.payload],
       };
 
     case PublisherActions.GET_LANGUAGES_LIST_SUCCESS:
       return {
         ...state,
-        languagesList: [...action.payload]
+        languagesList: [...action.payload],
       };
 
     case PublisherActions.UPDATE_SITE_SUCCESS:
     case PublisherActions.UPDATE_SITE_STATUS_SUCCESS:
       const siteIndex = state.sites.findIndex(site => site.id === action.payload.id);
-      const oldSites = [ ...state.sites ]
+      const oldSites = [...state.sites];
       const oldSite = oldSites.splice(siteIndex, 1)[0];
       const updatedSite = {
         ...oldSite,
@@ -180,9 +186,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
       oldSites.splice(siteIndex, 0, updatedSite);
       return {
         ...state,
-        sites: [
-          ...oldSites,
-        ]
+        sites: [...oldSites],
       };
 
     case AuthActions.USER_LOG_IN_SUCCESS:

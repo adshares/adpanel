@@ -42,7 +42,6 @@
   }
 
   &__btn {
-
     &[disabled] {
       border-color: lighten(pal(navy, light), 30%);
       color: lighten(pal(navy, light), 30%);

@@ -1,21 +1,26 @@
-import { Injectable } from '@angular/core'
-import { Resolve } from '@angular/router'
-import { AdUnitMetaData } from 'models/site.model'
-import { PublisherService } from 'publisher/publisher.service'
-import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Injectable } from '@angular/core';
+import { Resolve } from '@angular/router';
+import { AdUnitMetaData } from 'models/site.model';
+import { PublisherService } from 'publisher/publisher.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AdUnitSizesResolver implements Resolve<AdUnitMetaData[]> {
-  constructor (private publisherService: PublisherService) {
-  }
+  constructor(private publisherService: PublisherService) {}
 
-  resolve (): Observable<AdUnitMetaData[]> {
-    return this.publisherService.getAdUnitSizes()
-      .pipe(map(metaDataArray => metaDataArray.map(metaData => <AdUnitMetaData>{
-        ...metaData,
-        tags: this.TAGS_BY_SIZE[metaData.size] || ['Other'],
-      })))
+  resolve(): Observable<AdUnitMetaData[]> {
+    return this.publisherService.getAdUnitSizes().pipe(
+      map(metaDataArray =>
+        metaDataArray.map(
+          metaData =>
+            <AdUnitMetaData>{
+              ...metaData,
+              tags: this.TAGS_BY_SIZE[metaData.size] || ['Other'],
+            }
+        )
+      )
+    );
   }
 
   private readonly TAGS_BY_SIZE = {
@@ -51,6 +56,6 @@ export class AdUnitSizesResolver implements Resolve<AdUnitMetaData[]> {
     '88x31': ['Desktop'],
     'pop-up': ['Desktop', 'Mobile'],
     'pop-under': ['Desktop', 'Mobile'],
-    'cube': ['Metaverse'],
-  }
+    cube: ['Metaverse'],
+  };
 }

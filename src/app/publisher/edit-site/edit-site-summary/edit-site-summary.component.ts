@@ -3,23 +3,23 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppState } from 'models/app-state.model';
-import {AdUnit, Site} from 'models/site.model';
+import { AdUnit, Site } from 'models/site.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { AddSiteToSites } from 'store/publisher/publisher.actions';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
-import {adUnitTypesEnum} from "models/enum/ad.enum";
-import { first } from 'rxjs/operators'
+import { adUnitTypesEnum } from 'models/enum/ad.enum';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-site-summary',
   templateUrl: './edit-site-summary.component.html',
-  styleUrls: ['./edit-site-summary.component.scss']
+  styleUrls: ['./edit-site-summary.component.scss'],
 })
-export class EditSiteSummaryComponent extends HandleSubscription implements OnInit {
+export class EditSiteSummaryComponent extends HandleSubscriptionComponent implements OnInit {
   site: Site;
   filteringOptions: TargetingOption[];
   canSubmit: boolean;
@@ -30,13 +30,14 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit() {
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+    const lastSiteSubscription = this.store
+      .select('state', 'publisher', 'lastEditedSite')
       .pipe(first())
       .subscribe((lastEditedSite: Site) => {
         this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
@@ -49,11 +50,15 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   }
 
   get popAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.POP; });
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.POP;
+    });
   }
 
   get displayAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY; });
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.DISPLAY;
+    });
   }
 
   saveSite(isDraft): void {
@@ -61,7 +66,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
     if (!isDraft) {
       this.site = {
         ...this.site,
-        status: siteStatusEnum.ACTIVE
+        status: siteStatusEnum.ACTIVE,
       };
     }
     this.store.dispatch(new AddSiteToSites(this.site));

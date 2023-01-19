@@ -15,23 +15,18 @@ interface ReducersState {
   common: CommonState;
 }
 
-const userReducers: ActionReducer<UserState> = combineReducers(
-  {
-    data: authReducers,
-    settings: settingsReducers
-  }
-);
+const userReducers: ActionReducer<UserState> = combineReducers({
+  data: authReducers,
+  settings: settingsReducers,
+});
 
-const reducers: ActionReducer<ReducersState> = combineReducers(
-  {
-    user: userReducers,
-    advertiser: advertiserReducers,
-    publisher: publisherReducers,
-    admin: adminReducers,
-    common: commonReducers
-  }
-);
-
+const reducers: ActionReducer<ReducersState> = combineReducers({
+  user: userReducers,
+  advertiser: advertiserReducers,
+  publisher: publisherReducers,
+  admin: adminReducers,
+  common: commonReducers,
+});
 
 export function reducer(state: any, action: any) {
   return reducers(state, action);

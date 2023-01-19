@@ -8,18 +8,10 @@
 
 .users {
   &__title {
-    @include copy(
-      $font-size: 20,
-      $color: pal(navy, base),
-      $font-weight: bold
-    );
+    @include copy($font-size: 20, $color: pal(navy, base), $font-weight: bold);
   }
 }
 
 .link-label {
-  @include copy(
-          $font-size: 20,
-          $color: pal(navy, base),
-          $font-weight: bold
-  );
+  @include copy($font-size: 20, $color: pal(navy, base), $font-weight: bold);
 }

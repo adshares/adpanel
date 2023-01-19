@@ -1,0 +1,3 @@
+src/environments/*
+!src/environments/environment.ts
+!src/environments/environment.ts.template

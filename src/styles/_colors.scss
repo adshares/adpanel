@@ -1,7 +1,7 @@
 $palette-colors: (
   black: (
     mid-light: #505970,
-    base: #000
+    base: #000,
   ),
   gray: (
     nearly-white: #f0f0f0,
@@ -15,29 +15,29 @@ $palette-colors: (
     light-dark: #abb4bd,
     mid-dark: #747474,
     dark: #4e576e,
-    x-dark: #262524
+    x-dark: #262524,
   ),
   white: (
-    base: #fff
+    base: #fff,
   ),
   navy: (
     faded: #1b274b,
     light: #4d5b82,
-    base: #121f3e
+    base: #121f3e,
   ),
   green: (
     light: #e9faf2,
     base: #81c784,
-    dark: #009406
+    dark: #009406,
   ),
   orange: (
     dark: #ffa500,
     light: #e9faf2,
-    base: #faf2cc
+    base: #faf2cc,
   ),
   blue: (
     light: #e0eefd,
-    base: #55a8fd
+    base: #55a8fd,
   ),
   red: (
     light: #fff2f2,
@@ -46,7 +46,7 @@ $palette-colors: (
   ),
   yellow: (
     base: #ffcd32,
-  )
+  ),
 );
 
 $main_colors: white, navy, blue, green, red, orange;

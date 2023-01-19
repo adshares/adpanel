@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BannerClassificationFilters } from 'models/classifier.model';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-classifier-filtering',
@@ -11,8 +11,8 @@ import { ActivatedRoute } from '@angular/router'
 export class ClassifierFilteringComponent implements OnInit {
   @Input() sizeOptions: string[];
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
-  @Input() siteId: number
-  @Input() classifierLocalBanners: number
+  @Input() siteId: number;
+  @Input() classifierLocalBanners: number;
   status = new FormControl('Unclassified');
   landingUrl = new FormControl('');
   bannerId = new FormControl('');
@@ -20,88 +20,83 @@ export class ClassifierFilteringComponent implements OnInit {
   filtering: BannerClassificationFilters = {
     sizes: [],
   };
-  isGlobal: boolean
-  classifierOption: string
+  isGlobal: boolean;
+  classifierOption: string;
 
-  allSizes: boolean
-  allSizesMatching: boolean
+  allSizes: boolean;
+  allSizesMatching: boolean;
 
-  constructor(private route: ActivatedRoute,) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.isGlobal = this.siteId === null
-    this.sizes = this.sizeOptions
-    this.classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners
+    this.isGlobal = this.siteId === null;
+    this.sizes = this.sizeOptions;
+    this.classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners;
     this.filtering = {
       ...this.filtering,
-      sizes: this.sizeOptions
-    }
-    this.checkBannerSizeOptions()
-
+      sizes: this.sizeOptions,
+    };
+    this.checkBannerSizeOptions();
   }
 
   checkBannerSizeOptions() {
-    this.allSizes = !this.filtering.sizes.length
-    this.allSizesMatching = this.filtering.sizes.length === this.sizeOptions.length
+    this.allSizes = !this.filtering.sizes.length;
+    this.allSizesMatching = this.filtering.sizes.length === this.sizeOptions.length;
   }
 
   sizeOptionChange(e, option) {
-    if(e.checked && option === 'allSizes'){
-      this.sizes = []
+    if (e.checked && option === 'allSizes') {
+      this.sizes = [];
       this.filtering = {
         ...this.filtering,
-        sizes: this.sizes
-      }
-      this.checkBannerSizeOptions()
+        sizes: this.sizes,
+      };
+      this.checkBannerSizeOptions();
       this.filteringChange.emit(this.filtering);
     }
 
-    if(e.checked && option === 'allSizesMatching'){
-      this.sizes = this.sizeOptions
+    if (e.checked && option === 'allSizesMatching') {
+      this.sizes = this.sizeOptions;
       this.filtering = {
         ...this.filtering,
-        sizes: this.sizes
-      }
-      this.checkBannerSizeOptions()
+        sizes: this.sizes,
+      };
+      this.checkBannerSizeOptions();
       this.filteringChange.emit(this.filtering);
     }
 
-    if(!e.checked && option === 'allSizesMatching'){
-      this.sizes = []
+    if (!e.checked && option === 'allSizesMatching') {
+      this.sizes = [];
       this.filtering = {
         ...this.filtering,
-        sizes: this.sizes
-      }
-      this.checkBannerSizeOptions()
+        sizes: this.sizes,
+      };
+      this.checkBannerSizeOptions();
       this.filteringChange.emit(this.filtering);
     }
 
-    if(!e.checked && option === 'allSizes'){
-      this.sizes = this.sizeOptions
+    if (!e.checked && option === 'allSizes') {
+      this.sizes = this.sizeOptions;
       this.filtering = {
         ...this.filtering,
-        sizes: this.sizes
-      }
-      this.checkBannerSizeOptions()
+        sizes: this.sizes,
+      };
+      this.checkBannerSizeOptions();
       this.filteringChange.emit(this.filtering);
     }
-
   }
 
   sizeSelect(e, size: string): void {
     if (e.checked) {
-      this.sizes = [
-        ...this.sizes,
-        size
-      ]
+      this.sizes = [...this.sizes, size];
     } else {
       this.sizes = this.sizes.filter(s => s !== size);
     }
     this.filtering = {
       ...this.filtering,
-      sizes: this.sizes
+      sizes: this.sizes,
     };
-    this.checkBannerSizeOptions()
+    this.checkBannerSizeOptions();
     this.filteringChange.emit(this.filtering);
   }
 
@@ -111,10 +106,10 @@ export class ClassifierFilteringComponent implements OnInit {
         ...this.filtering,
         status: {
           [this.status.value.toLowerCase()]: 1,
-        }
+        },
       };
     } else {
-      delete this.filtering.status
+      delete this.filtering.status;
     }
     this.filteringChange.emit(this.filtering);
   }
@@ -122,7 +117,7 @@ export class ClassifierFilteringComponent implements OnInit {
   changeFilteringByLandingUrl(): void {
     this.filtering = {
       ...this.filtering,
-      landingUrl: this.landingUrl.value.trim()
+      landingUrl: this.landingUrl.value.trim(),
     };
     this.filteringChange.emit(this.filtering);
   }
@@ -152,12 +147,12 @@ export class ClassifierFilteringComponent implements OnInit {
     return this.status.value ? this.status.value : '';
   }
 
-  changeFilterByServer(isChecked){
-    this.classifierLocalBanners = isChecked === true ? 1 : 0
+  changeFilterByServer(isChecked) {
+    this.classifierLocalBanners = isChecked === true ? 1 : 0;
     this.filtering = {
       ...this.filtering,
-      classifierLocalBanners: this.classifierLocalBanners
-    }
-    this.filteringChange.emit(this.filtering)
+      classifierLocalBanners: this.classifierLocalBanners,
+    };
+    this.filteringChange.emit(this.filtering);
   }
 }

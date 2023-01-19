@@ -14,7 +14,7 @@ export const campaignsTotalsInitialState: CampaignTotals = {
   ctr: 0,
   averageCpc: 0,
   averageCpm: 0,
-  cost: 0
+  cost: 0,
 };
 
 export const campaignInitialState: Campaign = {
@@ -37,7 +37,7 @@ export const campaignInitialState: Campaign = {
 
   targetingArray: {
     excludes: [],
-    requires: []
+    requires: [],
   },
 
   ads: [],
@@ -55,4 +55,3 @@ export const campaignConversionItemInitialState: CampaignConversionItem = {
   isInBudget: true,
   value: null,
 };
-

@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './reports-list-wrapper.component.html',
   styleUrls: ['./reports-list-wrapper.component.scss'],
 })
-export class ReportsListWrapperComponent {
-}
+export class ReportsListWrapperComponent {}

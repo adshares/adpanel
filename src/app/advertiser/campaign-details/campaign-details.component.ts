@@ -5,7 +5,7 @@ import {
   Campaign,
   CampaignConversionStatistics,
   CampaignConversionStatisticsTableItem,
-  CampaignsConfig
+  CampaignsConfig,
 } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { BidStrategyService } from 'common/bid-strategy.service';
@@ -15,12 +15,17 @@ import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { cloneDeep, createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers'
+import { cloneDeep, createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
-import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, CloneCampaign } from 'store/advertiser/advertiser.actions';
+import {
+  DeleteCampaign,
+  LoadCampaignTotals,
+  UpdateCampaignStatus,
+  CloneCampaign,
+} from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { User } from 'models/user.model';
 import { appSettings } from 'app-settings';
@@ -32,9 +37,9 @@ import { reportType } from 'models/enum/user.enum';
 @Component({
   selector: 'app-campaign-details',
   templateUrl: './campaign-details.component.html',
-  styleUrls: ['./campaign-details.component.scss']
+  styleUrls: ['./campaign-details.component.scss'],
 })
-export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
+export class CampaignDetailsComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   campaignsConfig: CampaignsConfig;
   dataLoaded: boolean = false;
@@ -50,7 +55,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   barChartData = createInitialDataSet();
   targeting: AssetTargeting = {
     requires: [],
-    excludes: []
+    excludes: [],
   };
   targetingOptions: TargetingOption[];
   currentChartFilterSettings: ChartFilterSettings;
@@ -73,68 +78,77 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   get canActivateCampaign(): boolean {
-    return (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.DRAFT].toLowerCase()) ||
-      (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.SUSPENDED].toLowerCase()) ||
-      (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.INACTIVE].toLowerCase());
+    return (
+      this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.DRAFT].toLowerCase() ||
+      this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.SUSPENDED].toLowerCase() ||
+      this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.INACTIVE].toLowerCase()
+    );
   }
 
   get statusButtonLabel(): string {
-    return this.canActivateCampaign ? 'Activate' : 'Deactivate'
+    return this.canActivateCampaign ? 'Activate' : 'Deactivate';
   }
 
   ngOnInit(): void {
     this.campaignsConfig = this.route.snapshot.data.campaignsConfig;
     const id = this.route.snapshot.data.campaign.id;
 
-    this.store.select('state', 'common', 'chartFilterSettings')
+    this.store
+      .select('state', 'common', 'chartFilterSettings')
       .pipe(take(1))
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
-        this.getChartData(chartFilterSettings, id)
+        this.getChartData(chartFilterSettings, id);
       });
 
-    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
-      .subscribe((chartFilterSettings: ChartFilterSettings) => this.currentChartFilterSettings = chartFilterSettings);
+    const chartFilterSubscription = this.store
+      .select('state', 'common', 'chartFilterSettings')
+      .subscribe((chartFilterSettings: ChartFilterSettings) => (this.currentChartFilterSettings = chartFilterSettings));
 
-    const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
+    const campaignSubscription = this.store
+      .select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
-        const selectedCampaign = campaigns.find(campaign => campaign.id === id)
+        const selectedCampaign = campaigns.find(campaign => campaign.id === id);
 
         if (undefined !== selectedCampaign) {
           this.campaign = cloneDeep(selectedCampaign);
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.updateTargeting();
-          this.bidStrategyService.getBidStrategyUuidDefault(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
+          this.bidStrategyService
+            .getBidStrategyUuidDefault(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
             .subscribe(uuid => {
               this.isDefaultBidStrategy = this.campaign.bidStrategy.uuid === uuid;
-            })
-          this.prepareMediumLabel(this.campaign)
+            });
+          this.prepareMediumLabel(this.campaign);
         }
         this.updateBudgetInfo();
         this.updateConversionTableItems();
       });
 
-    const dataLoadedSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
-      .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
+    const dataLoadedSubscription = this.store
+      .select('state', 'advertiser', 'dataLoaded')
+      .subscribe((dataLoaded: boolean) => (this.dataLoaded = dataLoaded));
 
-    const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+    const campaignsConfigSubscription = this.store
+      .select('state', 'advertiser', 'campaignsConfig')
       .subscribe((campaignsConfig: CampaignsConfig) => {
         this.campaignsConfig = campaignsConfig;
         this.updateBudgetInfo();
       });
 
-    const userSubscription = this.store.select('state', 'user', 'data')
-      .subscribe((user: User) => {
-        this.user = user;
-        this.updateBudgetInfo();
-      });
+    const userSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
+      this.user = user;
+      this.updateBudgetInfo();
+    });
 
-    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
-      .subscribe(() => {
-        if (this.currentChartFilterSettings && this.campaign && this.campaign.id) {
-          this.getChartData(this.currentChartFilterSettings, this.campaign.id, false);
-        }
-      });
+    const refreshSubscription = timer(
+      appSettings.AUTOMATIC_REFRESH_INTERVAL,
+      appSettings.AUTOMATIC_REFRESH_INTERVAL
+    ).subscribe(() => {
+      if (this.currentChartFilterSettings && this.campaign && this.campaign.id) {
+        this.getChartData(this.currentChartFilterSettings, this.campaign.id, false);
+      }
+    });
 
     this.subscriptions.push(
       chartFilterSubscription,
@@ -146,17 +160,17 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     );
   }
 
-  private prepareMediumLabel (campaign: Campaign): void {
-    const medium = this.route.snapshot.data.media[campaign.basicInformation.medium]
+  private prepareMediumLabel(campaign: Campaign): void {
+    const medium = this.route.snapshot.data.media[campaign.basicInformation.medium];
     if (medium) {
       if (campaign.basicInformation.vendor === null) {
-        this.mediumLabel = `${medium} campaign`
-        return
+        this.mediumLabel = `${medium} campaign`;
+        return;
       }
       this.advertiserService.getMediumVendors(campaign.basicInformation.medium).subscribe(vendors => {
-        const vendor = vendors[campaign.basicInformation.vendor]
-        this.mediumLabel = vendor ? `${medium} campaign in ${vendor}` : `${medium} campaign`
-      })
+        const vendor = vendors[campaign.basicInformation.vendor];
+        this.mediumLabel = vendor ? `${medium} campaign in ${vendor}` : `${medium} campaign`;
+      });
     }
   }
 
@@ -175,30 +189,28 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to clone this campaign?',
-      }
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.store.dispatch(new CloneCampaign(this.campaign.id));
-        }
+      if (result) {
+        this.store.dispatch(new CloneCampaign(this.campaign.id));
       }
-    );
+    });
   }
 
   deleteCampaign(): void {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to delete this campaign?',
-      }
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.store.dispatch(new DeleteCampaign(this.campaign.id));
-        }
+      if (result) {
+        this.store.dispatch(new DeleteCampaign(this.campaign.id));
       }
-    );
+    });
   }
 
   updateTargeting(): void {
@@ -208,20 +220,21 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     };
 
     if (this.targeting.requires.length || this.targeting.excludes.length) {
-      return
+      return;
     }
     if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
       this.targeting = this.campaign.targeting as AssetTargeting;
     } else {
-      this.advertiserService.getMedium(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
+      this.advertiserService
+        .getMedium(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
         .pipe(take(1))
         .subscribe(
           medium => {
-            this.targetingOptions = processTargeting(medium)
-            this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions)
+            this.targetingOptions = processTargeting(medium);
+            this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
           },
-          () => this.isTaxonomyMissing = true
-        )
+          () => (this.isTaxonomyMissing = true)
+        );
     }
   }
 
@@ -237,7 +250,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         chartFilterSettings.currentFrequency,
         chartFilterSettings.currentSeries.value,
         'campaigns',
-        campaignId,
+        campaignId
       )
       .pipe(take(1))
       .subscribe(data => {
@@ -249,25 +262,26 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
-    this.advertiserService.getCampaignConversionsStatistics(
-      chartFilterSettings.currentFrom,
-      chartFilterSettings.currentTo,
-      campaignId
-    ).pipe(take(1)).subscribe(
-      data => {
-        this.conversionsStatistics = data;
-        this.updateConversionTableItems();
-      },
-      () => {
-        this.conversionsStatistics = [];
-      }
-    );
+    this.advertiserService
+      .getCampaignConversionsStatistics(chartFilterSettings.currentFrom, chartFilterSettings.currentTo, campaignId)
+      .pipe(take(1))
+      .subscribe(
+        data => {
+          this.conversionsStatistics = data;
+          this.updateConversionTableItems();
+        },
+        () => {
+          this.conversionsStatistics = [];
+        }
+      );
 
-    this.store.dispatch(new LoadCampaignTotals({
-      from: chartFilterSettings.currentFrom,
-      to: chartFilterSettings.currentTo,
-      id: campaignId
-    }));
+    this.store.dispatch(
+      new LoadCampaignTotals({
+        from: chartFilterSettings.currentFrom,
+        to: chartFilterSettings.currentTo,
+        id: campaignId,
+      })
+    );
   }
 
   navigateToCampaignEdition(path: string): void {
@@ -282,20 +296,17 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       status = this.campaignStatusesEnum.INACTIVE;
     }
 
-    this.store.dispatch(new UpdateCampaignStatus(
-      {id: this.campaign.id, status}));
+    this.store.dispatch(new UpdateCampaignStatus({ id: this.campaign.id, status }));
   }
 
   downloadReport() {
     this.store.dispatch(
-      new RequestReport(
-        {
-          type: reportType.CAMPAIGNS,
-          dateStart: this.currentChartFilterSettings.currentFrom,
-          dateEnd: this.currentChartFilterSettings.currentTo,
-          id: this.campaign.id,
-        }
-      )
+      new RequestReport({
+        type: reportType.CAMPAIGNS,
+        dateStart: this.currentChartFilterSettings.currentFrom,
+        dateEnd: this.currentChartFilterSettings.currentTo,
+        id: this.campaign.id,
+      })
     );
   }
 
@@ -319,7 +330,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         eventType: element.eventType,
         cost,
         occurrences,
-      }
+      };
     });
   }
 }

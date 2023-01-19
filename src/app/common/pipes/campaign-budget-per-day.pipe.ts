@@ -9,8 +9,8 @@ import { calcCampaignBudgetPerDay } from 'common/utilities/helpers';
  * Example:
  *   {{ 0.1 | campaignBudgetDay }}
  *   formats to: 2.4
-*/
-@Pipe({name: 'campaignBudgetPerDay'})
+ */
+@Pipe({ name: 'campaignBudgetPerDay' })
 export class CampaignBudgetPerDayPipe implements PipeTransform {
   transform(value: number): number {
     return calcCampaignBudgetPerDay(value);

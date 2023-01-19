@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { mapDatesToChartLabels } from 'common/components/chart/chart-settings/chart-settings.helpers';
 import { ChartService } from 'common/chart.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Campaign, CampaignTotals } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
@@ -21,7 +21,7 @@ import { reportType } from 'models/enum/user.enum';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent extends HandleSubscription implements OnInit {
+export class DashboardComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaigns: Campaign[];
@@ -37,32 +37,34 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   currentChartFilterSettings: ChartFilterSettings;
 
-  constructor(
-    private chartService: ChartService,
-    private store: Store<AppState>,
-  ) {
+  constructor(private chartService: ChartService, private store: Store<AppState>) {
     super();
   }
 
   ngOnInit() {
-    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
+    const chartFilterSubscription = this.store
+      .select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
-      })
+      });
 
     this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
 
-    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
-      .subscribe(() => {
-        if (this.currentChartFilterSettings) {
-          this.getChartData(this.currentChartFilterSettings, false);
-          this.store.dispatch(new LoadCampaignsTotals({
+    const refreshSubscription = timer(
+      appSettings.AUTOMATIC_REFRESH_INTERVAL,
+      appSettings.AUTOMATIC_REFRESH_INTERVAL
+    ).subscribe(() => {
+      if (this.currentChartFilterSettings) {
+        this.getChartData(this.currentChartFilterSettings, false);
+        this.store.dispatch(
+          new LoadCampaignsTotals({
             from: this.currentChartFilterSettings.currentFrom,
-            to: this.currentChartFilterSettings.currentTo
-          }));
-        }
-      });
+            to: this.currentChartFilterSettings.currentTo,
+          })
+        );
+      }
+    });
 
     this.subscriptions.push(chartFilterSubscription, refreshSubscription);
   }
@@ -79,7 +81,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.currentFrequency,
         chartFilterSettings.currentSeries.value,
         'campaigns',
-        chartFilterSettings.currentAssetId,
+        chartFilterSettings.currentAssetId
       )
       .pipe(take(1))
       .subscribe(data => {
@@ -93,19 +95,23 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   loadCampaigns(from: string, to: string) {
-    this.store.dispatch(new LoadCampaigns({from, to}));
+    this.store.dispatch(new LoadCampaigns({ from, to }));
 
-    const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
-      .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
+    const campaignsSubscription = this.store
+      .select('state', 'advertiser', 'campaigns')
+      .subscribe((campaigns: Campaign[]) => (this.campaigns = campaigns));
 
-    const campaignsLoadedSubscription = this.store.select('state', 'advertiser', 'campaignsLoaded')
-      .subscribe((campaignsLoaded: boolean) => this.campaignsLoaded = campaignsLoaded);
+    const campaignsLoadedSubscription = this.store
+      .select('state', 'advertiser', 'campaignsLoaded')
+      .subscribe((campaignsLoaded: boolean) => (this.campaignsLoaded = campaignsLoaded));
 
-    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((totals: CampaignTotals) => this.campaignsTotals = totals);
+    const campaignsTotalsSubscription = this.store
+      .select('state', 'advertiser', 'campaignsTotals')
+      .subscribe((totals: CampaignTotals) => (this.campaignsTotals = totals));
 
-    const dataLoadedSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
-      .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
+    const dataLoadedSubscription = this.store
+      .select('state', 'advertiser', 'dataLoaded')
+      .subscribe((dataLoaded: boolean) => (this.dataLoaded = dataLoaded));
 
     this.subscriptions.push(
       campaignsSubscription,
@@ -117,13 +123,11 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   downloadReport() {
     this.store.dispatch(
-      new RequestReport(
-        {
-          type: reportType.CAMPAIGNS,
-          dateStart: this.currentChartFilterSettings.currentFrom,
-          dateEnd: this.currentChartFilterSettings.currentTo,
-        }
-      )
+      new RequestReport({
+        type: reportType.CAMPAIGNS,
+        dateStart: this.currentChartFilterSettings.currentFrom,
+        dateEnd: this.currentChartFilterSettings.currentTo,
+      })
     );
   }
 }

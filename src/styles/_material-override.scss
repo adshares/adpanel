@@ -28,12 +28,12 @@
   margin: 0 auto;
 }
 
-.mat-expansion-panel:not([class*=mat-elevation-z]) {
+.mat-expansion-panel:not([class*='mat-elevation-z']) {
   box-shadow: none !important;
 }
 
 mat-chip:not(.mat-basic-chip) {
-  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   padding: 7px 12px;
   border-radius: 0 !important;
@@ -105,7 +105,8 @@ mat-chip:not(.mat-basic-chip) {
   visibility: hidden !important;
 }
 
-.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+.mat-expansion-panel:not(.mat-expanded)
+  .mat-expansion-panel-header:not([aria-disabled='true']):hover {
   background: transparent !important;
 }
 
@@ -141,7 +142,7 @@ mat-chip:not(.mat-basic-chip) {
 
 .mat-checkbox-label {
   color: pal(navy, light);
-  font-family: "Lato-Regular", sans-serif;
+  font-family: 'Lato-Regular', sans-serif;
   font-size: 15px;
   line-height: 1;
 }
@@ -156,7 +157,7 @@ mat-chip:not(.mat-basic-chip) {
 
 .mat-expansion-panel-header {
   padding: 0 24px 0 8px;
-  font-family: "Lato-Regular", sans-serif;
+  font-family: 'Lato-Regular', sans-serif;
   font-size: 18px;
 }
 
@@ -170,7 +171,7 @@ mat-chip:not(.mat-basic-chip) {
   .mat-checkbox {
     min-width: 100px;
 
-    &:first-child{
+    &:first-child {
       min-width: 75px;
     }
   }

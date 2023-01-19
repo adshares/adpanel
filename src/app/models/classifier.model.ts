@@ -1,8 +1,8 @@
 interface BannerClassification {
   bannerId: number;
-  url: string,
-  size: string,
-  type: string,
+  url: string;
+  size: string;
+  type: string;
   sourceHost: string;
   landingUrl: string;
   budget?: number;
@@ -21,9 +21,9 @@ interface BannerClassificationResponse {
 }
 
 interface BannerClassificationStatus {
-  approved?: number,
-  rejected?: number,
-  unclassified?: number,
+  approved?: number;
+  rejected?: number;
+  unclassified?: number;
 }
 
 interface BannerClassificationFilters {
@@ -34,8 +34,4 @@ interface BannerClassificationFilters {
   classifierLocalBanners?: number;
 }
 
-export {
-  BannerClassification,
-  BannerClassificationResponse,
-  BannerClassificationFilters,
-};
+export { BannerClassification, BannerClassificationResponse, BannerClassificationFilters };

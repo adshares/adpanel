@@ -1,61 +1,34 @@
 <section class="preferences user-wallet">
-  <div
-    class="
-      user-wallet__wallet-box
-      user-wallet__wallet-box--with-margin"
-  >
-    <h2 class="user-wallet__title"
-    >
-      Your wallet
-    </h2>
-    <p class="user-wallet__sub-title"
-    >
-      Deposit or withdraw funds
-    </p>
+  <div class="user-wallet__wallet-box user-wallet__wallet-box--with-margin">
+    <h2 class="user-wallet__title">Your wallet</h2>
+    <p class="user-wallet__sub-title">Deposit or withdraw funds</p>
 
-    <div class="user-wallet__content-container"
-    >
-      <p *ngIf="calculateFunds"
-         class="user-wallet__funds-in-currency"
-         data-test="user-total-funds-in-currency"
-      >
-        {{ wallet.walletBalance | calculateInCurrency:2 }}
+    <div class="user-wallet__content-container">
+      <p *ngIf="calculateFunds" class="user-wallet__funds-in-currency" data-test="user-total-funds-in-currency">
+        {{ wallet.walletBalance | calculateInCurrency : 2 }}
       </p>
-      <h1 class="user-wallet__funds"
-          data-test="user-total-funds"
-      >
-        {{ wallet.walletBalance | formatMoney:4:crypto:code }}
+      <h1 class="user-wallet__funds" data-test="user-total-funds">
+        {{ wallet.walletBalance | formatMoney : 4 : crypto : code }}
       </h1>
 
-      <div
-              class="error-msg"
-              *ngIf="isImpersonated"
-      >
-        You cannot change user balance during impersonation.
-      </div>
+      <div class="error-msg" *ngIf="isImpersonated">You cannot change user balance during impersonation.</div>
 
       <div class="user-wallet__funds-actions" *ngIf="!isImpersonated">
         <div>
           <button
             class="user-wallet__btn user-wallet__btn--white"
             (click)="openAddFundsDialog()"
-            data-test="add-funds-dialog-open-button"
-          >
-            <img
-              class="user-wallet__icon"
-              src="assets/images/credit-card--blue.svg"
-              alt=""
-            >
+            data-test="add-funds-dialog-open-button">
+            <img class="user-wallet__icon" src="assets/images/credit-card--blue.svg" alt="" />
             Deposit funds
           </button>
-          <br/>
+          <br />
           <a
             [href]="getAdsFaqLink"
             rel="noopener noreferrer"
             target="_blank"
             class="user-wallet__link"
-            data-test="settings-faq-link"
-          >
+            data-test="settings-faq-link">
             How to get ADS coins
           </a>
         </div>
@@ -63,23 +36,17 @@
           <button
             class="user-wallet__btn"
             (click)="openWithdrawFundsDialog()"
-            data-test="withdraw-funds-dialog-open-button"
-          >
-            <img
-              class="user-wallet__icon"
-              src="assets/images/credit-card--white.svg"
-              alt=""
-            >
+            data-test="withdraw-funds-dialog-open-button">
+            <img class="user-wallet__icon" src="assets/images/credit-card--white.svg" alt="" />
             Withdraw funds
           </button>
-          <br/>
+          <br />
           <a
             [href]="withdrawAdsFaqLink"
             rel="noopener noreferrer"
             target="_blank"
             class="user-wallet__link"
-            data-test="settings-faq-link"
-          >
+            data-test="settings-faq-link">
             How to withdraw ADS coins
           </a>
         </div>
@@ -87,24 +54,15 @@
     </div>
   </div>
 
-  <div
-    class="user-wallet__wallet-box">
+  <div class="user-wallet__wallet-box">
     <div class="user-wallet__content-container">
-      <h2 class="user-wallet__title">
-        BONUS
-      </h2>
-      <p class="user-wallet__sub-title">
-        You can spend your bonus funds on advertising. Withdrawal is not possible.
+      <h2 class="user-wallet__title">BONUS</h2>
+      <p class="user-wallet__sub-title">You can spend your bonus funds on advertising. Withdrawal is not possible.</p>
+      <p *ngIf="calculateFunds" class="user-wallet__funds-in-currency" data-test="bonus-funds-in-currency">
+        {{ wallet.bonusBalance | calculateInCurrency : 2 }}
       </p>
-      <p *ngIf="calculateFunds"
-        class="user-wallet__funds-in-currency"
-        data-test="bonus-funds-in-currency">
-        {{ wallet.bonusBalance | calculateInCurrency:2 }}
-      </p>
-      <strong class="user-wallet__funds"
-              data-test="bonus-funds"
-      >
-        {{ wallet.bonusBalance | formatMoney:4:crypto:code }}
+      <strong class="user-wallet__funds" data-test="bonus-funds">
+        {{ wallet.bonusBalance | formatMoney : 4 : crypto : code }}
       </strong>
     </div>
   </div>

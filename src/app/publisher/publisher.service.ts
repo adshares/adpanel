@@ -8,15 +8,11 @@ import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.m
 import { Media, Medium } from 'models/taxonomy-medium.model';
 import { parseTargetingForBackend, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
-import { SiteOptions } from 'models/settings.model'
+import { SiteOptions } from 'models/settings.model';
 
 @Injectable()
 export class PublisherService {
-
-  constructor(
-    private http: HttpClient
-  ) {
-  }
+  constructor(private http: HttpClient) {}
 
   getSites(): Observable<Site[]> {
     return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
@@ -28,19 +24,19 @@ export class PublisherService {
 
   getSitesTotals(dateStart: string, dateEnd: string, siteId?: number): Observable<SitesTotals[]> {
     const options = siteId > 0 && {
-      params: {site_id: `${siteId}`}
+      params: { site_id: `${siteId}` },
     };
     return this.http.get<SitesTotals[]>(`${environment.apiUrl}/sites/stats/table2/${dateStart}/${dateEnd}`, options);
   }
 
   report(dateStart: string, dateEnd: string, siteId?: number): Observable<SitesTotals[]> {
     let options = {
-      responseType: 'blob' as 'json'
+      responseType: 'blob' as 'json',
     };
 
     if (siteId > 0) {
       options['params'] = {
-        site_id: siteId
+        site_id: siteId,
       };
     }
 
@@ -56,18 +52,23 @@ export class PublisherService {
   }
 
   saveSite(site: Site): Observable<Site> {
-    const temporarySiteObject = {...site};
+    const temporarySiteObject = { ...site };
     if (site.filteringArray) {
       const filteringObject = parseTargetingForBackend(site.filteringArray);
-      Object.assign(temporarySiteObject, {filtering: filteringObject});
+      Object.assign(temporarySiteObject, { filtering: filteringObject });
     }
-    const {filteringArray, ...reducedSite} = temporarySiteObject;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { filteringArray, ...reducedSite } = temporarySiteObject;
 
-    return this.http.post<Site>(`${environment.apiUrl}/sites`, {site: reducedSite});
+    return this.http.post<Site>(`${environment.apiUrl}/sites`, {
+      site: reducedSite,
+    });
   }
 
   validateDomain(domain: string): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/sites/domain/validate`, {domain});
+    return this.http.post<any>(`${environment.apiUrl}/sites/domain/validate`, {
+      domain,
+    });
   }
 
   deleteSite(id: number): Observable<boolean> {
@@ -75,46 +76,55 @@ export class PublisherService {
   }
 
   updateSiteData(id: number, site: Partial<Site>): Observable<Site> {
-    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
+    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, { site });
   }
 
   getFilteringCriteria(excludeInternal: boolean = false): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering?e=${excludeInternal ? 1 : 0}`);
+    return this.http.get<TargetingOption[]>(
+      `${environment.apiUrl}/options/sites/filtering?e=${excludeInternal ? 1 : 0}`
+    );
   }
 
-  private getMedium(medium: string = 'web', vendor: string | null = null, excludeInternal: boolean = true): Observable<Medium> {
-    let url = `${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}`
+  private getMedium(
+    medium: string = 'web',
+    vendor: string | null = null,
+    excludeInternal: boolean = true
+  ): Observable<Medium> {
+    let url = `${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}`;
     if (vendor) {
-      url = `${url}&vendor=${vendor}`
+      url = `${url}&vendor=${vendor}`;
     }
-    return this.http.get<Medium>(url)
+    return this.http.get<Medium>(url);
   }
 
   getMediumVendors(medium: string): Observable<Media> {
     return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${medium}/vendors`);
   }
 
-  siteCategoriesOptions(mediumName: string, vendor: string | null = null, excludeInternal: boolean = true): Observable<TargetingOptionValue[]> {
-    return this.getMedium(mediumName, vendor, excludeInternal)
-      .pipe(
-        map(medium => PublisherService.extractSiteCategoriesFromMedium(medium))
-      );
+  siteCategoriesOptions(
+    mediumName: string,
+    vendor: string | null = null,
+    excludeInternal: boolean = true
+  ): Observable<TargetingOptionValue[]> {
+    return this.getMedium(mediumName, vendor, excludeInternal).pipe(
+      map(medium => PublisherService.extractSiteCategoriesFromMedium(medium))
+    );
   }
 
-  private static extractSiteCategoriesFromMedium (medium: Medium) {
-    const targetingOptions = processTargeting(medium)
+  private static extractSiteCategoriesFromMedium(medium: Medium) {
+    const targetingOptions = processTargeting(medium);
 
-    const siteOption = targetingOptions.find(option => 'site' === option.key)
+    const siteOption = targetingOptions.find(option => 'site' === option.key);
     if (!siteOption) {
-      return []
+      return [];
     }
 
-    const categoryOption = siteOption.children.find(option => 'category' === option.key)
+    const categoryOption = siteOption.children.find(option => 'category' === option.key);
     if (!categoryOption) {
-      return []
+      return [];
     }
 
-    return categoryOption.values
+    return categoryOption.values;
   }
 
   getAdUnitSizes(): Observable<Partial<AdUnitMetaData>[]> {
@@ -129,9 +139,8 @@ export class PublisherService {
     siteId?: number,
     limit?: number,
     filtering?: BannerClassificationFilters,
-    offset?: number,
-  )
-    : Observable<BannerClassificationResponse> {
+    offset?: number
+  ): Observable<BannerClassificationResponse> {
     let params = {};
     if (limit) {
       params['limit'] = `${limit}`;
@@ -148,15 +157,16 @@ export class PublisherService {
         ...filtering.status,
         sizes: JSON.stringify(filtering.sizes),
         landingUrl: filtering.landingUrl || '',
-        local: filtering.classifierLocalBanners || ''
+        local: filtering.classifierLocalBanners || '',
       };
     }
-    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
-      {params});
+    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`, {
+      params,
+    });
   }
 
-  getSiteOptions(): Observable<SiteOptions>{
-    return this.http.get<SiteOptions>(`${environment.apiUrl}/options/sites`)
+  getSiteOptions(): Observable<SiteOptions> {
+    return this.http.get<SiteOptions>(`${environment.apiUrl}/options/sites`);
   }
 
   setBannerClassification(bannerId: number, status: boolean, siteId?: number): Observable<number> {
@@ -164,17 +174,19 @@ export class PublisherService {
       classification: {
         banner_id: bannerId,
         status: status,
-      }
+      },
     };
 
     return this.http.patch<number>(`${environment.apiUrl}/classifications/${siteId || ''}`, body);
   }
 
   getSiteCodes(siteId: number, options): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/sites/${siteId}/codes`, {params: options});
+    return this.http.get<any>(`${environment.apiUrl}/sites/${siteId}/codes`, {
+      params: options,
+    });
   }
 
-  getCryptovoxelsCode (): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/sites/cryptovoxels/code`)
+  getCryptovoxelsCode(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/sites/cryptovoxels/code`);
   }
 }

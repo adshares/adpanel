@@ -6,7 +6,7 @@ import {
   LOAD_ADVERTISERS_SUCCESS,
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
-} from './admin.actions'
+} from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
@@ -25,42 +25,42 @@ export function adminReducers(state = initialState, action: actions) {
     case LOAD_USERS_SUCCESS:
       return {
         ...state,
-        users: action.payload
+        users: action.payload,
       };
     case LOAD_ADVERTISERS_SUCCESS:
       return {
         ...state,
-        advertisers: action.payload
+        advertisers: action.payload,
       };
     case LOAD_PUBLISHERS_SUCCESS:
       return {
         ...state,
-        publishers: action.payload
+        publishers: action.payload,
       };
     case GET_LICENSE_SUCCESS:
       if (action.payload.status !== 1) {
         return {
           ...state,
           license: action.payload,
-          panelBlockade: true
+          panelBlockade: true,
         };
       }
       return {
         ...state,
         license: action.payload,
-        panelBlockade: false
+        panelBlockade: false,
       };
 
     case GET_LICENSE_FAILURE:
       return {
         ...state,
         license: null,
-        panelBlockade: false
+        panelBlockade: false,
       };
     case LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
         ...state,
-        settings: action.payload.settings
+        settings: action.payload.settings,
       };
 
     default:

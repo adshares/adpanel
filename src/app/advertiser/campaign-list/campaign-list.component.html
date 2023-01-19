@@ -2,44 +2,37 @@
   <table class="posters-list__table">
     <app-table-navigation
       (sortTable)="sortTable($event)"
-      [navigationName]="'campaignListNavigation'"
-    ></app-table-navigation>
+      [navigationName]="'campaignListNavigation'"></app-table-navigation>
 
     <tbody *ngIf="dataLoaded; else loading">
-    <app-campaign-list-item *ngFor="let campaign of campaigns; let i = index"
-                            [campaign]="campaign"></app-campaign-list-item>
+      <app-campaign-list-item
+        *ngFor="let campaign of campaigns; let i = index"
+        [campaign]="campaign"></app-campaign-list-item>
 
-    <tr *ngIf="campaigns.length > 0"
-        class="posters-list__totals-row">
-      <td class="posters-list__status-totals-column"></td>
-      <td class="col-xs-2 posters-list__totals-title">
-        Total - All campaigns
-      </td>
-      <td class="col-xs-1 posters-list__empty-box"></td>
-      <td [title]="campaignsTotals.cost | formatMoney:4"
-          class="col-xs-1"
-      >
-        {{ campaignsTotals.cost | formatMoney:2}}
-      </td>
-      <td class="col-xs-1">
-        {{ campaignsTotals.clicks }}
-      </td>
-      <td class="col-xs-1">
-        {{ campaignsTotals.impressions | formatNumberWithComa }}
-      </td>
-      <td class="col-xs-1">
-        {{ campaignsTotals.ctr | percent:'1.2-2' }}
-      </td>
-      <td [title]="campaignsTotals.averageCpm | formatMoney:4"
-          class="col-xs-1">
-        {{ campaignsTotals.averageCpm | formatMoney:2 }}
-      </td>
-      <td [title]="campaignsTotals.averageCpc | formatMoney:4"
-          class="col-xs-1">
-        {{ campaignsTotals.averageCpc | formatMoney:2 }}
-      </td>
-      <td class="col-xs-1"></td>
-    </tr>
+      <tr *ngIf="campaigns.length > 0" class="posters-list__totals-row">
+        <td class="posters-list__status-totals-column"></td>
+        <td class="col-xs-2 posters-list__totals-title">Total - All campaigns</td>
+        <td class="col-xs-1 posters-list__empty-box"></td>
+        <td [title]="campaignsTotals.cost | formatMoney : 4" class="col-xs-1">
+          {{ campaignsTotals.cost | formatMoney : 2 }}
+        </td>
+        <td class="col-xs-1">
+          {{ campaignsTotals.clicks }}
+        </td>
+        <td class="col-xs-1">
+          {{ campaignsTotals.impressions | formatNumberWithComa }}
+        </td>
+        <td class="col-xs-1">
+          {{ campaignsTotals.ctr | percent : '1.2-2' }}
+        </td>
+        <td [title]="campaignsTotals.averageCpm | formatMoney : 4" class="col-xs-1">
+          {{ campaignsTotals.averageCpm | formatMoney : 2 }}
+        </td>
+        <td [title]="campaignsTotals.averageCpc | formatMoney : 4" class="col-xs-1">
+          {{ campaignsTotals.averageCpc | formatMoney : 2 }}
+        </td>
+        <td class="col-xs-1"></td>
+      </tr>
     </tbody>
   </table>
 </section>
@@ -51,13 +44,8 @@
 </ng-template>
 
 <div class="posters-list__add-new-poster-row">
-  <button (click)="navigateToCreateCampaign()"
-          class="posters-list__add-btn"
-          data-test="advertiser-create-new-campaign">
-    <img class="posters-list__add-btn-icon"
-         src="assets/images/plus-circle--blue.svg"
-         alt="">
+  <button (click)="navigateToCreateCampaign()" class="posters-list__add-btn" data-test="advertiser-create-new-campaign">
+    <img class="posters-list__add-btn-icon" src="assets/images/plus-circle--blue.svg" alt="" />
     Add new campaign
   </button>
 </div>
-

@@ -5,7 +5,7 @@ import {
   HttpEventType,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,16 +17,16 @@ import { LocalStorageUser } from 'models/user.model';
 import { SessionService } from 'app/session.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { environment } from 'environments/environment';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
 import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNAUTHORIZED } from 'common/utilities/codes';
 
 @Injectable()
-export class RequestInterceptor extends HandleSubscription implements HttpInterceptor {
+export class RequestInterceptor extends HandleSubscriptionComponent implements HttpInterceptor {
   openedErrorDialogs: number = 0;
   maxOpenedErrorDialogs: number = 1;
 
-  private readonly connectionErrorMaxPeriodWithoutNotification = 20000;// 20 seconds
+  private readonly connectionErrorMaxPeriodWithoutNotification = 20000; // 20 seconds
   private connectionErrorFirstTimestamp?: number = null;
   private connectionErrorHandled: boolean = false;
 
@@ -36,7 +36,7 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
     private session: SessionService,
     private impersonationService: ImpersonationService
   ) {
-    super()
+    super();
   }
 
   dialogError(title, message) {
@@ -48,13 +48,11 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
       data: {
         title: title,
         message: message,
-      }
+      },
     });
-    dialogRef.afterClosed().subscribe(
-      () => {
-        --this.openedErrorDialogs;
-      }
-    );
+    dialogRef.afterClosed().subscribe(() => {
+      --this.openedErrorDialogs;
+    });
   }
 
   private onConnectionSuccess(): void {
@@ -67,8 +65,10 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
       this.connectionErrorFirstTimestamp = Date.now();
     }
 
-    if ((Date.now() - this.connectionErrorFirstTimestamp > this.connectionErrorMaxPeriodWithoutNotification)
-      && !this.connectionErrorHandled) {
+    if (
+      Date.now() - this.connectionErrorFirstTimestamp > this.connectionErrorMaxPeriodWithoutNotification &&
+      !this.connectionErrorHandled
+    ) {
       this.connectionErrorHandled = true;
 
       this.dialogError(
@@ -82,8 +82,8 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
     if (this.session.getUser() && this.session.getUser().apiToken) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.session.getUser().apiToken}`
-        }
+          Authorization: `Bearer ${this.session.getUser().apiToken}`,
+        },
       });
     }
 
@@ -92,60 +92,72 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
     if (token) {
       request = request.clone({
         setHeaders: {
-          [`x-adshares-impersonation`]: token
-        }
+          [`x-adshares-impersonation`]: token,
+        },
       });
     }
 
     if (environment.xdebug) {
       request = request.clone({
         setParams: {
-          'XDEBUG_SESSION_START': 'PHPSTORM'
-        }
+          XDEBUG_SESSION_START: 'PHPSTORM',
+        },
       });
     }
 
-    return next.handle(request).pipe(tap(
-      (event: HttpEvent<any>) => {
-        if (HttpEventType.Response === event.type) {
-          this.onConnectionSuccess();
-        }
-        this.extendTokenExpiration();
-        return event;
-      },
-      (err: any) => {
-        if (err instanceof HttpErrorResponse && err.status === HTTP_UNAUTHORIZED) {
-          const noUser = !this.session.getUser();
-          const isSessionActive = this.session.isActive;
-          this.session.drop();
-          this.router.navigate(['/auth', 'login']);
+    return next.handle(request).pipe(
+      tap(
+        (event: HttpEvent<any>) => {
+          if (HttpEventType.Response === event.type) {
+            this.onConnectionSuccess();
+          }
+          this.extendTokenExpiration();
+          return event;
+        },
+        (err: any) => {
+          if (err instanceof HttpErrorResponse && err.status === HTTP_UNAUTHORIZED) {
+            const noUser = !this.session.getUser();
+            const isSessionActive = this.session.isActive;
+            this.session.drop();
+            this.router.navigate(['/auth', 'login']);
 
-          if (!isSessionActive) {
+            if (!isSessionActive) {
+              return err;
+            }
+
+            if (noUser) {
+              this.dialogError('Login required', 'Last request required logged-in user.');
+            } else {
+              this.dialogError(
+                'Session timed-out (server)',
+                'Last request required logged-in user but your session has been lost (outdated). Please log in again.'
+              );
+            }
+
             return err;
           }
 
-          if (noUser) {
-            this.dialogError('Login required', 'Last request required logged-in user.');
-          } else {
-            this.dialogError('Session timed-out (server)', 'Last request required logged-in user but your session has been lost (outdated). Please log in again.');
+          if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == 'Unknown Error') {
+            this.onConnectionFailure();
+            return err;
+          }
+
+          if (
+            err instanceof HttpErrorResponse &&
+            err.status === HTTP_INTERNAL_SERVER_ERROR &&
+            (!err.url || -1 === err.url.indexOf('/check'))
+          ) {
+            this.dialogError(
+              'Server request failed',
+              'It looks like our request failed on the server returning code 500, please try again or contact our support.'
+            );
+            return err;
           }
 
           return err;
         }
-
-        if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == 'Unknown Error') {
-          this.onConnectionFailure();
-          return err;
-        }
-
-        if (err instanceof HttpErrorResponse && err.status === HTTP_INTERNAL_SERVER_ERROR && (!err.url || -1 === err.url.indexOf('/check'))) {
-          this.dialogError('Server request failed', 'It looks like our request failed on the server returning code 500, please try again or contact our support.');
-          return err;
-        }
-
-        return err;
-      }
-    ));
+      )
+    );
   }
 
   extendTokenExpiration() {
@@ -153,8 +165,12 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
     if (!user) {
       return;
     }
-    const expirationSeconds = user.remember ? appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
-    Object.assign(user, {expiration: ((+new Date) / 1000 | 0) + expirationSeconds});
+    const expirationSeconds = user.remember
+      ? appSettings.REMEMBER_USER_EXPIRATION_SECONDS
+      : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
+    Object.assign(user, {
+      expiration: ((+new Date() / 1000) | 0) + expirationSeconds,
+    });
     this.session.setUser(user);
   }
 }

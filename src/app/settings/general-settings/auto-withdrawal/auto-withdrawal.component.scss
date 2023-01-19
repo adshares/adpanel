@@ -1,11 +1,11 @@
-@import "../../../../styles/mixins";
-@import "../../../../styles/colors";
+@import '../../../../styles/mixins';
+@import '../../../../styles/colors';
 
 .auto-withdraw {
   margin-top: 10px;
 
   &__title {
-    @include copy($color: pal(navy, base), $font-weight: bold, $font-size: 32)
+    @include copy($color: pal(navy, base), $font-weight: bold, $font-size: 32);
   }
 
   &__sub-title {

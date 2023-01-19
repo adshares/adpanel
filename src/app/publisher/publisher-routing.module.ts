@@ -1,26 +1,26 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import {PublisherComponent} from './publisher.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {ClassifierComponent} from './classifier/classifier.component';
-import {SiteDetailsComponent} from './site-details/site-details.component';
-import {EditSiteComponent} from './edit-site/edit-site.component';
-import {EditSiteBasicInformationComponent} from './edit-site/edit-site-basic-info/edit-site-basic-information.component';
-import {EditSiteAdditionalTargetingComponent} from './edit-site/edit-site-additional-targeting/edit-site-additional-targeting.component';
-import {EditSitePopsSettingsComponent} from './edit-site/edit-site-pops-settings/edit-site-pops-settings.component';
-import {EditSiteCreateAdUnitsComponent} from './edit-site/edit-site-create-ad-units/edit-site-create-ad-units.component';
-import {EditSiteSummaryComponent} from './edit-site/edit-site-summary/edit-site-summary.component';
+import { PublisherComponent } from './publisher.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClassifierComponent } from './classifier/classifier.component';
+import { SiteDetailsComponent } from './site-details/site-details.component';
+import { EditSiteComponent } from './edit-site/edit-site.component';
+import { EditSiteBasicInformationComponent } from './edit-site/edit-site-basic-info/edit-site-basic-information.component';
+import { EditSiteAdditionalTargetingComponent } from './edit-site/edit-site-additional-targeting/edit-site-additional-targeting.component';
+import { EditSitePopsSettingsComponent } from './edit-site/edit-site-pops-settings/edit-site-pops-settings.component';
+import { EditSiteCreateAdUnitsComponent } from './edit-site/edit-site-create-ad-units/edit-site-create-ad-units.component';
+import { EditSiteSummaryComponent } from './edit-site/edit-site-summary/edit-site-summary.component';
 
-import {PublisherGuard} from './publisher-guard.service';
-import {SiteResolver} from './resolvers/site.resolver';
-import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
-import {MediaResolver} from 'common/resolvers/media.resolver';
-import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
-import {MatchingBannerSizesResolver} from "publisher/resolvers/matching-banner-sizes.resolver";
-import {LanguagesListResolver} from "publisher/resolvers/languages-list.resolver";
-import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver'
-import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
+import { PublisherGuard } from './publisher-guard.service';
+import { SiteResolver } from './resolvers/site.resolver';
+import { FilteringCriteriaResolver } from './resolvers/filtering-criteria.resolver';
+import { MediaResolver } from 'common/resolvers/media.resolver';
+import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
+import { MatchingBannerSizesResolver } from 'publisher/resolvers/matching-banner-sizes.resolver';
+import { LanguagesListResolver } from 'publisher/resolvers/languages-list.resolver';
+import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver';
+import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
 
 const publisherRoutes: Routes = [
   {
@@ -31,14 +31,14 @@ const publisherRoutes: Routes = [
       options: ServerOptionsResolver,
     },
     children: [
-      {path: '', pathMatch: 'full', redirectTo: '/publisher/dashboard'},
-      {path: 'dashboard', component: DashboardComponent},
+      { path: '', pathMatch: 'full', redirectTo: '/publisher/dashboard' },
+      { path: 'dashboard', component: DashboardComponent },
       {
         path: 'site/:id',
         resolve: {
           site: SiteResolver,
           languagesList: LanguagesListResolver,
-          filteringOptions: FilteringCriteriaResolver
+          filteringOptions: FilteringCriteriaResolver,
         },
         children: [
           {
@@ -47,22 +47,22 @@ const publisherRoutes: Routes = [
             component: SiteDetailsComponent,
             resolve: {
               media: MediaResolver,
-            }
+            },
           },
           {
             path: 'classifier',
             component: ClassifierComponent,
             resolve: {
               sizes: MatchingBannerSizesResolver,
-              siteOptions: SiteOptionsResolver
-            }
-          }
-        ]
+              siteOptions: SiteOptionsResolver,
+            },
+          },
+        ],
       },
       {
         path: 'create-site',
         component: EditSiteComponent,
-        resolve: {filteringOptions: FilteringCriteriaResolver},
+        resolve: { filteringOptions: FilteringCriteriaResolver },
         children: [
           {
             path: 'basic-information',
@@ -70,35 +70,35 @@ const publisherRoutes: Routes = [
             resolve: {
               languagesList: LanguagesListResolver,
               media: MediaResolver,
-            }
+            },
           },
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
-            resolve: {adUnitSizes: AdUnitSizesResolver}
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
-            resolve: {adUnitSizes: AdUnitSizesResolver}
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
-              path: 'additional-filtering',
-              component: EditSiteAdditionalTargetingComponent,
-              resolve: { siteOptions: SiteOptionsResolver }
+            path: 'additional-filtering',
+            component: EditSiteAdditionalTargetingComponent,
+            resolve: { siteOptions: SiteOptionsResolver },
           },
           {
             path: 'summary',
-            component: EditSiteSummaryComponent
-          }
-        ]
+            component: EditSiteSummaryComponent,
+          },
+        ],
       },
       {
         path: 'edit-site/:id',
         component: EditSiteComponent,
         resolve: {
           filteringOptions: FilteringCriteriaResolver,
-          site: SiteResolver
+          site: SiteResolver,
         },
         children: [
           {
@@ -107,55 +107,50 @@ const publisherRoutes: Routes = [
             resolve: {
               languagesList: LanguagesListResolver,
               media: MediaResolver,
-            }
+            },
           },
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
-            resolve: {adUnitSizes: AdUnitSizesResolver}
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
-            resolve: {adUnitSizes: AdUnitSizesResolver}
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
-              path: 'additional-filtering',
-              component: EditSiteAdditionalTargetingComponent
+            path: 'additional-filtering',
+            component: EditSiteAdditionalTargetingComponent,
           },
           {
             path: 'summary',
-            component: EditSiteSummaryComponent
-          }
-        ]
+            component: EditSiteSummaryComponent,
+          },
+        ],
       },
       {
         path: 'classifier/:bannerId',
         component: ClassifierComponent,
         resolve: {
           sizes: MatchingBannerSizesResolver,
-          siteOptions: SiteOptionsResolver
-        }
+          siteOptions: SiteOptionsResolver,
+        },
       },
       {
         path: 'classifier',
         component: ClassifierComponent,
         resolve: {
           sizes: MatchingBannerSizesResolver,
-          siteOptions: SiteOptionsResolver
-        }
+          siteOptions: SiteOptionsResolver,
+        },
       },
-    ]
+    ],
   },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(publisherRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(publisherRoutes)],
+  exports: [RouterModule],
 })
-export class PublisherRoutingModule {
-}
+export class PublisherRoutingModule {}

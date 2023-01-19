@@ -16,50 +16,54 @@ $xl-breakpoint-down: 1799px;
 $xxl-breakpoint-down: 2499px;
 $xxxl-breakpoint-down: 3999px;
 
-$screen: "only screen";
-$landscape: "#{$screen} and (orientation: landscape)";
-$portrait: "#{$screen} and (orientation: portrait)";
+$screen: 'only screen';
+$landscape: '#{$screen} and (orientation: landscape)';
+$portrait: '#{$screen} and (orientation: portrait)';
 $retina: (
-  "#{$screen} and (-webkit-min-device-pixel-ratio: 2)",
-  "#{$screen} and (min--moz-device-pixel-ratio: 2)",
-  "#{$screen} and (-o-min-device-pixel-ratio: 2/1)",
-  "#{$screen} and (min-device-pixel-ratio: 2)",
-  "#{$screen} and (min-resolution: 192dpi)",
-  "#{$screen} and (min-resolution: 2dppx)"
+  '#{$screen} and (-webkit-min-device-pixel-ratio: 2)',
+  '#{$screen} and (min--moz-device-pixel-ratio: 2)',
+  '#{$screen} and (-o-min-device-pixel-ratio: 2/1)',
+  '#{$screen} and (min-device-pixel-ratio: 2)',
+  '#{$screen} and (min-resolution: 192dpi)',
+  '#{$screen} and (min-resolution: 2dppx)'
 );
 
 // Retina
 @mixin retina {
-  @media #{$retina} {@content}
+  @media #{$retina} {
+    @content;
+  }
 }
 
 $viewport: (
-  xs-up: "#{$screen} and (min-width: #{$xs-breakpoint})",
-  sm-up: "#{$screen} and (min-width: #{$sm-breakpoint})",
-  md-up: "#{$screen} and (min-width: #{$md-breakpoint})",
-  lg-up: "#{$screen} and (min-width: #{$lg-breakpoint})",
-  xl-up: "#{$screen} and (min-width: #{$xl-breakpoint})",
-  xxl-up: "#{$screen} and (min-width: #{$xxl-breakpoint})",
-  xxxl-up: "#{$screen} and (min-width: #{$xxxl-breakpoint})",
+  xs-up: '#{$screen} and (min-width: #{$xs-breakpoint})',
+  sm-up: '#{$screen} and (min-width: #{$sm-breakpoint})',
+  md-up: '#{$screen} and (min-width: #{$md-breakpoint})',
+  lg-up: '#{$screen} and (min-width: #{$lg-breakpoint})',
+  xl-up: '#{$screen} and (min-width: #{$xl-breakpoint})',
+  xxl-up: '#{$screen} and (min-width: #{$xxl-breakpoint})',
+  xxxl-up: '#{$screen} and (min-width: #{$xxxl-breakpoint})',
 
-  xs-down: "#{$screen} and (max-width: #{$xs-breakpoint})",
-  sm-down: "#{$screen} and (max-width: #{$sm-breakpoint})",
-  md-down: "#{$screen} and (max-width: #{$md-breakpoint})",
-  lg-down: "#{$screen} and (max-width: #{$lg-breakpoint})",
-  xl-down: "#{$screen} and (max-width: #{$xl-breakpoint})",
-  xxl-down: "#{$screen} and (max-width: #{$xxl-breakpoint})",
-  xxxl-down: "#{$screen} and (max-width: #{$xxxl-breakpoint})",
+  xs-down: '#{$screen} and (max-width: #{$xs-breakpoint})',
+  sm-down: '#{$screen} and (max-width: #{$sm-breakpoint})',
+  md-down: '#{$screen} and (max-width: #{$md-breakpoint})',
+  lg-down: '#{$screen} and (max-width: #{$lg-breakpoint})',
+  xl-down: '#{$screen} and (max-width: #{$xl-breakpoint})',
+  xxl-down: '#{$screen} and (max-width: #{$xxl-breakpoint})',
+  xxxl-down: '#{$screen} and (max-width: #{$xxxl-breakpoint})',
 
-  sm-down-without-sm: "#{$screen} and (max-width: #{$sm-breakpoint-down})",
-  md-down-without-md: "#{$screen} and (max-width: #{$md-breakpoint-down})",
-  lg-down-without-lg: "#{$screen} and (max-width: #{$lg-breakpoint-down})",
-  xl-down-without-xl: "#{$screen} and (max-width: #{$xl-breakpoint-down})",
-  xxl-down-without-xxl: "#{$screen} and (max-width: #{$xxl-breakpoint-down})",
-  xxxl-down-without-xxxl: "#{$screen} and (max-width: #{$xxxl-breakpoint-down})"
+  sm-down-without-sm: '#{$screen} and (max-width: #{$sm-breakpoint-down})',
+  md-down-without-md: '#{$screen} and (max-width: #{$md-breakpoint-down})',
+  lg-down-without-lg: '#{$screen} and (max-width: #{$lg-breakpoint-down})',
+  xl-down-without-xl: '#{$screen} and (max-width: #{$xl-breakpoint-down})',
+  xxl-down-without-xxl: '#{$screen} and (max-width: #{$xxl-breakpoint-down})',
+  xxxl-down-without-xxxl: '#{$screen} and (max-width: #{$xxxl-breakpoint-down})',
 );
 
 @mixin media($name) {
-  @media #{map-get($viewport, $name)} {@content}
+  @media #{map-get($viewport, $name)} {
+    @content;
+  }
 }
 
 $viewport_sizes_up: (
@@ -69,7 +73,7 @@ $viewport_sizes_up: (
   lg: 'lg-up',
   xl: 'xl-up',
   xxl: 'xxl-up',
-  xxxl: 'xxxl-up'
+  xxxl: 'xxxl-up',
 );
 
 $viewport_sizes_down: (
@@ -79,7 +83,7 @@ $viewport_sizes_down: (
   lg: 'lg-down',
   xl: 'xl-down',
   xxl: 'xxl-down',
-  xxxl: 'xxxl-down'
+  xxxl: 'xxxl-down',
 );
 
 $viewport_sizes_down_without_size: (
@@ -88,5 +92,5 @@ $viewport_sizes_down_without_size: (
   lg: 'lg-down-without-lg',
   xl: 'xl-down-without-xl',
   xxl: 'xxl-down-without-xxl',
-  xxxl: 'xxxl-down-without-xxxl'
+  xxxl: 'xxxl-down-without-xxxl',
 );

@@ -14,4 +14,4 @@ interface TableSortEvent {
   sortDesc: boolean;
 }
 
-export { TableColumnMetaData, TableSortEvent }
+export { TableColumnMetaData, TableSortEvent };

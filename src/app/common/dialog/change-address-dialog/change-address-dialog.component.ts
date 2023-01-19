@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { SettingsService } from 'settings/settings.service';
 import { LocalStorageUser, User } from 'models/user.model';
 import { UpdateUserAddress } from 'store/auth/auth.actions';
@@ -13,9 +13,9 @@ import { appSettings } from 'app-settings';
 @Component({
   selector: 'app-change-address-dialog',
   templateUrl: './change-address-dialog.component.html',
-  styleUrls: ['./change-address-dialog.component.scss']
+  styleUrls: ['./change-address-dialog.component.scss'],
 })
-export class ChangeAddressDialogComponent extends HandleSubscription implements OnInit {
+export class ChangeAddressDialogComponent extends HandleSubscriptionComponent implements OnInit {
   isFormBeingSubmitted = false;
   changeAddressFormSubmitted = false;
   isConfirmed = false;
@@ -33,20 +33,16 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   ngOnInit() {
     this.createForm();
 
-    const userSubscription = this.store.select('state', 'user', 'data',)
-      .subscribe((user: User) => {
-        this.adsharesAddress = '';
-        this.isConfirmed = user.isConfirmed;
-      });
+    const userSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
+      this.adsharesAddress = '';
+      this.isConfirmed = user.isConfirmed;
+    });
     this.subscriptions.push(userSubscription);
   }
 
   createForm() {
     this.changeWithdrawAddressForm = new FormGroup({
-      address: new FormControl('', [
-        Validators.required,
-        Validators.pattern(appSettings.ADDRESS_REGEXP)
-      ])
+      address: new FormControl('', [Validators.required, Validators.pattern(appSettings.ADDRESS_REGEXP)]),
     });
   }
 
@@ -68,7 +64,9 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.subscriptions.push(changeWithdrawAddressSubscription);
 
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {adsharesAddress: address});
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {
+      adsharesAddress: address,
+    });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
     this.store.dispatch(new UpdateUserAddress(address));
