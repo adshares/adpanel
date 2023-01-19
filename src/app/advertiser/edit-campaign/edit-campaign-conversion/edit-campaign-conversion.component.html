@@ -14,7 +14,14 @@
 
     <div class="box-content">
       <mat-tab-group [@.disabled]="true">
-        <mat-tab label="Basic">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Base
+            <fa-icon
+              *ngIf="validateForm && !isFormError('basic')"
+              [icon]="faTriangleExclamation"
+              class="ap-icon ap-icon--append ap-copy--error"></fa-icon>
+          </ng-template>
           <div class="col row--gap18">
             <p class="ap-copy description-type">
               In this mode each conversion has a constant value. All conversion expenses are limited by the total
@@ -87,13 +94,6 @@
                   </div>
                   <div class="col-xs-3 row align-center">
                     <div class="row no-wrap cell">
-                      <mat-slide-toggle
-                        color="primary"
-                        class="row align-self-center"
-                        [id]="'isMutable' + conversionItemFormIndex"
-                        formControlName="isValueMutable"
-                        data-test="advertiser-conversion-item-is-value-mutable">
-                      </mat-slide-toggle>
                       <input
                         [attr.disabled]="conversionItemForm.get('isValueMutable').value ? '' : null"
                         id="value"
@@ -102,6 +102,13 @@
                         class="ap-form-input campaign-edit-conversion__value-input"
                         formControlName="value"
                         data-test="advertiser-conversion-item-value" />
+                      <mat-slide-toggle
+                        color="primary"
+                        class="row align-self-center"
+                        [id]="'isMutable' + conversionItemFormIndex"
+                        formControlName="isValueMutable"
+                        data-test="advertiser-conversion-item-is-value-mutable">
+                      </mat-slide-toggle>
                     </div>
                     <span
                       class="error-msg"
@@ -137,7 +144,14 @@
           </div>
         </mat-tab>
 
-        <mat-tab label="Advanced">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Advanced
+            <fa-icon
+              *ngIf="validateForm && !isFormError('advanced')"
+              [icon]="faTriangleExclamation"
+              class="ap-icon ap-icon--append ap-copy--error"></fa-icon>
+          </ng-template>
           <div class="col row--gap18">
             <p class="ap-copy description-type">
               In this mode each conversion has a unique HTTP request which must be created dynamically. The advertiser
@@ -245,13 +259,6 @@
                   </div>
                   <div class="col-xs-2 row align-center">
                     <div class="row no-wrap cell">
-                      <mat-slide-toggle
-                        color="primary"
-                        class="row align-self-center"
-                        [id]="'isMutableAdv' + conversionItemFormIndex"
-                        formControlName="isValueMutable"
-                        data-test="advertiser-conversion-item-is-value-mutable">
-                      </mat-slide-toggle>
                       <input
                         [attr.disabled]="conversionItemForm.get('isValueMutable').value ? '' : null"
                         id="valueAdv"
@@ -260,6 +267,13 @@
                         class="ap-form-input campaign-edit-conversion__value-input"
                         formControlName="value"
                         data-test="advertiser-conversion-item-value" />
+                      <mat-slide-toggle
+                        color="primary"
+                        class="row align-self-center"
+                        [id]="'isMutableAdv' + conversionItemFormIndex"
+                        formControlName="isValueMutable"
+                        data-test="advertiser-conversion-item-is-value-mutable">
+                      </mat-slide-toggle>
                     </div>
                     <span
                       class="error-msg"

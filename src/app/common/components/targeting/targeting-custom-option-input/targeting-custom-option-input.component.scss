@@ -29,6 +29,13 @@
       flex-grow: 1;
       max-width: 390px;
     }
+
+    & .coordinates-wrapper {
+      & .ap-form-input {
+        min-width: 0;
+        max-width: 150px;
+      }
+    }
   }
 
   &__label {

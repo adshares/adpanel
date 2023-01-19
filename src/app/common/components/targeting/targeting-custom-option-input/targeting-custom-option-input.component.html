@@ -1,5 +1,5 @@
 <div
-  class="targeting-custom-option__form"
+  class="targeting-custom-option__form row row--gap18"
   role="form"
   [ngClass]="{ 'targeting-custom-option__form--input-hidden': !inputShown }"
   (click)="showInput()">
@@ -24,7 +24,6 @@
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
     </mat-chip-list>
-    <!--    <mat-form-field >-->
     <div class="row row--gap18">
       <input
         class="ap-form-input ap-form-input--full"
@@ -34,7 +33,6 @@
         [matChipInputAddOnBlur]="true"
         (matChipInputTokenEnd)="add($event)"
         (keyup.enter)="saveCustomTargetingOptions()" />
-      <!--    </mat-form-field>-->
 
       <button class="ap-icon-btn" title="Add custom option" (click)="saveCustomTargetingOptions()">
         <fa-icon [icon]="faPlus"></fa-icon>
@@ -42,33 +40,38 @@
     </div>
   </div>
 
-  <div *ngIf="inputShown && option.valueType === TargetingOptionType.PARCEL_COORDINATES" class="col">
-    <label for="coordinate-x" class="ap-form-label"> Coordinate X </label>
-    <input #input id="coordinate-x" name="coordinate-x" class="ap-form-input" type="number" step="1" required />
-    <label for="coordinate-y" class="ap-form-label"> Coordinate Y </label>
-    <input
-      #inputCoordinationY
-      id="coordinate-y"
-      name="coordinate-y"
-      class="ap-form-input"
-      type="number"
-      step="1"
-      (keyup.enter)="saveCustomParcel(input.value, inputCoordinationY.value)"
-      required />
-    <span *ngIf="saveRequested && !(input.validity.valid && inputCoordinationY.validity.valid)" class="error-msg">
-      Both coordinates must be set.
-    </span>
-    <div class="ap-box ap-box--small ap-box--no-border row justify-end">
+  <div *ngIf="inputShown && option.valueType === TargetingOptionType.PARCEL_COORDINATES" class="col row--gap8">
+    <div class="row row--gap8 align-center coordinates-wrapper">
+      <div class="ap-form-input__box">
+        <label for="coordinate-x" class="ap-form-label"> Coordinate X </label>
+        <input #input id="coordinate-x" name="coordinate-x" class="ap-form-input" type="number" step="1" required />
+      </div>
+      <div class="ap-form-input__box">
+        <label for="coordinate-y" class="ap-form-label"> Coordinate Y </label>
+        <input
+          #inputCoordinationY
+          id="coordinate-y"
+          name="coordinate-y"
+          class="ap-form-input"
+          type="number"
+          step="1"
+          (keyup.enter)="saveCustomParcel(input.value, inputCoordinationY.value)"
+          required />
+      </div>
       <button
-        class="ap-btn ap-btn--primary"
+        class="ap-icon-btn"
+        title="Add custom option"
         (click)="
           (saveRequested = true) &&
             input.validity.valid &&
             inputCoordinationY.validity.valid &&
             saveCustomParcel(input.value, inputCoordinationY.value)
         ">
-        Add
+        <fa-icon [icon]="faPlus"></fa-icon>
       </button>
     </div>
+    <span *ngIf="saveRequested && !(input.validity.valid && inputCoordinationY.validity.valid)" class="error-msg">
+      Both coordinates must be set.
+    </span>
   </div>
 </div>

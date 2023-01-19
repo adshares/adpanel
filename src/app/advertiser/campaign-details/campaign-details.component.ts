@@ -33,7 +33,7 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
-import { faPlusCircle, faTrash, faEdit, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faTrash, faEdit, faArrowLeft, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
@@ -71,6 +71,7 @@ export class CampaignDetailsComponent extends HandleSubscriptionComponent implem
   faEdit = faEdit;
   faCalendar = faCalendar;
   faArrowLeft = faArrowLeft;
+  faCopy = faCopy;
 
   constructor(
     private route: ActivatedRoute,

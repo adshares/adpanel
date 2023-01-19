@@ -279,7 +279,7 @@ mat-chip:not(.mat-basic-chip) {
 
   & .mat-expansion-panel {
     border: 1px solid pal(primary);
-    border-radius: 10px;
+    border-radius: 10px !important;
   }
 
   & .mat-expansion-panel-header-title {

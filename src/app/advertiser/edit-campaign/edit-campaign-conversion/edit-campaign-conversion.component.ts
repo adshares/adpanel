@@ -16,6 +16,7 @@ import {
   UPDATE_CAMPAIGN_FAILURE,
   UPDATE_CAMPAIGN_SUCCESS,
 } from 'store/advertiser/advertiser.actions';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
@@ -40,6 +41,8 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
   private readonly CONVERSION_COUNT_MAXIMAL: number = 100;
   private readonly BUDGET_TYPE_IN: string = 'in_budget';
   private readonly BUDGET_TYPE_OUT: string = 'out_of_budget';
+
+  faTriangleExclamation = faTriangleExclamation;
 
   readonly availableEventTypes = [
     'Add payment info',
@@ -144,6 +147,18 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
 
   get isFormValid(): boolean {
     this.validateAdvancedValueControl();
+    return this.conversionItemForms.every(item => item.valid);
+  }
+
+  isFormError(type: 'basic' | 'advanced'): boolean {
+    this.validateAdvancedValueControl();
+    if (type === 'basic') {
+      return this.conversionItemForms.filter(form => !form.get('isAdvanced').value).every(item => item.valid);
+    }
+
+    if (type === 'advanced') {
+      return this.conversionItemForms.filter(form => form.get('isAdvanced').value).every(item => item.valid);
+    }
     return this.conversionItemForms.every(item => item.valid);
   }
 
