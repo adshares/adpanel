@@ -27,6 +27,7 @@ export class AccountWalletSettingsComponent extends HandleSubscriptionComponent 
   adsWalletAvailable: boolean = true;
   ethereumAvailable: boolean = true;
   isImpersonated: boolean = false;
+  isModerator: boolean;
 
   constructor(
     private store: Store<AppState>,
@@ -45,6 +46,7 @@ export class AccountWalletSettingsComponent extends HandleSubscriptionComponent 
         this.wallet = wallet;
       });
     this.isImpersonated = this.session.isImpersonated();
+    this.isModerator = this.session.isModerator();
   }
 
   initConnectToWallet(network: string) {

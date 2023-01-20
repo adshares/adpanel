@@ -81,9 +81,6 @@ mat-chip:not(.mat-basic-chip) {
   visibility: hidden !important;
 }
 
-.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
-  background: transparent !important;
-}
 
 .mat-select-value-text {
   text-transform: capitalize;
@@ -310,4 +307,3 @@ mat-chip:not(.mat-basic-chip) {
 .mat-tab-body-content {
   padding: 8px;
 }
-
