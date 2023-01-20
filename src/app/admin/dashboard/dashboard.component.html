@@ -9,11 +9,9 @@
         </h3>
       </a>
     </div>
-    <ul>
-      <li *ngFor="let menuItem of settings">
-        <app-settings-menu-item [menuItem]="menuItem"></app-settings-menu-item>
-      </li>
-    </ul>
+    <mat-accordion>
+      <app-settings-menu-item *ngFor="let menuItem of settings" [menuItem]="menuItem"></app-settings-menu-item>
+    </mat-accordion>
   </div>
   <div class="settings-outlet">
     <router-outlet></router-outlet>

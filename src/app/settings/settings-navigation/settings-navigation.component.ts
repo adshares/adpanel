@@ -33,20 +33,25 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
         title: 'Moderator',
         description: '',
         link: '/moderator/dashboard/users',
-        values: [{ name: 'Users List' }, { name: 'Publishers' }, { name: 'Advertisers' }, { name: 'Reports' }],
+        values: [
+          { name: 'Users List', path: '/all' },
+          { name: 'Publishers', path: '/publishers' },
+          { name: 'Advertisers', path: '/advertisers' },
+          { name: 'Reports', path: '/reports' },
+        ],
       });
     }
 
     if (session.isAgency()) {
       this.settings.push({
         title: 'Agency',
-        id: 'agency',
         description: '',
         link: '/agency/dashboard/users',
         values: [
-          { name: 'Users List', path: '/all', id: 'all' },
-          { name: 'Publishers', path: '/publishers', id: 'publishers' },
-          { name: 'Advertisers', path: '/advertisers', id: 'advertisers' },
+          { name: 'Users List', path: '/all' },
+          { name: 'Publishers', path: '/publishers' },
+          { name: 'Advertisers', path: '/advertisers' },
+          { name: 'Reports', path: '/reports' },
         ],
       });
     }

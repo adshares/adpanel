@@ -4,11 +4,18 @@
   min-height: calc(100vh - #{$app-header-height});
 
   &__side-menu {
-    min-height: 100%;
-    width: 240px;
-    padding: 24px;
-    background-color: pal(light);
+    //min-height: 100%;
+    //width: 240px;
+    //padding: 24px;
+    //background-color: pal(light);
+    //transition: width 0.5s ease-in;
+    //height: 100%;
+    //min-height: 100%;
+    width: 260px;
+    background-color: pal(primary);
+    border-top: 1px solid pal(primary, dark);
     transition: width 0.5s ease-in;
+    padding: 36px 0;
 
     @include media(md-up) {
       width: 300px;
