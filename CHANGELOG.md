@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Site's statuses (pending approval, rejected)
+- Targeting chip representing domain routes to page on click
 ### Changed
 - Load direct link ad content during campaign load
 ### Fixed

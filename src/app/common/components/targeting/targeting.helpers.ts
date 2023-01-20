@@ -247,7 +247,9 @@ function addTargetingOptionToResult(
       const value = targetingObject[key];
 
       if (parent && parent.allowInput) {
-        result.push(prepareCustomOption(value, parent.id));
+        result.push(
+          prepareCustomOption(value, parent.id, 'site/domain' === parent.id ? `https://${value}` : undefined)
+        );
         return;
       }
 
