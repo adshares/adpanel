@@ -1,24 +1,14 @@
 @use 'sass:math';
 
 .container {
+  max-width: 1400px;
+  padding: 36px 24px;
+
+  &--full {
+    max-width: none;
+  }
   //padding: 0 16px;
 
-  @include media(md-up) {
-    padding: 0 60px;
-  }
-
-  @include media(lg-up) {
-    max-width: 1400px;
-  }
-
-  @include media(xl-up) {
-    max-width: 1700px;
-  }
-
-  @include media(xxl-up) {
-    max-width: 2200px;
-    padding: 0 10%;
-  }
 }
 
 .container-fluid,

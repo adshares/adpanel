@@ -1,11 +1,5 @@
 @import '../../../styles.scss';
 
-:host ::ng-deep {
-  section.container {
-    padding: 10px 0 !important;
-  }
-}
-
 .users {
   &__title {
     @include copy($font-size: 20, $color: pal(primary), $font-weight: bold);

@@ -126,6 +126,15 @@
 
   &:hover {
     background-color: pal(primary, light);
+
+    &[disabled] {
+      background-color: transparent;
+    }
+  }
+
+  &[disabled] {
+    color: pal(gray);
+    cursor: not-allowed;
   }
 
   &--secondary {

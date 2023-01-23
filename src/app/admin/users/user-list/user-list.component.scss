@@ -1,8 +1,6 @@
 @import '../../../../styles';
 
 .user-list {
-  margin-top: 25px;
-
   &__sort {
     margin-left: 5px;
   }
@@ -35,15 +33,15 @@
   }
 
   &__search-container {
-    @include container($border-color: pal(gray, light));
-    @include copy($font-size: 18, $color: pal(gray, x-dark));
-    mat-icon {
-      vertical-align: middle;
-    }
-    margin-top: 2px;
-    width: 100%;
-    display: flex;
-    align-items: center;
+    //@include container($border-color: pal(gray, light));
+    //@include copy($font-size: 18, $color: pal(gray, x-dark));
+    //mat-icon {
+    //  vertical-align: middle;
+    //}
+    //margin-top: 2px;
+    //width: 100%;
+    //display: flex;
+    //align-items: center;
   }
 
   &__input {
@@ -59,16 +57,8 @@
       display: none !important;
     }
   }
-}
 
-.choose-user-type {
-  margin-right: 20px;
-}
-
-.search {
-  max-width: 180px;
-
-  &-label {
-    margin-right: 20px;
+  & .mat-radio-group {
+    flex-direction: row;
   }
 }

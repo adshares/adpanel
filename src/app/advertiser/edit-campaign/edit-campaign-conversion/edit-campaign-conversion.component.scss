@@ -1,17 +1,6 @@
 @import '../../../../styles.scss';
 
 .campaign-edit-conversion {
-  max-width: 1200px;
-  margin: 24px auto;
-
-  @include media(xxl-up) {
-    max-width: 1300px;
-  }
-
-  @include media(xxxl-up) {
-    max-width: 2000px;
-  }
-
   .ap-form-input {
     overflow: hidden;
     max-width: none;

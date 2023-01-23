@@ -1,8 +1,7 @@
 @import '../../../../styles.scss';
 
 .campaign-edit-additional-targeting {
-  max-width: 1200px;
-  margin: 24px auto;
+
 
   @include media(xxl-up) {
     max-width: 1300px;

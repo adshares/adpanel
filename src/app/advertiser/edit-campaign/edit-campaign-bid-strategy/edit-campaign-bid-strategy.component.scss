@@ -1,8 +1,7 @@
 @import '../../../../styles.scss';
 
 .campaign-edit-bid-strategy {
-  max-width: 1200px;
-  margin: 24px auto;
+
 
   @include media(xxxl-up) {
     max-width: 2000px;

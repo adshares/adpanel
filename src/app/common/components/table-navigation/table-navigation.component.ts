@@ -147,15 +147,15 @@ export class TableNavigationComponent extends HandleSubscriptionComponent implem
     { title: 'Email', columnWidth: 'col-xs-6', keys: ['email'] },
     {
       title: 'Wallet balance',
-      columnWidth: 'col-xs-2 justify-center',
+      columnWidth: 'col-xs-2',
       hideArrows: true,
     },
     {
       title: 'Bonus balance',
-      columnWidth: 'col-xs-2 justify-center',
+      columnWidth: 'col-xs-2',
       hideArrows: true,
     },
-    { title: 'Role', columnWidth: 'col-xs-2 justify-center', hideArrows: true },
+    { title: 'Role', columnWidth: 'col-xs-2', hideArrows: true },
   ];
 
   advertiserListNavigationItems = [
