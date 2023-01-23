@@ -7,7 +7,6 @@
   justify-content: space-between;
 
   &__cell {
-    @include copy($font-size: 16);
     display: flex;
     align-items: center;
   }
@@ -17,7 +16,6 @@
   }
 
   .change {
-    font-size: 80%;
     display: flex;
     flex-flow: column;
     align-items: flex-start;
@@ -35,12 +33,16 @@
     position: relative;
     overflow: visible !important;
     padding: 0 !important;
-    @include copy($color: pal(primary), $font-weight: semiBold, $font-size: 16);
 
     > div {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    &-start {
+      border-left: 1px solid pal(gray);
+      padding-left: 4px;
     }
   }
 

@@ -8,7 +8,7 @@
   min-height: 52px;
 
   &__cell {
-    @include copy($font-size: 16);
+    @include copy($font-size: 12);
     display: flex;
     align-items: center;
 

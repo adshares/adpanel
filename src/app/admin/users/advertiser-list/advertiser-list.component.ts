@@ -5,6 +5,7 @@ import { AppState } from 'models/app-state.model';
 import { LoadAdvertisers } from 'store/admin/admin.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseListComponent } from 'admin/users/base-list/base-list.component';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export interface AdvertisersQueryParams {
   searchPhrase: string | null;
@@ -34,6 +35,7 @@ export class AdvertiserListComponent extends BaseListComponent implements OnInit
     minDailyViews: 10000,
   };
   localStorageName = 'advertisersQueryParams';
+  faSearch = faSearch;
 
   constructor(store: Store<AppState>, router: Router, activatedRoute: ActivatedRoute) {
     super(store, router, activatedRoute);

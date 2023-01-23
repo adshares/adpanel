@@ -5,20 +5,15 @@
     margin-left: 5px;
   }
 
-  &__items {
-    position: relative;
-    height: calc((54px * 15) + 40px);
-  }
-
   &__loader-container {
     @include copy($font-size: 32);
-    height: calc(54px * 15);
     display: flex;
     width: 100%;
-    background: rgba(255, 255, 255, 0.9);
+    color: pal(secondary);
     align-items: center;
     justify-content: center;
     top: 40px;
+    margin: 24px 0;
   }
 
   &__filters label {

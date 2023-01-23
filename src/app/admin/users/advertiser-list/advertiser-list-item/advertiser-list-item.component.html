@@ -5,21 +5,24 @@
       <small>{{ advertiser.name }}</small>
     </div>
   </td>
-  <td class="col-xs-3 advertiser-list-item__cell group">
+
+  <td class="col-xs-3 advertiser-list-item__cell group ap-copy--semi">
     <div>
       <button
         [disabled]="!canImpersonate(userId)"
         *ngFor="let userId of advertiser.userIds"
         (click)="handleImpersonating(userId)"
         class="ap-icon-btn">
-        <fa-icon [icon]="faIconImpersonation" class="ap-icon ap-icon--large fa-lg"></fa-icon>
+        <fa-icon [icon]="faIconImpersonation" class="ap-icon"></fa-icon>
       </button>
       {{ advertiser.email }}
     </div>
   </td>
-  <td class="col-xs-1-2 advertiser-list-item__cell align-right">
+
+  <td class="col-xs-1-2 advertiser-list-item__cell group-start">
     {{ advertiser.views | number }}
   </td>
+
   <td
     class="col-xs-1-2 advertiser-list-item__cell change"
     [ngClass]="{
@@ -29,9 +32,11 @@
     <div>{{ advertiser.viewsDiff | number }}</div>
     <div>{{ advertiser.viewsChange | percent : '1.1-1' }}</div>
   </td>
-  <td class="col-xs-1-2 advertiser-list-item__cell align-right">
+
+  <td class="col-xs-1-2 advertiser-list-item__cell group-start">
     {{ advertiser.viewsUnique | number }}
   </td>
+
   <td
     class="col-xs-1-2 advertiser-list-item__cell change"
     [ngClass]="{
@@ -41,9 +46,11 @@
     <div>{{ advertiser.viewsUniqueDiff | number }}</div>
     <div>{{ advertiser.viewsUniqueChange | percent : '1.1-1' }}</div>
   </td>
-  <td class="col-xs-1-2 advertiser-list-item__cell align-right">
+
+  <td class="col-xs-1-2 advertiser-list-item__cell group-start">
     {{ advertiser.clicks | number }}
   </td>
+
   <td
     class="col-xs-1-2 advertiser-list-item__cell change"
     [ngClass]="{
@@ -53,9 +60,11 @@
     <div>{{ advertiser.clicksDiff | number }}</div>
     <div>{{ advertiser.clicksChange | percent : '1.1-1' }}</div>
   </td>
-  <td class="col-xs-1-2 advertiser-list-item__cell align-right">
+
+  <td class="col-xs-1-2 advertiser-list-item__cell group-start">
     {{ advertiser.ctr | percent : '1.2-2' }}
   </td>
+
   <td
     class="col-xs-1-2 advertiser-list-item__cell change"
     [ngClass]="{
@@ -65,9 +74,11 @@
     <div>{{ advertiser.ctrDiff * 100 | number : '1.2-2' }}</div>
     <div>{{ advertiser.ctrChange | percent : '1.1-1' }}</div>
   </td>
-  <td class="col-xs-1-2 advertiser-list-item__cell align-right">
+
+  <td class="col-xs-1-2 advertiser-list-item__cell group-start">
     {{ advertiser.cost | formatMoney : 2 }}
   </td>
+
   <td
     class="col-xs-1-2 advertiser-list-item__cell change"
     [ngClass]="{
@@ -77,9 +88,11 @@
     <div>{{ advertiser.costDiff | formatMoney : 2 : 'other' : 'none' }}</div>
     <div>{{ advertiser.costChange | percent : '1.1-1' }}</div>
   </td>
-  <td class="col-xs-1-2 advertiser-list-item__cell align-right">
+
+  <td class="col-xs-1-2 advertiser-list-item__cell group-start">
     {{ advertiser.cpm | formatMoney : 2 }}
   </td>
+
   <td
     class="col-xs-1-2 advertiser-list-item__cell change"
     [ngClass]="{
@@ -89,9 +102,11 @@
     <div>{{ advertiser.cpmDiff | formatMoney : 2 : 'other' : 'none' }}</div>
     <div>{{ advertiser.cpmChange | percent : '1.1-1' }}</div>
   </td>
-  <td class="col-xs-1-2 advertiser-list-item__cell align-right">
+
+  <td class="col-xs-1-2 advertiser-list-item__cell group-start">
     {{ advertiser.cpc | formatMoney : 2 }}
   </td>
+
   <td
     class="col-xs-1-2 advertiser-list-item__cell change"
     [ngClass]="{

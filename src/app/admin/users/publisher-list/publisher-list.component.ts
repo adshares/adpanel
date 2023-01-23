@@ -9,7 +9,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export interface PublishersQueryParams {
   searchPhrase: string | null;
-  groupBy: 'domain' | 'user';
+  groupBy: 'campaign' | 'user';
   interval: 'week' | 'day' | 'hour';
   minDailyViews: number;
   sort?: string[];
@@ -30,7 +30,7 @@ export interface PublishersQueryParams {
 export class PublisherListComponent extends BaseListComponent implements OnInit {
   readonly defaultParams: PublishersQueryParams = {
     searchPhrase: '',
-    groupBy: 'domain',
+    groupBy: 'campaign',
     interval: 'week',
     minDailyViews: 10000,
   };
