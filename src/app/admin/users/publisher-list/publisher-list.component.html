@@ -1,97 +1,81 @@
-<section class="publisher-list">
-  <div class="row justify-between align-center">
-    <div class="publisher-list__search-container row justify-between">
-      <div>
-        <mat-icon> search</mat-icon>
-        <label
-          >Search for publisher:
+<section class="publisher-list ap-box ap-copy">
+  <h2 class="box-title ap-heading ap-heading--h2">Publishers</h2>
+
+  <div class="box-content">
+    <div class="row justify-between align-center">
+      <div class="row row--gap32 align-baseline">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label" for="search">
+            <fa-icon [icon]="faSearch" class="ap-icon ap-icon--prepend"></fa-icon>
+            Search for publisher:
+          </label>
           <input
             [(ngModel)]="queryParams.searchPhrase"
             (ngModelChange)="onParamChange('searchPhrase', $event)"
-            class="publisher-list__input"
+            class="ap-form-input"
             data-test="admin-user-search-input"
             id="search"
             placeholder="Search by email or domain" />
-        </label>
-      </div>
-      <div class="publisher-list__filters">
-        <label>Group by:</label>
-        <mat-checkbox
-          (change)="onParamChange('groupBy', 'campaign')"
-          [checked]="'domain' === queryParams.groupBy"
-          class="publisher-list__checkbox">
-          domain
-        </mat-checkbox>
-        <mat-checkbox
-          (change)="onParamChange('groupBy', 'user')"
-          [checked]="'user' === queryParams.groupBy"
-          class="publisher-list__checkbox">
-          email
-        </mat-checkbox>
-      </div>
-      <div class="publisher-list__filters">
-        <label>Interval:</label>
-        <mat-checkbox
-          (change)="onParamChange('interval', 'week')"
-          [checked]="'week' === queryParams.interval"
-          class="publisher-list__checkbox">
-          week
-        </mat-checkbox>
-        <mat-checkbox
-          (change)="onParamChange('interval', 'day')"
-          [checked]="'day' === queryParams.interval"
-          class="publisher-list__checkbox">
-          day
-        </mat-checkbox>
-        <mat-checkbox
-          (change)="onParamChange('interval', 'hour')"
-          [checked]="'hour' === queryParams.interval"
-          class="publisher-list__checkbox">
-          hour
-        </mat-checkbox>
-      </div>
-      <div class="publisher-list__filters">
-        <label
-          >Min daily views:
+        </div>
+        <div class="ap-form-input__box">
+          <label class="ap-form-label"> Min daily views: </label>
           <input
             [(ngModel)]="queryParams.minDailyViews"
             (ngModelChange)="onParamChange('minDailyViews', $event)"
             type="number"
             min="0"
             step="1"
-            class="publisher-list__input"
+            class="ap-form-input"
             id="minViews" />
-        </label>
+        </div>
+        <div class="ap-form-input__box">
+          <label class="ap-form-label">Group by:</label>
+          <mat-radio-group [value]="queryParams.groupBy || defaultParams.groupBy" class="row row--gap8">
+            <mat-radio-button value="campaign" (change)="onParamChange('groupBy', 'campaign')">domain</mat-radio-button>
+            <mat-radio-button value="user" (change)="onParamChange('groupBy', 'user')">email</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="ap-form-input__box">
+          <label class="ap-form-label">Interval:</label>
+          <mat-radio-group [value]="queryParams.interval || defaultParams.interval" class="row row--gap8">
+            <mat-radio-button value="week" (change)="onParamChange('interval', 'week')">week</mat-radio-button>
+            <mat-radio-button value="day" (change)="onParamChange('interval', 'day')">day</mat-radio-button>
+            <mat-radio-button value="hour" (change)="onParamChange('interval', 'hour')">hour</mat-radio-button>
+          </mat-radio-group>
+        </div>
       </div>
-      <button class="ap-btn ap-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
+      <button class="ap-btn ap-btn--secondary ap-btn-error" (click)="onResetButtonClick()">Reset filters</button>
     </div>
   </div>
 
-  <table class="publisher-list__items">
-    <app-table-navigation
-      (sortTable)="sortTable($event)"
-      navigationName="publisherListNavigationItems"></app-table-navigation>
-    <tbody *ngIf="!isLoading; else loading" class="col publisher-list__table-body">
-      <app-publisher-list-item *ngFor="let publisher of filteredList" [publisher]="publisher"></app-publisher-list-item>
-      <tr *ngIf="!filteredList.length" class="publisher-list__loader-container">
-        NO RESULTS
-      </tr>
-    </tbody>
-    <ng-template #loading>
-      <tr>
-        <td>
-          <div class="loading-wrapper publisher-list__loader-container">
-            <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
-          </div>
-        </td>
-      </tr>
-    </ng-template>
-  </table>
-
-  <mat-paginator
-    (page)="handlePaginationEvent($event)"
-    [length]="list ? list.data.length : 0"
-    [pageIndex]="page - 1"
-    [pageSize]="pageSize">
-  </mat-paginator>
+  <div class="box-content">
+    <table class="publisher-list__items">
+      <app-table-navigation
+        (sortTable)="sortTable($event)"
+        navigationName="publisherListNavigationItems"></app-table-navigation>
+      <tbody *ngIf="!isLoading; else loading" class="col">
+        <app-publisher-list-item
+          *ngFor="let publisher of filteredList"
+          [publisher]="publisher"></app-publisher-list-item>
+        <tr *ngIf="!filteredList.length" class="publisher-list__loader-container">
+          NO RESULTS
+        </tr>
+      </tbody>
+      <ng-template #loading>
+        <tr>
+          <td>
+            <div class="loading-wrapper publisher-list__loader-container">
+              <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </table>
+    <mat-paginator
+      (page)="handlePaginationEvent($event)"
+      [length]="list ? list.data.length : 0"
+      [pageIndex]="page - 1"
+      [pageSize]="pageSize">
+    </mat-paginator>
+  </div>
 </section>

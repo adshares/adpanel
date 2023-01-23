@@ -1,8 +1,6 @@
 @import '../../../../styles';
 
 .publisher-list {
-  margin-top: 25px;
-
   &__sort {
     margin-left: 5px;
   }
@@ -31,27 +29,8 @@
     width: 100px;
   }
 
-  &__checkbox {
-    margin-right: 24px;
-  }
-
-  &__search-container {
-    @include container($border-color: pal(gray));
-    @include copy($font-size: 18, $color: pal(gray));
-    mat-icon {
-      vertical-align: middle;
-    }
-    margin-top: 2px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  &__input {
-    @include input;
-    padding: 8px 12px;
-    margin-left: 16px;
-    width: 220px;
+  .mat-radio-group {
+    flex-direction: row;
   }
 }
 

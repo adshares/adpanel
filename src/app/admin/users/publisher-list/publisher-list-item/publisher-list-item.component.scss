@@ -1,33 +1,15 @@
 @import '../../../../../styles';
 
 .publisher-list-item {
-  @include container($border-color: pal(gray));
+  @include container();
+  border-bottom: 1px solid pal(gray);
   display: flex;
   justify-content: space-between;
-  min-height: 52px;
 
   &__cell {
     @include copy($font-size: 16);
     display: flex;
     align-items: center;
-
-    &--bold {
-      @include copy(
-        $color: pal(primary),
-        $font-weight: semiBold,
-        $font-size: 16
-      );
-    }
-  }
-
-  &__btn {
-    @include btn(
-      $border-color: pal(primary, light),
-      $color: pal(primary, light),
-      $background-color: pal(light),
-      $padding-horizontal: 12px,
-      $padding-vertical: 8px
-    );
   }
 
   .domain:not(:first-child) {
@@ -38,8 +20,8 @@
     font-size: 80%;
     display: flex;
     flex-flow: column;
-    align-items: flex-end;
-    justify-content: flex-end;
+    align-items: flex-start;
+    justify-content: center;
 
     &__positive {
       color: pal(success);
@@ -51,7 +33,6 @@
 
   .group {
     position: relative;
-    min-height: 40px;
     overflow: visible !important;
     padding: 0 !important;
     @include copy($color: pal(primary), $font-weight: semiBold, $font-size: 16);
@@ -59,14 +40,7 @@
     > div {
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: 0.5em;
       white-space: nowrap;
-    }
-
-    &:hover > div {
-      position: absolute;
-      background: pal(gray);
-      z-index: 100;
     }
   }
 
@@ -74,6 +48,7 @@
     display: inline-block;
     width: 35px;
     border: 1px solid pal(gray);
+    border-radius: 10px;
     color: pal(gray);
     padding: 1px;
     margin-right: 5px;

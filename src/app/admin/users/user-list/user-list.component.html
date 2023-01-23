@@ -2,9 +2,9 @@
   <h2 class="ap-heading ap-heading--h2 box-title">All users</h2>
   <div class="box-content">
     <div class="row justify-between align-center">
-      <div class="row row--gap18 align-center">
-        <div class="row row--gap8 align-center">
-          <label class="ap-copy" for="search"
+      <div class="row row--gap32 align-baseline">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label" for="search"
             ><fa-icon [icon]="faSearch" class="ap-icon ap-icon--prepend">search</fa-icon>
             Search for users:
           </label>
@@ -16,9 +16,9 @@
             id="search"
             placeholder="Search by email or domain" />
         </div>
-        <div class="row row--gap8 align-baseline">
-          <label class="ap-copy">Filter by type:</label>
-          <mat-radio-group [value]="queryParams.selectedType" class="row row--gap8">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label">Filter by type:</label>
+          <mat-radio-group [value]="queryParams.selectedType || defaultParams.selectedType" class="row row--gap8">
             <mat-radio-button
               *ngFor="let type of userTypes"
               [value]="type"
@@ -37,7 +37,7 @@
       <app-table-navigation
         (sortTable)="sortTable($event, true)"
         [navigationName]="'userListNavigation'"></app-table-navigation>
-      <tbody *ngIf="!isLoading; else loading" class="col user-list__table-body">
+      <tbody *ngIf="!isLoading; else loading" class="col">
         <app-user-list-item *ngFor="let user of list.data" [user]="user"></app-user-list-item>
         <tr *ngIf="!list.data.length" class="user-list__loader-container">
           NO RESULTS
