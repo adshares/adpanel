@@ -49,7 +49,13 @@ export class DecentralandConverter implements TargetingConverter {
         if (item === 'decentraland.org') {
           continue;
         }
-        result.push(prepareCustomOption(this.decodeValue(item), DecentralandConverter.ID));
+        result.push(
+          prepareCustomOption(
+            this.decodeValue(item),
+            DecentralandConverter.ID,
+            this.convertBackendUrlToValidUrl(`https://${item}`)
+          )
+        );
       }
     }
   }

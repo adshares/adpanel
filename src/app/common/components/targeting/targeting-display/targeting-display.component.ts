@@ -20,6 +20,7 @@ export class TargetingDisplayComponent implements OnChanges {
     chosenTargeting: {
       id: string;
       label: string;
+      url: string | undefined;
     }[];
   }[];
 
@@ -34,6 +35,7 @@ export class TargetingDisplayComponent implements OnChanges {
       const chosenTargetingItem = {
         id: item.id,
         label: label,
+        url: item.url,
       };
 
       const viewModelParentPathIndex = this.viewModel.findIndex(viewModelItem => viewModelItem.parentPath === path);

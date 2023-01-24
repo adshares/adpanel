@@ -39,7 +39,13 @@ export class CryptovoxelsConverter implements TargetingConverter {
         if (item === 'cryptovoxels.com') {
           continue;
         }
-        result.push(prepareCustomOption(this.decodeValue(item), CryptovoxelsConverter.ID));
+        result.push(
+          prepareCustomOption(
+            this.decodeValue(item),
+            CryptovoxelsConverter.ID,
+            this.convertBackendUrlToValidUrl(`https://${item}`)
+          )
+        );
       }
     }
   }

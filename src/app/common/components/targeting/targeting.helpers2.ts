@@ -39,14 +39,18 @@ function excludeSiteDomain(targetingOptions: TargetingOption[]): void {
   }
 }
 
-function prepareCustomOption(value: string, parentId: string): TargetingOptionValue {
-  return {
+function prepareCustomOption(value: string, parentId: string, url?: string): TargetingOptionValue {
+  const option: TargetingOptionValue = {
     id: `${parentId}${SEPARATOR}${value}`,
     label: value,
     value: value,
     parentId: parentId,
     isCustom: true,
   };
+  if (url) {
+    option.url = url;
+  }
+  return option;
 }
 
 export { SEPARATOR, createPathObject, excludeSiteDomain, prepareCustomOption };

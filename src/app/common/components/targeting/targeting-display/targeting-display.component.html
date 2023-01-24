@@ -13,7 +13,12 @@
         [ngClass]="{ 'hide-remove': !canRemove }"
         (removed)="removeItem(targetingItem.id)"
         data-test="common-targeting-display-remove-item">
-        <p class="ap-copy ap-copy--x-dark ap-copy--semi">
+        <a *ngIf="targetingItem.url" [href]="targetingItem.url" target="_blank" rel="noopener,noreferrer">
+          <p class="ap-copy ap-copy--x-dark ap-copy--semi">
+            {{ targetingItem.label }}
+          </p>
+        </a>
+        <p *ngIf="!targetingItem.url" class="ap-copy ap-copy--x-dark ap-copy--semi">
           {{ targetingItem.label }}
         </p>
         <mat-icon matChipRemove>cancel</mat-icon>
