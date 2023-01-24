@@ -246,9 +246,9 @@ export class TableNavigationComponent extends HandleSubscriptionComponent implem
 
   accessTokenItems = [
     { title: 'Name', columnWidth: 'col-xs-3', hideArrows: true },
-    { title: 'Scopes', columnWidth: 'col-xs-5', hideArrows: true },
+    { title: 'Scopes', columnWidth: 'col-xs-6', hideArrows: true },
     { title: 'Expires at', columnWidth: 'col-xs-2', hideArrows: true },
-    { title: 'Action', columnWidth: 'col-xs-2', hideArrows: true },
+    { title: 'Action', columnWidth: 'col-xs-1', hideArrows: true },
   ];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {

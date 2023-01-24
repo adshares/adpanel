@@ -50,6 +50,9 @@ const settingsRoutes: Routes = [
           {
             path: 'access-token',
             component: AccessTokensComponent,
+            resolve: {
+              scopes: AccessTokenScopesResolver,
+            },
           },
           {
             path: 'newsletter',

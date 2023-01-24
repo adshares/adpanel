@@ -6,6 +6,7 @@ import { AccessTokenScope, AccessTokenStore } from 'models/access-token.model';
 import { AppState } from 'models/app-state.model';
 import { DeleteAccessToken } from 'store/settings/settings.actions';
 import { ActivatedRoute } from '@angular/router';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-access-token-list-item',
@@ -15,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AccessTokenListItemComponent implements OnInit {
   @Input() accessToken: AccessTokenStore;
   scopes = '';
+  faTrash = faTrash;
 
   constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private store: Store<AppState>) {}
 
