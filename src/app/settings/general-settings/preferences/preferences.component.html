@@ -1,23 +1,19 @@
-<section class="preferences">
-  <div class="ap-box ap-box--large">
-    <div class="col">
+<section class="container preference">
+  <div class="ap-box">
+    <div class="box-title">
       <h2 class="ap-heading ap-heading--h2">Email & password</h2>
-      <p class="ap-copy">Here you can change your email and password.</p>
-
+      <p class="ap-copy box-subtitle">Here you can change your email and password.</p>
       <div class="error-msg" *ngIf="isImpersonated">You cannot change user preferences during impersonation.</div>
+    </div>
 
-      <form
-        *ngIf="!isImpersonated"
-        [formGroup]="changeEmailForm"
-        (ngSubmit)="onChangeEmail()"
-        class="ap-form"
-        data-test="settings-change-email-form">
-        <div class="row align-start change-form">
-          <div class="ap-form-input__box">
+    <div *ngIf="!isImpersonated" class="box-content">
+      <div class="row row--gap8">
+        <form [formGroup]="changeEmailForm" class="ap-form" data-test="settings-change-email-form">
+          <div class="ap-form-input__box email-wrapper">
             <label for="email" class="ap-form-label"> Email address </label>
             <input
               id="email"
-              class="ap-form-input"
+              class="ap-form-input ap-form-input--full"
               type="email"
               name="email"
               formControlName="email"
@@ -34,26 +30,22 @@
               {{ errorEmailChange }}
             </span>
           </div>
-          <button class="ap-btn ap-btn--blue" data-test="settings-change-email-form-submit">
-            <ng-container *ngIf="user.email">Change email</ng-container>
-            <ng-container *ngIf="!user.email">Set email</ng-container>
-          </button>
-        </div>
-      </form>
+        </form>
+        <button (click)="onChangeEmail()" class="ap-btn ap-btn--primary" data-test="settings-change-email-form-submit">
+          {{ user.email ? 'Change email' : 'Set email' }}
+        </button>
+      </div>
+    </div>
 
-      <form
-        *ngIf="!isImpersonated"
-        [formGroup]="changePasswordForm"
-        (ngSubmit)="onChangePassword()"
-        class="ap-form"
-        data-test="settings-change-password-form">
-        <div class="row align-start change-form">
-          <div class="row">
-            <div class="ap-form-input__box" *ngIf="user.hasPassword">
+    <div class="box-content">
+      <div class="row row--gap8">
+        <form [formGroup]="changePasswordForm" class="ap-form" data-test="settings-change-password-form">
+          <div class="row row--gap8">
+            <div class="ap-form-input__box password-wrapper" *ngIf="user.hasPassword">
               <label for="currentPassword" class="ap-form-label"> Current Password </label>
               <input
                 id="currentPassword"
-                class="ap-form-input"
+                class="ap-form-input ap-form-input--full"
                 type="password"
                 name="currentPassword"
                 formControlName="currentPassword"
@@ -69,11 +61,11 @@
                 Current password required!
               </span>
             </div>
-            <div class="ap-form-input__box">
+            <div class="ap-form-input__box password-wrapper">
               <label for="newPassword" class="ap-form-label"> New password </label>
               <input
                 id="newPassword"
-                class="ap-form-input"
+                class="ap-form-input ap-form-input--full"
                 type="password"
                 name="newPassword"
                 formControlName="newPassword"
@@ -93,12 +85,11 @@
                 Minimum 8 signs required!
               </span>
             </div>
-
-            <div class="ap-form-input__box">
+            <div class="ap-form-input__box password-wrapper">
               <label for="newPasswordConfirm" class="ap-form-label"> Confirm password </label>
               <input
                 id="newPasswordConfirm"
-                class="ap-form-input"
+                class="ap-form-input ap-form-input--full"
                 type="password"
                 name="newPasswordConfirm"
                 [formControl]="newPasswordConfirm"
@@ -120,12 +111,14 @@
               </span>
             </div>
           </div>
-          <button class="ap-btn ap-btn--blue" data-test="settings-change-password-form-submit">
-            <ng-container *ngIf="user.hasPassword">Change password</ng-container>
-            <ng-container *ngIf="!user.hasPassword">Set password</ng-container>
-          </button>
-        </div>
-      </form>
+        </form>
+        <button
+          (click)="onChangePassword()"
+          class="ap-btn ap-btn--primary"
+          data-test="settings-change-password-form-submit">
+          {{ user.hasPassword ? 'Change password' : 'Set password' }}
+        </button>
+      </div>
     </div>
   </div>
 </section>
