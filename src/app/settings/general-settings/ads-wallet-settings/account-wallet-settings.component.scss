@@ -1,20 +1,15 @@
-#walletAddress {
-  width: 400px;
-  max-width: 400px;
-}
-
-#walletAddress::placeholder {
-  opacity: 0.7;
-}
-
 .account-wallet-settings {
-  .ap-form-input__box {
-    margin-right: 25px;
+
+  .ap-form {
+    .ap-form-input__box {
+      width: 400px;
+    }
+    .ap-btn {
+      min-height: 47px;
+    }
   }
 
-  form .ap-btn {
-    min-width: 200px;
-    margin-top: 37px;
-    margin-right: 25px;
+  & .error-msg {
+    width: 100%;
   }
 }

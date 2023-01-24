@@ -1,18 +1,11 @@
 @import '../../styles';
 
 .settings {
-  min-height: calc(100vh - $app-header-height);
+  width: 100%;
+  min-height: calc(100vh - #{$app-header-height});
 
   .settings-outlet {
-    min-width: 540px;
-    width: calc(100% - 260px);
+    width: 100%;
 
-    @include media(md-up) {
-      width: calc(100% - 300px);
-    }
-
-    @include media(xxl-up) {
-      width: calc(100vw - 740px);
-    }
   }
 }

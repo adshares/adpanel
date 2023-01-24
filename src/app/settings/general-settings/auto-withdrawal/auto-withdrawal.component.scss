@@ -2,29 +2,9 @@
 @import '../../../../styles/colors';
 
 .auto-withdraw {
-  margin-top: 10px;
-
-  &__title {
-    @include copy($color: pal(primary), $font-weight: bold, $font-size: 32);
-  }
-
-  &__sub-title {
-    @include copy($font-size: 22, $margin-vertical: 5px);
-    overflow: initial;
-  }
-
-  &__content-container {
-    @include container(0, 0, $border-color: pal(light));
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-  }
+  margin-top: 24px;
 
   .ap-form {
-    width: 320px;
-  }
-
-  .ap-form-input__box {
-    margin: 10px 0;
+    width: 400px;
   }
 }
