@@ -34,6 +34,8 @@ interface TargetingOptionValue {
   allowInput?: boolean;
   isCustom?: boolean;
   values?: TargetingOptionValue[];
+  /** URL - if URL is defined, option value can route to external resource */
+  url?: string;
 }
 
 interface AssetTargeting {

@@ -65,7 +65,7 @@ export class RegisterComponent extends HandleSubscriptionComponent implements On
             this.api.users.setReferralToken(this.refLinkInfo.token);
           }
           if (this.registrationMode === 'private' || (this.registrationMode === 'restricted' && !this.refLinkInfo)) {
-            return this.router.navigate(['/404']);
+            return this.router.navigate(['/403']);
           }
           this.registrationEnabled =
             this.registrationMode === 'public' || (this.refLinkInfo && this.refLinkInfo.status === 'active');
