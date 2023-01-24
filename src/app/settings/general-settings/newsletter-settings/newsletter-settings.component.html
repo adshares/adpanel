@@ -1,16 +1,18 @@
-<section class="newsletter-settings">
-  <div class="ap-box ap-box--large">
-    <div class="col">
+<section class="container newsletter-settings">
+  <div class="ap-box">
+    <div class="box-title">
       <h2 class="ap-heading ap-heading--h2">Newsletter</h2>
-      <p class="ap-copy">
+      <p class="ap-copy box-subtitle">
         We are using our newsletter to share important information about the development of our network, airdrop
         campaigns and other offers. If you prefer to unsubscribe, please change your settings below.
       </p>
-
       <div class="error-msg" *ngIf="isImpersonated">You cannot change user preferences during impersonation.</div>
+    </div>
 
+    <div class="box-content">
       <div *ngIf="!isImpersonated" class="newsletter-table ap-copy">
         <mat-slide-toggle
+          class="ap-copy"
           color="primary"
           [disabled]="isSettingDisabled"
           [(ngModel)]="isSubscribed"
