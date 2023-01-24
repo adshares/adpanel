@@ -13,7 +13,7 @@ export class AdvertiserGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.session.isModerator() && !this.session.isImpersonated()) {
-      this.router.navigate(['/404']);
+      this.router.navigate(['/403']);
       return false;
     }
 
