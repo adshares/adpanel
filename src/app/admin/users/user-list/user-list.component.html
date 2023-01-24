@@ -1,64 +1,66 @@
-<section class="user-list ap-box ap-copy--small">
-  <h2 class="ap-heading ap-heading--h2 box-title">All users</h2>
-  <div class="box-content">
-    <div class="row justify-between align-center">
-      <div class="row row--gap32 align-baseline">
-        <div class="ap-form-input__box">
-          <label class="ap-form-label" for="search"
-            ><fa-icon [icon]="faSearch" class="ap-icon ap-icon--prepend">search</fa-icon>
-            Search for users:
-          </label>
-          <input
-            [(ngModel)]="queryParams.userSearch"
-            (ngModelChange)="onParamChange('userSearch', $event)"
-            class="ap-form-input"
-            data-test="admin-user-search-input"
-            id="search"
-            placeholder="Search by email or domain" />
+<section class="container container--full">
+  <div class="user-list ap-box ap-copy--small">
+    <h2 class="ap-heading ap-heading--h2 box-title">All users</h2>
+    <div class="box-content">
+      <div class="row justify-between align-center">
+        <div class="row row--gap32 align-baseline">
+          <div class="ap-form-input__box">
+            <label class="ap-form-label" for="search"
+              ><fa-icon [icon]="faSearch" class="ap-icon ap-icon--prepend">search</fa-icon>
+              Search for users:
+            </label>
+            <input
+              [(ngModel)]="queryParams.userSearch"
+              (ngModelChange)="onParamChange('userSearch', $event)"
+              class="ap-form-input"
+              data-test="admin-user-search-input"
+              id="search"
+              placeholder="Search by email or domain" />
+          </div>
+          <div class="ap-form-input__box">
+            <label class="ap-form-label">Filter by type:</label>
+            <mat-radio-group [value]="queryParams.selectedType || defaultParams.selectedType" class="row row--gap8">
+              <mat-radio-button
+                *ngFor="let type of userTypes"
+                [value]="type"
+                (change)="onParamChange('selectedType', type)"
+                >{{ type }}</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
         </div>
-        <div class="ap-form-input__box">
-          <label class="ap-form-label">Filter by type:</label>
-          <mat-radio-group [value]="queryParams.selectedType || defaultParams.selectedType" class="row row--gap8">
-            <mat-radio-button
-              *ngFor="let type of userTypes"
-              [value]="type"
-              (change)="onParamChange('selectedType', type)"
-              >{{ type }}</mat-radio-button
-            >
-          </mat-radio-group>
-        </div>
+        <button class="ap-btn ap-btn--secondary ap-btn-error" (click)="onResetButtonClick()">Reset filters</button>
       </div>
-      <button class="ap-btn ap-btn--secondary ap-btn-error" (click)="onResetButtonClick()">Reset filters</button>
     </div>
-  </div>
 
-  <div class="box-content">
-    <table class="user-list__items" [ngClass]="{ 'user-list__no-actions': !showActions }">
-      <app-table-navigation
-        (sortTable)="sortTable($event, true)"
-        [navigationName]="'userListNavigation'"></app-table-navigation>
-      <tbody *ngIf="!isLoading; else loading" class="col">
-        <app-user-list-item *ngFor="let user of list.data" [user]="user"></app-user-list-item>
-        <tr *ngIf="!list.data.length" class="user-list__loader-container">
-          NO RESULTS
-        </tr>
-      </tbody>
-      <ng-template #loading>
-        <tr>
-          <td>
-            <div class="loading-wrapper user-list__loader-container">
-              <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-    </table>
+    <div class="box-content">
+      <table class="user-list__items" [ngClass]="{ 'user-list__no-actions': !showActions }">
+        <app-table-navigation
+          (sortTable)="sortTable($event, true)"
+          [navigationName]="'userListNavigation'"></app-table-navigation>
+        <tbody *ngIf="!isLoading; else loading" class="col">
+          <app-user-list-item *ngFor="let user of list.data" [user]="user"></app-user-list-item>
+          <tr *ngIf="!list.data.length" class="user-list__loader-container">
+            NO RESULTS
+          </tr>
+        </tbody>
+        <ng-template #loading>
+          <tr>
+            <td>
+              <div class="loading-wrapper user-list__loader-container">
+                <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </table>
 
-    <mat-paginator
-      (page)="handlePaginationEvent($event, true)"
-      [length]="total"
-      [pageIndex]="page - 1"
-      [pageSize]="pageSize">
-    </mat-paginator>
+      <mat-paginator
+        (page)="handlePaginationEvent($event, true)"
+        [length]="total"
+        [pageIndex]="page - 1"
+        [pageSize]="pageSize">
+      </mat-paginator>
+    </div>
   </div>
 </section>

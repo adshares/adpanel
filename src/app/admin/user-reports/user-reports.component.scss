@@ -1,53 +1,11 @@
 @import '../../../styles.scss';
 
 .user-reports {
-  margin-top: 25px;
-
-  &__title {
-    @include copy($font-size: 32, $color: pal(primary), $font-weight: bold);
-    margin-bottom: 10px;
-  }
-
-  &__container {
-    @include container($padding-horizontal: 20px, $padding-vertical: 20px);
-  }
-  &__btn {
-    @include btn(
-      $padding-vertical: 8px,
-      $padding-horizontal: 12px,
-      $color: pal(gray),
-      $border-color: pal(gray),
-      $background-color: pal(light)
-    );
-    min-width: 240px;
-    margin-right: 12px;
-  }
-
-  &__btns-wrapper {
-    margin-top: 8px;
-  }
-
-  &__input {
-    @include input(130px);
-    margin-left: 8px;
-    padding: 8px;
-    height: 50px;
-  }
-
   &__icon {
     position: absolute;
-    top: 30%;
-    right: 17%;
+    top: 39%;
+    right: 0;
+    color: pal(primary);
 
-    &--last {
-      right: 29%;
-    }
-  }
-
-  &__label {
-    @include copy($font-size: 16);
-    position: relative;
-    width: 205px;
-    height: 52px;
   }
 }
