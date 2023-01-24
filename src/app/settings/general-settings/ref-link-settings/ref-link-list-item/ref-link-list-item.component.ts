@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faExternalLinkSquareAlt, faTrash, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { CODE, CRYPTO, DATE_FORMAT } from 'common/utilities/consts';
@@ -24,6 +24,8 @@ export class RefLinkListItemComponent implements OnInit {
   readonly code: string = CODE;
   readonly dateFormat: string = DATE_FORMAT;
   readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
+  readonly faTrash = faTrash;
+  readonly faCopy = faCopy;
 
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 

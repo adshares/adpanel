@@ -1,19 +1,11 @@
+@import "../../../../../styles";
+
 .ref-link-list-item {
   padding: 12px 0;
-  display: flex;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid pal(gray);
 
   & td {
     text-align: center;
     align-self: center;
-
-    small {
-      display: block;
-      font-size: 80%;
-    }
-  }
-
-  .ref-link-settings__actions {
-    min-height: 68px;
   }
 }
