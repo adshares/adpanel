@@ -118,6 +118,7 @@
       <button
         class="ap-btn ap-btn--edit ap-btn--no-border"
         (click)="navigateToEditSite('basic-information')"
+        [disabled]="siteStatusEnum.PENDING === this.site.status"
         data-test="publisher-site-edit-basic-info-button">
         <img class="ap-icon ap-icon--prepend" src="assets/images/edit-blue.svg" alt="" />
         Edit basic info
@@ -129,6 +130,7 @@
         <button
           class="ap-btn ap-btn--edit ap-btn--no-border"
           (click)="navigateToEditSite('additional-filtering')"
+          [disabled]="!isSitePositivelyVerified"
           data-test="publisher-site-edit-filtering-button">
           <img class="ap-icon ap-icon--prepend" src="assets/images/edit-blue.svg" alt="" />
           {{
@@ -147,6 +149,7 @@
             <button
               class="ap-btn ap-btn--edit ap-btn--no-border"
               (click)="navigateToClassification()"
+              [disabled]="!isSitePositivelyVerified"
               data-test="publisher-site-edit-filtering-button">
               <img class="ap-icon ap-icon--prepend" src="assets/images/edit-blue.svg" alt="" />
               Select banners for approval
@@ -185,6 +188,7 @@
         <button
           class="ap-btn ap-btn--wide ap-btn--blue"
           (click)="openGetCodeDialog()"
+          [disabled]="!isSitePositivelyVerified"
           data-test="publisher-get-code-button">
           Get the ad codes
         </button>
@@ -202,6 +206,7 @@
           <button
             class="ap-btn ap-btn--edit ap-btn--no-border"
             (click)="navigateToEditSite('pops-settings')"
+            [disabled]="!isSitePositivelyVerified"
             data-test="publisher-site-edit-pops-button">
             <img class="ap-icon ap-icon--prepend" src="assets/images/edit-blue.svg" alt="" />
             Edit pops
@@ -229,6 +234,7 @@
           *ngIf="editAds"
           class="ap-btn ap-btn--edit ap-btn--no-border"
           (click)="navigateToEditSite('create-ad-units')"
+          [disabled]="!isSitePositivelyVerified"
           data-test="publisher-site-edit-ad-units-button">
           <img class="ap-icon ap-icon--prepend" src="assets/images/edit-blue.svg" alt="" />
           Edit placements
@@ -249,6 +255,7 @@
       <button
         class="ap-btn ap-btn--white ap-blue ap-btn--no-border"
         (click)="navigateToEditSite('create-ad-units')"
+        [disabled]="!isSitePositivelyVerified"
         data-test="publisher-site-create-new-ad-unit">
         <img class="ap-icon ap-icon--prepend" src="assets/images/plus-circle--blue.svg" alt="" />
         Create new placement
@@ -260,6 +267,7 @@
         <button
           class="ap-btn ap-btn--wide ap-btn--blue"
           (click)="openGetCodeDialog()"
+          [disabled]="!isSitePositivelyVerified"
           data-test="publisher-get-code-button">
           Get the ad codes
         </button>
