@@ -43,17 +43,19 @@ export class ImpersonationComponent extends HandleSubscriptionComponent implemen
   }
 
   dropImpersonation(): void {
-    this.router.navigate(['/admin', 'dashboard', 'users']);
-    this.impersonationService.dropImpersonationToken();
-    const user = this.sessionService.getUser();
-    let accountType;
-    if (user.isAdmin) {
+    let accountType, path;
+    if (this.sessionService.isAdmin()) {
       accountType = SessionService.ACCOUNT_TYPE_ADMIN;
-    } else if (user.isModerator) {
+      path = 'admin';
+    } else if (this.sessionService.isModerator()) {
       accountType = SessionService.ACCOUNT_TYPE_MODERATOR;
-    } else if (user.isAgency) {
+      path = 'moderator';
+    } else if (this.sessionService.isAgency()) {
       accountType = SessionService.ACCOUNT_TYPE_AGENCY;
+      path = 'agency';
     }
+    this.router.navigate([`/${path}`, 'dashboard', 'users']);
+    this.impersonationService.dropImpersonationToken();
     this.sessionService.setAccountTypeChoice(accountType);
   }
 }
