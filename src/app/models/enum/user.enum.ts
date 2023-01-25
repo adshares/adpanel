@@ -6,6 +6,14 @@ export enum userRolesEnum {
   PUBLISHER,
 }
 
+export enum UserRole {
+  ADMIN = 'admin',
+  ADVERTISER = 'advertiser',
+  AGENCY = 'agency',
+  MODERATOR = 'moderator',
+  PUBLISHER = 'publisher',
+}
+
 export enum reportType {
   CAMPAIGNS = 'campaigns',
   SITES = 'sites',
