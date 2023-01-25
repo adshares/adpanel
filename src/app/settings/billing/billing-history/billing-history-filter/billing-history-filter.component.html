@@ -1,83 +1,84 @@
 <div class="filters" (clickOutside)="hideDatepicker()">
-  <button class="ap-btn ap-btn--primary" (click)="showDatepicker()" data-test="settings-billing-history-filter-button">
+  <button
+    class="ap-btn ap-btn--secondary"
+    (click)="showDatepicker()"
+    data-test="settings-billing-history-filter-button">
     <fa-icon class="ap-icon ap-icon--prepend" [icon]="filterIcon"></fa-icon>
     Filter
   </button>
+
   <div class="billing-filters ap-box" [class.visible]="filterSelectorVisible">
-    <div class="row filter-row align-center">
-      <label class="ap-copy billing-filters__label"> From </label>
-      <mat-form-field
-        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
-        <img
-          src="assets/images/calendar.svg"
-          alt="Select date from"
-          class="ap-icon ap-icon--prepend billing-filters__icon"
-          (click)="dateFromPicker.open()" />
-        <input
+    <div class="col row--gap8">
+      <div class="row row--gap8 align-center">
+        <label class="ap-copy ap-copy--small">From</label>
+        <mat-form-field
           (click)="dateFromPicker.open()"
-          matInput
-          [matDatepicker]="dateFromPicker"
-          [formControl]="dateFrom"
-          required
-          [max]="dateTo.value || today"
-          data-test="settings-billing-history-date-from" />
-        <mat-datepicker-toggle matSuffix [for]="dateFromPicker"></mat-datepicker-toggle>
-        <mat-datepicker
-          #dateFromPicker
-          (opened)="setCalendarStatus(true)"
-          (closed)="setCalendarStatus(false)"></mat-datepicker>
-      </mat-form-field>
+          class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
+          <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
+          <input
+            matInput
+            [matDatepicker]="dateFromPicker"
+            [formControl]="dateFrom"
+            required
+            [max]="dateTo.value || today"
+            data-test="chart-filter-custom-date-from" />
+          <mat-datepicker
+            #dateFromPicker
+            (opened)="setCalendarStatus(true)"
+            (closed)="setCalendarStatus(false)"></mat-datepicker>
+        </mat-form-field>
 
-      <label class="ap-copy billing-filters__label"> To </label>
-      <mat-form-field
-        class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
-        <img
-          src="assets/images/calendar.svg"
-          alt="Select date to"
-          class="ap-icon ap-icon--prepend billing-filters__icon"
-          (click)="dateToPicker.open()" />
-        <input
+        <label class="ap-copy billing-filters__label">To</label>
+        <mat-form-field
           (click)="dateToPicker.open()"
-          matInput
-          [matDatepicker]="dateToPicker"
-          [formControl]="dateTo"
-          required
-          [min]="dateFrom.value"
-          [max]="today"
-          data-test="settings-billing-history-date-to" />
-        <mat-datepicker-toggle matSuffix [for]="dateToPicker"></mat-datepicker-toggle>
-        <mat-datepicker
-          #dateToPicker
-          (opened)="setCalendarStatus(true)"
-          (closed)="setCalendarStatus(false)"></mat-datepicker>
-      </mat-form-field>
-    </div>
+          class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
+          <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
+          <input
+            matInput
+            [matDatepicker]="dateToPicker"
+            [formControl]="dateTo"
+            required
+            [min]="dateFrom.value"
+            [max]="today"
+            data-test="settings-billing-history-date-to" />
+          <mat-datepicker
+            #dateToPicker
+            (opened)="setCalendarStatus(true)"
+            (closed)="setCalendarStatus(false)"></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-    <div class="row filter-row align-center">
-      <label class="ap-copy billing-filters__label"> Types </label>
-      <mat-checkbox
-        *ngFor="let type of transactionTypes"
-        class="billing-filters__checkbox"
-        [checked]="type.checked"
-        (change)="onCheckboxChange($event, type.id)">
-        {{ type.name }}
-      </mat-checkbox>
+      <div class="col row--gap8 align-start">
+        <label class="ap-copy ap-copy--small">Types:</label>
+        <div class="row row--gap8">
+          <mat-checkbox
+            *ngFor="let type of transactionTypes"
+            class="billing-filters__checkbox"
+            [checked]="type.checked"
+            (change)="onCheckboxChange($event, type.id)">
+            {{ type.name }}
+          </mat-checkbox>
 
-      <mat-checkbox class="billing-history__checkbox" [checked]="isCheckedAll" (change)="onCheckboxAllChange($event)">
-        All
-      </mat-checkbox>
-    </div>
+          <mat-checkbox
+            class="billing-history__checkbox"
+            [checked]="isCheckedAll"
+            (change)="onCheckboxAllChange($event)">
+            All
+          </mat-checkbox>
+        </div>
+      </div>
 
-    <div class="row filter-row align-center justify-end">
-      <button
-        type="button"
-        class="ap-btn ap-button--small ap-bg-gray--light ap-navy"
-        [class.disabled]="!dateTo.value || !dateFrom.value"
-        (click)="filterBillingHistory()"
-        data-test="settings-billing-history-apply-button">
-        Apply
-        <img class="ap-icon--append" src="assets/images/chevron--right.svg" alt="Apply filters" />
-      </button>
+      <div class="row filter-row align-center justify-end">
+        <button
+          type="button"
+          class="ap-btn ap-btn--primary"
+          [class.disabled]="!dateTo.value || !dateFrom.value"
+          (click)="filterBillingHistory()"
+          data-test="settings-billing-history-apply-button">
+          Apply
+          <fa-icon [icon]="faArrowCircleRight" class="ap-icon ap-icon--append"></fa-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>

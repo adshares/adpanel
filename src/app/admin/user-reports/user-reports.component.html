@@ -15,7 +15,6 @@
               required
               [max]="to.value || today"
               data-test="chart-filter-custom-date-from" />
-            <!--            <fa-icon [icon]="faCalendar" class="ap-icon user-reports__icon" (click)="dateFromPicker.open()"></fa-icon>-->
             <mat-datepicker-toggle class="user-reports__icon" matSuffix [for]="dateFromPicker"></mat-datepicker-toggle>
             <mat-datepicker #dateFromPicker></mat-datepicker>
           </div>
@@ -30,7 +29,6 @@
               [min]="from.value"
               [max]="today"
               data-test="chart-filter-custom-date-to" />
-            <!--            <fa-icon [icon]="faCalendar" class="ap-icon user-reports__icon" (click)="dateToPicker.open()"></fa-icon>-->
             <mat-datepicker-toggle class="user-reports__icon" matSuffix [for]="dateToPicker"></mat-datepicker-toggle>
             <mat-datepicker #dateToPicker></mat-datepicker>
           </div>

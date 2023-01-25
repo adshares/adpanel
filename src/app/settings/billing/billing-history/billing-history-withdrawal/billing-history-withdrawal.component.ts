@@ -9,6 +9,7 @@ import { BillingHistoryItem } from 'models/settings.model';
 import { Store } from '@ngrx/store';
 import { CancelAwaitingTransaction } from 'store/settings/settings.actions';
 import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-billing-history-withdrawal',
@@ -24,6 +25,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
   typeClass: string;
   icon;
   statusEnum = billingHistoryItemStatusEnum;
+  faCalendar = faCalendar;
 
   constructor(private settingsService: SettingsService, private store: Store<AppState>) {}
 
@@ -36,6 +38,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
     }
     this.status = billingHistoryItemStatusEnum[this.billingHistoryItem.status];
     this.formatType();
+    console.log(this.billingHistoryItem);
   }
 
   formatType(): void {

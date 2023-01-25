@@ -61,9 +61,6 @@
   }
 
   .filter-row {
-    > * {
-      margin: 10px 0 10px 10px;
-    }
   }
 
   &__checkbox {
@@ -71,12 +68,12 @@
   }
 
   &__icon {
-    margin-top: 4px;
+    position: absolute;
+    top: 39%;
+    right: 0;
+    color: pal(primary);
   }
 
-  &__label {
-    padding-bottom: 3px;
-  }
 }
 
 .ap-form-input--datepicker,
