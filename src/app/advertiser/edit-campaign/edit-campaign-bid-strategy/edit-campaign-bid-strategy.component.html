@@ -28,12 +28,12 @@
     <div *ngIf="isLoading" class="loading-wrapper">
       <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
     </div>
+  </div>
 
-    <div class="box-content">
-      <app-bid-strategy-settings
-        [medium]="campaign.basicInformation.medium"
-        [vendor]="campaign.basicInformation.vendor"></app-bid-strategy-settings>
-    </div>
+  <div class="bid-strategy-wrapper">
+    <app-bid-strategy-settings
+      [medium]="campaign.basicInformation.medium"
+      [vendor]="campaign.basicInformation.vendor"></app-bid-strategy-settings>
   </div>
 
   <div class="ap-box">

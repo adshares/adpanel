@@ -100,6 +100,9 @@ const adminRoutes: Routes = [
               {
                 path: 'access-token',
                 component: AccessTokensComponent,
+                resolve: {
+                  scopes: AccessTokenScopesResolver,
+                },
               },
               {
                 path: 'newsletter',

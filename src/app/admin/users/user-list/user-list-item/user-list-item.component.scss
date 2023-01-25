@@ -7,32 +7,6 @@
   justify-content: space-between;
   min-height: 52px;
 
-  &__cell {
-    @include copy($font-size: 12);
-    display: flex;
-    align-items: center;
-
-    &--actions {
-      justify-content: flex-end;
-    }
-
-    &--bold {
-      @include copy(
-        $color: pal(primary),
-        $font-weight: semiBold,
-        $font-size: 16
-      );
-    }
-  }
-
-  &__funds {
-    @include copy($font-size: 16);
-    text-align: left;
-    small {
-      font-size: 80%;
-    }
-  }
-
   &__status {
     margin-left: 5px;
     color: pal(gray);

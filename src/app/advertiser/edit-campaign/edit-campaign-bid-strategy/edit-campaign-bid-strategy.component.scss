@@ -2,9 +2,8 @@
 
 .campaign-edit-bid-strategy {
 
-
-  @include media(xxxl-up) {
-    max-width: 2000px;
+  & .bid-strategy-wrapper {
+    margin-top: 24px;
   }
 }
 

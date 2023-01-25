@@ -1,7 +1,13 @@
 @import '../../../styles';
 
 .admin-dashboard {
+  width: 100%;
   min-height: calc(100vh - #{$app-header-height});
+
+  .settings-outlet {
+    width: 100%;
+
+  }
 
   &__side-menu {
     width: 260px;
@@ -15,10 +21,9 @@
     }
 
     .message {
-      border: 1px solid pal(error);
-      border-radius: 2px;
-      margin-bottom: 8px;
-      padding: 4px;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 

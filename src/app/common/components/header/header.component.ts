@@ -12,7 +12,7 @@ import { User } from 'models/user.model';
 import { environment } from 'environments/environment';
 import { SetUser } from 'store/auth/auth.actions';
 import { CODE, CRYPTO } from 'common/utilities/consts';
-import { faChevronDown, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faPlusCircle, faGears } from '@fortawesome/free-solid-svg-icons';
 import {
   faUser,
   faComments,
@@ -54,6 +54,8 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
   envContext: string | null = environment.context;
   actAsAdvertiser: boolean;
   actAsPublisher: boolean;
+  faGears = faGears;
+  adControllerUrl = environment.adControllerUrl;
 
   constructor(
     private router: Router,

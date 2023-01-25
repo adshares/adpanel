@@ -72,9 +72,6 @@
     color: pal(secondary) !important;
   }
 
-  //&--red {
-  //  color: pal(error) !important;
-  //}
   &--error {
     color: pal(error) !important;
   }
@@ -118,6 +115,10 @@
     word-break: keep-all !important;
     white-space: nowrap !important;
   }
+
+  &--tnum {
+    font-feature-settings:'tnum';
+  }
 }
 
 .ap-alert {
@@ -153,13 +154,6 @@
   }
 }
 
-//.ap-alert {
-//  padding: 18px 7px;
-//  background: pal(error, light);
-//  justify-content: center;
-//  border-radius: 10px;
-//}
-
 .text-center {
   text-align: center;
 }
@@ -167,15 +161,6 @@
 .text-left {
   text-align: left;
 }
-
-//.lowercase-to-capitalize {
-//  text-transform: lowercase;
-//  display: inline-block;
-//
-//  &:first-letter {
-//    text-transform: uppercase;
-//  }
-//}
 
 .lowercase {
   text-transform: lowercase;

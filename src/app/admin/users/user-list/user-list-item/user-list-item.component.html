@@ -1,4 +1,4 @@
-<tr class="user-list-item">
+<tr class="user-list-item ap-copy">
   <td class="col-xs-6 user-list-item__cell user-list-item__cell--bold">
     <button [disabled]="!canImpersonate" class="ap-icon-btn" (click)="handleImpersonating()">
       <fa-icon [icon]="faIconImpersonation" class="ap-icon"></fa-icon>
@@ -15,22 +15,20 @@
       [class.confirmed]="user.isAdminConfirmed"
       [title]="user.isEmailConfirmed ? 'Account confirmed' : 'Account unconfirmed'"></fa-icon>
   </td>
-  <td class="col-xs-2 user-list-item__funds">
-    {{ user.adserverWallet.walletBalance | formatMoney : 2 : crypto : code }}
-    <ng-container *ngIf="calculateFunds">
-      <br />
-      <small>{{ user.adserverWallet.walletBalance | calculateInCurrency : 2 }}</small>
-    </ng-container>
+  <td class="col col-xs-2 align-end ap-copy--tnum">
+    <p>{{ user.adserverWallet.walletBalance | formatMoney : 2 : crypto : code }}</p>
+    <p class="ap-copy--small" *ngIf="calculateFunds">
+      {{ user.adserverWallet.walletBalance | calculateInCurrency : 2 }}
+    </p>
   </td>
-  <td class="col-xs-2 user-list-item__funds">
-    {{ user.adserverWallet.bonusBalance | formatMoney : 2 : crypto : code }}
-    <ng-container *ngIf="calculateFunds">
-      <br />
-      <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency : 2 }}</small>
-    </ng-container>
+  <td class="col col-xs-2 align-end">
+    <p>{{ user.adserverWallet.bonusBalance | formatMoney : 2 : crypto : code }}</p>
+    <p *ngIf="calculateFunds" class="ap-copy--small ap-copy--tnum">
+      {{ user.adserverWallet.bonusBalance | calculateInCurrency : 2 }}
+    </p>
   </td>
   <td
-    class="col-xs-2 justify-center user-list-item__cell"
+    class="col-xs-2 justify-center ap-copy--small"
     [ngClass]="{ 'ap-copy--red': userRole === 'Banned' }"
     [title]="userRoleTitle">
     {{ userRole }}

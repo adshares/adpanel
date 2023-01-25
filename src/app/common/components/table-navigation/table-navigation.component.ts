@@ -147,64 +147,77 @@ export class TableNavigationComponent extends HandleSubscriptionComponent implem
     { title: 'Email', columnWidth: 'col-xs-6', keys: ['email'] },
     {
       title: 'Wallet balance',
-      columnWidth: 'col-xs-2',
+      columnWidth: 'col-xs-2 justify-center',
       hideArrows: true,
     },
     {
       title: 'Bonus balance',
-      columnWidth: 'col-xs-2',
+      columnWidth: 'col-xs-2 justify-center',
       hideArrows: true,
     },
-    { title: 'Role', columnWidth: 'col-xs-2', hideArrows: true },
+    { title: 'Role', columnWidth: 'col-xs-2 justify-center', hideArrows: true },
   ];
 
   advertiserListNavigationItems = [
-    { title: 'Domain', columnWidth: 'col-xs-3', keys: ['domain'] },
-    { title: 'Email', columnWidth: 'col-xs-2', keys: ['email'] },
+    { title: 'Domain', columnWidth: 'col-xs-2', keys: ['domain'] },
+    { title: 'Email', columnWidth: 'col-xs-3', keys: ['email'] },
+
     { title: 'Views', columnWidth: 'col-xs-1-2', keys: ['views'] },
     { title: 'D1', columnWidth: 'col-xs-1-4', keys: ['viewsDiff'] },
     { title: 'C1', columnWidth: 'col-xs-1-4', keys: ['viewsChange'] },
-    { title: 'Views Unique', columnWidth: 'col-xs-1-3', keys: ['viewsUnique'] },
-    { title: 'D2', columnWidth: 'col-xs-1-3', keys: ['viewsUniqueDiff'] },
-    { title: 'C2', columnWidth: 'col-xs-1-3', keys: ['viewsUniqueChange'] },
-    { title: 'Clicks', columnWidth: 'col-xs-1-3', keys: ['clicks'] },
-    { title: 'D3', columnWidth: 'col-xs-1-3', keys: ['clicksDiff'] },
-    { title: 'C3', columnWidth: 'col-xs-1-3', keys: ['clicksChange'] },
-    { title: 'CTR', columnWidth: 'col-xs-1-3', keys: ['ctr'] },
-    { title: 'D4', columnWidth: 'col-xs-1-3', keys: ['ctrDiff'] },
-    { title: 'C4', columnWidth: 'col-xs-1-3', keys: ['ctrChange'] },
-    { title: 'Cost', columnWidth: 'col-xs-1-3', keys: ['cost'] },
-    { title: 'D5', columnWidth: 'col-xs-1-3', keys: ['costDiff'] },
-    { title: 'C5', columnWidth: 'col-xs-1-3', keys: ['costChange'] },
-    { title: 'CPM', columnWidth: 'col-xs-1-3', keys: ['cpm'] },
-    { title: 'D6', columnWidth: 'col-xs-1-3', keys: ['cpmDiff'] },
-    { title: 'C6', columnWidth: 'col-xs-1-3', keys: ['cpmChange'] },
-    { title: 'CPC', columnWidth: 'col-xs-1-3', keys: ['cpc'] },
-    { title: 'D7', columnWidth: 'col-xs-1-3', keys: ['cpcDiff'] },
-    { title: 'C7', columnWidth: 'col-xs-1-3', keys: ['cpcChange'] },
+
+    { title: 'Views Unique', columnWidth: 'col-xs-1-2', keys: ['viewsUnique'] },
+    { title: 'D2', columnWidth: 'col-xs-1-4', keys: ['viewsUniqueDiff'] },
+    { title: 'C2', columnWidth: 'col-xs-1-4', keys: ['viewsUniqueChange'] },
+
+    { title: 'Clicks', columnWidth: 'col-xs-1-2', keys: ['clicks'] },
+    { title: 'D3', columnWidth: 'col-xs-1-4', keys: ['clicksDiff'] },
+    { title: 'C3', columnWidth: 'col-xs-1-4', keys: ['clicksChange'] },
+
+    { title: 'CTR', columnWidth: 'col-xs-1-2', keys: ['ctr'] },
+    { title: 'D4', columnWidth: 'col-xs-1-4', keys: ['ctrDiff'] },
+    { title: 'C4', columnWidth: 'col-xs-1-4', keys: ['ctrChange'] },
+
+    { title: 'Cost', columnWidth: 'col-xs-1-2', keys: ['cost'] },
+    { title: 'D5', columnWidth: 'col-xs-1-4', keys: ['costDiff'] },
+    { title: 'C5', columnWidth: 'col-xs-1-4', keys: ['costChange'] },
+
+    { title: 'CPM', columnWidth: 'col-xs-1-2', keys: ['cpm'] },
+    { title: 'D6', columnWidth: 'col-xs-1-4', keys: ['cpmDiff'] },
+    { title: 'C6', columnWidth: 'col-xs-1-4', keys: ['cpmChange'] },
+
+    { title: 'CPC', columnWidth: 'col-xs-1-2', keys: ['cpc'] },
+    { title: 'D7', columnWidth: 'col-xs-1-4', keys: ['cpcDiff'] },
+    { title: 'C7', columnWidth: 'col-xs-1-4', keys: ['cpcChange'] },
   ];
 
   publisherListNavigationItems = [
     { title: 'Domain', columnWidth: 'col-xs-3', keys: ['domain'] },
     { title: 'Email', columnWidth: 'col-xs-3', keys: ['email'] },
+
     { title: 'Views', columnWidth: 'col-xs-1-2', keys: ['views'] },
     { title: 'D1', columnWidth: 'col-xs-1-4', keys: ['viewsDiff'] },
     { title: 'C1', columnWidth: 'col-xs-1-4', keys: ['viewsChange'] },
-    { title: 'IVR', columnWidth: 'col-xs-1-3', keys: ['ivr'] },
-    { title: 'D2', columnWidth: 'col-xs-1-3', keys: ['ivrDiff'] },
-    { title: 'C2', columnWidth: 'col-xs-1-3', keys: ['ivrChange'] },
-    { title: 'Clicks', columnWidth: 'col-xs-1-3', keys: ['clicks'] },
-    { title: 'D3', columnWidth: 'col-xs-1-3', keys: ['clicksDiff'] },
-    { title: 'C3', columnWidth: 'col-xs-1-3', keys: ['clicksChange'] },
-    { title: 'CTR', columnWidth: 'col-xs-1-3', keys: ['ctr'] },
-    { title: 'D4', columnWidth: 'col-xs-1-3', keys: ['ctrDiff'] },
-    { title: 'C4', columnWidth: 'col-xs-1-3', keys: ['ctrChange'] },
-    { title: 'Revenue', columnWidth: 'col-xs-1-3', keys: ['revenue'] },
-    { title: 'D5', columnWidth: 'col-xs-1-3', keys: ['revenueDiff'] },
-    { title: 'C5', columnWidth: 'col-xs-1-3', keys: ['revenueChange'] },
-    { title: 'RPM', columnWidth: 'col-xs-1-3', keys: ['rpm'] },
-    { title: 'D6', columnWidth: 'col-xs-1-3', keys: ['rpmDiff'] },
-    { title: 'C6', columnWidth: 'col-xs-1-3', keys: ['rpmChange'] },
+
+    { title: 'IVR', columnWidth: 'col-xs-1-2', keys: ['ivr'] },
+    { title: 'D2', columnWidth: 'col-xs-1-4', keys: ['ivrDiff'] },
+    { title: 'C2', columnWidth: 'col-xs-1-4', keys: ['ivrChange'] },
+
+    { title: 'Clicks', columnWidth: 'col-xs-1-2', keys: ['clicks'] },
+    { title: 'D3', columnWidth: 'col-xs-1-4', keys: ['clicksDiff'] },
+    { title: 'C3', columnWidth: 'col-xs-1-4', keys: ['clicksChange'] },
+
+    { title: 'CTR', columnWidth: 'col-xs-1-2', keys: ['ctr'] },
+    { title: 'D4', columnWidth: 'col-xs-1-4', keys: ['ctrDiff'] },
+    { title: 'C4', columnWidth: 'col-xs-1-4', keys: ['ctrChange'] },
+
+    { title: 'Revenue', columnWidth: 'col-xs-1-2', keys: ['revenue'] },
+    { title: 'D5', columnWidth: 'col-xs-1-4', keys: ['revenueDiff'] },
+    { title: 'C5', columnWidth: 'col-xs-1-4', keys: ['revenueChange'] },
+
+    { title: 'RPM', columnWidth: 'col-xs-1-2', keys: ['rpm'] },
+    { title: 'D6', columnWidth: 'col-xs-1-4', keys: ['rpmDiff'] },
+    { title: 'C6', columnWidth: 'col-xs-1-4', keys: ['rpmChange'] },
   ];
 
   adUnitsNavigation = [

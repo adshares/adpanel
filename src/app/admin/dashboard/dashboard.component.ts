@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { faGears } from '@fortawesome/free-solid-svg-icons';
 import { AppState } from 'models/app-state.model';
 import { GetLicense, LoadAdminSettings } from 'store/admin/admin.actions';
 import { Store } from '@ngrx/store';
@@ -7,7 +6,6 @@ import { HandleSubscriptionComponent } from 'common/handle-subscription.componen
 import { License } from 'models/settings.model';
 import { AdminService } from 'admin/admin.service';
 import { take } from 'rxjs/operators';
-import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,8 +13,6 @@ import { environment } from 'environments/environment';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent extends HandleSubscriptionComponent implements OnInit {
-  readonly faGears = faGears;
-  adControllerUrl = environment.adControllerUrl;
   isPanelBlocked: boolean = false;
   licenseDetailUrl: string = null;
   settings = [

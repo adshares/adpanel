@@ -137,6 +137,17 @@
         </ul>
       </div>
 
+      <div *ngIf="adControllerUrl && session.isAdmin()" class="justify-center">
+        <a
+          [href]="adControllerUrl"
+          rel="noopener nofollow noreferrer"
+          data-test="settings-category-link"
+          class="ap-btn ap-btn--secondary no-underline">
+          AdController Panel
+          <fa-icon [icon]="faGears" class="ap-icon ap-icon--append"></fa-icon>
+        </a>
+      </div>
+
       <button
         class="ap-btn ap-btn--text ap-btn-light row align-center hidden-sm no-underline"
         [ngClass]="{

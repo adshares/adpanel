@@ -18,8 +18,10 @@
   .change {
     display: flex;
     flex-flow: column;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: center;
+    padding-right: 8px;
+    font-size: 80%;
 
     &__positive {
       color: pal(success);
@@ -41,8 +43,11 @@
     }
 
     &-start {
+      display: flex;
+      align-items: center;
+      justify-content: end;
       border-left: 1px solid pal(gray);
-      padding-left: 4px;
+      padding-left: 8px;
     }
   }
 
