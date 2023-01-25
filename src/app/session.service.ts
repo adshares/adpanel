@@ -48,8 +48,7 @@ export class SessionService {
   }
 
   isModerator(): boolean {
-    const roles = this.getRoles();
-    return roles.includes(UserRole.MODERATOR) || roles.includes(UserRole.ADMIN);
+    return this.getRoles().includes(UserRole.MODERATOR);
   }
 
   isAgency(): boolean {
