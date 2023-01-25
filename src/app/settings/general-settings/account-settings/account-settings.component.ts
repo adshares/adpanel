@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SessionService } from '../../../session.service';
-import {User} from "models/user.model";
+import { User } from 'models/user.model';
 
 @Component({
   selector: 'app-account-settings',
