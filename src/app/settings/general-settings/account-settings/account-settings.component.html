@@ -1,5 +1,6 @@
 <app-account-not-confirmed-bar></app-account-not-confirmed-bar>
 <div class="general-settings">
+  <div class="user-id ap-box ap-box--large">User ID: <code>{{ user.uuid }}</code></div>
   <app-account-wallet-settings></app-account-wallet-settings>
   <app-auto-withdrawal *ngIf="!isModerator"></app-auto-withdrawal>
   <app-preferences></app-preferences>
