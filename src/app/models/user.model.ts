@@ -23,10 +23,15 @@ interface User {
   id: number;
   email: string;
   hasPassword: boolean;
+  /** @deprecated use roles instead */
   isAdvertiser: boolean;
+  /** @deprecated use roles instead */
   isPublisher: boolean;
+  /** @deprecated use roles instead */
   isAdmin: boolean;
+  /** @deprecated use roles instead */
   isModerator: boolean;
+  /** @deprecated use roles instead */
   isAgency: boolean;
   isEmailConfirmed: boolean;
   isAdminConfirmed: boolean;
@@ -43,6 +48,7 @@ interface User {
   referralRefundCommission: number;
   isBanned: boolean;
   banReason: string | null;
+  roles: string[];
 }
 
 interface LocalStorageUser extends User {

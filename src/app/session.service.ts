@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-
 import { LocalStorageUser } from 'models/user.model';
+import { UserRole } from 'models/enum/user.enum';
 import { ImpersonationService } from './impersonation/impersonation.service';
 
 @Injectable()
@@ -44,28 +44,28 @@ export class SessionService {
   }
 
   isAdmin(): boolean {
-    let u = this.getUser();
-    return u ? !!u.isAdmin : false;
+    return this.getRoles().includes(UserRole.ADMIN);
   }
 
   isModerator(): boolean {
-    let u = this.getUser();
-    return u ? !!u.isModerator || !!u.isAdmin : false;
+    const roles = this.getRoles();
+    return roles.includes(UserRole.MODERATOR) || roles.includes(UserRole.ADMIN);
   }
 
   isAgency(): boolean {
-    let u = this.getUser();
-    return u ? !!u.isAgency : false;
+    return this.getRoles().includes(UserRole.AGENCY);
   }
 
   isAdvertiser(): boolean {
-    let u = this.getUser();
-    return u ? !!u.isAdvertiser : false;
+    return this.getRoles().includes(UserRole.ADVERTISER);
   }
 
   isPublisher(): boolean {
-    let u = this.getUser();
-    return u ? !!u.isPublisher : false;
+    return this.getRoles().includes(UserRole.PUBLISHER);
+  }
+
+  private getRoles(): string[] {
+    return this.getUser()?.roles || [];
   }
 
   setAccountTypeChoice(type: string) {
