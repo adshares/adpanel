@@ -23,7 +23,6 @@ const agencyRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-
         children: [
           {
             path: '',
