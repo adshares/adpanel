@@ -303,3 +303,14 @@ mat-chip:not(.mat-basic-chip) {
 .mat-tab-body-content {
   padding: 8px;
 }
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: pal(primary);
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: pal(primary);
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: pal(primary);
+}
