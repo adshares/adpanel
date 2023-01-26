@@ -19,6 +19,23 @@
       width: calc(100vw - 740px);
     }
   }
+
+  &__side-menu {
+    min-height: 100%;
+    width: 240px;
+    background-color: pal(white);
+
+    @include media(md-up) {
+      width: 300px;
+    }
+
+    .message {
+      border: 1px solid pal(red);
+      border-radius: 2px;
+      margin: 20px 20px 0 40px;
+      padding: 4px;
+    }
+  }
 }
 
 .chart-wrapper {

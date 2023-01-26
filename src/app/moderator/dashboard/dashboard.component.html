@@ -1,5 +1,15 @@
 <section class="moderator-dashboard row">
-  <app-settings-navigation></app-settings-navigation>
+  <div class="moderator-dashboard__side-menu">
+    <div *ngIf="adControllerUrl" class="ap-copy justify-center message">
+      <a [href]="adControllerUrl" rel="noopener nofollow noreferrer" data-test="settings-category-link">
+        <h3 class="ap-copy--large">
+          <span class="ap-copy--x-dark"> AdController Panel </span>
+          <fa-icon [icon]="faGears" class="ap-icon ap-icon--large"></fa-icon>
+        </h3>
+      </a>
+    </div>
+    <app-settings-navigation></app-settings-navigation>
+  </div>
   <div class="settings-outlet">
     <router-outlet></router-outlet>
   </div>
