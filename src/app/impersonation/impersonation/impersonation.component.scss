@@ -2,43 +2,23 @@
 
 .impersonation-bar {
   &__container {
-    @include container();
+    @include container(
+            $background-color: pal(secondary),
+            $padding-horizontal: 8px,
+            $padding-vertical: 8px,
+            $border-color: pal(secondary),
+            $margin-top: 0,
+            $margin-bottom: 0,
+            $border-width: 1px,
+            $border-radius: 0
+    );
     display: flex;
     justify-content: space-between;
   }
 
   &__info {
-    @include copy($color: pal(error), $font-size: 18, $font-weight: semi);
+    @include copy($color: pal(error), $font-size: 18, $font-weight: semiBold);
     display: flex;
     align-self: center;
   }
-}
-
-.action-btn {
-  @include btn(
-    $color: pal(gray),
-    $background-color: pal(light),
-    $border-color: pal(gray)
-  );
-  margin-left: 8px;
-
-  //&[disabled] {
-  //  border-color: lighten(pal(navy, light), 30%);
-  //  color: lighten(pal(navy, light), 30%);
-  //}
-  //
-  //&--success {
-  //  border-color: pal(green, dark);
-  //  color: pal(green, dark);
-  //}
-  //
-  //&--warning {
-  //  border-color: pal(orange, dark);
-  //  color: pal(orange, dark);
-  //}
-  //
-  //&--danger {
-  //  border-color: pal(red, dark);
-  //  color: pal(red, dark);
-  //}
 }
