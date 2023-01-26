@@ -7,14 +7,14 @@ import { User } from 'models/user.model';
 
 @Injectable()
 export class ApiUsersService {
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   // user access
 
   emailActivateResend(uri) {
-    return this.http.post(`${environment.authUrl}/email/activate/resend`, {uri});
+    return this.http.post(`${environment.authUrl}/email/activate/resend`, {
+      uri,
+    });
   }
 
   emailConfirm1Old(token: string) {
@@ -26,11 +26,15 @@ export class ApiUsersService {
   }
 
   emailActivate(token: string) {
-    return this.http.post(`${environment.authUrl}/email/activate`, {user: {email_confirm_token: token}});
+    return this.http.post(`${environment.authUrl}/email/activate`, {
+      user: { email_confirm_token: token },
+    });
   }
 
   confirmWithdrawal(token: string) {
-    return this.http.post(`${environment.apiUrl}/wallet/confirm-withdrawal`, {token: token});
+    return this.http.post(`${environment.apiUrl}/wallet/confirm-withdrawal`, {
+      token: token,
+    });
   }
 
   passwordConfirm(token: string) {
@@ -40,18 +44,21 @@ export class ApiUsersService {
   // guest access
 
   resetPassword(user: object, token: string) {
-    return this.http.patch(`${environment.authUrl}/password`, {user, token});
+    return this.http.patch(`${environment.authUrl}/password`, { user, token });
   }
 
   register(user, uri): Observable<User> {
-    return this.http.post<User>(`${environment.authUrl}/register`, {user, uri});
+    return this.http.post<User>(`${environment.authUrl}/register`, {
+      user,
+      uri,
+    });
   }
 
   setReferralToken(referralToken: string) {
     localStorage.setItem('referralToken', referralToken);
   }
 
-  getReferralToken(): string|null {
+  getReferralToken(): string | null {
     return localStorage.getItem('referralToken');
   }
 }

@@ -1,11 +1,11 @@
-import {Directive, ElementRef, Output, EventEmitter, HostListener} from '@angular/core';
+import { Directive, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[clickOutside]'
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: '[clickOutside]',
 })
 export class ClickOutsideDirective {
-  constructor(private _elementRef: ElementRef) {
-  }
+  constructor(private _elementRef: ElementRef) {}
 
   @Output()
   public clickOutside = new EventEmitter<MouseEvent>();

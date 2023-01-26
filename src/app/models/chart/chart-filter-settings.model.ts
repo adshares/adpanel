@@ -1,11 +1,10 @@
-import {Moment} from "moment";
+import { Moment } from 'moment';
 
 export interface ChartFilterSettings {
   currentTo: string;
   currentFrom: string;
   currentFrequency: string;
   currentAssetId: number;
-  currentBannerId: number;
   currentSeries?: seriesType;
   type?: string;
 }

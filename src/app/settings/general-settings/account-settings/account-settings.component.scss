@@ -4,6 +4,14 @@
   padding: 30px;
   min-width: 500px;
 
+  .user-id {
+
+
+    code {
+      font-family: monospace;
+    }
+  }
+
   @include media(xxl-up) {
     width: calc(100% - 380px);
   }

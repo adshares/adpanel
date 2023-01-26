@@ -13,7 +13,7 @@ import { cutDirectAdSizeAnchor } from 'common/utilities/helpers';
   styleUrls: ['./banner-preview.component.scss'],
 })
 export class BannerPreviewComponent implements OnInit {
-  readonly adCreativeTypes = adCreativeTypes
+  readonly adCreativeTypes = adCreativeTypes;
   @Input() banner: BannerClassification | Ad;
   @Input() landingUrl: string;
   @Input() maxWidth: number;
@@ -29,10 +29,7 @@ export class BannerPreviewComponent implements OnInit {
   isLoading: boolean = true;
   scale: number = 1;
 
-  constructor(
-    private dialog: MatDialog,
-  ) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     const isBannerInputTypeAd = (<BannerClassification>this.banner).size === undefined;
@@ -86,7 +83,7 @@ export class BannerPreviewComponent implements OnInit {
   }
 
   canLoadIframeContent(url: string): void {
-    fetch(url, {method: 'HEAD'})
+    fetch(url, { method: 'HEAD' })
       .then(res => {
         this.isLoading = false;
         this.showIframe = res.status === HTTP_OK;
@@ -94,7 +91,7 @@ export class BannerPreviewComponent implements OnInit {
       .catch(() => {
         this.showIframe = false;
         this.isLoading = false;
-      })
+      });
   }
 
   private computeScale(width: number, height: number): number {
@@ -120,14 +117,16 @@ export class BannerPreviewComponent implements OnInit {
       landingUrl: this.landingUrl,
     };
 
-    this.dialog.open(AdPreviewDialogComponent, {data});
+    this.dialog.open(AdPreviewDialogComponent, { data });
   }
 
-  get size (): string {
-    return (<BannerClassification>this.banner).size ? (<BannerClassification>this.banner).size : (<Ad>this.banner).creativeSize
+  get size(): string {
+    return (<BannerClassification>this.banner).size
+      ? (<BannerClassification>this.banner).size
+      : (<Ad>this.banner).creativeSize;
   }
 
-  get type (): string {
-    return (<Ad>this.banner).creativeType ? (<Ad>this.banner).creativeType : (<BannerClassification>this.banner).type
+  get type(): string {
+    return (<Ad>this.banner).creativeType ? (<Ad>this.banner).creativeType : (<BannerClassification>this.banner).type;
   }
 }

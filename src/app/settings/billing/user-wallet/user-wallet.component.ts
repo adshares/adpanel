@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
-import { SessionService } from "app/session.service";
-import {AppState} from "models/app-state.model";
-import {Store} from "@ngrx/store";
-import { UserAdserverWallet } from "models/user.model";
-import { CODE, CRYPTO } from "common/utilities/consts";
-import { ServerOptionsService } from 'common/server-options.service'
-import { GET_ADS_FAQ, WITHDRAW_ADS_FAQ } from 'models/enum/link.enum'
+import { SessionService } from 'app/session.service';
+import { AppState } from 'models/app-state.model';
+import { Store } from '@ngrx/store';
+import { UserAdserverWallet } from 'models/user.model';
+import { CODE, CRYPTO } from 'common/utilities/consts';
+import { ServerOptionsService } from 'common/server-options.service';
+import { GET_ADS_FAQ, WITHDRAW_ADS_FAQ } from 'models/enum/link.enum';
 
 @Component({
   selector: 'app-user-wallet',
   templateUrl: './user-wallet.component.html',
-  styleUrls: ['./user-wallet.component.scss']
+  styleUrls: ['./user-wallet.component.scss'],
 })
-export class UserWalletComponent extends HandleSubscription implements OnInit {
-  getAdsFaqLink = GET_ADS_FAQ
-  withdrawAdsFaqLink = WITHDRAW_ADS_FAQ
+export class UserWalletComponent extends HandleSubscriptionComponent implements OnInit {
+  getAdsFaqLink = GET_ADS_FAQ;
+  withdrawAdsFaqLink = WITHDRAW_ADS_FAQ;
   wallet: UserAdserverWallet;
   crypto: string = CRYPTO;
   code: string = CODE;
-  calculateFunds: boolean
+  calculateFunds: boolean;
   isImpersonated: boolean = false;
 
   constructor(
@@ -43,14 +43,15 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit(): void {
-    const options = this.serverOptionsService.getOptions()
-    this.calculateFunds = options.displayCurrency !== options.appCurrency
+    const options = this.serverOptionsService.getOptions();
+    this.calculateFunds = options.displayCurrency !== options.appCurrency;
 
-    const walletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
+    const walletSubscription = this.store
+      .select('state', 'user', 'data', 'adserverWallet')
       .subscribe((wallet: UserAdserverWallet) => {
         this.wallet = wallet;
       });
-    this.subscriptions.push(walletSubscription)
-    this.isImpersonated = this.session.isImpersonated()
+    this.subscriptions.push(walletSubscription);
+    this.isImpersonated = this.session.isImpersonated();
   }
 }

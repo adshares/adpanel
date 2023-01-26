@@ -25,6 +25,7 @@ interface Site {
   ctr?: number;
   revenue?: number;
   code?: string;
+  rejectReason?: string | null;
 }
 
 interface SiteRank {
@@ -68,8 +69,8 @@ interface AdUnitMetaData {
 }
 
 interface SiteLanguage {
-  name: string,
-  code: string,
+  name: string;
+  code: string;
 }
 
 interface SiteCodes {

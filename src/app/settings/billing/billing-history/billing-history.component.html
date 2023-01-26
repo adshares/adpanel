@@ -1,107 +1,51 @@
 <section class="billing-history">
-  <div
-    class="
-      ap-box
-      ap-box--large"
-  >
+  <div class="ap-box ap-box--large">
     <div class="col">
-      <div
-        class="
-          row
-          align-center
-          justify-between"
-      >
-        <h2
-          class="
-            ap-heading
-            ap-heading--primary"
-        >
-          Billing history
-        </h2>
-        <div
-          class="
-            row
-            align-center"
-        >
+      <div class="row align-center justify-between">
+        <h2 class="ap-heading ap-heading--primary">Billing history</h2>
+        <div class="row align-center">
           <label class="billing-history__date-range">
-            From {{ dateFrom.format(DATE_FORMAT) }} to {{ dateTo.format(DATE_FORMAT) }}
+            From {{ dateFrom.format(DATE_FORMAT) }} to
+            {{ dateTo.format(DATE_FORMAT) }}
           </label>
-          <app-billing-history-filter
-            (filter)="updateFilterData($event)"
-          ></app-billing-history-filter>
+          <app-billing-history-filter (filter)="updateFilterData($event)"></app-billing-history-filter>
         </div>
       </div>
 
-      <p
-        class="
-          ap-copy
-          ap-copy--large"
-      >
-        List of all events on your account.
-      </p>
+      <p class="ap-copy ap-copy--large">List of all events on your account.</p>
 
-      <div
-        class="
-          row
-          justify-end"
-      >
-        <button
-          class="
-            ap-btn
-	          ap-btn--blue"
-          (click)="refresh()"
-          data-test="settings-billing-history-refresh-button"
-        >
-          <fa-icon
-            class="ap-icon
-                   ap-icon--prepend"
-            [icon]="refreshIcon"
-          ></fa-icon>
+      <div class="row justify-end">
+        <button class="ap-btn ap-btn--blue" (click)="refresh()" data-test="settings-billing-history-refresh-button">
+          <fa-icon class="ap-icon ap-icon--prepend" [icon]="refreshIcon"></fa-icon>
           Refresh
         </button>
       </div>
       <div class="billing-table--scrollable">
-        <table
-          class="
-          billing-table
-          ap-copy"
-        >
+        <table class="billing-table ap-copy">
           <thead class="billing-table__head">
-          <tr class="row justify-between">
-            <th class="billing-table__head-status" scope="col">
-              Status
-            </th>
-            <th class="col-xs-1" scope="col">
-              Type
-            </th>
-            <th class="col-xs-2" scope="col">
-              Amount ({{ appCurrency }})
-            </th>
-            <th class="col-xs-2" scope="col">
-              Date
-            </th>
-            <th class="col-xs-2" scope="col">
-              Transaction
-            </th>
-          </tr>
+            <tr class="row justify-between">
+              <th class="billing-table__head-status" scope="col">Status</th>
+              <th class="col-xs-1" scope="col">Type</th>
+              <th class="col-xs-2" scope="col">Amount ({{ appCurrency }})</th>
+              <th class="col-xs-2" scope="col">Date</th>
+              <th class="col-xs-2" scope="col">Transaction</th>
+            </tr>
           </thead>
 
           <tbody *ngIf="!showLoader; else loading">
-          <!--TODO display proper info when list is empty-->
-          <app-billing-history-withdrawal
-            *ngFor="let billingHistoryItem of billingHistory.items"
-            [billingHistoryItem]="billingHistoryItem"
-            data-test="settings-billing-history-item"
-          >
-          </app-billing-history-withdrawal>
+            <!--TODO display proper info when list is empty-->
+            <app-billing-history-withdrawal
+              *ngFor="let billingHistoryItem of billingHistory.items"
+              [billingHistoryItem]="billingHistoryItem"
+              data-test="settings-billing-history-item">
+            </app-billing-history-withdrawal>
           </tbody>
           <mat-paginator
             #paginator
             [showFirstLastButtons]="true"
             [length]="billingHistory.itemsCountAll"
             [pageSize]="billingHistory.limit"
-            (page)="handlePaginationEvent($event)"
-          >
+            (page)="handlePaginationEvent($event)">
           </mat-paginator>
           <ng-template #loading>
             <div class="loading-wrapper">

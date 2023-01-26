@@ -5,12 +5,8 @@
     (input)="onSearchTermChange()"
     title="Search for targeting option"
     class="targeting-select__input"
-    data-test="common-targeting-select-search-input"
-  >
-  <img
-    src="/assets/images/search.svg"
-    alt=""
-    class="targeting-select__search-icon">
+    data-test="common-targeting-select-search-input" />
+  <img src="/assets/images/search.svg" alt="" class="targeting-select__search-icon" />
 </div>
 
 <button
@@ -20,12 +16,8 @@
   role="button"
   class="targeting-select__option targeting-select__option--back"
   data-test="common-targeting-select-navigate-to-parent-button">
-  <img
-    class="targeting-select__input-icon"
-    src="/assets/images/chevron--left.svg"
-    alt="Go back">
-  <span class="targeting-select__parent-option"
-        data-test="common-targeting-select-parent-option">
+  <img class="targeting-select__input-icon" src="/assets/images/chevron--left.svg" alt="Go back" />
+  <span class="targeting-select__parent-option" data-test="common-targeting-select-parent-option">
     {{ parentOption.label }}
   </span>
 </button>
@@ -36,31 +28,31 @@
       *ngIf="!option.allowInput"
       tabindex="0"
       class="targeting-select__option"
-      (click)="option.hasOwnProperty('children') || option.hasOwnProperty('values') ? handleOptionClick(option) : toggleItem(option)"
-      data-test="common-targeting-select-option"
-    >
+      (click)="
+        option.hasOwnProperty('children') || option.hasOwnProperty('values')
+          ? handleOptionClick(option)
+          : toggleItem(option)
+      "
+      data-test="common-targeting-select-option">
       {{ option.label }}
-      <span
-        *ngIf="option.description"
-        class="targeting-select__help-icon"
-      >
+      <span *ngIf="option.description" class="targeting-select__help-icon">
         <fa-icon
           matTooltipClass="ap-mat-tooltip"
           [matTooltip]="option.description"
           matTooltipPosition="above"
-          [icon]="faQuestionCircle"
-        ></fa-icon>
+          [icon]="faQuestionCircle"></fa-icon>
       </span>
       <span
         *ngIf="option.hasOwnProperty('value')"
         (click)="toggleItem(option) || $event.stopPropagation()"
-        [ngClass]="{'selected': option.selected, 'sub-selected': !option.selected && option.subSelected}"
-        class="{{checkClass}}-unselected"
-      ></span>
+        [ngClass]="{
+          selected: option.selected,
+          'sub-selected': !option.selected && option.subSelected
+        }"
+        class="{{ checkClass }}-unselected"></span>
       <span
         *ngIf="option.hasOwnProperty('children') || option.hasOwnProperty('values')"
-        class="targeting-select__option-cross"
-      ></span>
+        class="targeting-select__option-cross"></span>
     </div>
     <app-targeting-custom-option-input
       *ngIf="option.allowInput"

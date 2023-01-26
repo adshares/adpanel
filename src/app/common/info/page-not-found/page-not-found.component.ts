@@ -1,28 +1,39 @@
-import { Component, OnInit } from '@angular/core'
-import { Store } from '@ngrx/store'
-import { HandleSubscription } from 'common/handle-subscription'
-import { AppState } from 'models/app-state.model'
-import { Info } from 'models/info.model'
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
+import { AppState } from 'models/app-state.model';
+import { Info } from 'models/info.model';
+import { HTTP_FORBIDDEN, HTTP_NOT_FOUND } from 'common/utilities/codes';
 
 @Component({
-  selector: 'page-not-found',
+  selector: 'app-page-not-found',
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss'],
 })
-export class PageNotFoundComponent extends HandleSubscription implements OnInit {
-  supportEmail: string
+//TODO Rename module after styling
+export class PageNotFoundComponent extends HandleSubscriptionComponent implements OnInit {
+  code: number;
+  codeDescription: string;
+  supportEmail: string;
 
-  constructor (
-    private store: Store<AppState>,
-  ) {
-    super()
+  constructor(private route: ActivatedRoute, private store: Store<AppState>) {
+    super();
   }
 
-  ngOnInit (): void {
-    const infoSubscription = this.store.select('state', 'common', 'info')
-      .subscribe((info: Info) => {
-        this.supportEmail = info.supportEmail
-      })
-    this.subscriptions.push(infoSubscription)
+  ngOnInit(): void {
+    const dataSubscription = this.route.data.subscribe(data => {
+      if (HTTP_FORBIDDEN === data?.code) {
+        this.code = HTTP_FORBIDDEN;
+        this.codeDescription = 'Forbidden';
+      } else {
+        this.code = HTTP_NOT_FOUND;
+        this.codeDescription = 'Page Not Found';
+      }
+    });
+    const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
+      this.supportEmail = info.supportEmail;
+    });
+    this.subscriptions.push(dataSubscription, infoSubscription);
   }
 }

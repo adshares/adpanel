@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core'
-import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { Store } from '@ngrx/store'
-import { AdvertiserService } from 'advertiser/advertiser.service'
-import { ActivatedRoute, Router } from '@angular/router'
-import { MatDialog } from '@angular/material/dialog'
-import { from as observableFrom, of as observableOf } from 'rxjs'
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators'
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { from as observableFrom, of as observableOf } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import {
   ACTIVATE_OUTDATED_CAMPAIGN,
   ActivateOutdatedCampaignStatus,
@@ -50,110 +50,106 @@ import {
   UpdateCampaignStatus,
   UpdateCampaignStatusSuccess,
   UpdateCampaignSuccess,
-} from './advertiser.actions'
-import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
-import * as moment from 'moment'
-import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNPROCESSABLE_ENTITY } from 'common/utilities/codes'
-import { SAVE_SUCCESS, STATUS_SAVE_SUCCESS } from 'common/utilities/messages'
-import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
-import { adjustCampaignStatus, validCampaignBudget } from 'common/utilities/helpers'
-import { AppState } from 'models/app-state.model'
-import { Campaign, CampaignsConfig } from 'models/campaign.model'
-import { User } from 'models/user.model'
-import {
-  UserConfirmResponseDialogComponent
-} from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
+} from './advertiser.actions';
+import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions';
+import * as moment from 'moment';
+import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNPROCESSABLE_ENTITY } from 'common/utilities/codes';
+import { SAVE_SUCCESS, STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
+import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
+import { adjustCampaignStatus, validCampaignBudget } from 'common/utilities/helpers';
+import { AppState } from 'models/app-state.model';
+import { Campaign, CampaignsConfig } from 'models/campaign.model';
+import { User } from 'models/user.model';
+import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 
 @Injectable()
 export class AdvertiserEffects {
-  currentDate = moment(new Date())
+  currentDate = moment(new Date());
 
-  constructor (
+  constructor(
     private actions$: Actions,
     private store$: Store<AppState>,
     private service: AdvertiserService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
-  ) {
-  }
+    private dialog: MatDialog
+  ) {}
 
-  loadCampaigns$ = createEffect(() => this.actions$
-    .pipe(
+  loadCampaigns$ = createEffect(() =>
+    this.actions$.pipe(
       ofType<LoadCampaigns>(LOAD_CAMPAIGNS),
-      switchMap(action => this.service.getCampaigns()
-        .pipe(
+      switchMap(action =>
+        this.service.getCampaigns().pipe(
           switchMap(response => {
             const campaigns = response.map(campaign => {
               return {
                 ...campaign,
                 basicInformation: {
                   ...campaign.basicInformation,
-                  status: adjustCampaignStatus(campaign.basicInformation, this.currentDate)
-                }
-              }
-            })
+                  status: adjustCampaignStatus(campaign.basicInformation, this.currentDate),
+                },
+              };
+            });
             return observableFrom([
               new LoadCampaignsSuccess(campaigns),
               new LoadCampaignsConfig(),
               new LoadCampaignsTotals({
                 from: action.payload.from,
-                to: action.payload.to
-              })
-            ])
+                to: action.payload.to,
+              }),
+            ]);
           }),
           catchError(() => observableOf(new LoadCampaignsFailure()))
         )
       )
-    ))
+    )
+  );
 
-  loadCampaignsTotals$ = createEffect(() => this.actions$
-    .pipe(
+  loadCampaignsTotals$ = createEffect(() =>
+    this.actions$.pipe(
       ofType<LoadCampaignTotals>(LOAD_CAMPAIGNS_TOTALS),
       map(action => action.payload),
       switchMap(payload => {
-        const from = moment(payload.from).format()
-        const to = moment(payload.to).format()
+        const from = moment(payload.from).format();
+        const to = moment(payload.to).format();
 
-        return this.service.getCampaignsTotals(from, to)
-          .pipe(
-            map(campaignsTotals => new LoadCampaignsTotalsSuccess(campaignsTotals)),
-            catchError(() => observableOf(new LoadCampaignsTotalsFailure()))
-          )
+        return this.service.getCampaignsTotals(from, to).pipe(
+          map(campaignsTotals => new LoadCampaignsTotalsSuccess(campaignsTotals)),
+          catchError(() => observableOf(new LoadCampaignsTotalsFailure()))
+        );
       })
-    ))
+    )
+  );
 
-  loadCampaign$ = createEffect(() => this.actions$
-    .pipe(
+  loadCampaign$ = createEffect(() =>
+    this.actions$.pipe(
       ofType<LoadCampaign>(LOAD_CAMPAIGN),
       map(action => action.payload),
-      switchMap((id) => this.service.getCampaign(id)
-        .pipe(
+      switchMap(id =>
+        this.service.getCampaign(id).pipe(
           switchMap(payload => {
             const campaign = {
               ...payload.campaign,
               basicInformation: {
                 ...payload.campaign.basicInformation,
-                status: adjustCampaignStatus(payload.campaign.basicInformation, this.currentDate)
-              }
-            }
-            return observableFrom([
-              new LoadCampaignSuccess(campaign),
-              new LoadCampaignsConfig(),
-            ])
+                status: adjustCampaignStatus(payload.campaign.basicInformation, this.currentDate),
+              },
+            };
+            return observableFrom([new LoadCampaignSuccess(campaign), new LoadCampaignsConfig()]);
           }),
           catchError(() => observableOf(new LoadCampaignFailure()))
         )
       )
-    ))
+    )
+  );
 
-  loadCampaignTotals$ = createEffect(() => this.actions$
-    .pipe(
+  loadCampaignTotals$ = createEffect(() =>
+    this.actions$.pipe(
       ofType<LoadCampaignTotals>(LOAD_CAMPAIGN_TOTALS),
       map(action => action.payload),
-      switchMap(payload => this.service.getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
-        .pipe(
-          map((dataArray) => {
+      switchMap(payload =>
+        this.service.getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id).pipe(
+          map(dataArray => {
             const formattedBannerTotals = dataArray.data.map(data => {
               return {
                 clicks: data.clicks,
@@ -164,249 +160,246 @@ export class AdvertiserEffects {
                 cost: data.cost,
                 id: data.bannerId,
                 name: data.bannerName,
-              }
-            })
+              };
+            });
             const totals = {
               ...dataArray,
-              data: formattedBannerTotals
-            }
-            return new LoadCampaignTotalsSuccess(totals)
+              data: formattedBannerTotals,
+            };
+            return new LoadCampaignTotalsSuccess(totals);
           }),
           catchError(() => {
-            return observableOf(new LoadCampaignTotalsFailure())
+            return observableOf(new LoadCampaignTotalsFailure());
           })
         )
       )
-    ))
+    )
+  );
 
-  loadCampaignsConfig$ = createEffect(() => this.actions$
-    .pipe(
+  loadCampaignsConfig$ = createEffect(() =>
+    this.actions$.pipe(
       ofType(LOAD_CAMPAIGNS_CONFIG),
-      switchMap(() => this.service.getCampaignsConfig()
-        .pipe(
+      switchMap(() =>
+        this.service.getCampaignsConfig().pipe(
           map(payload => new LoadCampaignsConfigSuccess(<CampaignsConfig>payload)),
           catchError(() => observableOf(new LoadCampaignsConfigFailure()))
         )
-      )))
+      )
+    )
+  );
 
-  addCampaignToCampaigns = createEffect(() => this.actions$
-    .pipe(
+  addCampaignToCampaigns = createEffect(() =>
+    this.actions$.pipe(
       ofType<AddCampaignToCampaigns>(ADD_CAMPAIGN_TO_CAMPAIGNS),
       map(action => action.payload),
-      switchMap(payload => this.service.saveCampaign(payload)
-        .pipe(
-          switchMap((campaign) => {
+      switchMap(payload =>
+        this.service.saveCampaign(payload).pipe(
+          switchMap(campaign => {
             if (payload.basicInformation.status !== campaign.basicInformation.status) {
               this.dialog.open(WarningDialogComponent, {
                 data: {
                   title: `Warning`,
                   message: `Campaign '${campaign.basicInformation.name}' couldn't be automatically activated. \n
                  Please check if you have enough money on your account and activate campaign manually. `,
-                }
-              })
+                },
+              });
             }
-            this.router.navigate(['/advertiser', 'dashboard'])
-            return [
-              new AddCampaignToCampaignsSuccess(campaign),
-              new ClearLastEditedCampaign(),
-            ]
+            this.router.navigate(['/advertiser', 'dashboard']);
+            return [new AddCampaignToCampaignsSuccess(campaign), new ClearLastEditedCampaign()];
           }),
-          catchError(error => observableOf(
-            new ShowDialogOnError(
-              error.error && error.error.message || `Error code: ${error.status}`
-            )
-          ))
+          catchError(error =>
+            observableOf(new ShowDialogOnError((error.error && error.error.message) || `Error code: ${error.status}`))
+          )
         )
       )
-    ))
+    )
+  );
 
-  updateCampaign = createEffect(() => this.actions$
-    .pipe(
+  updateCampaign = createEffect(() =>
+    this.actions$.pipe(
       ofType<UpdateCampaign>(UPDATE_CAMPAIGN),
       map(action => action.payload),
-      switchMap(payload => this.service.updateCampaign(payload)
-        .pipe(
+      switchMap(payload =>
+        this.service.updateCampaign(payload).pipe(
           switchMap(() => {
-            this.router.navigate(['/advertiser', 'campaign', payload.id])
-            return [
-              new UpdateCampaignSuccess(payload),
-              new ClearLastEditedCampaign(),
-            ]
+            this.router.navigate(['/advertiser', 'campaign', payload.id]);
+            return [new UpdateCampaignSuccess(payload), new ClearLastEditedCampaign()];
           }),
           catchError(error => {
-            return observableOf(new UpdateCampaignFailure(`An error occurred. Error code: ${error.status}`)
-            )
+            return observableOf(new UpdateCampaignFailure(`An error occurred. Error code: ${error.status}`));
           })
         )
       )
-    ))
+    )
+  );
 
-  saveConversion = createEffect(() => this.actions$
-    .pipe(
+  saveConversion = createEffect(() =>
+    this.actions$.pipe(
       ofType<SaveConversion>(SAVE_CONVERSION),
       map(action => action.payload),
-      switchMap(payload => this.service.updateCampaign(payload)
-        .pipe(
+      switchMap(payload =>
+        this.service.updateCampaign(payload).pipe(
           switchMap(() => {
-            return [
-              new UpdateCampaignSuccess(payload),
-              new ShowSuccessSnackbar(SAVE_SUCCESS),
-            ]
+            return [new UpdateCampaignSuccess(payload), new ShowSuccessSnackbar(SAVE_SUCCESS)];
           }),
           catchError(error => {
-            return observableOf(new UpdateCampaignFailure(`An error occurred. Error code: ${error.status}`)
-            )
+            return observableOf(new UpdateCampaignFailure(`An error occurred. Error code: ${error.status}`));
           })
         )
       )
-    ))
+    )
+  );
 
-  updateCampaignStatus = createEffect(() => this.actions$
-    .pipe(
+  updateCampaignStatus = createEffect(() =>
+    this.actions$.pipe(
       ofType(UPDATE_CAMPAIGN_STATUS),
       withLatestFrom(this.store$.select('state', 'user', 'data')),
       withLatestFrom(this.store$.select('state', 'advertiser'), ([action, user], state) => {
-        const payload = (<UpdateCampaignStatus>action).payload
+        const payload = (<UpdateCampaignStatus>action).payload;
         return new Array<[any, CampaignsConfig, Campaign, User]>([
           payload,
           state.campaignsConfig,
           state.campaigns.find(campaign => campaign.id === payload.id),
-          user
-        ])
+          user,
+        ]);
       }),
       switchMap(([[payload, config, campaign, user]]) => {
-        return this.service.updateStatus(payload.id, payload.status)
-          .pipe(
-            switchMap(() => [
-                new UpdateCampaignStatusSuccess(payload),
-                new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
-              ]
-            ),
-            catchError(error => {
-              if (error.status === HTTP_INTERNAL_SERVER_ERROR) {
-                return []
-              }
+        return this.service.updateStatus(payload.id, payload.status).pipe(
+          switchMap(() => [new UpdateCampaignStatusSuccess(payload), new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)]),
+          catchError(error => {
+            if (error.status === HTTP_INTERNAL_SERVER_ERROR) {
+              return [];
+            }
 
-              function isCampaignOutdated () {
-                return campaign.basicInformation.dateEnd
-                  && (moment(new Date()) > moment(campaign.basicInformation.dateEnd))
-              }
+            function isCampaignOutdated() {
+              return (
+                campaign.basicInformation.dateEnd && moment(new Date()) > moment(campaign.basicInformation.dateEnd)
+              );
+            }
 
-              let errorMsg
-              if (error.status === HTTP_UNPROCESSABLE_ENTITY) {
-                const errors = validCampaignBudget(config, campaign, user)
+            let errorMsg;
+            if (error.status === HTTP_UNPROCESSABLE_ENTITY) {
+              const errors = validCampaignBudget(config, campaign, user);
 
-                if ((errors.length == 1) && isCampaignOutdated()) {
-                  this.dialog.open(UserConfirmResponseDialogComponent, {
+              if (errors.length == 1 && isCampaignOutdated()) {
+                this.dialog
+                  .open(UserConfirmResponseDialogComponent, {
                     data: {
                       title: 'The campaign is outdated',
-                      message: 'To make it active you should unset end date or change to a future date.\nDo you want to unset the campaign\'s end date?',
-                    }
+                      message:
+                        "To make it active you should unset end date or change to a future date.\nDo you want to unset the campaign's end date?",
+                    },
                   })
-                    .afterClosed()
-                    .subscribe(result => {
-                        if (result) {
-                          this.store$.dispatch(
-                            new ActivateOutdatedCampaignStatus({ campaignId: payload.id })
-                          )
-                        }
-                      }
-                    )
+                  .afterClosed()
+                  .subscribe(result => {
+                    if (result) {
+                      this.store$.dispatch(
+                        new ActivateOutdatedCampaignStatus({
+                          campaignId: payload.id,
+                        })
+                      );
+                    }
+                  });
 
-                  return []
-                }
-
-                if (errors.length == 0) {
-                  errors.push('Please check if you have enough money on your account.')
-                }
-                errorMsg = 'We weren\'t able to activate given campaign.\n' + errors.join('\n')
-              } else {
-                errorMsg = error.error.errors[0] || error.message
+                return [];
               }
 
-              return observableOf(new UpdateCampaignFailure(errorMsg))
-            })
-          )
-      })
-    ))
+              if (errors.length == 0) {
+                errors.push('Please check if you have enough money on your account.');
+              }
+              errorMsg = "We weren't able to activate given campaign.\n" + errors.join('\n');
+            } else {
+              errorMsg = error.error.errors[0] || error.message;
+            }
 
-  activateOutdatedCampaign = createEffect(() => this.actions$
-    .pipe(
+            return observableOf(new UpdateCampaignFailure(errorMsg));
+          })
+        );
+      })
+    )
+  );
+
+  activateOutdatedCampaign = createEffect(() =>
+    this.actions$.pipe(
       ofType(ACTIVATE_OUTDATED_CAMPAIGN),
       withLatestFrom(this.store$.select('state', 'user', 'data')),
       withLatestFrom(this.store$.select('state', 'advertiser'), ([action, user], state) => {
-        const payload = (<ActivateOutdatedCampaignStatus>action).payload
+        const payload = (<ActivateOutdatedCampaignStatus>action).payload;
         return new Array<[any, CampaignsConfig, Campaign, User]>([
           payload,
           state.campaignsConfig,
           state.campaigns.find(campaign => campaign.id === payload.campaignId),
-          user
-        ])
+          user,
+        ]);
       }),
       switchMap(([[payload, config, campaign, user]]) => {
         return this.service.activateOutdatedCampaign(payload.campaignId).pipe(
           switchMap(() => [
-              new ActivateOutdatedCampaignStatusSuccess(payload),
-              new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
-            ]
-          ),
+            new ActivateOutdatedCampaignStatusSuccess(payload),
+            new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS),
+          ]),
           catchError(error => {
             if (error.status === HTTP_INTERNAL_SERVER_ERROR) {
-              return []
+              return [];
             }
-            let errorMsg
+            let errorMsg;
             if (error.status === HTTP_UNPROCESSABLE_ENTITY) {
-              const errors = validCampaignBudget(config, campaign, user)
+              const errors = validCampaignBudget(config, campaign, user);
               if (errors.length == 0) {
-                errors.push('Please check if you have enough money on your account.')
+                errors.push('Please check if you have enough money on your account.');
               }
-              errorMsg = 'We weren\'t able to activate given campaign.\n' + errors.join('\n')
+              errorMsg = "We weren't able to activate given campaign.\n" + errors.join('\n');
             } else {
-              errorMsg = error.error.errors[0] || error.message
+              errorMsg = error.error.errors[0] || error.message;
             }
 
-            return observableOf(new UpdateCampaignFailure(errorMsg))
+            return observableOf(new UpdateCampaignFailure(errorMsg));
           })
-        )
+        );
       })
-    ))
+    )
+  );
 
-  cloneCampaign = createEffect(() => this.actions$
-    .pipe(
+  cloneCampaign = createEffect(() =>
+    this.actions$.pipe(
       ofType<CloneCampaign>(CLONE_CAMPAIGN),
-      switchMap(action => this.service.cloneCampaign(action.payload)
-        .pipe(
-          switchMap((campaign) => {
-            this.router.navigate(['/advertiser', 'dashboard'])
+      switchMap(action =>
+        this.service.cloneCampaign(action.payload).pipe(
+          switchMap(campaign => {
+            this.router.navigate(['/advertiser', 'dashboard']);
             return [
               new CloneCampaignSuccess(campaign),
               new AddCampaignToCampaignsSuccess(campaign),
               new ClearLastEditedCampaign(),
-            ]
+            ];
           }),
           catchError(() => {
-            return observableOf(new CloneCampaignFailure(
-              `Given campaign cannot be cloned at this moment. Please try again later.`)
-            )
+            return observableOf(
+              new CloneCampaignFailure(`Given campaign cannot be cloned at this moment. Please try again later.`)
+            );
           })
         )
       )
-    ))
+    )
+  );
 
-  deleteCampaign = createEffect(() => this.actions$
-    .pipe(
+  deleteCampaign = createEffect(() =>
+    this.actions$.pipe(
       ofType<DeleteCampaign>(DELETE_CAMPAIGN),
       map(action => action.payload),
-      switchMap(payload => this.service.deleteCampaign(payload)
-        .pipe(
+      switchMap(payload =>
+        this.service.deleteCampaign(payload).pipe(
           map(() => {
-            this.router.navigate(['/advertiser', 'dashboard'])
-            return new DeleteCampaignSuccess(payload)
+            this.router.navigate(['/advertiser', 'dashboard']);
+            return new DeleteCampaignSuccess(payload);
           }),
-          catchError(() => observableOf(
-            new ShowDialogOnError(`Given campaign cannot be deleted at this moment. Please try again later.`)
-          ))
+          catchError(() =>
+            observableOf(
+              new ShowDialogOnError(`Given campaign cannot be deleted at this moment. Please try again later.`)
+            )
+          )
         )
       )
-    ))
+    )
+  );
 }

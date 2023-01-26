@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 $fonts: (
   heavy: 'Lato-Black',
@@ -7,7 +7,7 @@ $fonts: (
   medium: 'Lato-Regular',
   normal: 'Lato-Regular',
   semi: 'Lato-Bold',
-  copy: 'Lato-Regular'
+  copy: 'Lato-Regular',
 );
 
 @mixin font-face($font-name) {

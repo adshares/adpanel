@@ -2,10 +2,7 @@
 
 <div class="row settings">
   <app-settings-navigation></app-settings-navigation>
-  <div
-    class="settings-outlet"
-    [@fadeAnimation]="getRouterOutletState(o)"
-  >
+  <div class="settings-outlet" [@fadeAnimation]="getRouterOutletState(o)">
     <router-outlet #o="outlet"></router-outlet>
   </div>
 </div>

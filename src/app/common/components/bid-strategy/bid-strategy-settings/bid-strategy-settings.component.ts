@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { forkJoin as observableForkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { BidStrategy, BidStrategyDetail, BidStrategyRequest } from 'models/campaign.model';
 import { Entry, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
@@ -25,9 +25,9 @@ interface BidStrategyComponentEntry {
   templateUrl: './bid-strategy-settings.component.html',
   styleUrls: ['./bid-strategy-settings.component.scss'],
 })
-export class BidStrategySettingsComponent extends HandleSubscription implements OnInit {
-  @Input() medium: string
-  @Input() vendor: string | null
+export class BidStrategySettingsComponent extends HandleSubscriptionComponent implements OnInit {
+  @Input() medium: string;
+  @Input() vendor: string | null;
   readonly PREDEFINED_RANKS = [100, 80, 60, 40, 20, 0];
   readonly MAXIMAL_SPREADSHEET_SIZE_IN_BYTES = 100000;
   readonly SPREADSHEET_MIME_TYPES: string[] = [
@@ -45,25 +45,25 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   isAdmin: boolean = false;
   isDownloadInProgress: boolean = false;
   isUploadInProgress: boolean = false;
-  media: Entry[] = []
-  vendors: Entry[] = []
+  media: Entry[] = [];
+  vendors: Entry[] = [];
 
   constructor(
     private bidStrategyService: BidStrategyService,
     private route: ActivatedRoute,
     private sessionService: SessionService,
-    private store: Store<AppState>,
+    private store: Store<AppState>
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.isAdmin = this.sessionService.isAdmin();
-    this.media = mapToIterable(this.route.snapshot.data.media)
+    this.media = mapToIterable(this.route.snapshot.data.media);
     if (this.medium === undefined && this.media.length > 0) {
-      this.onMediumChange(this.media[0].key)
+      this.onMediumChange(this.media[0].key);
     } else {
-      this.updateBidStrategiesList()
+      this.updateBidStrategiesList();
     }
   }
 
@@ -79,28 +79,35 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
       error => {
         const status = error.status ? error.status : 0;
         if (status === HTTP_INTERNAL_SERVER_ERROR) {
-          return
+          return;
         }
         if (status === HTTP_NOT_FOUND) {
           this.bidStrategiesOptionsAreMissing = true;
-          this.store.dispatch(new ShowDialogOnError('Bid strategies options are not available. Please contact support'));
+          this.store.dispatch(
+            new ShowDialogOnError('Bid strategies options are not available. Please contact support')
+          );
         } else {
           this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
         }
-      });
-    this.subscriptions.push(subscription)
+      }
+    );
+    this.subscriptions.push(subscription);
   }
 
   private handleFetchedTargetingOptions(targetingOptions: TargetingOption[]): void {
     this.availableEntries = this.processTargetingOptions(targetingOptions);
   }
 
-  private processTargetingOptions(options: TargetingOption[], parentKey: string = '', parentLabel: string = ''): BidStrategyComponentEntry[] {
+  private processTargetingOptions(
+    options: TargetingOption[],
+    parentKey: string = '',
+    parentLabel: string = ''
+  ): BidStrategyComponentEntry[] {
     const result = [];
 
     options.forEach(option => {
-      const key = ('' === parentKey) ? option.key : `${parentKey}:${option.key}`;
-      const label = ('' === parentLabel) ? option.label : `${parentLabel}/${option.label}`;
+      const key = '' === parentKey ? option.key : `${parentKey}:${option.key}`;
+      const label = '' === parentLabel ? option.label : `${parentLabel}/${option.label}`;
 
       if (option.children) {
         result.push(...this.processTargetingOptions(option.children, key, label));
@@ -113,7 +120,11 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     return result;
   }
 
-  private processTargetingOptionValues(optionValues: TargetingOptionValue[], parentKey: string, parentLabel: string): BidStrategyComponentEntry[] {
+  private processTargetingOptionValues(
+    optionValues: TargetingOptionValue[],
+    parentKey: string,
+    parentLabel: string
+  ): BidStrategyComponentEntry[] {
     const result = [];
 
     optionValues.forEach(optionValue => {
@@ -129,7 +140,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
       if (optionValue.values) {
         result.push(...this.processTargetingOptionValues(optionValue.values, parentKey, label));
       }
-    })
+    });
 
     return result;
   }
@@ -185,7 +196,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     const bidStrategy = this.getBidStrategyFromForm();
 
     this.bidStrategyService.putBidStrategy(bidStrategy, this.medium, this.vendor).subscribe(
-      (response) => {
+      response => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
 
         this.bidStrategies.push({
@@ -196,7 +207,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
         this.bidStrategyUuidSelected = response.uuid;
         this.bidStrategyNameSelected = bidStrategy.name;
       },
-      (error) => this.handleError(error),
+      error => this.handleError(error)
     );
   }
 
@@ -212,16 +223,18 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
         definedBidStrategy.name = bidStrategy.name;
         definedBidStrategy.details = bidStrategy.details;
       },
-      (error) => {
+      error => {
         const status = error.status ? error.status : 0;
-        this.store.dispatch(new ShowDialogOnError(`An error occurred. Error code (${status}). Please, try again later.`));
-      },
+        this.store.dispatch(
+          new ShowDialogOnError(`An error occurred. Error code (${status}). Please, try again later.`)
+        );
+      }
     );
   }
 
   private collectBidStrategyDetails(): BidStrategyDetail[] {
     const details = [];
-    this.entries.forEach((entry) => {
+    this.entries.forEach(entry => {
       if (entry.value != 100) {
         details.push({
           category: entry.key,
@@ -237,15 +250,19 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
       return;
     }
 
-    this.bidStrategyService.patchBidStrategyUuidDefault(this.bidStrategyUuidSelected, this.medium, this.vendor).subscribe(
-      () => {
-        this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
-      },
-      (error) => {
-        const status = error.status ? error.status : 0;
-        this.store.dispatch(new ShowDialogOnError(`An error occurred. Error code (${status}). Please, try again later.`));
-      },
-    );
+    this.bidStrategyService
+      .patchBidStrategyUuidDefault(this.bidStrategyUuidSelected, this.medium, this.vendor)
+      .subscribe(
+        () => {
+          this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
+        },
+        error => {
+          const status = error.status ? error.status : 0;
+          this.store.dispatch(
+            new ShowDialogOnError(`An error occurred. Error code (${status}). Please, try again later.`)
+          );
+        }
+      );
   }
 
   deleteBidStrategy(): void {
@@ -259,10 +276,10 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
         const previousBidStrategyUuidSelected = this.bidStrategyUuidSelected;
         this.bidStrategyUuidSelected = null;
         this.handleFetchedBidStrategies(
-          this.bidStrategies.filter((bidStrategy) => previousBidStrategyUuidSelected !== bidStrategy.uuid)
+          this.bidStrategies.filter(bidStrategy => previousBidStrategyUuidSelected !== bidStrategy.uuid)
         );
       },
-      (error) => this.handleError(error),
+      error => this.handleError(error)
     );
   }
 
@@ -284,7 +301,8 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     }
     this.isDownloadInProgress = true;
 
-    this.bidStrategyService.getBidStrategySpreadsheet(this.bidStrategyUuidSelected)
+    this.bidStrategyService
+      .getBidStrategySpreadsheet(this.bidStrategyUuidSelected)
       .pipe(take(1))
       .subscribe(
         response => {
@@ -296,7 +314,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
             new ShowDialogOnError('File cannot be downloaded at this moment. Please try again later.')
           );
           this.isDownloadInProgress = false;
-        },
+        }
       );
   }
 
@@ -311,7 +329,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     }
     if (file.size > this.MAXIMAL_SPREADSHEET_SIZE_IN_BYTES) {
       this.store.dispatch(
-        new ShowDialogOnError(`File size exceeds maximum of ${this.MAXIMAL_SPREADSHEET_SIZE_IN_BYTES/1000}kB.`)
+        new ShowDialogOnError(`File size exceeds maximum of ${this.MAXIMAL_SPREADSHEET_SIZE_IN_BYTES / 1000}kB.`)
       );
       return;
     }
@@ -323,22 +341,22 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     this.isUploadInProgress = true;
     const data = new FormData();
     data.append('file', file, file.name);
-    const sendFileSubscription = this.bidStrategyService.postBidStrategySpreadsheet(this.bidStrategyUuidSelected, data)
+    const sendFileSubscription = this.bidStrategyService
+      .postBidStrategySpreadsheet(this.bidStrategyUuidSelected, data)
       .subscribe(
         () => {
           this.isUploadInProgress = false;
           this.isLoading = true;
           this.bidStrategyService.getBidStrategies(this.medium, this.vendor).subscribe(
-            (response) => this.handleFetchedBidStrategies(response),
-            (error) => {
+            response => this.handleFetchedBidStrategies(response),
+            error => {
               const status = error.status ? error.status : 0;
               this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
-            });
+            }
+          );
         },
         () => {
-          this.store.dispatch(
-            new ShowDialogOnError('File cannot be uploaded at this moment. Please try again later.')
-          );
+          this.store.dispatch(new ShowDialogOnError('File cannot be uploaded at this moment. Please try again later.'));
           this.isUploadInProgress = false;
         }
       );
@@ -346,26 +364,27 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   }
 
   onMediumChange(medium: string): void {
-    this.isLoading = true
-    this.vendors = []
-    this.medium = medium
-    const subscription = this.bidStrategyService.getMediumVendors(medium)
+    this.isLoading = true;
+    this.vendors = [];
+    this.medium = medium;
+    const subscription = this.bidStrategyService
+      .getMediumVendors(medium)
       .pipe(take(1))
       .subscribe(vendors => {
-        this.vendors = mapToIterable(vendors)
-        const vendor = this.vendors.length > 0 ? this.vendors[0].key : null
-        this.onVendorChange(vendor)
-      })
-    this.subscriptions.push(subscription)
+        this.vendors = mapToIterable(vendors);
+        const vendor = this.vendors.length > 0 ? this.vendors[0].key : null;
+        this.onVendorChange(vendor);
+      });
+    this.subscriptions.push(subscription);
   }
 
   onVendorChange(vendor: string | null): void {
-    this.isLoading = true
-    this.vendor = vendor
-    this.updateBidStrategiesList()
+    this.isLoading = true;
+    this.vendor = vendor;
+    this.updateBidStrategiesList();
   }
 
   get isTaxonomy(): boolean {
-    return this.media.length > 0
+    return this.media.length > 0;
   }
 }

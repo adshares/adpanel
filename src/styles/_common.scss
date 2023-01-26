@@ -172,7 +172,6 @@
   &--standalone {
     position: initial;
   }
-
 }
 
 .ap-sort-triangle {
@@ -296,11 +295,11 @@
 */
 
 @each $color in $main_colors {
-  .ap-#{"" + $color} {
+  .ap-#{'' + $color} {
     color: pal($color);
   }
 
-  .ap-bg-#{"" + $color} {
+  .ap-bg-#{'' + $color} {
     background-color: pal($color);
   }
 }
@@ -336,7 +335,7 @@
 router-outlet ~ * {
   position: absolute;
   width: 100%;
-  min-height: 100%
+  min-height: 100%;
 }
 
 .settings-outlet router-outlet ~ * {
@@ -368,22 +367,22 @@ router-outlet ~ * {
     margin: 0 0 0 3px;
   }
 
-  &[data-status="active"] {
+  &[data-status='active'] {
     background-color: pal(green, light);
   }
 
-  &[data-status="inactive"] {
+  &[data-status='inactive'] {
     background-color: pal(blue, light);
   }
 
-  &[data-status="suspended"],
-  &[data-status="outdated"] {
+  &[data-status='suspended'],
+  &[data-status='outdated'] {
     background-color: pal(red, light);
   }
 
-  &[data-status="archived"],
-  &[data-status="awaiting"],
-  &[data-status="draft"] {
+  &[data-status='archived'],
+  &[data-status='awaiting'],
+  &[data-status='draft'] {
     background-color: pal(gray, ultra-light);
   }
 
@@ -392,7 +391,7 @@ router-outlet ~ * {
     width: auto;
     color: pal(gray, dark) !important;
 
-    &[data-status="active"] {
+    &[data-status='active'] {
       color: pal(green, dark);
     }
   }
@@ -469,7 +468,7 @@ router-outlet ~ * {
   }
 
   .triangle {
-    content: "";
+    content: '';
     @include center(vertical);
     left: -30px;
     width: 0;
@@ -521,14 +520,14 @@ router-outlet ~ * {
     display: flex;
   }
 
-  [data-status="active"] {
+  [data-status='active'] {
     color: pal(green);
   }
 
-  .ap-copy[data-status="inactive"],
-  .ap-copy[data-status="suspended"],
-  .ap-copy[data-status="archived"],
-  .ap-copy[data-status="draft"] {
+  .ap-copy[data-status='inactive'],
+  .ap-copy[data-status='suspended'],
+  .ap-copy[data-status='archived'],
+  .ap-copy[data-status='draft'] {
     color: pal(red, dark);
   }
 }
@@ -571,7 +570,7 @@ router-outlet ~ * {
 
 .now_payments_logo {
   font-weight: 400;
-  font-family: "Roboto",Arial,Helvetica,sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   color: #2b2b37;
 
   > span {

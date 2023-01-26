@@ -1,59 +1,29 @@
-<app-edit-site-navigation
-  [currentStep]="3"
-  [medium]="site.medium"
-></app-edit-site-navigation>
-<section
-  class="
-    homepage-view
-    site-edit-create-posters-units"
->
-  <div
-    class="
-      text-center
-      site-edit-create-posters-units"
-  >
-    <h1
-      class="
-        ap-heading
-        ap-heading--primary"
-    >
-      Select placements
-    </h1>
-    <p
-      class="
-        ap-copy
-        ap-copy--large"
-    >
-      Please select the size of a placement you want to place on your website.
-      If you want to generate more than one placement, please click the "Create new placement" button on the bottom part of the site and pick the desired sizes.
+<app-edit-site-navigation [currentStep]="3" [medium]="site.medium"></app-edit-site-navigation>
+<section class="homepage-view site-edit-create-posters-units">
+  <div class="text-center site-edit-create-posters-units">
+    <h1 class="ap-heading ap-heading--primary">Select placements</h1>
+    <p class="ap-copy ap-copy--large">
+      Please select the size of a placement you want to place on your website. If you want to generate more than one
+      placement, please click the "Create new placement" button on the bottom part of the site and pick the desired
+      sizes.
     </p>
   </div>
-  <div
-    class="ap-box ap-box--no-padding"
-    *ngFor="let adUnitForm of adUnitForms; let adUnitIndex = index"
-  >
-    <form
-      [formGroup]="adUnitForm"
-      data-test="publisher-edit-site-create-ad-units-form"
-    >
+  <div class="ap-box ap-box--no-padding" *ngFor="let adUnitForm of adUnitForms; let adUnitIndex = index">
+    <form [formGroup]="adUnitForm" data-test="publisher-edit-site-create-ad-units-form">
       <mat-accordion data-test="publisher-edit-site-create-ad-units-accordion">
         <mat-expansion-panel
           (opened)="handlePanelExpand(adUnitIndex)"
           (closed)="adUnitPanelsStatus[adUnitIndex] = false"
           [expanded]="adUnitPanelsStatus[adUnitIndex]"
-          data-test="publisher-edit-site-create-ad-units-accordion-panel"
-        >
+          data-test="publisher-edit-site-create-ad-units-accordion-panel">
           <mat-expansion-panel-header>
-            <mat-panel-title
-              class="
-                ap-heading
-                ap-heading--secondary"
-            >
+            <mat-panel-title class="ap-heading ap-heading--secondary">
               <div class="row justify-between align-center">
                 <div>
                   <span>{{ adUnitIndex + 1 }}.</span>
-                  <span *ngIf="!adUnitPanelsStatus[adUnitIndex]"
-                        data-test="publisher-edit-site-create-ad-units-form-short-headline">
+                  <span
+                    *ngIf="!adUnitPanelsStatus[adUnitIndex]"
+                    data-test="publisher-edit-site-create-ad-units-form-short-headline">
                     Title: {{ adUnitForm.get('name').value }}
                   </span>
                 </div>
@@ -61,57 +31,32 @@
                 <div
                   class="error-msg error-msg--small"
                   *ngIf="
-                    (adUnitsSubmitted || !createSiteMode)
-                    && !adUnitPanelsStatus[adUnitIndex]
-                    && (
-                        adUnitForm.get('name').hasError('required')
-                        || !adUnitForm.get('size').value
-                      )"
-                > !
+                    (adUnitsSubmitted || !createSiteMode) &&
+                    !adUnitPanelsStatus[adUnitIndex] &&
+                    (adUnitForm.get('name').hasError('required') || !adUnitForm.get('size').value)
+                  ">
+                  !
                 </div>
               </div>
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <div
-            class="
-              row
-              no-gutters
-              justify-between"
-          >
-            <div
-              class="
-                col-md-5
-                col-lg-3
-                col-xxl-2"
-            >
+          <div class="row no-gutters justify-between">
+            <div class="col-md-5 col-lg-3 col-xxl-2">
               <div class="ap-form-input__box">
-                <label
-                  for="name"
-                  class="ap-form-label"
-                >
-                  Placement name
-                </label>
+                <label for="name" class="ap-form-label"> Placement name </label>
                 <input
                   id="name"
                   class="ap-form-input"
                   formControlName="name"
                   data-test="publisher-edit-site-create-ad-units-form-short-headline"
-                  [readonly]="!adUnitForm.get('size').value && adUnitForm.get('saved').value"
-                >
-                <span
-                  *ngIf="adUnitForm.get('name').valid"
-                  class="input-valid"
-                ></span>
-                <span
-                  class="error-msg"
-                  *ngIf="adUnitsSubmitted && adUnitForm.get('name').hasError('required')"
-                >
-                Placement name required!
-              </span>
+                  [readonly]="!adUnitForm.get('size').value && adUnitForm.get('saved').value" />
+                <span *ngIf="adUnitForm.get('name').valid" class="input-valid"></span>
+                <span class="error-msg" *ngIf="adUnitsSubmitted && adUnitForm.get('name').hasError('required')">
+                  Placement name required!
+                </span>
               </div>
             </div>
-
 
             <div class="col-xs-3">
               <div class="ap-form-input__box">
@@ -120,13 +65,11 @@
                   class="ap-select"
                   formControlName="adUnitSizeFilter"
                   (selectionChange)="onAdUnitSizeFilterChange(adUnitIndex)"
-                  data-test="publisher-edit-site-create-ad-units-form-size-select"
-                >
+                  data-test="publisher-edit-site-create-ad-units-form-size-select">
                   <mat-option
                     *ngFor="let adSize of adSizesOptions"
                     [value]="adSize"
-                    data-test="publisher-edit-site-create-ad-units-form-size-select"
-                  >
+                    data-test="publisher-edit-site-create-ad-units-form-size-select">
                     {{ adSize }}
                   </mat-option>
                 </mat-select>
@@ -134,18 +77,11 @@
             </div>
           </div>
 
-          <div
-            class="
-                ap-form-label
-                site-edit-create-posters-units__unit-label"
-          >
-            Placement size
-          </div>
+          <div class="ap-form-label site-edit-create-posters-units__unit-label">Placement size</div>
           <div
             *ngIf="adUnitForm.get('size').value || !adUnitForm.get('saved').value"
             [ngClass]="filteredAdUnitSizes[adUnitIndex].length > 4 ? 'justify-between' : 'justify-start'"
-            class="row"
-          >
+            class="row">
             <div
               class="site-edit-create-posters-units__poster-unit"
               [ngClass]="{
@@ -154,153 +90,77 @@
               *ngFor="let adUnit of filteredAdUnitSizes[adUnitIndex]"
               role="button"
               (click)="selectAdUnit(adUnit, adUnitIndex)"
-              data-test="publisher-edit-site-create-ad-units-form-ad-unit-select"
-            >
-              <div
-                class="
-                  row
-                  align-center
-                  justify-center
-                  site-edit-create-poster-unit__poster-unit__visualization-box"
-              >
+              data-test="publisher-edit-site-create-ad-units-form-ad-unit-select">
+              <div class="row align-center justify-center site-edit-create-poster-unit__poster-unit__visualization-box">
                 <div
                   class="ap-copy site-edit-create-posters-units_poster-unit__visualization"
-                  data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
-                >
+                  data-test="publisher-edit-site-create-ad-units-form-ad-unit-size">
                   {{ adUnit.label }}
                 </div>
               </div>
 
               <strong
-                class="
-                  site-edit-create-posters-units__poster-unit-title
-                  ap-copy
-                  ap-copy--semi
-                  ap-copy--x-dark
-                  ap-copy--medium"
-                data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
-              >
+                class="site-edit-create-posters-units__poster-unit-title ap-copy ap-copy--semi ap-copy--x-dark ap-copy--medium"
+                data-test="publisher-edit-site-create-ad-units-form-ad-unit-name">
                 {{ adUnit.size }}
               </strong>
               <div>
                 <div
                   class="ap-chip-box"
                   *ngFor="let tag of adUnit.tags"
-                  data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
-                >
+                  data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag">
                   {{ tag }}
                 </div>
               </div>
-
             </div>
           </div>
-          <div
-            *ngIf="!adUnitForm.get('size').value && adUnitForm.get('saved').value"
-            class="row"
-          >
-            <span class="error-msg">
-              The original size of this placement is deprecated and won't be supported
-            </span>
+          <div *ngIf="!adUnitForm.get('size').value && adUnitForm.get('saved').value" class="row">
+            <span class="error-msg"> The original size of this placement is deprecated and won't be supported </span>
           </div>
-          <div class="
-                     row
-                     justify-end
-                     site-edit-create-posters-units__delete-btn-wrapper">
+          <div class="row justify-end site-edit-create-posters-units__delete-btn-wrapper">
             <button
-              class="
-              ap-btn
-              ap-btn--white
-              ap-blue"
+              class="ap-btn ap-btn--white ap-blue"
               (click)="removeAdUnit(adUnitIndex)"
-              data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
-            >
+              data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit">
               Delete placement
             </button>
-            <span
-              class="error-msg"
-              *ngIf="adUnitsSubmitted && !adUnitForm.get('size').value"
-            >
-                Placement size required!
-              </span>
+            <span class="error-msg" *ngIf="adUnitsSubmitted && !adUnitForm.get('size').value">
+              Placement size required!
+            </span>
           </div>
-
         </mat-expansion-panel>
       </mat-accordion>
     </form>
   </div>
 
-  <div
-    class="
-      row
-      justify-center
-      ap-box
-      ap-box--no-margin"
-  >
+  <div class="row justify-center ap-box ap-box--no-margin">
     <button
-      class="
-        row
-        align-center
-        ap-btn
-        ap-btn--white
-        ap-blue
-        ap-btn--no-border"
+      class="row align-center ap-btn ap-btn--white ap-blue ap-btn--no-border"
       (click)="createEmptyAd()"
-      data-test="publisher-edit-site-create-ad-units-create-new-ad-unit"
-    >
-      <img
-        src="assets/images/plus-circle--blue.svg"
-        alt="Add new"
-        class="
-          ap-icon
-          ap-icon--prepend"
-      >
-        Create new placement
+      data-test="publisher-edit-site-create-ad-units-create-new-ad-unit">
+      <img src="assets/images/plus-circle--blue.svg" alt="Add new" class="ap-icon ap-icon--prepend" />
+      Create new placement
     </button>
   </div>
 
-
-  <div
-    class="
-      ap-box
-      ap-box--large
-      row
-      justify-between"
-  >
-    <button
-      class="
-          ap-btn
-          ap-btn--white
-          ap-blue"
-      role="link"
-      (click)="onStepBack()"
-    >
-      Back
-    </button>
+  <div class="ap-box ap-box--large row justify-between">
+    <button class="ap-btn ap-btn--white ap-blue" role="link" (click)="onStepBack()">Back</button>
 
     <div class="row">
       <button
         *ngIf="createSiteMode"
         (click)="saveAdUnits(true)"
         type="button"
-        class="
-          ap-btn
-          ap-btn--white
-          ap-blue
-          save-as-draft"
-        data-test="publisher-edit-site-save-as-draft"
-      >
+        class="ap-btn ap-btn--white ap-blue save-as-draft"
+        data-test="publisher-edit-site-save-as-draft">
         Save as draft
       </button>
       <button
         type="submit"
-        class="
-          ap-btn
-          ap-btn--wide
-          ap-btn--blue"
+        class="ap-btn ap-btn--wide ap-btn--blue"
         (click)="onSubmit()"
-        data-test="publisher-edit-site-save-and-continue"
-      >
-        <span *ngIf="!changesSaved ; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
+        data-test="publisher-edit-site-save-and-continue">
+        <span *ngIf="!changesSaved; else loading">{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
@@ -308,4 +168,3 @@
     </div>
   </div>
 </section>
-

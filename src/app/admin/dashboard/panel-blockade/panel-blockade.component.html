@@ -3,20 +3,11 @@
     <h1 class="ap-heading--primary ap-copy--red">Invalid license</h1>
     <p class="ap-copy ap-copy--large ap-copy--red">
       Your license is invalid.
-      <a [href]="url"
-        class="ap-copy--red ap-copy--semi">
-        See details
-      </a>
+      <a [href]="url" class="ap-copy--red ap-copy--semi"> See details </a>
     </p>
-    <p *ngIf="adControllerUrl"
-       class="ap-copy ap-copy--large ap-copy--red"
-    >
+    <p *ngIf="adControllerUrl" class="ap-copy ap-copy--large ap-copy--red">
       or set license using
-      <a [href]="adControllerUrl"
-         rel="noopener nofollow noreferrer"
-         target="_blank"
-         class="ap-copy--red ap-copy--semi"
-      >
+      <a [href]="adControllerUrl" rel="noopener nofollow noreferrer" target="_blank" class="ap-copy--red ap-copy--semi">
         AdController
       </a>
     </p>

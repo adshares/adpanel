@@ -6,12 +6,7 @@ import { SessionService } from 'app/session.service';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-
-  constructor(
-    private router: Router,
-    private session: SessionService,
-  ) {
-  }
+  constructor(private router: Router, private session: SessionService) {}
 
   canActivate(
     _route: ActivatedRouteSnapshot,
@@ -21,7 +16,9 @@ export class AdminGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/auth', 'login'], {queryParams: {redirectUrl: state.url}});
+    this.router.navigate(['/auth', 'login'], {
+      queryParams: { redirectUrl: state.url },
+    });
 
     return false;
   }

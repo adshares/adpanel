@@ -13,17 +13,17 @@ import {
   GetBillingHistory,
   WITHDRAW_FUNDS_SUCCESS,
 } from 'store/settings/settings.actions';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { ServerOptionsService } from 'common/server-options.service'
+import { ServerOptionsService } from 'common/server-options.service';
 
 @Component({
   selector: 'app-billing-history',
   templateUrl: './billing-history.component.html',
   styleUrls: ['./billing-history.component.scss'],
 })
-export class BillingHistoryComponent extends HandleSubscription implements OnInit {
+export class BillingHistoryComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
   emptyBillingHistory: BillingHistory = {
     limit: 10,
@@ -35,7 +35,7 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
   billingHistory: BillingHistory = this.emptyBillingHistory;
   showLoader: boolean = true;
   refreshIcon = faSyncAlt;
-  appCurrency: string
+  appCurrency: string;
 
   readonly DATE_FORMAT: string = DATE_FORMAT;
   dateFrom: Moment;
@@ -53,7 +53,7 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit(): void {
-    this.appCurrency = this.serverOptionsService.getOptions().appCurrency
+    this.appCurrency = this.serverOptionsService.getOptions().appCurrency;
     const handleHistoryUpdate = this.action$
       .pipe(ofType(CANCEL_AWAITING_TRANSACTION, WITHDRAW_FUNDS_SUCCESS))
       .subscribe(() => this.getBillingHistory());
@@ -63,8 +63,9 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
     this.dateTo = moment().endOf('day');
     this.types = [];
 
-    const dataSubscription = this.store.select('state', 'user', 'settings', 'billingHistory')
-      .subscribe((billingHistory) => {
+    const dataSubscription = this.store
+      .select('state', 'user', 'settings', 'billingHistory')
+      .subscribe(billingHistory => {
         this.billingHistory = billingHistory;
         this.showLoader = false;
       });
@@ -74,13 +75,15 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
 
   getBillingHistory(limit?: number, offset?: number): void {
     this.showLoader = true;
-    this.store.dispatch(new GetBillingHistory({
-      dateFrom: this.dateFrom.format(),
-      dateTo: this.dateTo.format(),
-      types: this.types,
-      limit,
-      offset
-    }));
+    this.store.dispatch(
+      new GetBillingHistory({
+        dateFrom: this.dateFrom.format(),
+        dateTo: this.dateTo.format(),
+        types: this.types,
+        limit,
+        offset,
+      })
+    );
   }
 
   handlePaginationEvent(event: any): void {

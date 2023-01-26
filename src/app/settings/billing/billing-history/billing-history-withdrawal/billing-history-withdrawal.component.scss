@@ -15,17 +15,17 @@
     max-width: 150px;
     position: relative;
 
-    &[data-status="ACCEPTED"] {
+    &[data-status='ACCEPTED'] {
       color: pal(green);
       background-color: pal(green, light);
     }
 
-    &[data-status="PENDING"] {
+    &[data-status='PENDING'] {
       color: pal(gray);
       background-color: pal(gray, ultra-light);
     }
 
-    &[data-status="REJECTED"] {
+    &[data-status='REJECTED'] {
       color: pal(red);
       background-color: pal(red, light);
     }

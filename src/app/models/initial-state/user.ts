@@ -1,4 +1,4 @@
-import {User} from 'models/user.model';
+import { User } from 'models/user.model';
 
 export const userInitialState: User = {
   id: 0,
@@ -18,6 +18,7 @@ export const userInitialState: User = {
   apiToken: null,
   isBanned: false,
   banReason: null,
+  roles: [],
   adserverWallet: {
     totalFunds: 0,
     bonusBalance: 0,

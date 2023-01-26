@@ -1,208 +1,103 @@
 <app-edit-asset-navigation></app-edit-asset-navigation>
-<section
-  class="
-    homepage-view
-    campaign-edit-create-bnr"
->
-  <div
-    class="
-      text-center
-      campaign-edit-create-bnr--narrow"
-  >
-    <h1
-      class="
-        ap-heading
-        ap-heading--primary"
-    >
-      Upload ads
-    </h1>
-    <p
-      class="
-        ap-copy
-        ap-copy--medium"
-    >
-      Please select the ad type and upload your banner ads.
-    </p>
+<section class="homepage-view campaign-edit-create-bnr">
+  <div class="text-center campaign-edit-create-bnr--narrow">
+    <h1 class="ap-heading ap-heading--primary">Upload ads</h1>
+    <p class="ap-copy ap-copy--medium">Please select the ad type and upload your banner ads.</p>
   </div>
 
-  <div
-    *ngIf="adTypes.length > 0 && adForms.length > 5"
-    class="
-      row
-      justify-center
-      ap-box
-      ap-box--no-margin"
-  >
+  <div *ngIf="adTypes.length > 0 && adForms.length > 5" class="row justify-center ap-box ap-box--no-margin">
     <button
-      class="
-        align-center
-        ap-btn
-        ap-btn--white
-        ap-blue
-        ap-btn--no-border"
+      class="align-center ap-btn ap-btn--white ap-blue ap-btn--no-border"
       (click)="createEmptyAd()"
-      data-test="advertiser-edit-campaign-create-ads-create-new-ad"
-    >
-      <img
-        src="assets/images/plus-circle--blue.svg"
-        alt="Add new"
-        class="
-          ap-icon
-          ap-icon--prepend"
-      >
+      data-test="advertiser-edit-campaign-create-ads-create-new-ad">
+      <img src="assets/images/plus-circle--blue.svg" alt="Add new" class="ap-icon ap-icon--prepend" />
       Add new advertisement
     </button>
   </div>
 
-  <div
-    class="ap-box ap-box--no-padding"
-    *ngFor="let adForm of adForms; let i = index"
-  >
-    <form
-      [formGroup]="adForm"
-      data-test="advertiser-edit-campaign-create-ads-form"
-    >
+  <div class="ap-box ap-box--no-padding" *ngFor="let adForm of adForms; let i = index">
+    <form [formGroup]="adForm" data-test="advertiser-edit-campaign-create-ads-form">
       <mat-accordion data-test="advertiser-edit-campaign-create-ads-accordion">
         <mat-expansion-panel
           (opened)="handlePanelExpand(i)"
           (closed)="adPanelsStatus[i] = false"
           [expanded]="adPanelsStatus[i]"
-          data-test="advertiser-edit-campaign-create-ads-accordion-panel"
-        >
+          data-test="advertiser-edit-campaign-create-ads-accordion-panel">
           <mat-expansion-panel-header>
-            <mat-panel-title
-              class="
-                ap-heading
-                ap-heading--secondary"
-            >
+            <mat-panel-title class="ap-heading ap-heading--secondary">
               <div class="row justify-between align-center">
                 <div>
-              <span>
-                {{ i + 1 }}.&nbsp;
-              </span>
-                  <span
-                    *ngIf="!adPanelsStatus[i]"
-                    data-test="advertiser-edit-campaign-create-ads-form-short-headline">
-                Title: {{ adForm.get('name').value }}
-              </span>
+                  <span> {{ i + 1 }}.&nbsp; </span>
+                  <span *ngIf="!adPanelsStatus[i]" data-test="advertiser-edit-campaign-create-ads-form-short-headline">
+                    Title: {{ adForm.get('name').value }}
+                  </span>
                 </div>
 
-                <div
-                  class="error-msg error-msg--small"
-                  *ngIf="adsSubmitted && !adPanelsStatus[i] && adForm.invalid"
-                > !
+                <div class="error-msg error-msg--small" *ngIf="adsSubmitted && !adPanelsStatus[i] && adForm.invalid">
+                  !
                 </div>
               </div>
-
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <div
-            class="
-              row
-              no-gutters"
-          >
-            <div
-              class="
-                col-md-4
-                col-xxl-3
-                col-xxxl-2"
-            >
+          <div class="row no-gutters">
+            <div class="col-md-4 col-xxl-3 col-xxxl-2">
               <div class="ap-form-input__box">
-                <label
-                  for="name"
-                  class="ap-form-label"
-                >
-                  Short headline
-                </label>
+                <label for="name" class="ap-form-label"> Short headline </label>
                 <input
                   id="name"
                   class="ap-form-input"
                   formControlName="name"
-                  data-test="advertiser-edit-campaign-create-ads-form-name"
-                >
-                <span
-                  *ngIf="adForm.get('name').valid"
-                  class="input-valid"
-                ></span>
-                <span
-                  class="error-msg"
-                  *ngIf="adForm.get('name').hasError('required') && adsSubmitted"
-                >
-                Short headline required!
-              </span>
+                  data-test="advertiser-edit-campaign-create-ads-form-name" />
+                <span *ngIf="adForm.get('name').valid" class="input-valid"></span>
+                <span class="error-msg" *ngIf="adForm.get('name').hasError('required') && adsSubmitted">
+                  Short headline required!
+                </span>
               </div>
             </div>
 
-            <div
-              class="
-                col-md-offset-1
-                col-md-3
-                col-xxl-2
-                col-xxxl-1"
-            >
+            <div class="col-md-offset-1 col-md-3 col-xxl-2 col-xxxl-1">
               <div class="ap-form-input__box">
                 <label class="ap-form-label">Ad type</label>
                 <mat-select
                   class="ap-select"
                   formControlName="type"
                   (selectionChange)="setAdType(i)"
-                  data-test="advertiser-edit-campaign-create-ads-form-ad-type-select"
-                >
+                  data-test="advertiser-edit-campaign-create-ads-form-ad-type-select">
                   <mat-option
                     *ngFor="let adType of adTypes"
                     [value]="adType"
-                    data-test="advertiser-edit-campaign-create-ads-form-ad-type-option"
-                  >
+                    data-test="advertiser-edit-campaign-create-ads-form-ad-type-option">
                     {{ adType }}
                   </mat-option>
                 </mat-select>
               </div>
             </div>
 
-            <div
-              class="
-                col-md-offset-1
-                col-md-3
-                col-xxl-2
-                col-xxxl-1
-                col"
-            >
-              <div *ngIf="(isImageTypeChosen(adForm) || isVideoTypeChosen(adForm)) && adForm.get('creativeSize').value"
-                   class="ap-form-input__box">
-                <span class="ap-form-input__box
-                             ap-form-label
-                             campaign-edit-create-bnr__size-label">
-                  Size
-                </span>
+            <div class="col-md-offset-1 col-md-3 col-xxl-2 col-xxxl-1 col">
+              <div
+                *ngIf="(isImageTypeChosen(adForm) || isVideoTypeChosen(adForm)) && adForm.get('creativeSize').value"
+                class="ap-form-input__box">
+                <span class="ap-form-input__box ap-form-label campaign-edit-create-bnr__size-label"> Size </span>
                 <span class="ap-copy">
                   {{ adForm.get('creativeSize').value }}
                 </span>
               </div>
 
-              <div *ngIf="isImageTypeChosen(adForm) && !adForm.get('creativeSize').value"
-                   class="ap-form-input__box">
-                <span class="ap-form-input__box
-                             ap-form-label
-                             campaign-edit-create-bnr__size-label">
-                  Info
-                </span>
+              <div *ngIf="isImageTypeChosen(adForm) && !adForm.get('creativeSize').value" class="ap-form-input__box">
+                <span class="ap-form-input__box ap-form-label campaign-edit-create-bnr__size-label"> Info </span>
                 <span class="ap-copy">
-                  <a href="{{ADSHARES_UNITS}}" target="_blank" rel="noopener">List of available Ad sizes</a>
+                  <a href="{{ ADSHARES_UNITS }}" target="_blank" rel="noopener">List of available Ad sizes</a>
                 </span>
               </div>
 
-              <div *ngIf="isHtmlTypeChosen(adForm)"
-                   class="ap-form-input__box">
-                <label class="ap-form-label">
-                  Size
-                </label>
+              <div *ngIf="isHtmlTypeChosen(adForm)" class="ap-form-input__box">
+                <label class="ap-form-label"> Size </label>
                 <mat-select
                   class="ap-select"
                   formControlName="creativeSize"
                   (selectionChange)="setAdSize(i)"
-                  data-test="advertiser-edit-campaign-create-ads-form-size-select"
-                >
+                  data-test="advertiser-edit-campaign-create-ads-form-size-select">
                   <mat-option
                     *ngFor="let adSize of getAdSizes(adCreativeTypes.HTML)"
                     [value]="adSize"
@@ -212,17 +107,13 @@
                 </mat-select>
               </div>
 
-              <div *ngIf="isDirectTypeChosen(adForm)"
-                   class="ap-form-input__box">
-                <label class="ap-form-label">
-                  Display
-                </label>
+              <div *ngIf="isDirectTypeChosen(adForm)" class="ap-form-input__box">
+                <label class="ap-form-label"> Display </label>
                 <mat-select
                   class="ap-select"
                   formControlName="creativeSize"
                   (selectionChange)="setAdSize(i)"
-                  data-test="advertiser-edit-campaign-create-ads-form-size-select"
-                >
+                  data-test="advertiser-edit-campaign-create-ads-form-size-select">
                   <mat-option
                     *ngFor="let adSize of getAdSizes(adCreativeTypes.DIRECT)"
                     [value]="adSize"
@@ -234,59 +125,36 @@
             </div>
           </div>
 
-          <div
-            class="error-msg"
-            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].type"
-          >
+          <div class="error-msg" *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].type">
             Invalid file type
           </div>
 
-          <div
-            class="error-msg"
-            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
-          >
-            Invalid size! Make sure that your file is no more than {{presentedMaxFileSize(i)|formatFileSize}}.
+          <div class="error-msg" *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size">
+            Invalid size! Make sure that your file is no more than
+            {{ presentedMaxFileSize(i) | formatFileSize }}.
           </div>
 
           <div
             class="error-msg"
-            *ngIf="adsSubmitted && adForm.get('fileSrc') && adForm.get('fileSrc').hasError('required')"
-          >
+            *ngIf="adsSubmitted && adForm.get('fileSrc') && adForm.get('fileSrc').hasError('required')">
             File required
           </div>
 
-          <div
-            class="error-msg"
-            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].upload"
-          >
+          <div class="error-msg" *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].upload">
             Something went wrong, please try again later
           </div>
 
-          <div class="no-gutters"
-            *ngIf="isDirectTypeChosen(adForm)"
-          >
+          <div class="no-gutters" *ngIf="isDirectTypeChosen(adForm)">
             <div class="ap-form-input__box">
-              <label
-                for="creative-contents"
-                class="ap-form-label"
-              >
-                URL
-              </label>
+              <label for="creative-contents" class="ap-form-label"> URL </label>
               <input
                 id="creative-contents"
                 class="ap-form-input"
                 formControlName="creativeContents"
                 type="url"
-                data-test="advertiser-edit-campaign-create-ads-form-url"
-              >
-              <span
-                *ngIf="adForm.get('creativeContents').valid"
-                class="input-valid"
-              ></span>
-              <span
-                class="error-msg"
-                *ngIf="!adForm.get('creativeContents').valid && adsSubmitted"
-              >
+                data-test="advertiser-edit-campaign-create-ads-form-url" />
+              <span *ngIf="adForm.get('creativeContents').valid" class="input-valid"></span>
+              <span class="error-msg" *ngIf="!adForm.get('creativeContents').valid && adsSubmitted">
                 Please provide a valid URL.
               </span>
             </div>
@@ -294,155 +162,99 @@
           </div>
 
           <div
-            class="
-              col
-              align-center
-              justify-center
-              ap-box
-              ap-box--large
-              ap-box--bordered
-              ap-box--dashed
-              ap-box--blue-border
-              drag-and-drop-box
-              banner"
+            class="col align-center justify-center ap-box ap-box--large ap-box--bordered ap-box--dashed ap-box--blue-border drag-and-drop-box banner"
             *ngIf="!imagesStatus.upload.processing && adForm.get('fileSrc') && adForm.get('fileSrc').value === ''"
             ng2FileDrop
-            [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
+            [ngClass]="{
+              'drag-and-drop-box--file-over': imagesStatus.overDrop[i]
+            }"
             (fileOver)="fileOverDropArea($event, i)"
             [uploader]="uploader"
-            data-test="advertiser-edit-campaign-create-ads-form-drag-and-drop-wrapper"
-          >
-            <img
-              src="/assets/images/campaign-ad-illustration.svg"
-              alt=""
-            >
+            data-test="advertiser-edit-campaign-create-ads-form-drag-and-drop-wrapper">
+            <img src="/assets/images/campaign-ad-illustration.svg" alt="" />
             <div>
-              <p
-                class="
-                  ap-copy
-                  ap-copy--semi
-                  ap-copy--dark"
-              >
+              <p class="ap-copy ap-copy--semi ap-copy--dark">
                 Drag & Drop or
 
-                <label
-                  class="ap-blue"
-                  for="fileSelect">
-                  Browse
-                </label>
+                <label class="ap-blue" for="fileSelect"> Browse </label>
 
                 <input
                   class="file-select-input"
                   type="file"
                   id="fileSelect"
                   (change)="uploadBanner(i, $event)"
-                  data-test="advertiser-edit-campaign-create-ads-form-image-upload">
+                  data-test="advertiser-edit-campaign-create-ads-form-image-upload" />
               </p>
               <ng-container [ngSwitch]="adForm.get('type').value">
-                <p
-                  *ngSwitchCase="adCreativeTypes.HTML"
-                  class="ap-copy"
-                >
-                  Please upload your HTML banner ad as a zip archive.
-                  Please make sure that the file is not larger than {{getMaxFileSize(adCreativeTypes.HTML)|formatFileSize}}.
+                <p *ngSwitchCase="adCreativeTypes.HTML" class="ap-copy">
+                  Please upload your HTML banner ad as a zip archive. Please make sure that the file is not larger than
+                  {{ getMaxFileSize(adCreativeTypes.HTML) | formatFileSize }}.
                 </p>
                 <a
-                        *ngSwitchCase="adCreativeTypes.HTML"
-                        class="ap-copy"
-                        href="{{WIKI_HTML_AD}}"
-                        target="_blank"
-                        rel="noopener nofollow noreferrer"
-                >
-                  How to add an HTML ad
-
-                </a>
-                <p
-                  *ngSwitchDefault
+                  *ngSwitchCase="adCreativeTypes.HTML"
                   class="ap-copy"
-                >
-                  We support {{ getSupportedFiles(adForm) }} files.
-                  Please make sure that the file is not larger than {{getSupportedFileSize(adForm)|formatFileSize}}.
+                  href="{{ WIKI_HTML_AD }}"
+                  target="_blank"
+                  rel="noopener nofollow noreferrer">
+                  How to add an HTML ad
+                </a>
+                <p *ngSwitchDefault class="ap-copy">
+                  We support {{ getSupportedFiles(adForm) }} files. Please make sure that the file is not larger than
+                  {{ getSupportedFileSize(adForm) | formatFileSize }}.
                 </p>
               </ng-container>
             </div>
           </div>
 
           <div
-            class="
-              row
-              align-right
-              ap-box
-              file-box
-              file-box--grey-background"
-            [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
+            class="row align-right ap-box file-box file-box--grey-background"
+            [ngClass]="{ 'file-box--upload': imagesStatus.upload.processing }"
             *ngIf="imagesStatus.upload.processing || (adForm.get('fileSrc') && adForm.get('fileSrc').value !== '')"
-            data-test="advertiser-edit-campaign-create-ads-form-upload-status"
-          >
-            <div
-              [ngSwitch]="adForm.get('type').value"
-              class="col-xs-1"
-            >
-              <img *ngSwitchCase="adCreativeTypes.IMAGE"
-                   src="/assets/images/document-png--blue.svg"
-                   alt="Uploaded image"
-              >
-              <img *ngSwitchCase="adCreativeTypes.HTML"
-                   src="/assets/images/document-zip--blue.svg"
-                   alt="Uploaded zip file"
-              >
-              <img *ngSwitchDefault
-                   src="/assets/images/document-blue.svg"
-                   alt="Uploaded file"
-              >
+            data-test="advertiser-edit-campaign-create-ads-form-upload-status">
+            <div [ngSwitch]="adForm.get('type').value" class="col-xs-1">
+              <img
+                *ngSwitchCase="adCreativeTypes.IMAGE"
+                src="/assets/images/document-png--blue.svg"
+                alt="Uploaded image" />
+              <img
+                *ngSwitchCase="adCreativeTypes.HTML"
+                src="/assets/images/document-zip--blue.svg"
+                alt="Uploaded zip file" />
+              <img *ngSwitchDefault src="/assets/images/document-blue.svg" alt="Uploaded file" />
             </div>
 
             <div class="col-xs-10">
               <div
                 class="file-box__file-info"
                 *ngIf="imagesStatus.upload.processing"
-                data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
-              >
+                data-test="advertiser-edit-campaign-create-ads-form-image-upload-name">
                 {{ imagesStatus.name }}
-                <br>
+                <br />
 
                 <div class="progress-bar">
-                  <div
-                    class="progress-bar--active"
-                    [ngStyle]="{'width': imagesStatus.upload.progress + '%'}"></div>
+                  <div class="progress-bar--active" [ngStyle]="{ width: imagesStatus.upload.progress + '%' }"></div>
                 </div>
-                <span
-                  class="
-                  file-box__file-sub-info
-                  file-box__file-sub-info--secondary">
-                {{ (imagesStatus.size / 1000) * (imagesStatus.upload.progress / 100) }} KB
-                of
-                {{ imagesStatus.size / 1000 }} KB
-                ({{ imagesStatus.upload.progress }}% Done)
+                <span class="file-box__file-sub-info file-box__file-sub-info--secondary">
+                  {{ (imagesStatus.size / 1000) * (imagesStatus.upload.progress / 100) }}
+                  KB of {{ imagesStatus.size / 1000 }} KB ({{ imagesStatus.upload.progress }}% Done)
                 </span>
 
                 <img
-                  class="
-                  file-box__action-button
-                  file-box__action-button--cancel"
+                  class="file-box__action-button file-box__action-button--cancel"
                   src="/assets/images/x-circle--gray.svg"
                   alt="Cancel upload"
                   role="button"
                   (click)="cancelUploading()"
-                  data-test="advertiser-edit-campaign-create-ads-form-image-upload-cancel"
-                >
+                  data-test="advertiser-edit-campaign-create-ads-form-image-upload-cancel" />
               </div>
 
               <div
                 class="file-box__file-info"
                 *ngIf="adForm.get('fileSrc') && adForm.get('fileSrc').value"
-                data-test="advertiser-edit-campaign-create-ads-form-upload-name"
-              >
+                data-test="advertiser-edit-campaign-create-ads-form-upload-name">
                 {{ adForm.get('fileName').value }}
-                <br>
-                <span
-                  class="file-box__file-sub-info"
-                  data-test="advertiser-edit-campaign-create-ads-form-size"
-                >
+                <br />
+                <span class="file-box__file-sub-info" data-test="advertiser-edit-campaign-create-ads-form-size">
                   {{ adForm.get('creativeSize').value }}
                 </span>
               </div>
@@ -450,81 +262,42 @@
           </div>
 
           <div
-            class="
-              row
-              ap-box
-              ap-box--bordered
-              ap-box--dashed
-              ap-box--blue-border
-              ap-box__preview"
-            *ngIf="adForm.get('fileSrc') && adForm.get('fileSrc').value && adForm.get('creativeSize').value"
-          >
-            <div
-              class="
-                col-xs-12
-                ap-copy
-                ap-copy--light
-                ap-box--no-padding">
-              Preview
-            </div>
+            class="row ap-box ap-box--bordered ap-box--dashed ap-box--blue-border ap-box__preview"
+            *ngIf="adForm.get('fileSrc') && adForm.get('fileSrc').value && adForm.get('creativeSize').value">
+            <div class="col-xs-12 ap-copy ap-copy--light ap-box--no-padding">Preview</div>
 
             <ng-container [ngSwitch]="adForm.get('type').value">
-              <div
-                *ngSwitchCase="adCreativeTypes.IMAGE"
-                class="banner image-poster"
-              >
-                <img
-                  [src]="adForm.get('fileSrc').value | trustUrl"
-                  alt="">
+              <div *ngSwitchCase="adCreativeTypes.IMAGE" class="banner image-poster">
+                <img [src]="adForm.get('fileSrc').value | trustUrl" alt="" />
               </div>
 
-              <div
-                *ngSwitchCase="adCreativeTypes.HTML"
-                class="banner"
-              >
+              <div *ngSwitchCase="adCreativeTypes.HTML" class="banner">
                 <iframe
                   [ngStyle]="{
-                    'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
-                    'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
+                    width: adForm.get('creativeSize').value.split('x')[0] + 'px',
+                    height: adForm.get('creativeSize').value.split('x')[1] + 'px'
                   }"
                   [src]="adForm.get('fileSrc').value | trustUrl"
-                  title="Ad Preview"
-                ></iframe>
+                  title="Ad Preview"></iframe>
               </div>
 
-              <div
-                *ngSwitchCase="adCreativeTypes.VIDEO"
-                class="banner image-poster"
-              >
-                <video
-                  controls
-                  class="video-preview"
-                >
-                  <source [src]="adForm.get('fileSrc').value">
+              <div *ngSwitchCase="adCreativeTypes.VIDEO" class="banner image-poster">
+                <video controls class="video-preview">
+                  <source [src]="adForm.get('fileSrc').value" />
                   Sorry, your browser doesn't support embedded videos.
                 </video>
               </div>
 
-              <div
-                *ngSwitchCase="adCreativeTypes.MODEL"
-                class="model-preview-container"
-              >
-                <app-model-preview
-                  [modelUrl]="adForm.get('fileSrc').value"
-                ></app-model-preview>
+              <div *ngSwitchCase="adCreativeTypes.MODEL" class="model-preview-container">
+                <app-model-preview [modelUrl]="adForm.get('fileSrc').value"></app-model-preview>
               </div>
             </ng-container>
           </div>
 
           <button
-            class="
-              ap-btn
-              ap-btn--white
-              ap-blue
-              save-as-draft"
+            class="ap-btn ap-btn--white ap-blue save-as-draft"
             (click)="removeNewAd(i)"
-            data-test="advertiser-edit-campaign-create-ads-form-remove-ad"
-          >
+            data-test="advertiser-edit-campaign-create-ads-form-remove-ad">
             Delete ad
           </button>
         </mat-expansion-panel>
@@ -532,50 +305,21 @@
     </form>
   </div>
 
-  <div
-    *ngIf="adTypes.length > 0"
-    class="
-      row
-      justify-center
-      ap-box
-      ap-box--no-margin"
-  >
+  <div *ngIf="adTypes.length > 0" class="row justify-center ap-box ap-box--no-margin">
     <button
-      class="
-        align-center
-        ap-btn
-        ap-btn--white
-        ap-blue
-        ap-btn--no-border"
+      class="align-center ap-btn ap-btn--white ap-blue ap-btn--no-border"
       (click)="createEmptyAd()"
-      data-test="advertiser-edit-campaign-create-ads-create-new-ad"
-    >
-      <img
-        src="assets/images/plus-circle--blue.svg"
-        alt="Add new"
-        class="
-          ap-icon
-          ap-icon--prepend"
-      >
+      data-test="advertiser-edit-campaign-create-ads-create-new-ad">
+      <img src="assets/images/plus-circle--blue.svg" alt="Add new" class="ap-icon ap-icon--prepend" />
       Add new advertisement
     </button>
   </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      row
-      justify-between"
-  >
+  <div class="ap-box ap-box--large row justify-between">
     <button
-      class="
-          ap-btn
-          ap-btn--white
-          ap-blue"
+      class="ap-btn ap-btn--white ap-blue"
       (click)="onStepBack()"
-      data-test="advertiser-edit-campaign-navigate-back"
-    >
+      data-test="advertiser-edit-campaign-navigate-back">
       Back
     </button>
 
@@ -583,23 +327,16 @@
       <button
         *ngIf="!isEditMode"
         (click)="onSubmit(true)"
-        class="
-          ap-btn
-          ap-btn--white
-          ap-blue
-          save-as-draft"
-        data-test="advertiser-edit-campaign-save-as-draft"
-      >
+        class="ap-btn ap-btn--white ap-blue save-as-draft"
+        data-test="advertiser-edit-campaign-save-as-draft">
         Save as draft
       </button>
-      <button class="ap-btn
-                     ap-btn--wide
-                     ap-btn--blue"
-              (click)="onSubmit()"
-              data-test="advertiser-edit-campaign-save-and-continue"
-      >
-        <span *ngIf="!changesSaved ; else loading">
-          {{isEditMode ? 'Update' : 'Save & continue'}}
+      <button
+        class="ap-btn ap-btn--wide ap-btn--blue"
+        (click)="onSubmit()"
+        data-test="advertiser-edit-campaign-save-and-continue">
+        <span *ngIf="!changesSaved; else loading">
+          {{ isEditMode ? 'Update' : 'Save & continue' }}
         </span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
@@ -608,4 +345,3 @@
     </div>
   </div>
 </section>
-

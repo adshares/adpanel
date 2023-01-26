@@ -22,11 +22,12 @@ export const siteInitialState: Site = {
   onlyAcceptedBanners: false,
   filtering: {
     requires: {},
-    excludes: {}
+    excludes: {},
   },
   filteringArray: {
     requires: [],
-    excludes: []
+    excludes: [],
   },
-  adUnits: []
+  adUnits: [],
+  rejectReason: null,
 };

@@ -6,19 +6,14 @@ import { SessionService } from 'app/session.service';
 
 @Injectable()
 export class PublisherGuard implements CanActivate {
-
-  constructor(
-    private router: Router,
-    private session: SessionService,
-  ) {
-  }
+  constructor(private router: Router, private session: SessionService) {}
 
   canActivate(
     _route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.session.isModerator() && !this.session.isImpersonated()) {
-      this.router.navigate(['/404'])
+      this.router.navigate(['/403']);
       return false;
     }
 
@@ -26,7 +21,9 @@ export class PublisherGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/auth', 'login'], {queryParams: {redirectUrl: state.url}});
+    this.router.navigate(['/auth', 'login'], {
+      queryParams: { redirectUrl: state.url },
+    });
     return false;
   }
 }

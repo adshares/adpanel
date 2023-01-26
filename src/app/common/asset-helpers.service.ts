@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Campaign } from 'models/campaign.model'
-import { Site } from 'models/site.model'
+import { Campaign } from 'models/campaign.model';
+import { Site } from 'models/site.model';
 
 @Injectable()
 export class AssetHelpersService {
-
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   redirectIfNameNotFilled(asset: Campaign | Site): boolean {
-    const obligatoryField = this.isSite(asset) ?
-      asset['name'] : (
-        (asset['site'] && this.isSite(asset['site'])) ? asset['site']['name'] : asset['basicInformation']['name']
-      );
+    const obligatoryField = this.isSite(asset)
+      ? asset['name']
+      : asset['site'] && this.isSite(asset['site'])
+      ? asset['site']['name']
+      : asset['basicInformation']['name'];
     const fieldFilled = obligatoryField !== '';
     if (!fieldFilled) {
       if (this.isSite(asset)) {
@@ -24,7 +23,7 @@ export class AssetHelpersService {
       }
     }
 
-    return fieldFilled
+    return fieldFilled;
   }
 
   isSite(object: any): boolean {

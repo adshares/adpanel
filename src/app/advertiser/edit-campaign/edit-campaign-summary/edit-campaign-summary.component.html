@@ -1,370 +1,137 @@
 <app-edit-asset-navigation></app-edit-asset-navigation>
-<section
-  class="
-    homepage-view
-    campaign-edit-summary"
->
-  <div
-    class="
-      text-center
-      campaign-edit-summary--narrow"
-  >
-    <h1
-      class="
-        ap-heading
-        ap-heading--primary"
-    >
-      Summary
-    </h1>
-    <p
-      class="
-        ap-copy
-        ap-copy--large"
-    >
-      Below is summary of all the data defining your campaign.
-    </p>
+<section class="homepage-view campaign-edit-summary">
+  <div class="text-center campaign-edit-summary--narrow">
+    <h1 class="ap-heading ap-heading--primary">Summary</h1>
+    <p class="ap-copy ap-copy--large">Below is summary of all the data defining your campaign.</p>
   </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      campaign-edit-summary__basic-info-wrapper"
-  >
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <h3
-        class="
-          ap-heading
-          ap-heading--secondary"
-      >
-        1. Basic information
-      </h3>
-      <a
-        routerLink="../basic-information"
-        data-test="advertiser-edit-campaign-summary-navigate-to-basic-information"
-      >
-        <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
-        >
-          Edit
-        </button>
+  <div class="ap-box ap-box--large campaign-edit-summary__basic-info-wrapper">
+    <div class="row align-center justify-between">
+      <h3 class="ap-heading ap-heading--secondary">1. Basic information</h3>
+      <a routerLink="../basic-information" data-test="advertiser-edit-campaign-summary-navigate-to-basic-information">
+        <button class="ap-btn ap-btn--white ap-blue">Edit</button>
       </a>
     </div>
 
     <div class="row">
-
-      <div
-        class="
-        row
-        align-center
-        ap-copy
-        campaign-edit-summary__basic-info"
-      >
+      <div class="row align-center ap-copy campaign-edit-summary__basic-info">
         <div>
-          <p
-            class="
-            ap-copy--small
-            label"
-          >
-            Campaign name:
-          </p>
-          <p
-            class="
-            ap-copy--dark
-            ap-copy--semi"
-            data-test="advertiser-campaign-name"
-          >
+          <p class="ap-copy--small label">Campaign name:</p>
+          <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-name">
             {{ campaign.basicInformation.name }}
           </p>
         </div>
 
         <div>
-          <p
-            class="
-            ap-copy--small
-            label"
-          >
-            Target URL:
-          </p>
+          <p class="ap-copy--small label">Target URL:</p>
           <a
             [href]="campaign.basicInformation.targetUrl | testPlaceholders"
             [title]="campaign.basicInformation.targetUrl"
             rel="nofollow noopener noreferrer"
             target="_blank"
             class="ap-copy--dark ap-copy--semi"
-            data-test="advertiser-campaign-target-url"
-          >
+            data-test="advertiser-campaign-target-url">
             {{ campaign.basicInformation.targetUrl }}
           </a>
         </div>
-        <div *ngIf="campaign.basicInformation.maxCpm != null">
-          <p
-            class="
-            ap-copy--small
-            label"
-          >
-            Max CPM
-          </p>
-          <p
-            class="
-            ap-copy--dark
-            ap-copy--semi"
-            data-test="advertiser-campaign-max-cpm"
-          >
-            {{ campaign.basicInformation.maxCpm | formatMoney:2 }}
+        <div *ngIf="campaign.basicInformation.maxCpm !== null">
+          <p class="ap-copy--small label">Max CPM</p>
+          <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-max-cpm">
+            {{ campaign.basicInformation.maxCpm | formatMoney : 2 }}
           </p>
         </div>
         <div>
-          <p
-            class="
-            ap-copy--small
-            label"
-          >
-            Budget
-          </p>
-          <p
-            class="
-            ap-copy--dark
-            ap-copy--semi"
-            data-test="advertiser-campaign-budget"
-          >
-            {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney:4}}
+          <p class="ap-copy--small label">Budget</p>
+          <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-budget">
+            {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney : 4 }}
           </p>
         </div>
         <div>
-          <p
-            class="
-            ap-copy--small
-            label"
-          >
-            Start date
-          </p>
-          <div
-            class="
-            row
-            align-center"
-          >
-            <img
-              class="
-              ap-icon
-              ap-icon--prepend"
-              src="/assets/images/calendar.svg"
-              alt="Calendar Icon"
-            >
-            <p
-              class="
-              ap-copy--dark
-              ap-copy--semi"
-              data-test="advertiser-campaign-start-date"
-            >
+          <p class="ap-copy--small label">Start date</p>
+          <div class="row align-center">
+            <img class="ap-icon ap-icon--prepend" src="/assets/images/calendar.svg" alt="Calendar Icon" />
+            <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-start-date">
               {{ campaign.basicInformation.dateStart | formatDate }}
             </p>
           </div>
-
         </div>
         <div>
-          <p
-            class="
-            ap-copy--small
-            label"
-          >
-            End date
-          </p>
-          <div
-            class="
-            row
-            align-center"
-          >
-            <img
-              class="
-                ap-icon
-                ap-icon--prepend"
-              src="/assets/images/calendar.svg"
-              alt="Calendar Icon"
-            >
+          <p class="ap-copy--small label">End date</p>
+          <div class="row align-center">
+            <img class="ap-icon ap-icon--prepend" src="/assets/images/calendar.svg" alt="Calendar Icon" />
             <p
               *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
-              class="
-                ap-copy--dark
-                ap-copy--semi"
-              data-test="advertiser-campaign-end-date"
-            >
+              class="ap-copy--dark ap-copy--semi"
+              data-test="advertiser-campaign-end-date">
               {{ campaign.basicInformation.dateEnd | formatDate }}
             </p>
-            <ng-template #dateEndEmpty>
-              -
-            </ng-template>
+            <ng-template #dateEndEmpty> - </ng-template>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      campaign-edit-summary__targeting-info"
-  >
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <h3
-        class="
-          ap-heading
-          ap-heading--secondary"
-      >
-        2. Filtering
-      </h3>
+  <div class="ap-box ap-box--large campaign-edit-summary__targeting-info">
+    <div class="row align-center justify-between">
+      <h3 class="ap-heading ap-heading--secondary">2. Filtering</h3>
       <a
         routerLink="../additional-targeting"
-        data-test="advertiser-edit-campaign-summary-navigate-to-additional-targeting"
-      >
-        <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
-        >
-          Edit
-        </button>
+        data-test="advertiser-edit-campaign-summary-navigate-to-additional-targeting">
+        <button class="ap-btn ap-btn--white ap-blue">Edit</button>
       </a>
     </div>
 
     <div class="row">
-      <div
-        class="
-          col-xs-5
-          campaign-edit-summary__info-cell"
-      >
-        <p
-          class="
-            ap-copy
-            ap-copy--x-dark
-            targeting-title"
-        >
-          Targeting:
-        </p>
+      <div class="col-xs-5 campaign-edit-summary__info-cell">
+        <p class="ap-copy ap-copy--x-dark targeting-title">Targeting:</p>
         <app-targeting-display
           *ngIf="campaign.targetingArray"
           [items]="campaign.targetingArray.requires"
           [isExclude]="false"
           [canRemove]="false"
-          [targetingOptions]="targetingOptionsToAdd"
-        ></app-targeting-display>
+          [targetingOptions]="targetingOptionsToAdd"></app-targeting-display>
       </div>
 
-      <div
-        class="
-          col-xs-5
-          campaign-edit-summary__info-cell"
-      >
-        <p
-          class="
-            ap-copy
-            ap-copy--x-dark
-            targeting-title"
-        >
-          Exclusions:
-        </p>
+      <div class="col-xs-5 campaign-edit-summary__info-cell">
+        <p class="ap-copy ap-copy--x-dark targeting-title">Exclusions:</p>
         <div class="campaign-edit-summary__targeting--margin-fix">
           <app-targeting-display
             *ngIf="campaign.targetingArray"
             [items]="campaign.targetingArray.excludes"
             [isExclude]="true"
             [canRemove]="false"
-            [targetingOptions]="targetingOptionsToExclude"
-          ></app-targeting-display>
+            [targetingOptions]="targetingOptionsToExclude"></app-targeting-display>
         </div>
       </div>
     </div>
   </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      campaign-edit-summary__poster-info"
-  >
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <h3
-        class="
-          ap-heading
-          ap-heading--secondary"
-      >
-        3. Ads
-      </h3>
-      <a
-        routerLink="../create-ad"
-        data-test="advertiser-edit-campaign-summary-navigate-to-create-ads"
-      >
-        <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
-        >
-          Edit
-        </button>
+  <div class="ap-box ap-box--large campaign-edit-summary__poster-info">
+    <div class="row align-center justify-between">
+      <h3 class="ap-heading ap-heading--secondary">3. Ads</h3>
+      <a routerLink="../create-ad" data-test="advertiser-edit-campaign-summary-navigate-to-create-ads">
+        <button class="ap-btn ap-btn--white ap-blue">Edit</button>
       </a>
     </div>
 
     <div class="row justify-between">
-      <div
-        #appBannerPreviewContainer
-        *ngFor="let ad of campaign.ads"
-        class="campaign-poster"
-      >
+      <div #appBannerPreviewContainer *ngFor="let ad of campaign.ads" class="campaign-poster">
         <app-banner-preview
           [banner]="ad"
           [landingUrl]="campaign.basicInformation.targetUrl"
-          [maxWidth]="appBannerPreviewContainer.clientWidth"
-        ></app-banner-preview>
+          [maxWidth]="appBannerPreviewContainer.clientWidth"></app-banner-preview>
       </div>
     </div>
   </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      campaign-edit-summary__poster-info"
-  >
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <p
-        class="
-          ap-copy
-          ap-copy--medium"
-      >
-        Please note that it is possible to base your campaign on conversions - i.e. set specific actions you want to pay for – e.g. registrations or sales.
-        In case you want to use this feature, please go to your campaign settings and select “Edit conversions”.
-        Click
-        <a
-          href="https://github.com/adshares/adserver/wiki/Conversions"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
+  <div class="ap-box ap-box--large campaign-edit-summary__poster-info">
+    <div class="row align-center justify-between">
+      <p class="ap-copy ap-copy--medium">
+        Please note that it is possible to base your campaign on conversions - i.e. set specific actions you want to pay
+        for – e.g. registrations or sales. In case you want to use this feature, please go to your campaign settings and
+        select “Edit conversions”. Click
+        <a href="https://github.com/adshares/adserver/wiki/Conversions" rel="noopener noreferrer" target="_blank">
           here
         </a>
         to read more about conversion handling.
@@ -372,46 +139,22 @@
     </div>
   </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      row
-      justify-between"
-  >
-    <a
-      routerLink="../create-ad"
-      data-test="advertiser-edit-campaign-navigate-back"
-    >
-      <button
-        class="
-          ap-btn
-          ap-btn--white
-          ap-blue"
-      >
-        Back
-      </button>
+  <div class="ap-box ap-box--large row justify-between">
+    <a routerLink="../create-ad" data-test="advertiser-edit-campaign-navigate-back">
+      <button class="ap-btn ap-btn--white ap-blue">Back</button>
     </a>
 
     <div class="row">
       <button
-        class="
-            ap-btn
-            ap-btn--white
-            ap-blue
-            save-as-draft"
+        class="ap-btn ap-btn--white ap-blue save-as-draft"
         (click)="saveCampaign(true)"
-        data-test="advertiser-edit-campaign-save-as-draft"
-      >
+        data-test="advertiser-edit-campaign-save-as-draft">
         Save as draft
       </button>
       <button
-        class="
-            ap-btn
-            ap-btn--blue"
+        class="ap-btn ap-btn--blue"
         (click)="saveCampaign(false)"
-        data-test="advertiser-edit-campaign-start-campaign"
-      >
+        data-test="advertiser-edit-campaign-start-campaign">
         Start campaign
       </button>
     </div>

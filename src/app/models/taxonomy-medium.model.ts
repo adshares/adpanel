@@ -33,11 +33,4 @@ interface TargetingItem {
   items?: object;
 }
 
-export {
-  Format,
-  Media,
-  Medium,
-  Scope,
-  Targeting,
-  TargetingItem,
-}
+export { Format, Media, Medium, Scope, Targeting, TargetingItem };

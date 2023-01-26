@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 .container {
   padding: 0 16px;
@@ -72,7 +72,7 @@
   margin-left: 0;
 
   > .col,
-  > [class*="col-"] {
+  > [class*='col-'] {
     padding-right: 0;
     padding-left: 0;
   }
@@ -99,8 +99,8 @@ $column_sizes: 12;
       .col-#{$viewport_size}-1-#{$i} {
         flex-basis: math.div(math.div(1, $column_sizes), $i) * 100%;
         max-width: math.div(math.div(1, $column_sizes), $i) * 100%;
-        padding-left: math.div(0.5, $i)em;
-        padding-right: math.div(0.5, $i)em;
+        padding-left: math.div(0.5, $i) em;
+        padding-right: math.div(0.5, $i) em;
       }
 
       .col-#{$viewport_size}-offset-1-#{$i} {
@@ -120,8 +120,9 @@ $column_sizes: 12;
   }
 }
 
-
-@each $viewport_size, $viewport_size_fullname in $viewport_sizes_down_without_size {
+@each $viewport_size,
+  $viewport_size_fullname in $viewport_sizes_down_without_size
+{
   @include media($viewport_size_fullname) {
     .hidden-#{$viewport_size} {
       visibility: hidden;

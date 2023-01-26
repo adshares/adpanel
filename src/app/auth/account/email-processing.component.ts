@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog } from '@angular/material/dialog';
 
-import { SessionService } from "app/session.service";
+import { SessionService } from 'app/session.service';
 import { ApiService } from 'app/api/api.service';
 
-import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { SettingsService } from 'settings/settings.service'
+import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { SettingsService } from 'settings/settings.service';
 
 @Component({
   selector: 'app-email-processing',
   template: '',
 })
-
-export class EmailProcessingComponent {
+export class EmailProcessingComponent implements OnInit {
   action: string;
   token: any;
   error: boolean = false;
@@ -26,8 +25,7 @@ export class EmailProcessingComponent {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.action = this.route.snapshot.url[0].path;
@@ -35,7 +33,6 @@ export class EmailProcessingComponent {
     this.route.params.subscribe(params => {
       this.token = params['token'];
     });
-
 
     // this should not happen
     if (!this.token) {
@@ -84,7 +81,7 @@ export class EmailProcessingComponent {
       data: {
         title: title,
         message: message,
-      }
+      },
     });
   }
 
@@ -93,7 +90,7 @@ export class EmailProcessingComponent {
       data: {
         title: title,
         message: message,
-      }
+      },
     });
   }
 
@@ -111,61 +108,66 @@ export class EmailProcessingComponent {
   }
 
   emailActivation() {
-    this.api.users.emailActivate(this.token)
-      .subscribe(
-        (user) => {
-          this.updateUser(user);
-          this.defaultRedirect();
-          this.dialogConfirm('Email activation complete', 'Your email has been activated. You have now access to all features of the panel.');
-        },
-        () => {
-          this.defaultRedirect();
-          this.dialogError('Email activation failed', 'Token is outdated or you are already activated. If your email is still not activated please use Resend button from email activation bar.');
-        }
-      );
+    this.api.users.emailActivate(this.token).subscribe(
+      user => {
+        this.updateUser(user);
+        this.defaultRedirect();
+        this.dialogConfirm(
+          'Email activation complete',
+          'Your email has been activated. You have now access to all features of the panel.'
+        );
+      },
+      () => {
+        this.defaultRedirect();
+        this.dialogError(
+          'Email activation failed',
+          'Token is outdated or you are already activated. If your email is still not activated please use Resend button from email activation bar.'
+        );
+      }
+    );
   }
 
   confirmWithdrawal() {
-    this.api.users.confirmWithdrawal(this.token)
-      .subscribe(
-        () => {
-          this.router.navigate(['/settings/billing'])
-          this.dialogConfirm('Withdrawal confirmed', 'You should see the transaction in your account history.');
-        },
-        (err) => {
-          this.defaultRedirect();
-          this.dialogError('Withdrawal confirmation failed', err.error.message ||  'Unknown error');
-        }
-      );
+    this.api.users.confirmWithdrawal(this.token).subscribe(
+      () => {
+        this.router.navigate(['/settings/billing']);
+        this.dialogConfirm('Withdrawal confirmed', 'You should see the transaction in your account history.');
+      },
+      err => {
+        this.defaultRedirect();
+        this.dialogError('Withdrawal confirmation failed', err.error.message || 'Unknown error');
+      }
+    );
   }
 
   emailChangeConfirmOld() {
-    this.api.users.emailConfirm1Old(this.token)
-      .subscribe(
-        () => {
-          this.defaultRedirect();
-          this.dialogConfirm('Changing email is a 2 step process', 'Now you need to verify your new email address.\nWe have sent an activation email to your new email address. Please check your incoming messages.');
-        },
-        (err) => {
-          this.defaultRedirect();
-          this.dialogError('Email change process step failed', err.error.message || 'Unknown error');
-        }
-      );
+    this.api.users.emailConfirm1Old(this.token).subscribe(
+      () => {
+        this.defaultRedirect();
+        this.dialogConfirm(
+          'Changing email is a 2 step process',
+          'Now you need to verify your new email address.\nWe have sent an activation email to your new email address. Please check your incoming messages.'
+        );
+      },
+      err => {
+        this.defaultRedirect();
+        this.dialogError('Email change process step failed', err.error.message || 'Unknown error');
+      }
+    );
   }
 
   emailChangeConfirmNew() {
-    this.api.users.emailConfirm2New(this.token)
-      .subscribe(
-        (user) => {
-          this.updateUser(user);
-          this.defaultRedirect();
-          this.dialogConfirm('Email change process complete', 'Requested email address is now assigned to your account.');
-        },
-        (err) => {
-          this.defaultRedirect();
-          this.dialogError('Email change process final step failed', err.error.message || 'Unknown error');
-        }
-      );
+    this.api.users.emailConfirm2New(this.token).subscribe(
+      user => {
+        this.updateUser(user);
+        this.defaultRedirect();
+        this.dialogConfirm('Email change process complete', 'Requested email address is now assigned to your account.');
+      },
+      err => {
+        this.defaultRedirect();
+        this.dialogError('Email change process final step failed', err.error.message || 'Unknown error');
+      }
+    );
   }
 
   passwordConfirm() {
@@ -174,7 +176,7 @@ export class EmailProcessingComponent {
         this.dialogConfirm('Password change process complete', 'You can log in with new password.');
         this.defaultRedirect();
       },
-      (error) => {
+      error => {
         this.dialogError('Password change failed', error.error.message || 'Unknown error');
         this.defaultRedirect();
       }
@@ -182,13 +184,12 @@ export class EmailProcessingComponent {
   }
 
   confirmConnection() {
-    this.settings.confirmConnectWallet(this.token)
-    .subscribe(
+    this.settings.confirmConnectWallet(this.token).subscribe(
       () => {
-        this.router.navigate(['/settings/general'])
+        this.router.navigate(['/settings/general']);
         this.dialogConfirm('Connection confirmed', 'Your cryptocurrency wallet has been successfully connected.');
       },
-      (err) => {
+      err => {
         let error = err.error.message || 'Unknown error';
         if (err.error.errors) {
           const key = Object.keys(err.error.errors)[0];

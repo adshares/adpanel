@@ -1,51 +1,40 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { chartOptions } from './chart-settings/chart-settings';
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartDataset, ChartOptions } from 'chart.js'
+import { ChartDataset, ChartOptions } from 'chart.js';
 import * as commonActions from 'store/common/common.actions';
-import { chartSeriesInitialState } from "models/initial-state/chart-filter-settings";
-import { cloneDeep } from 'common/utilities/helpers'
-import { ServerOptionsService } from 'common/server-options.service'
-
+import { chartSeriesInitialState } from 'models/initial-state/chart-filter-settings';
+import { cloneDeep } from 'common/utilities/helpers';
+import { ServerOptionsService } from 'common/server-options.service';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy, OnChanges {
+export class ChartComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy, OnChanges {
   @Input() chartSpan: string;
   @Input() barChartData: ChartDataset<'bar'>[];
   @Input() barChartLabels: string[];
   @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
 
   currentChartFilterSettings: ChartFilterSettings;
-  barChartOptions: ChartOptions<'bar'>
+  barChartOptions: ChartOptions<'bar'>;
   static seriesType;
 
-  constructor(
-    private serverOptionsService: ServerOptionsService,
-    private store: Store<AppState>,
-  ) {
+  constructor(private serverOptionsService: ServerOptionsService, private store: Store<AppState>) {
     super();
   }
 
   ngOnInit(): void {
-    this.barChartOptions = chartOptions(this.serverOptionsService.getOptions().displayCurrency)
+    this.barChartOptions = chartOptions(this.serverOptionsService.getOptions().displayCurrency);
 
-    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
+    const chartFilterSubscription = this.store
+      .select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = cloneDeep(chartFilterSettings);
       });
@@ -57,8 +46,8 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   }
 
   updateChartData(timespan) {
-    const from = this.currentChartFilterSettings.currentFrom = moment(timespan.from).startOf('day').format();
-    const to = this.currentChartFilterSettings.currentTo = moment(timespan.to).endOf('day').format();
+    const from = (this.currentChartFilterSettings.currentFrom = moment(timespan.from).startOf('day').format());
+    const to = (this.currentChartFilterSettings.currentTo = moment(timespan.to).endOf('day').format());
     const daysSpan = moment(to).diff(moment(from), 'days');
 
     if (daysSpan <= 2) {
@@ -96,7 +85,7 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   resetSettings() {
     const reset = {
       ...this.currentChartFilterSettings,
-      currentSeries: chartSeriesInitialState
+      currentSeries: chartSeriesInitialState,
     };
     this.store.dispatch(new commonActions.SetChartFilterSettings(reset));
   }

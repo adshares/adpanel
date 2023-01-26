@@ -12,19 +12,20 @@ import { adUnitInitialState } from 'models/initial-state/ad-unit';
 import {
   ClearLastEditedSite,
   SaveLastEditedSiteAdUnits,
-  AddSiteToSites, UpdateSiteUnits
+  AddSiteToSites,
+  UpdateSiteUnits,
 } from 'store/publisher/publisher.actions';
-import { HandleSubscription } from "common/handle-subscription";
-import { siteStatusEnum } from "models/enum/site.enum";
-import {adUnitTypesEnum} from "models/enum/ad.enum";
-import { first } from 'rxjs/operators'
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
+import { siteStatusEnum } from 'models/enum/site.enum';
+import { adUnitTypesEnum } from 'models/enum/ad.enum';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-site-create-poster-units',
   templateUrl: './edit-site-create-ad-units.component.html',
   styleUrls: ['./edit-site-create-ad-units.component.scss'],
 })
-export class EditSiteCreateAdUnitsComponent extends HandleSubscription implements OnInit {
+export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent implements OnInit {
   adUnitForms: FormGroup[] = [];
   adSizesOptions: string[] = [];
   adUnitSizes: AdUnitMetaData[];
@@ -41,21 +42,22 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>,
+    private store: Store<AppState>
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(item => item.type === adUnitTypesEnum.DISPLAY);
+    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
+      item => item.type === adUnitTypesEnum.DISPLAY
+    );
 
     this.getOptions();
     this.fillFormWithData();
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .subscribe((site: Site) => {
-        this.site = site;
-      });
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').subscribe((site: Site) => {
+      this.site = site;
+    });
     this.subscriptions.push(lastSiteSubscription);
   }
 
@@ -71,7 +73,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   fillFormWithData(): void {
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+    const lastSiteSubscription = this.store
+      .select('state', 'publisher', 'lastEditedSite')
       .pipe(first())
       .subscribe((lastEditedSite: Site) => {
         const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
@@ -81,7 +84,9 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
           return;
         }
 
-        const savedAdUnits = lastEditedSite.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY});
+        const savedAdUnits = lastEditedSite.adUnits.filter(adUnit => {
+          return adUnit.type === adUnitTypesEnum.DISPLAY;
+        });
 
         if (savedAdUnits.length > 0) {
           savedAdUnits.forEach((savedAdUnit, index) => {
@@ -111,7 +116,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   unsetSizeIfNotSupported(savedAdUnit: AdUnit, adIndex: number): void {
     const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(adUnit => adUnit.size === savedAdUnit.size);
     if (undefined === chosenAdSize) {
-      this.adUnitForms[adIndex].patchValue({size: undefined})
+      this.adUnitForms[adIndex].patchValue({ size: undefined });
     }
   }
 
@@ -130,20 +135,20 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
       label: new FormControl(adUnit.label, Validators.required),
       tags: new FormControl(adUnitMetaData?.tags, Validators.required),
       id: new FormControl(adUnit.id),
-      saved: new FormControl(saved)
+      saved: new FormControl(saved),
     });
   }
 
   onAdUnitSizeFilterChange(adUnitIndex: number): void {
     const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
-    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter((adUnitSize) => {
+    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter(adUnitSize => {
       if (filterValue === 'Recommended') {
-        return adUnitSize.tags.includes('best')
+        return adUnitSize.tags.includes('best');
       } else if (filterValue === 'All') {
-        return true
+        return true;
       } else {
-        return adUnitSize.tags.includes(filterValue)
+        return adUnitSize.tags.includes(filterValue);
       }
     });
   }
@@ -169,7 +174,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   onStepBack(): void {
     if (this.createSiteMode) {
-      this.router.navigate(['/publisher', 'create-site', 'pops-settings'])
+      this.router.navigate(['/publisher', 'create-site', 'pops-settings']);
     } else {
       const siteId = this.site.id;
       this.store.dispatch(new ClearLastEditedSite({}));
@@ -178,7 +183,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   updateAdUnits(): void {
-    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
+    const adUnitsValid = this.adUnitForms.every(adForm => adForm.valid);
     this.adUnitsSubmitted = true;
     if (!adUnitsValid) return;
     this.adUnitsSubmitted = false;
@@ -190,9 +195,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   get adUnitsToSave(): AdUnit[] {
-    const units = [...this.site.adUnits.filter(adUnit => {
-      return adUnit.type !== adUnitTypesEnum.DISPLAY
-    })];
+    const units = [
+      ...this.site.adUnits.filter(adUnit => {
+        return adUnit.type !== adUnitTypesEnum.DISPLAY;
+      }),
+    ];
 
     this.adUnitForms.forEach(form => {
       units.push({
@@ -212,7 +219,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   saveAdUnits(isDraft: boolean): void {
     this.changesSaved = true;
     this.adUnitsSubmitted = true;
-    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
+    const adUnitsValid = this.adUnitForms.every(adForm => adForm.valid);
     if (adUnitsValid) {
       this.adUnitsSubmitted = false;
       this.store.dispatch(new SaveLastEditedSiteAdUnits(this.adUnitsToSave));
@@ -227,7 +234,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     if (isDraft) {
       this.site = {
         ...this.site,
-        status: siteStatusEnum.DRAFT
+        status: siteStatusEnum.DRAFT,
       };
       this.store.dispatch(new AddSiteToSites(this.site));
       return;

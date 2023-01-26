@@ -20,11 +20,7 @@ export class ReportsListItemComponent implements OnInit {
   readonly REPORT_STATE_READY = reportState.READY;
   icon;
 
-  constructor(
-    private service: CommonService,
-    private store: Store<AppState>,
-  ) {
-  }
+  constructor(private service: CommonService, private store: Store<AppState>) {}
 
   ngOnInit(): void {
     switch (this.item.state) {
@@ -41,13 +37,15 @@ export class ReportsListItemComponent implements OnInit {
   }
 
   download(): void {
-    this.service.getReport(this.item.id)
+    this.service
+      .getReport(this.item.id)
       .pipe(take(1))
       .subscribe(
         response => downloadReport(response),
-        () => this.store.dispatch(
-          new ShowDialogOnError('Report cannot be downloaded at this moment. Please try again later.')
-        ),
+        () =>
+          this.store.dispatch(
+            new ShowDialogOnError('Report cannot be downloaded at this moment. Please try again later.')
+          )
       );
   }
 }

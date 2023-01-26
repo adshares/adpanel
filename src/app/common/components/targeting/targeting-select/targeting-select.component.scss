@@ -24,7 +24,8 @@
     left: 6px;
     border: 1px solid pal(navy, light);
 
-    &:before, &:after {
+    &:before,
+    &:after {
       content: '';
       position: absolute;
       background: pal(navy, light);
@@ -61,9 +62,7 @@
       $padding-horizontal: 15px,
       $margin-top: 0
     );
-    @include copy(
-      $color: pal(navy, light),
-      $font-weight: semi);
+    @include copy($color: pal(navy, light), $font-weight: semi);
     border-top: none;
     cursor: pointer;
     position: relative;
@@ -85,6 +84,6 @@
   }
 
   &__parent-option {
-    @include copy($font-size: 14)
+    @include copy($font-size: 14);
   }
 }

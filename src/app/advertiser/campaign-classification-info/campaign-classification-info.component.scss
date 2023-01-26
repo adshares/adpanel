@@ -1,8 +1,8 @@
 @import '../../../styles';
 
 .campaign-classification-info {
-
-  &__status, &__label {
+  &__status,
+  &__label {
     margin: 6px 5px 6px 0;
     fa-icon {
       margin-right: 3px;

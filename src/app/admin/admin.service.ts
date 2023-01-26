@@ -1,26 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  AdminSettingsResponse,
-  AdvertiserInfo,
-  PublisherInfo,
-  UserInfo
-} from 'models/settings.model'
+import { AdminSettingsResponse, AdvertiserInfo, PublisherInfo, UserInfo } from 'models/settings.model';
 import { environment } from 'environments/environment';
-import { buildUrl } from 'common/utilities/helpers'
+import { buildUrl } from 'common/utilities/helpers';
 
 @Injectable()
 export class AdminService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-  }
-
-  getUsers(nextPage?: string, searchPhrase?: string, filters: string[] = [], orderBy?: string, direction?: string): Observable<UserInfo[]> {
-    const url = (
-      nextPage && (environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:'))
-      || nextPage
-    ) || `${environment.serverUrl}/admin/users`;
+  getUsers(
+    nextPage?: string,
+    searchPhrase?: string,
+    filters: string[] = [],
+    orderBy?: string,
+    direction?: string
+  ): Observable<UserInfo[]> {
+    const url =
+      (nextPage && environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:')) ||
+      nextPage ||
+      `${environment.serverUrl}/admin/users`;
     const params = [];
     if (searchPhrase) {
       params.push('q=' + encodeURIComponent(searchPhrase));
@@ -37,7 +36,12 @@ export class AdminService {
     return this.http.get<UserInfo[]>(buildUrl(url, params));
   }
 
-  getAdvertisers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<AdvertiserInfo[]> {
+  getAdvertisers(
+    groupBy?: string,
+    interval?: string,
+    searchPhrase?: string,
+    minDailyViews?: number
+  ): Observable<AdvertiserInfo[]> {
     const params = [];
     if (groupBy) {
       params.push('g=' + encodeURIComponent(groupBy));
@@ -54,7 +58,12 @@ export class AdminService {
     return this.http.get<AdvertiserInfo[]>(buildUrl(`${environment.serverUrl}/admin/advertisers`, params));
   }
 
-  getPublishers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<PublisherInfo[]> {
+  getPublishers(
+    groupBy?: string,
+    interval?: string,
+    searchPhrase?: string,
+    minDailyViews?: number
+  ): Observable<PublisherInfo[]> {
     const params = [];
     if (groupBy) {
       params.push('g=' + encodeURIComponent(groupBy));
@@ -72,7 +81,7 @@ export class AdminService {
   }
 
   impersonateUser(id: number): Observable<string> {
-    return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`)
+    return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`);
   }
 
   getAdminSettings(): Observable<AdminSettingsResponse> {

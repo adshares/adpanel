@@ -1,5 +1,6 @@
-import { Component } from '@angular/core'
-import { SessionService } from '../../../session.service'
+import { Component } from '@angular/core';
+import { SessionService } from '../../../session.service';
+import { User } from 'models/user.model';
 
 @Component({
   selector: 'app-account-settings',
@@ -7,12 +8,11 @@ import { SessionService } from '../../../session.service'
   styleUrls: ['./account-settings.component.scss'],
 })
 export class AccountSettingsComponent {
-  isModerator: boolean = false
+  isModerator: boolean = false;
+  user: User;
 
-  constructor (
-    private session: SessionService,
-  ) {
-    this.isModerator = session.isModerator()
+  constructor(private session: SessionService) {
+    this.isModerator = session.isModerator();
+    this.user = this.session.getUser();
   }
-
 }

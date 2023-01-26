@@ -9,12 +9,11 @@ import { prepareFilteringChoices } from 'common/components/targeting/targeting.h
 
 @Injectable()
 export class FilteringCriteriaResolver implements Resolve<TargetingOption[]> {
-  constructor(private publisherService: PublisherService) {
-  }
+  constructor(private publisherService: PublisherService) {}
 
   resolve(): Observable<TargetingOption[]> {
-    return this.publisherService.getFilteringCriteria().pipe(
-      map((filteringOptions) => prepareFilteringChoices(filteringOptions))
-    );
+    return this.publisherService
+      .getFilteringCriteria()
+      .pipe(map(filteringOptions => prepareFilteringChoices(filteringOptions)));
   }
 }

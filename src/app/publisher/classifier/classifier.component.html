@@ -1,63 +1,27 @@
 <div class="dashboard-view">
   <div class="container classifier">
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <h1
-        class="
-          ap-heading
-          ap-heading--primary"
-      >
-        {{isGlobal ? 'Reject banners' : 'Approve banners for ' + siteName}}
+    <div class="row align-center justify-between">
+      <h1 class="ap-heading ap-heading--primary">
+        {{ isGlobal ? 'Reject banners' : 'Approve banners for ' + siteName }}
       </h1>
-      <div
-        class="
-          row
-          align-center"
-      >
+      <div class="row align-center">
         <button
           *ngIf="isSingleBanner"
           type="button"
-          class="
-            ap-btn
-            ap-btn--prepend
-            ap-btn--white
-            ap-blue"
-          (click)="goToGeneralClassifier()"
-        >
+          class="ap-btn ap-btn--prepend ap-btn--white ap-blue"
+          (click)="goToGeneralClassifier()">
           Show all
         </button>
         <button
           *ngIf="!isSingleBanner"
           type="button"
-          class="
-            ap-btn
-            ap-btn--prepend
-            ap-btn--white
-            ap-blue"
-          (click)="refresh()"
-        >
-          <fa-icon
-            class="
-              ap-icon
-              ap-icon--prepend"
-            [icon]="refreshIcon"
-          >
-          </fa-icon>
+          class="ap-btn ap-btn--prepend ap-btn--white ap-blue"
+          (click)="refresh()">
+          <fa-icon class="ap-icon ap-icon--prepend" [icon]="refreshIcon"> </fa-icon>
           Refresh
         </button>
-        <button
-          type="button"
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
-          (click)="onStepBack()"
-        >
-          {{isGlobal ? 'Dashboard' : 'Back to the site'}}
+        <button type="button" class="ap-btn ap-btn--white ap-blue" (click)="onStepBack()">
+          {{ isGlobal ? 'Dashboard' : 'Back to the site' }}
         </button>
       </div>
     </div>
@@ -66,35 +30,20 @@
       [sizeOptions]="adSizesOptions"
       [siteId]="siteId"
       [classifierLocalBanners]="classifierLocalBanners"
-      (filteringChange)="updateBannersList($event)"
-    ></app-classifier-filtering>
-    <table
-      class="
-        col
-        ap-ad-list"
-    >
+      (filteringChange)="updateBannersList($event)"></app-classifier-filtering>
+    <table class="col ap-ad-list">
       <app-table-navigation
         [navigationName]="'classifierListNavigation'"
-        class="
-          row
-          ap-copy
-          ap-copy--small"
-      ></app-table-navigation>
+        class="row ap-copy ap-copy--small"></app-table-navigation>
       <ng-container *ngIf="!isLoading; else loading">
         <app-classifier-list-item
           *ngFor="let bannerClassification of bannerClassifications"
           [bannerClassification]="bannerClassification"
-          [siteId]="siteId"
-        ></app-classifier-list-item>
+          [siteId]="siteId"></app-classifier-list-item>
       </ng-container>
-      <tr
-        *ngIf="bannerClassifications.length === 0 && !isLoading"
-        class="ap-box row justify-center"
-      >
+      <tr *ngIf="bannerClassifications.length === 0 && !isLoading" class="ap-box row justify-center">
         <td class="ap-copy ap-copy--blue ap-copy--large">
-          {{filtering.status || !!filtering.sizes ?
-            'No banners matching filters' : 'There are no banners to reject'
-          }}
+          {{ filtering.status || !!filtering.sizes ? 'No banners matching filters' : 'There are no banners to reject' }}
         </td>
       </tr>
       <ng-template #loading>
@@ -104,12 +53,11 @@
       </ng-template>
     </table>
     <mat-paginator
-        #paginator
-        [hidePageSize]="true"
-        [length]="totalCount"
-        [pageSize]="PAGE_SIZE"
-        (page)="handlePaginationEvent($event)"
-    >
+      #paginator
+      [hidePageSize]="true"
+      [length]="totalCount"
+      [pageSize]="PAGE_SIZE"
+      (page)="handlePaginationEvent($event)">
     </mat-paginator>
   </div>
 </div>

@@ -4,19 +4,12 @@
   margin-top: 25px;
 
   &__title {
-    @include copy(
-      $font-size: 32,
-      $color: pal(navy, base),
-      $font-weight: bold
-    );
+    @include copy($font-size: 32, $color: pal(navy, base), $font-weight: bold);
     margin-bottom: 10px;
   }
 
   &__container {
-    @include container(
-        $padding-horizontal: 20px,
-        $padding-vertical: 20px
-    );
+    @include container($padding-horizontal: 20px, $padding-vertical: 20px);
   }
   &__btn {
     @include btn(
@@ -46,7 +39,7 @@
     top: 30%;
     right: 17%;
 
-    &--last{
+    &--last {
       right: 29%;
     }
   }

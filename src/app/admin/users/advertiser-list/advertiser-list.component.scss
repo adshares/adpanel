@@ -36,13 +36,8 @@
   }
 
   &__search-container {
-    @include container(
-      $border-color: pal(gray, light)
-    );
-    @include copy(
-      $font-size: 18,
-      $color: pal(gray, x-dark)
-    );
+    @include container($border-color: pal(gray, light));
+    @include copy($font-size: 18, $color: pal(gray, x-dark));
     mat-icon {
       vertical-align: middle;
     }
@@ -58,7 +53,6 @@
     margin-left: 16px;
     width: 220px;
   }
-
 }
 
 .choose-user-type {

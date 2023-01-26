@@ -3,7 +3,7 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 
 export const chartSeriesInitialState = {
   label: 'View',
-  value: 'view'
+  value: 'view',
 };
 
 export const chartFilterSettingsInitialState: ChartFilterSettings = {
@@ -11,6 +11,5 @@ export const chartFilterSettingsInitialState: ChartFilterSettings = {
   currentFrom: moment().subtract(30, 'days').format(),
   currentFrequency: 'day',
   currentAssetId: 0,
-  currentBannerId: 0,
   currentSeries: chartSeriesInitialState,
 };

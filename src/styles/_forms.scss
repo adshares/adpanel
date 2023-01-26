@@ -77,7 +77,8 @@
   background: pal(red);
 }
 
-.stopmark-unselected, .stopmark-unselected.selected {
+.stopmark-unselected,
+.stopmark-unselected.selected {
   &:after {
     content: '';
     position: absolute;
@@ -156,8 +157,8 @@
   }
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
   display: none;
 }
 
@@ -176,8 +177,8 @@ label .checkbox-label {
   }
 }
 
-input[type=checkbox]:checked + label .checkbox-label,
-input[type=radio]:checked + label .checkbox-label {
+input[type='checkbox']:checked + label .checkbox-label,
+input[type='radio']:checked + label .checkbox-label {
   background: pal(green);
   border: 1px solid pal(green);
 
