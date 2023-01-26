@@ -1,14 +1,12 @@
-<div class="ap-confirmation-alert ap-copy" *ngIf="display">
+<div class="ap-alert ap-alert--warning unconfirmed" *ngIf="display">
   <div class="container row align-center">
-    <div class="ap-icon ap-icon--prepend">
-      <img src="assets/images/user.svg" alt="User" />
+    <fa-icon [icon]="faUser" class="ap-icon ap-icon--prepend" size="lg"> </fa-icon>
+    <div class="col">
+      <p *ngIf="!isAdminConfirmed">The account is awaiting admin approval.</p>
+      <p *ngIf="!isEmailConfirmed">
+        You need to confirm your email address to be able to start using Adshares without limits.
+        <a (click)="resendActivationEmail()" data-test="resend-activation-email-button"> Resend </a>
+      </p>
     </div>
-    <p *ngIf="!isAdminConfirmed" class="admin-unconfirmed">The account is awaiting admin approval.</p>
-    <p *ngIf="!isEmailConfirmed" class="email-unconfirmed">
-      You need to confirm your email address to be able to start using Adshares without limits.
-      <a class="ap-copy ap-blue" (click)="resendActivationEmail()" data-test="resend-activation-email-button">
-        Resend
-      </a>
-    </p>
   </div>
 </div>

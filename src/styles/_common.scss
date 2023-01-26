@@ -523,3 +523,17 @@
     color: pal(secondary);
   }
 }
+
+.ap-auth-container {
+  @media screen and (max-width: $sm-breakpoint) {
+    padding: 48px 50px
+  }
+
+  @media screen and (min-width: $sm-breakpoint) and (max-width: $md-breakpoint) {
+    padding: 48px 150px
+  }
+
+  @media screen and (min-width: $md-breakpoint) {
+    padding: 48px 205px
+  }
+}

@@ -7,7 +7,7 @@
   word-break: break-all;
 
   &--hero {
-    @include font(64, bold);
+    @include font(36, bold);
     line-height: 1.11;
   }
 
@@ -88,6 +88,10 @@
     color: palette(warning) !important;
   }
 
+  &--gray {
+    color: pal(gray)
+  }
+
   &--thin {
     @include font-weight(light);
   }
@@ -143,7 +147,7 @@
     background-color: pal(success, light);
   }
 
-  &--warningr {
+  &--warning {
     color: pal(warning);
     background-color: pal(warning, light);
   }

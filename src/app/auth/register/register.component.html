@@ -1,23 +1,29 @@
-<div *ngIf="!isLoading; else loading" class="col ap__registration ap__registration-wrapper">
+<div *ngIf="!isLoading; else loading" class="ap__registration ap-auth-container">
   <p class="error-msg error-msg--irremovable" *ngIf="refLinkInfo && refLinkInfo.status === 'outdated'">
     Referral link is outdated
   </p>
   <p class="error-msg error-msg--irremovable" *ngIf="refLinkInfo && refLinkInfo.status === 'used'">
     Referral link is already used
   </p>
-  <div *ngIf="registrationEnabled" class="ap__registration-form">
-    <h2 class="ap-heading ap-heading--h2">Create Account</h2>
-    <p class="ap-copy ap-box ap-box--blue-border">
-      To create an account using ADS Wallet or MetaMask, just
-      <a class="ap-blue" routerLink="/auth/login" data-test="auth-redirect-to-login">log in</a>.
-    </p>
-    <p class="ap-copy">We need your basic information to create your account.</p>
-    <form #registrationForm="ngForm" (ngSubmit)="register()" class="ap-form" data-test="auth-registration-form">
+  <div *ngIf="registrationEnabled" class="col row--gap18">
+    <div class="col row--gap8">
+      <h2 class="ap-heading ap-heading--h3">Create Account</h2>
+      <p class="ap-copy">We need your basic information to create your account.</p>
+      <p class="ap-alert ap-alert--info">
+        To create an account using ADS Wallet or MetaMask, <br />
+        just <a routerLink="/auth/login" data-test="auth-redirect-to-login">log in</a>.
+      </p>
+    </div>
+    <form
+      #registrationForm="ngForm"
+      (ngSubmit)="register()"
+      class="ap-form col row--gap18"
+      data-test="auth-registration-form">
       <div class="ap-form-input__box">
         <label for="email" class="ap-form-label"> Email address </label>
         <input
           id="email"
-          class="ap-form-input"
+          class="ap-form-input ap-form-input--full"
           type="email"
           name="email"
           ngModel
@@ -36,7 +42,7 @@
         <label for="password" class="ap-form-label"> Password </label>
         <input
           id="password"
-          class="ap-form-input"
+          class="ap-form-input ap-form-input--full"
           name="password"
           type="password"
           ngModel
@@ -57,7 +63,7 @@
         <label for="confirmPassword" class="ap-form-label"> Confirm password </label>
         <input
           id="confirmPassword"
-          class="ap-form-input"
+          class="ap-form-input ap-form-input--full"
           name="confirmPassword"
           type="password"
           ngModel
@@ -70,50 +76,39 @@
         </span>
       </div>
 
-      <div class="ap-form-input__box ap__registration-consent">
-        <p class="ap-copy ap-copy--small">
-          <input
-            id="acceptTerms"
-            name="acceptTerms"
-            type="checkbox"
-            ngModel
-            #acceptTerms="ngModel"
-            required
-            data-test="auth-registration-form-accept-terms-checkbox" />
-          <label for="acceptTerms">
-            <span class="checkbox-label"></span>
-            I agree to Adshares'
-            <a
-              class="ap-blue"
-              [href]="termsOfServiceLink"
-              rel="noopener noreferrer"
-              target="_blank"
-              data-test="common-terms-of-service-link">
-              Terms of Service
-            </a>
-            and
-            <a
-              class="ap-blue"
-              [href]="privacyPolicyLink"
-              rel="noopener noreferrer"
-              target="_blank"
-              data-test="common-privacy-policy-link">
-              Privacy Policy.
-            </a></label
-          >
-        </p>
+      <div class="ap-form-input__box">
+        <mat-checkbox id="acceptTerms" name="acceptTerms" ngModel #acceptTerms="ngModel" required>
+          I agree to Adshares'
+          <a
+            class="ap-blue"
+            [href]="termsOfServiceLink"
+            rel="noopener noreferrer"
+            target="_blank"
+            data-test="common-terms-of-service-link">
+            Terms of Service
+          </a>
+          and
+          <a
+            class="ap-blue"
+            [href]="privacyPolicyLink"
+            rel="noopener noreferrer"
+            target="_blank"
+            data-test="common-privacy-policy-link">
+            Privacy Policy.
+          </a>
+        </mat-checkbox>
         <span class="error-msg" *ngIf="!acceptTerms.value && registrationForm.submitted"> Terms must be accepted </span>
       </div>
 
-      <button class="ap-btn ap-btn--primary ap-form-submit-btn" data-test="auth-registration-form-submit-button">
-        <span *ngIf="!isRegistering; else loading"> Register </span>
-      </button>
+      <div class="row justify-center">
+        <button class="ap-btn ap-btn--primary" data-test="auth-registration-form-submit-button">
+          <span *ngIf="!isRegistering; else loading"> Register </span>
+        </button>
+      </div>
     </form>
-  </div>
-  <div class="ap__registration-login-info">
     <p class="ap-copy">
       Maybe you already have an account?
-      <a class="ap-blue" routerLink="/auth/login" data-test="auth-redirect-to-login"> Log In </a>
+      <a routerLink="/auth/login" data-test="auth-redirect-to-login"> Log In </a>
     </p>
   </div>
 </div>
