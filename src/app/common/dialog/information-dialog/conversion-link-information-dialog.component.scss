@@ -32,12 +32,7 @@
 
   &__copy-icon {
     cursor: pointer;
-    color: pal(gray);
+    color: pal(secondary);
     outline: none;
-
-    &:hover,
-    &:focus {
-      color: pal(gray);
-    }
   }
 }

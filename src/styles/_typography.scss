@@ -60,7 +60,7 @@
     @include font(32, normal);
   }
 
-  &--white {
+  &--light {
     color: pal(light) !important;
   }
 
@@ -76,16 +76,12 @@
     color: pal(error) !important;
   }
 
-  &--green {
+  &--warning {
+    color: pal(warning) !important;
+  }
+
+  &--success {
     color: pal(success) !important;
-  }
-
-  &--green-light {
-    color: pal(success, light) !important;
-  }
-
-  &--orange {
-    color: palette(warning) !important;
   }
 
   &--gray {

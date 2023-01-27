@@ -1,26 +1,15 @@
 <mat-dialog-content>
-  <h6 class="ap-copy ap-copy--small">Continue as</h6>
+  <div class="col row--gap8">
+    <h6 class="ap-heading ap-heading--h3">Continue as</h6>
 
-  <div class="ap-box ap-box--light-border choose-account">
-    <div class="row align-center justify-center">
+    <div (click)="redirectToAdvertiser()" class="row justify-between align-center choose-account">
       <img src="/assets/images/advertiser-account-illustration.svg" alt="Advertiser Account Illustration" />
       <span class="ap-heading ap-heading--h3"> Advertiser </span>
     </div>
-    <button
-      class="ap-btn ap-btn--primary"
-      (click)="redirectToAdvertiser()"
-      data-test="common-account-choose-advertiser">
-      Continue
-    </button>
-  </div>
 
-  <div class="ap-box ap-box--light-border choose-account">
-    <div class="row align-center justify-center">
+    <div (click)="redirectToPublisher()" class="row justify-between align-center choose-account">
       <img src="/assets/images/publisher-account-illustration.svg" alt="Publisher Account Illustration" />
       <span class="ap-heading ap-heading--h3"> Publisher </span>
     </div>
-    <button class="ap-btn ap-btn--primary" (click)="redirectToPublisher()" data-test="common-account-choose-publisher">
-      Continue
-    </button>
   </div>
 </mat-dialog-content>
