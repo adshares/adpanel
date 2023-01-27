@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SessionService } from '../../../session.service';
+import { User } from 'models/user.model';
 
 @Component({
   selector: 'app-account-settings',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-settings.component.scss'],
 })
 export class AccountSettingsComponent {
-  constructor() {}
+  user: User;
+
+  constructor(private session: SessionService) {
+    this.user = this.session.getUser();
+  }
 }

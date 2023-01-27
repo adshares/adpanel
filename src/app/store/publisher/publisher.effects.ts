@@ -129,7 +129,7 @@ export class PublisherEffects {
       ofType<AddSiteToSites>(ADD_SITE_TO_SITES),
       switchMap(action =>
         this.service.saveSite(action.payload).pipe(
-          switchMap(site => {
+          switchMap(response => {
             this.router.navigate(['/publisher', 'dashboard']);
             this.dialog.open(ConfirmResponseDialogComponent, {
               data: {
@@ -138,7 +138,7 @@ export class PublisherEffects {
                   'The site is pending verification.\nYou will be notified by an e-mail when the status changes.',
               },
             });
-
+            const site = response.data;
             return [new AddSiteToSitesSuccess(site), new ClearLastEditedSite()];
           }),
           catchError(error => {
@@ -174,9 +174,10 @@ export class PublisherEffects {
       map(action => action.payload),
       switchMap(payload =>
         this.service.updateSiteData(payload.id, payload).pipe(
-          switchMap(() => {
-            this.router.navigate(['/publisher', 'site', payload.id]);
-            return [new UpdateSiteSuccess(payload), new ClearLastEditedSite()];
+          switchMap(response => {
+            const site = response.data;
+            this.router.navigate(['/publisher', 'site', site.id]);
+            return [new UpdateSiteSuccess(site), new ClearLastEditedSite()];
           }),
           catchError(() => observableOf(new UpdateSiteFailure()))
         )

@@ -51,7 +51,7 @@ export class PublisherService {
     return this.http.get<SiteRank>(`${environment.apiUrl}/sites/${id}/rank`);
   }
 
-  saveSite(site: Site): Observable<Site> {
+  saveSite(site: Site): Observable<{ data: Site }> {
     const temporarySiteObject = { ...site };
     if (site.filteringArray) {
       const filteringObject = parseTargetingForBackend(site.filteringArray);
@@ -60,7 +60,7 @@ export class PublisherService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { filteringArray, ...reducedSite } = temporarySiteObject;
 
-    return this.http.post<Site>(`${environment.apiUrl}/sites`, {
+    return this.http.post<{ data: Site }>(`${environment.apiUrl}/sites`, {
       site: reducedSite,
     });
   }
@@ -75,8 +75,8 @@ export class PublisherService {
     return this.http.delete<boolean>(`${environment.apiUrl}/sites/${id}`);
   }
 
-  updateSiteData(id: number, site: Partial<Site>): Observable<Site> {
-    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, { site });
+  updateSiteData(id: number, site: Partial<Site>): Observable<{ data: Site }> {
+    return this.http.patch<{ data: Site }>(`${environment.apiUrl}/sites/${id}`, { site });
   }
 
   getFilteringCriteria(excludeInternal: boolean = false): Observable<TargetingOption[]> {

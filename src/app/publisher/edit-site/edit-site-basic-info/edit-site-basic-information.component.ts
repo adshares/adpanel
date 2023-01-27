@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,13 +14,13 @@ import { cloneDeep, mapToIterable } from 'common/utilities/helpers';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter';
 import { siteInitialState } from 'models/initial-state/site';
+import { siteStatusEnum } from 'models/enum/site.enum';
 import { Site, SiteLanguage } from 'models/site.model';
 import { Entry, TargetingOptionValue } from 'models/targeting-option.model';
 import { User } from 'models/user.model';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { SessionService } from '../../../session.service';
 
 @Component({
@@ -198,6 +199,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscriptionCompone
 
     this.site = {
       ...this.site,
+      status: siteStatusEnum.REJECTED === this.site.status ? siteStatusEnum.ACTIVE : this.site.status,
       name: this.siteBasicInfoForm.controls['name'].value,
       domain: this.siteBasicInfoForm.controls['domain'].value,
       url: this.siteBasicInfoForm.controls['url'].value,

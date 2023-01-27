@@ -54,6 +54,9 @@ export class AdvertiserService {
             directAds[index] = this.getDirectLinkContent(ad.url);
           }
         });
+        if (0 === Object.keys(directAds).length) {
+          return of(response);
+        }
         return forkJoin(directAds).pipe(
           switchMap(contents => {
             Object.keys(contents).forEach(index => {

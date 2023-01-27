@@ -95,6 +95,10 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
     return siteStatusEnum.DRAFT === this.site.status || siteStatusEnum.INACTIVE === this.site.status;
   }
 
+  get isSitePositivelyVerified(): boolean {
+    return siteStatusEnum.PENDING !== this.site.status && siteStatusEnum.REJECTED !== this.site.status;
+  }
+
   get statusButtonLabel(): string {
     return this.canActivateSite ? 'Activate' : 'Deactivate';
   }

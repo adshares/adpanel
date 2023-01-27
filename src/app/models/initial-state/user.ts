@@ -18,6 +18,7 @@ export const userInitialState: User = {
   apiToken: null,
   isBanned: false,
   banReason: null,
+  roles: [],
   adserverWallet: {
     totalFunds: 0,
     bonusBalance: 0,
