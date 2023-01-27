@@ -12,7 +12,7 @@
     </a>
   </div>
   <div class="row justify-between content-wrapper">
-    <div class="row align-center">
+    <div class="row row--gap8 align-center">
       <button
         type="button"
         *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)"
@@ -68,7 +68,7 @@
           [class.up]="helpMenuOpen"></fa-icon>
         <ul class="settings-menu ap-copy" [class.open]="helpMenuOpen">
           <li class="settings-menu__item" *ngIf="supportChat">
-            <fa-icon [icon]="faComments" class="ap-icon ap-icon--prepend"> </fa-icon>
+            <fa-icon [icon]="faComments" class="ap-icon ap-icon--prepend"></fa-icon>
             <a href="{{ supportChat }}" target="_blank" rel="noopener nofollow noreferrer">Community chat</a>
           </li>
           <li class="settings-menu__item" *ngIf="supportTelegram">
