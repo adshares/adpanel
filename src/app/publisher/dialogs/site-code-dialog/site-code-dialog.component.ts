@@ -11,6 +11,7 @@ import { User } from 'models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { ServerOptionsService } from 'common/server-options.service';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -28,6 +29,7 @@ export class SiteCodeDialogComponent extends HandleSubscriptionComponent impleme
   siteId: number;
   hasSitePops: boolean;
   isUserConfirmed: boolean;
+  faExclamationTriangle = faExclamationTriangle;
 
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
@@ -151,13 +153,14 @@ export class SiteCodeDialogComponent extends HandleSubscriptionComponent impleme
         data: {
           message:
             'Circumventing ad blockers needs special integration on website backend.' +
-            '<div class="ap-box ap-box--large ap-box--no-border">' +
+            '<div class="ap-copy">' +
             '<a href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks" ' +
             'rel="noopener noreferrer" target="_blank">' +
-            '<div class="ap-btn ap-btn--primary">Read instructions</div>' +
+            'Read instructions' +
             '</a>' +
             '</div>' +
-            'Do you want to enable this option?',
+            '<br>' +
+            ' you want to enable this option?',
         },
       })
       .afterClosed()
