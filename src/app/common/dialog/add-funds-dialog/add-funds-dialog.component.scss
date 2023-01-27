@@ -1,64 +1,9 @@
 @import './../../../../styles';
 
-.add-funds-content button {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.confirm-account-error-block {
-  margin-top: 20px;
-}
-
-.add-funds-dialog__hint {
-  margin-bottom: 16px;
-}
-
-.add-funds-selector {
-  .dialog-description {
-    width: 100%;
-  }
-
-  .ap-copy--medium {
-    @include font(17, normal);
-    margin-top: 10px;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  .ap-btn--blue .now_payments_logo {
-    color: #2b2b37;
-    line-height: 19px;
-    span {
-      color: pal(light);
-    }
-  }
-}
-
-.ads-amount {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.deposit__btns-wrapper {
-  margin: 12px 0 0 0;
-
-  .add-funds-dialog__hint {
-    @include font(14, normal);
-    margin-top: 15px;
-    text-align: justify;
-  }
-}
-
-.download-link {
-  margin-top: 15px;
-}
-
-form {
-  .ap-form-input__inline {
-    width: 300px;
-  }
-
-  .ap-form-input__box mat-checkbox {
-    margin-top: 45px;
+.add-funds {
+  min-width: 500px;
+  & .ap-btn {
+    height: 42px;
+    text-decoration: none;
   }
 }

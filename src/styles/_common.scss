@@ -514,13 +514,11 @@
 }
 
 .now_payments_logo {
-  font-weight: 400;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  @include font-weight(normal);
   color: pal(primary);
 
   > span {
-    font-weight: 600;
-    color: pal(secondary);
+    color: #79b8fc;
   }
 }
 

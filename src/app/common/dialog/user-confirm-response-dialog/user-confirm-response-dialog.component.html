@@ -1,20 +1,17 @@
 <mat-dialog-content class="text-center dialog">
   <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
-  <h1 class="ap-heading ap-heading--h2">
-    {{ title }}
-  </h1>
 
-  <p class="ap-copy ap-customize-subheading ap-success ap-success--large ap-multiline" [innerHTML]="message"></p>
+  <div class="col row--gap32">
+    <h2 class="ap-heading ap-heading--h3">
+      {{ title }}
+    </h2>
 
-  <div class="dialog__controls">
-    <button class="ap-btn ap-btn--primary ap-copy--dark" mat-button [mat-dialog-close]="false">No</button>
+    <p class="ap-copy ap-success ap-multiline" [innerHTML]="message"></p>
 
-    <button
-      class="dialog__confirm-btn ap-btn ap-btn--primary ap-copy--white"
-      mat-button
-      [mat-dialog-close]="true"
-      cdkFocusInitial>
-      Yes
-    </button>
+    <div class="row row--gap8 justify-center">
+      <button class="ap-btn ap-btn--secondary" [mat-dialog-close]="false">No</button>
+
+      <button class="ap-btn ap-btn--primary" [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+    </div>
   </div>
 </mat-dialog-content>

@@ -22,6 +22,7 @@ import { SettingsService } from 'settings/settings.service';
 import Web3 from 'web3';
 import { ServerOptionsService } from 'common/server-options.service';
 import { GET_ADS_FAQ } from 'models/enum/link.enum';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -126,6 +127,7 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
   fiatInvoice: Invoice;
 
   isFormBeingSubmitted: boolean = false;
+  faCopy = faCopy;
 
   constructor(
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,

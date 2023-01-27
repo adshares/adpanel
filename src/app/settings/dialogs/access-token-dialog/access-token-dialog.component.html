@@ -1,30 +1,29 @@
 <mat-dialog-content class="text-center mat-dialog-content">
   <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
-  <h1 class="ap-heading ap-heading--h2">Access token</h1>
 
-  <div>
+  <div class="col row--gap8">
+    <h2 class="ap-heading ap-heading--h3">Access token</h2>
     <p class="ap-copy">
       Here is your new access token. Copy it and store securely. This is the only time it will be shown so don't lose
       it.
     </p>
 
-    <div>
-      <div class="row align-center">
-        <label class="ap-copy ap-copy--bold col text-left" for="access-token">Access token</label>
+    <div class="row align-center">
+      <label class="ap-copy ap-copy--bold col text-left" for="access-token">Access token</label>
 
-        <button class="copy-btn" (click)="copyCode('access-token')">
-          <fa-icon class="copy-btn--icon" [icon]="faCode"></fa-icon>
-          Copy the token
-        </button>
-      </div>
-
-      <textarea
-        id="access-token"
-        cdkTextareaAutosize
-        class="ap-box ap-box--large ap-box--light-border ap-copy"
-        [ngModel]="data"></textarea>
-
-      <div class="row ap-copy">Use the above token in bearer authentication.</div>
+      <button class="copy-btn" (click)="copyCode('access-token')">
+        <fa-icon class="copy-btn--icon" [icon]="faCode"></fa-icon>
+        Copy the token
+      </button>
     </div>
+
+    <textarea
+      readonly
+      id="access-token"
+      cdkTextareaAutosize
+      class="ap-copy ap-form-input ap-form-input--full"
+      [ngModel]="data"></textarea>
+
+    <div class="row ap-copy ap-copy--semi">Use the above token in bearer authentication.</div>
   </div>
 </mat-dialog-content>
