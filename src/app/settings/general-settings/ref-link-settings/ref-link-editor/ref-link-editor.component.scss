@@ -2,8 +2,6 @@
 
 .commission {
   background: pal(secondary);
-  margin-top: 20px;
-  margin-bottom: 20px;
   display: flex;
   align-items: center;
 
@@ -20,7 +18,6 @@
   label {
     display: block;
     width: 90px;
-    border: 1px solid pal(gray);
     border-radius: 2px;
     text-align: center;
     padding: 10px;
@@ -31,7 +28,7 @@
     }
 
     &.checked {
-      background: pal(success);
+      background: pal(success, light);
     }
   }
 }
@@ -60,10 +57,5 @@ form {
         margin-left: 10px;
       }
     }
-  }
-
-  button[type='submit'] {
-    margin-top: 24px;
-    margin-bottom: 24px;
   }
 }

@@ -1,19 +1,20 @@
 <section>
-  <h1 class="ap-heading ap-heading--h2">Create new referral link</h1>
+  <div class="col row--gap32">
+    <div class="col row--gap8">
+      <h2 class="ap-heading ap-heading--h3">Create new referral link</h2>
+      <p class="ap-copy" *ngIf="refundEnabled">
+        Your refund commission rate:
+        {{ defaultRefundCommission | percent : '1.0-2' }}<br />
+        Set Friends’ commission bonus rate
+      </p>
+    </div>
+    <form id="ref-link-form" class="ap-form col row--gap32" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="col row--gap18">
+        <div class="commission" *ngIf="refundEnabled">
+          <span class="ap-copy">You Receive: {{ refundCommission | percent : '1.0-2' }}</span>
+          <span class="ap-copy">Friends Receive: {{ bonusCommission | percent : '1.0-2' }}</span>
+        </div>
 
-  <div>
-    <p class="ap-copy" *ngIf="refundEnabled">
-      Your refund commission rate:
-      {{ defaultRefundCommission | percent : '1.0-2' }}<br />
-      Set Friends’ commission bonus rate
-    </p>
-    <form id="ref-link-form" class="ap-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="commission" *ngIf="refundEnabled">
-        <span class="ap-copy">You Receive: {{ refundCommission | percent : '1.0-2' }}</span>
-        <span class="ap-copy">Friends Receive: {{ bonusCommission | percent : '1.0-2' }}</span>
-      </div>
-
-      <div>
         <div class="commission-select justify-between ap-copy" *ngIf="refundEnabled">
           <label
             *ngFor="let option of [1, 0.75, 0.5, 0.25, 0]"
@@ -28,8 +29,11 @@
             {{ getBonusCommission(option) | percent : '1.0-2' }}
           </label>
         </div>
-        <div class="row justify-between" *ngIf="refundEnabled">
-          <div class="ap-form-input__box ap-form-input__inline" *ngIf="form.get('refund')">
+      </div>
+
+      <div class="col row--gap18">
+        <div class="row justify-between" *ngIf="refundEnabled && (form.get('refund') || form.get('refundValidUntil'))">
+          <div class="ap-form-input__box" *ngIf="form.get('refund')">
             <label for="refund" class="ap-form-label"> Custom refund commission rate </label>
             <input
               id="refund"
@@ -62,8 +66,8 @@
             </span>
           </div>
         </div>
-        <div class="row justify-between">
-          <div class="ap-form-input__box ap-form-input__inline" *ngIf="form.get('bonus')">
+        <div class="row justify-between" *ngIf="form.get('bonus') || form.get('validUntil')">
+          <div class="ap-form-input__box" *ngIf="form.get('bonus')">
             <label for="refund" class="ap-form-label"> Additional bonus ({{ currencyCode }}) </label>
             <input
               id="bonus"
@@ -138,12 +142,11 @@
             name="comment"
             formControlName="comment" />
         </div>
+      </div>
+      <div class="form-footer">
+        <mat-checkbox formControlName="singleUse" *ngIf="form.get('singleUse')"> Single use link </mat-checkbox>
 
-        <div class="form-footer">
-          <mat-checkbox formControlName="singleUse" *ngIf="form.get('singleUse')"> Single use link </mat-checkbox>
-
-          <button *ngIf="!showLoader; else loading" type="submit" class="ap-btn ap-btn--blue">Generate link</button>
-        </div>
+        <button *ngIf="!showLoader; else loading" type="submit" class="ap-btn ap-btn--primary">Generate link</button>
       </div>
     </form>
   </div>

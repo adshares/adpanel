@@ -124,7 +124,10 @@
           <li class="settings-menu__item" routerLink="/settings/general" data-test="header-account-settings-button">
             Account settings
           </li>
-          <li class="settings-menu__item" routerLink="/settings/general" data-test="header-account-settings-button">
+          <li
+            class="settings-menu__item"
+            routerLink="/settings/general/referrals"
+            data-test="header-account-settings-button">
             Referral links
           </li>
           <li class="settings-menu__item" routerLink="/settings/billing" data-test="header-billing-payments-button">
@@ -150,7 +153,7 @@
         </div>
 
         <button
-          class="ap-btn ap-btn--text ap-btn-light row align-center hidden-sm no-underline"
+          class="ap-btn ap-btn--text ap-btn-light col align-center no-underline"
           [ngClass]="{
             'visible-sm': session.isModerator() && !session.isImpersonated()
           }"
