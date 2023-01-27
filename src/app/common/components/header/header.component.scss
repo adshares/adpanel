@@ -10,6 +10,15 @@
     justify-content: center;
   }
 
+  & .logo-wrapper {
+    width: calc(260px - 2rem);
+    transition: width 0.5s ease-in;
+  }
+
+  & .content-wrapper {
+    flex-grow: 1;
+  }
+
   > div {
     @include media(sm-down-without-sm) {
       justify-content: center;

@@ -1,6 +1,6 @@
-<article *ngIf="impersonationToken" class="impersonation-bar__container">
-  <div class="impersonation-bar__info">
-    <fa-icon [icon]="faTriangleExclamation" class="aap-icon ap-icon--prepend"></fa-icon>
+<article *ngIf="impersonationToken" class="ap-alert ap-alert--info row justify-between align-center impersonation-bar">
+  <div class="row">
+    <fa-icon [icon]="faTriangleExclamation" class="ap-icon ap-icon--prepend" size="lg"></fa-icon>
     <p>This is impersonation mode ({{ userLabel }})</p>
   </div>
   <button class="ap-btn ap-btn--secondary" (click)="dropImpersonation()">Drop impersonation mode</button>

@@ -1,22 +1,12 @@
-.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
-  opacity: 0.9;
-}
-
-.cdk-overlay-dark-backdrop {
-  background: pal(primary);
-}
-
 .mat-dialog-container {
   position: relative;
-  padding: 60px 15px 15px 15px !important;
-
-  @include media(md-up) {
-    padding: 50px 70px 40px !important;
-  }
+  padding: 32px 40px 30px 40px !important;
+  border-radius: 10px !important;
 }
 
 .mat-dialog-content {
   max-height: 85vh !important;
+  padding: 16px 24px !important;
 }
 
 .mat-dialog-content.mat-dialog-content--narrow {

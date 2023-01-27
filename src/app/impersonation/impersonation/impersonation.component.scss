@@ -1,24 +1,7 @@
 @import '../../../styles';
 
 .impersonation-bar {
-  &__container {
-    @include container(
-            $background-color: pal(secondary),
-            $padding-horizontal: 8px,
-            $padding-vertical: 8px,
-            $border-color: pal(secondary),
-            $margin-top: 0,
-            $margin-bottom: 0,
-            $border-width: 1px,
-            $border-radius: 0
-    );
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__info {
-    @include copy($color: pal(error), $font-size: 18, $font-weight: semiBold);
-    display: flex;
-    align-self: center;
+  &.impersonation-bar {
+    margin: 0;
   }
 }
