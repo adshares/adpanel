@@ -1,18 +1,22 @@
 <section class="ap-header ap-header-bg container-fluid row align-center no-wrap">
   <div class="row logo-wrapper justify-center">
     <a [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']" data-test="header-dashboard-link">
-      <div class="ap-navigation__item col align-center">
+      <div class="col align-center">
         <img
           class="ap-logo"
           src="assets/images/logo--white.png"
           srcset="assets/images/logo--white@2x.png 2x, assets/images/logo--white@3x.png 3x"
           alt="Adshares Logo" />
-        <span *ngIf="!!envContext" class="ap-copy ap-header__logo-subtitle">{{ envContext }}</span>
+        <span
+          *ngIf="!!envContext"
+          class="ap-copy ap-copy--small ap-copy--uppercase ap-copy--error ap-header__logo-subtitle"
+          >{{ envContext }}</span
+        >
       </div>
     </a>
   </div>
   <div class="row justify-between content-wrapper">
-    <div class="row align-center">
+    <div class="row row--gap8 align-center">
       <button
         type="button"
         *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)"
@@ -68,7 +72,7 @@
           [class.up]="helpMenuOpen"></fa-icon>
         <ul class="settings-menu ap-copy" [class.open]="helpMenuOpen">
           <li class="settings-menu__item" *ngIf="supportChat">
-            <fa-icon [icon]="faComments" class="ap-icon ap-icon--prepend"> </fa-icon>
+            <fa-icon [icon]="faComments" class="ap-icon ap-icon--prepend"></fa-icon>
             <a href="{{ supportChat }}" target="_blank" rel="noopener nofollow noreferrer">Community chat</a>
           </li>
           <li class="settings-menu__item" *ngIf="supportTelegram">

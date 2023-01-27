@@ -11,8 +11,10 @@
   }
 
   & .logo-wrapper {
-    width: calc(260px - 2rem);
+    width: calc(300px - 2rem);
+    min-width: calc(300px - 2rem);
     transition: width 0.5s ease-in;
+    padding-right: 2rem;
   }
 
   & .content-wrapper {
@@ -27,9 +29,7 @@
   }
 
   &__logo-subtitle {
-    text-transform: uppercase;
-    color: pal(error);
-    font-size: 14px;
+    text-decoration: none;
     line-height: 1;
   }
 
@@ -48,17 +48,8 @@
 
 .ap-navigation {
   &__item {
-    margin: 0 5px;
     height: 42px;
     cursor: pointer;
-
-    .ap-logo {
-      margin-right: 15px;
-
-      @include media(md-up) {
-        margin-right: 30px;
-      }
-    }
 
     .ap-chevron {
       right: 10px;
