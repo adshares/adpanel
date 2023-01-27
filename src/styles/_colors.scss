@@ -96,6 +96,9 @@ $palette-colors: (
   info-bg: (
     base: $info-bg,
   ),
+  transparent: (
+    base: transparent,
+  )
 );
 
 $main_colors: light, primary, secondary, success, error, warning;

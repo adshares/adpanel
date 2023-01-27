@@ -176,7 +176,8 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-snack-bar-container {
-  background-color: pal(primary);
+  background-color: pal(transparent);
+  box-shadow: none;
 }
 
 .mat-select {
