@@ -3,9 +3,15 @@
 .ap-info {
   height: 100vh;
   width: 100vw;
-  background-image: radial-gradient(circle at 24% 13%, #0c1733, #000000);
+  //background-image: radial-gradient(circle at 24% 13%, #0c1733, #000000);
   position: relative;
   overflow: hidden;
+
+  &__content {
+    background-color: pal(primary);
+    text-align: left;
+    border-radius: 10px 10px 0 0;
+  }
 
   &__wrapper {
     height: 90%;
@@ -14,57 +20,13 @@
     justify-content: center;
   }
 
-  &__poster {
-    background-image: radial-gradient(circle at 24% 13%, #121e3e, #0b1329);
-    padding: 40px;
-
-    @include media(md-up) {
-      min-width: 40%;
-      max-width: 800px;
-    }
+  &__footer {
+    background-color: pal(primary);
+    border-radius: 0 0 10px 10px;
+    padding: 24px;
   }
 
   &__version {
-    color: #99a3ae;
-    font-size: 14px;
     float: right;
-  }
-
-  &__bubbles {
-    position: absolute;
-
-    &:nth-of-type(1) {
-      top: 5%;
-      left: 30%;
-    }
-
-    &:nth-of-type(2) {
-      top: 65%;
-      left: 65%;
-      z-index: 0;
-
-      @include media(lg-up) {
-        z-index: getIndex(bubbleTop);
-      }
-    }
-
-    &:nth-of-type(3) {
-      bottom: 15%;
-      left: 3%;
-    }
-  }
-
-  &__wave {
-    position: absolute;
-
-    &-up {
-      top: 0;
-      right: 0;
-    }
-
-    &-down {
-      bottom: 0;
-      left: 0;
-    }
   }
 }
