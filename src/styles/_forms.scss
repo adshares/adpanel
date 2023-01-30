@@ -219,7 +219,6 @@ input[type='radio']:checked + label .checkbox-label {
   @include font(14, semiBold);
   background: pal(light);
   margin: 0 auto;
-  //height: 42px;
   border: 1px solid pal(dark);
   /* needed */
   appearance: none;

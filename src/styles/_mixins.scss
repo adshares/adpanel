@@ -49,10 +49,6 @@
   width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  @include media(lg-up) {
-    //width: 150px;
-  }
 }
 
 @mixin btn(
@@ -103,7 +99,6 @@
 
 @mixin label($margin-top: 10px, $margin-bottom: 4px, $margin-horizontal: 4px) {
   @include font(16, medium);
-  //color: pal(gray);
   margin: $margin-top $margin-horizontal $margin-bottom;
   display: inline-block;
 }

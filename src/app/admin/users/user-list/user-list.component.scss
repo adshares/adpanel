@@ -16,24 +16,6 @@
     margin: 24px 0;
   }
 
-  &__filters label {
-    padding-right: 8px;
-  }
-
-  &__checkbox {
-    margin-right: 24px;
-    color: #4d5b82;
-    font-family: 'Lato-Regular', sans-serif;
-    font-size: 15px;
-  }
-
-  &__input {
-    @include input;
-    padding: 8px 12px;
-    margin-left: 16px;
-    width: 220px;
-  }
-
   ::ng-deep &__no-actions {
     thead .table-nav__row:last-of-type,
     tbody .user-list-item td:last-of-type {
