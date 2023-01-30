@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { PublisherService } from 'publisher/publisher.service';
 
@@ -11,6 +11,7 @@ import { PublisherService } from 'publisher/publisher.service';
 })
 export class SiteCodeCryptovoxelsDialogComponent extends HandleSubscriptionComponent implements OnInit {
   readonly faCode = faCode;
+  readonly faExclamation = faExclamation;
   code: string | null = null;
   loaded: boolean = false;
 

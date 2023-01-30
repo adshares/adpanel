@@ -24,8 +24,8 @@
           [ngModel]="code"></textarea>
       </div>
 
-      <div *ngIf="null === code" class="row align-center ap-alert ap-copy ap-gray">
-        <img src="assets/images/error.svg" alt="Attention" />
+      <div *ngIf="null !== code" class="row align-center ap-alert ap-alert--error">
+        <fa-icon [icon]="faExclamation" class="ap-icon ap-icon--prepend" size="lg"></fa-icon>
         An error occurred. Make sure that you confirmed an account and connected the wallet.
       </div>
     </div>

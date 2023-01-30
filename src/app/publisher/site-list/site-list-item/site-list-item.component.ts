@@ -5,6 +5,7 @@ import { siteStatusEnum } from 'models/enum/site.enum';
 import { UpdateSiteStatus } from 'store/publisher/publisher.actions';
 import { AppState } from 'models/app-state.model';
 import { Site } from 'models/site.model';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-site-list-item',
@@ -16,6 +17,7 @@ export class SiteListItemComponent implements OnInit {
   @Input() siteStatuses: any[];
   siteStatusEnum = siteStatusEnum;
   currentSiteStatus: string;
+  faChevronRight = faChevronRight;
 
   constructor(private router: Router, private store: Store<AppState>) {}
 

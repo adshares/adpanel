@@ -242,13 +242,11 @@
                       KB of {{ imagesStatus.size / 1000 }} KB ({{ imagesStatus.upload.progress }}% Done)
                     </span>
 
-                    <img
-                      class="file-box__action-button file-box__action-button--cancel"
-                      src="/assets/images/x-circle--gray.svg"
-                      alt="Cancel upload"
+                    <fa-icon
+                      [icon]="faCircleXmark"
                       role="button"
                       (click)="cancelUploading()"
-                      data-test="advertiser-edit-campaign-create-ads-form-image-upload-cancel" />
+                      class="ap-copy--gray file-box__action-button file-box__action-button--cancel"></fa-icon>
                   </div>
 
                   <div

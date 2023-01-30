@@ -56,8 +56,8 @@
           </button>
         </div>
       </div>
-      <div class="row align-center ap-alert ap-copy ap-gray" *ngIf="budgetInfo">
-        <img src="assets/images/error.svg" alt="Attention" />
+      <div class="row align-center ap-alert ap-alert--error ap-copy ap-gray" *ngIf="budgetInfo">
+        <fa-icon [icon]="faExclamation" class="ap-icon ap-icon--prepend" size="lg"></fa-icon>
         {{ budgetInfo }}
       </div>
     </div>

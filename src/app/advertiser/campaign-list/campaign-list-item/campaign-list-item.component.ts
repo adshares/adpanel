@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'models/app-state.model';
 import { Store } from '@ngrx/store';
 import { UpdateCampaignStatus } from 'store/advertiser/advertiser.actions';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-campaign-list-item',
@@ -20,6 +21,7 @@ export class CampaignListItemComponent implements OnChanges {
   campaignStatusesEnum = campaignStatusesEnum;
   campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
   currentCampaignStatus: string;
+  faChevronRight = faChevronRight;
 
   constructor(
     private router: Router,

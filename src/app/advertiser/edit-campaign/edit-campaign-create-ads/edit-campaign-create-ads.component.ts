@@ -27,6 +27,7 @@ import { Format } from 'models/taxonomy-medium.model';
 import { SessionService } from '../../../session.service';
 import { ShowDialogOnError } from 'store/common/common.actions';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
 interface UploadingFile {
   name: string;
@@ -77,6 +78,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscriptionComponent 
   isEditMode: boolean;
   formats: Format[];
   faPlus = faPlus;
+  faCircleXmark = faCircleXmark;
 
   constructor(
     private advertiserService: AdvertiserService,
