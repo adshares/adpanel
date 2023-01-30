@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-confirm-response-dialog',
   templateUrl: './confirm-response-dialog.component.html',
-  styleUrls: ['./confirm-response-dialog.component.scss'],
 })
 export class ConfirmResponseDialogComponent implements OnInit {
   title = 'Request Success';

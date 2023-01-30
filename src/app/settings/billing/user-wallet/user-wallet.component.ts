@@ -15,7 +15,6 @@ import { faCreditCard } from '@fortawesome/free-regular-svg-icons';
 @Component({
   selector: 'app-user-wallet',
   templateUrl: './user-wallet.component.html',
-  styleUrls: ['./user-wallet.component.scss'],
 })
 export class UserWalletComponent extends HandleSubscriptionComponent implements OnInit {
   getAdsFaqLink = GET_ADS_FAQ;

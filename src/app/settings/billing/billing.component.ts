@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-payment',
   templateUrl: './billing.component.html',
-  styleUrls: ['./billing.component.scss'],
 })
 export class BillingComponent implements OnInit {
   nowPaymentsSuccess: boolean = false;

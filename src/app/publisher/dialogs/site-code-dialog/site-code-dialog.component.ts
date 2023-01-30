@@ -6,12 +6,11 @@ import { PublisherService } from 'publisher/publisher.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { SiteCodes } from 'models/site.model';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { ServerOptionsService } from 'common/server-options.service';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-site-code-dialog',
