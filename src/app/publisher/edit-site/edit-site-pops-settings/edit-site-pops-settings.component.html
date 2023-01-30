@@ -25,12 +25,12 @@
               {{ adUnit.label }}
             </div>
           </div>
-          <strong class="ap-copy ap-copy--semi" data-test="publisher-edit-site-pops-settings-form-ad-unit-name">
+          <p class="ap-copy ap-copy--semi" data-test="publisher-edit-site-pops-settings-form-ad-unit-name">
             <fa-icon
               class="selected-icon"
               [icon]="popsSettingsForm.get(adUnit.size).get('selected').value ? faCheck : faTimes"></fa-icon>
             {{ adUnit.size }}
-          </strong>
+          </p>
           <div class="row row--gap8">
             <div
               class="ap-chip-box"
