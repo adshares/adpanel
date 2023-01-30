@@ -350,6 +350,16 @@
     background-color: pal(gray, light);
   }
 
+  &[data-status='pending'] {
+    background-color: pal(gray, light);
+    cursor: not-allowed;
+  }
+
+  &[data-status='rejected'] {
+    background-color: pal(error, light);
+    cursor: not-allowed;
+  }
+
   &--btn {
     min-width: auto;
     width: auto;

@@ -10,6 +10,7 @@
           #statusSelect
           [value]=""
           (selectionChange)="onSiteStatusChange($event.value)"
+          [disabled]="siteStatusEnum.PENDING === site.status || siteStatusEnum.REJECTED === site.status"
           data-test="publisher-site-status-select">
           <mat-option
             *ngFor="let option of siteStatuses"

@@ -80,6 +80,12 @@
     &:hover {
       text-decoration: none;
     }
+
+    &[disabled] {
+      color: pal(primary, light);
+      cursor: not-allowed;
+      text-decoration: none;
+    }
   }
 
   &-success {
