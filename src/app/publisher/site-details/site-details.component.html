@@ -85,7 +85,6 @@
             </span>
             <button
               class="ap-btn ap-btn--secondary ap-status--btn"
-              *ngIf="!siteStatusEnum.PENDING || !siteStatusEnum.REJECTED"
               (click)="onSiteStatusChange()"
               data-test="publisher-site-status-change-button"
               [ngClass]="{ 'ap-btn-success': currentSiteStatus === 'inactive' }">

@@ -207,7 +207,7 @@ export class PublisherEffects {
       map(action => action.payload),
       switchMap(payload =>
         this.service.updateSiteData(payload.id, payload).pipe(
-          switchMap(() => [new UpdateSiteStatusSuccess(payload), new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)]),
+          switchMap(value => [new UpdateSiteStatusSuccess(value.data), new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)]),
           catchError(() => observableOf(new ShowDialogOnError('Site status cannot be changed')))
         )
       )

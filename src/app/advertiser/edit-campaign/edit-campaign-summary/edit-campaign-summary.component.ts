@@ -51,7 +51,6 @@ export class EditCampaignSummaryComponent extends HandleSubscriptionComponent im
         this.subscriptions.push(targetingSubscription);
       });
     this.subscriptions.push(lastCampaignSubscription);
-    console.log(this.campaign);
   }
 
   saveCampaign(isDraft): void {
