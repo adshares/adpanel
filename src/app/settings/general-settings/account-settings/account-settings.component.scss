@@ -2,7 +2,12 @@
 
 .general-settings {
   .user-id {
-    code {
+    & .container {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    background-color: pal(light);
+    & .code {
       font-family: monospace;
     }
   }
