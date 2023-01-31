@@ -28,9 +28,10 @@
     }
   }
 
-  &__logo-subtitle {
-    text-decoration: none;
-    line-height: 1;
+  &__logo-link {
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   &__money-in-currency {
