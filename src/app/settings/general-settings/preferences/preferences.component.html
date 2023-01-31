@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="box-content">
+    <div *ngIf="!isImpersonated" class="box-content">
       <div class="row row--gap8">
         <form [formGroup]="changePasswordForm" class="ap-form" data-test="settings-change-password-form">
           <div class="row row--gap8">
