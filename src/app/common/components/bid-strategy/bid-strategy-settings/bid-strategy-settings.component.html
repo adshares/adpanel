@@ -115,7 +115,7 @@
             </mat-expansion-panel-header>
 
             <div *ngFor="let entry of entries" class="row align-center bid-strategy__row">
-              <div class="col-xs-6">{{ entry.label }}</div>
+              <div class="col-xs-6 ap-copy">{{ entry.label }}</div>
               <div class="col-xs-6" data-id="{{ entry.key }}">
                 <input [(ngModel)]="entry.value" type="number" min="0" max="100" step="1" class="bid-strategy__input" />
                 <button
