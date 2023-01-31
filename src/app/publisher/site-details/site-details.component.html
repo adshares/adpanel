@@ -213,6 +213,15 @@
           <app-poster-units *ngFor="let adUnit of popAdUnits" [adUnit]="adUnit" class="ap-copy"></app-poster-units>
         </table>
       </div>
+      <div class="box-content row justify-center">
+        <button
+          class="ap-btn ap-btn--secondary"
+          [disabled]="!isSitePositivelyVerified"
+          (click)="openGetCodeDialog()"
+          data-test="publisher-get-code-button">
+          Get the ad codes
+        </button>
+      </div>
     </div>
 
     <div class="col ap-box">
