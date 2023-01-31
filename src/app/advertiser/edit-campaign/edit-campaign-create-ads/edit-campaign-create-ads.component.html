@@ -1,9 +1,19 @@
 <app-edit-asset-navigation></app-edit-asset-navigation>
 <section class="homepage-view campaign-edit-create-bnr container">
   <div class="ap-box">
-    <div class="box-title">
-      <h1 class="ap-heading ap-heading--h2">Upload ads</h1>
-      <p class="ap-copy box-subtitle">Please select the ad type and upload your banner ads.</p>
+    <div class="box-title row justify-between align-center">
+      <div class="col">
+        <h1 class="ap-heading ap-heading--h2">Upload ads</h1>
+        <p class="ap-copy box-subtitle">Please select the ad type and upload your banner ads.</p>
+      </div>
+      <button
+        *ngIf="adForms.length > 5"
+        class="ap-btn ap-btn--secondary"
+        (click)="createEmptyAd()"
+        data-test="advertiser-edit-campaign-create-ads-create-new-ad">
+        <fa-icon [icon]="faPlus" class="ap-icon ap-icon--prepend"></fa-icon>
+        Add new advertisement
+      </button>
     </div>
 
     <div class="box-content" *ngFor="let adForm of adForms; let i = index">
