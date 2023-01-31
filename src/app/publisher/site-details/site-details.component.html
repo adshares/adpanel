@@ -85,6 +85,7 @@
             </span>
             <button
               class="ap-btn ap-btn--secondary ap-status--btn"
+              *ngIf="isSitePositivelyVerified"
               (click)="onSiteStatusChange()"
               data-test="publisher-site-status-change-button"
               [ngClass]="{ 'ap-btn-success': currentSiteStatus === 'inactive' }">
@@ -224,7 +225,7 @@
           [disabled]="!isSitePositivelyVerified"
           data-test="publisher-site-edit-ad-units-button">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
-          Edit ad units
+          Edit placements
         </button>
       </div>
 

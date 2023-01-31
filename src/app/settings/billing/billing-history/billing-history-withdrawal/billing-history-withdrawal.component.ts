@@ -38,7 +38,6 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
     }
     this.status = billingHistoryItemStatusEnum[this.billingHistoryItem.status];
     this.formatType();
-    console.log(this.billingHistoryItem);
   }
 
   formatType(): void {
