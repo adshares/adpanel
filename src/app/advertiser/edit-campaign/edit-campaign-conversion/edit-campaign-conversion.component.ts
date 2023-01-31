@@ -16,7 +16,7 @@ import {
   UPDATE_CAMPAIGN_FAILURE,
   UPDATE_CAMPAIGN_SUCCESS,
 } from 'store/advertiser/advertiser.actions';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faTriangleExclamation, faCopy } from '@fortawesome/free-solid-svg-icons';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
@@ -43,6 +43,7 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
   private readonly BUDGET_TYPE_OUT: string = 'out_of_budget';
 
   faTriangleExclamation = faTriangleExclamation;
+  faCopy = faCopy;
 
   readonly availableEventTypes = [
     'Add payment info',

@@ -170,16 +170,13 @@
             <p class="ap-copy">
               Secret phrase:
               <span class="ap-copy--bold">{{ campaign.secret }}</span>
-              <i
+              <fa-icon
+                [icon]="faCopy"
+                size="lg"
                 matTooltipClass="ap-mat-tooltip"
                 matTooltip="Copy secret phrase"
                 matTooltipPosition="above"
-                role="button"
-                tabindex="0"
-                (click)="copyToClipboard(campaign.secret)"
-                class="material-icons campaign-edit-conversion__copy-icon">
-                file_copy
-              </i>
+                class="ap-icon ap-icon--append campaign-edit-conversion__copy-icon"></fa-icon>
             </p>
 
             <div class="row justify-end align-center">
@@ -282,7 +279,7 @@
                       {{ this.campaignsConfig.minCpa | formatMoney : 2 : '' }}
                     </span>
                   </div>
-                  <div class="col-xs-2 row align-center cell justify-center">
+                  <div class="col-xs-2 row align-center cell justify-center single-toggle-btn">
                     <mat-slide-toggle
                       color="primary"
                       [id]="'budget' + conversionItemFormIndex"
@@ -291,7 +288,7 @@
                     </mat-slide-toggle>
                   </div>
 
-                  <div class="col-xs-2 row align-center cell justify-center">
+                  <div class="col-xs-2 row align-center cell justify-center single-toggle-btn">
                     <mat-slide-toggle
                       color="primary"
                       [id]="'isRepeatable' + conversionItemFormIndex"
