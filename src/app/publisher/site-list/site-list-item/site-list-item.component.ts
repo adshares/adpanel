@@ -28,7 +28,7 @@ export class SiteListItemComponent implements OnInit {
   onSiteStatusChange(status: number): void {
     this.site = {
       ...this.site,
-      status: 3,
+      status: siteStatusEnum.PENDING,
     };
     this.setStatusLabel();
     this.store.dispatch(new UpdateSiteStatus({ id: this.site.id, status: status }));
