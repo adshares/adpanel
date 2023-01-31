@@ -1,5 +1,8 @@
 <div class="settings-menu-item">
-  <mat-expansion-panel [expanded]="isPanelExpanded">
+  <mat-expansion-panel
+    [routerLinkActive]="'active-group'"
+    #rla="routerLinkActive"
+    [expanded]="rla.isActive || isPanelExpanded">
     <mat-expansion-panel-header class="panel-header">
       <mat-panel-title class="settings-menu-item__submenu-title">
         {{ menuItem.title }}
