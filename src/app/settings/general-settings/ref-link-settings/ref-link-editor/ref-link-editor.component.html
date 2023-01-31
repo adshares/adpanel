@@ -51,7 +51,7 @@
           <div class="ap-form-input__box" *ngIf="form.get('refundValidUntil')">
             <label class="ap-form-label">Refund valid until</label>
             <mat-form-field (click)="refundValidUntilPicker.open()" class="ap-form-input ap-form-input--narrow">
-              <img src="/assets/images/calendar.svg" alt="Calendar" class="ap-icon ap-icon--prepend" />
+              <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
               <input
                 [formControl]="refundValidUntilControl"
                 [matDatepicker]="refundValidUntilPicker"
@@ -84,7 +84,7 @@
           <div class="ap-form-input__box" *ngIf="form.get('validUntil')">
             <label class="ap-form-label">Link valid until</label>
             <mat-form-field (click)="validUntilPicker.open()" class="ap-form-input ap-form-input--narrow">
-              <img src="/assets/images/calendar.svg" alt="Calendar" class="ap-icon ap-icon--prepend" />
+              <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
               <input
                 [formControl]="validUntilControl"
                 [matDatepicker]="validUntilPicker"

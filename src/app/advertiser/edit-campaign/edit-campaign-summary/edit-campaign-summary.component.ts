@@ -14,6 +14,7 @@ import { HandleSubscriptionComponent } from 'common/handle-subscription.componen
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -25,6 +26,7 @@ export class EditCampaignSummaryComponent extends HandleSubscriptionComponent im
   targetingOptionsToAdd: TargetingOption[] = [];
   targetingOptionsToExclude: TargetingOption[] = [];
   faEdit = faEdit;
+  faCalendar = faCalendar;
 
   constructor(
     private store: Store<AppState>,

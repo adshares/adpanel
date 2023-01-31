@@ -51,7 +51,7 @@
       <div class="col row--gap8">
         <p class="ap-copy--small label">Start date</p>
         <div class="row align-center">
-          <img class="ap-icon ap-icon--prepend" src="/assets/images/calendar.svg" alt="Calendar Icon" />
+          <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
           <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-start-date">
             {{ campaign.basicInformation.dateStart | formatDate }}
           </p>
@@ -60,7 +60,7 @@
       <div class="col row--gap8">
         <p class="ap-copy--small label">End date</p>
         <div class="row align-center">
-          <img class="ap-icon ap-icon--prepend" src="/assets/images/calendar.svg" alt="Calendar Icon" />
+          <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
           <p
             *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
             class="ap-copy--dark ap-copy--semi"

@@ -8,6 +8,7 @@ import { adsToClicks } from 'common/utilities/helpers';
 import * as moment from 'moment';
 import { CommonService } from 'common/common.service';
 import { ServerOptionsService } from 'common/server-options.service';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-ref-link-editor',
@@ -28,6 +29,7 @@ export class RefLinkEditorComponent extends HandleSubscriptionComponent implemen
   validUntilControl: FormControl;
   refundValidUntilControl: FormControl;
   chooseUserRole: boolean = false;
+  faCalendar = faCalendar;
 
   constructor(
     private serverOptionsService: ServerOptionsService,
