@@ -38,7 +38,6 @@ export class ForgottenPasswordComponent extends HandleSubscriptionComponent impl
   }
 
   sendRemindPasswordEmail() {
-    console.log(this.remindPasswordForm);
     if (!this.remindPasswordForm.valid) {
       return;
     }
