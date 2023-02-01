@@ -11,6 +11,11 @@ import { User } from 'models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { ServerOptionsService } from 'common/server-options.service';
+import {
+  CIRCUMVENT_ADBLOCKS_INSTRUCTION,
+  AVAILABLE_ADZONE_OPTIONS,
+  SETUP_FALLBACK_BACKFILL_CODE_INSTRUCTION,
+} from 'models/enum/link.enum';
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -29,6 +34,9 @@ export class SiteCodeDialogComponent extends HandleSubscriptionComponent impleme
   hasSitePops: boolean;
   isUserConfirmed: boolean;
   faExclamationTriangle = faExclamationTriangle;
+  CIRCUMVENT_ADBLOCKS_INSTRUCTION = CIRCUMVENT_ADBLOCKS_INSTRUCTION;
+  AVAILABLE_ADZONE_OPTIONS = AVAILABLE_ADZONE_OPTIONS;
+  SETUP_FALLBACK_BACKFILL_CODE_INSTRUCTION = SETUP_FALLBACK_BACKFILL_CODE_INSTRUCTION;
 
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
