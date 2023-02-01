@@ -1,168 +1,175 @@
 <section class="ap-header ap-header-bg container-fluid row align-center no-wrap">
-  <div class="row logo-wrapper justify-center">
-    <a [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']" class="ap-header__logo-link">
-      <div class="col align-center">
-        <img class="ap-logo" src="assets/images/logo.svg" alt="Adshares Logo" />
-        <span
-          *ngIf="!!envContext"
-          class="ap-copy ap-copy--small ap-copy--uppercase ap-copy--error ap-header__logo-link"
-          >{{ envContext }}</span
-        >
-      </div>
-    </a>
-  </div>
-  <div class="row justify-between content-wrapper">
-    <div class="row row--gap8 align-center">
-      <button
-        type="button"
-        *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)"
-        class="ap-btn ap-btn--secondary row align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
-        [ngClass]="{ active: activeUserType === userRolesEnum.ADVERTISER }"
-        (click)="setActiveUserType(userRolesEnum.ADVERTISER)">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
-        Advertiser
-      </button>
-      <button
-        type="button"
-        *ngIf="(session.isPublisher() && !session.isModerator()) || (session.isImpersonated() && actAsPublisher)"
-        class="ap-btn ap-btn--secondary row align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
-        [ngClass]="{ active: activeUserType === userRolesEnum.PUBLISHER }"
-        (click)="setActiveUserType(userRolesEnum.PUBLISHER)">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
-        Publisher
-      </button>
-      <button
-        type="button"
-        *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
-        class="ap-btn ap-btn--secondary align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
-        [ngClass]="{ active: activeUserType === userType }"
-        (click)="setActiveUserType(userType)">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
-        <span *ngIf="session.isModerator()">Moderator</span>
-        <span *ngIf="session.isAgency()">Agency</span>
-      </button>
+    <div class="row logo-wrapper justify-center">
+        <a [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']" class="ap-header__logo-link">
+            <div class="col align-center">
+                <img class="ap-logo" src="assets/images/logo.svg" alt="Adshares Logo"/>
+                <span
+                        *ngIf="!!envContext"
+                        class="ap-copy ap-copy--small ap-copy--uppercase ap-copy--error ap-header__logo-link"
+                >{{ envContext }}</span
+                >
+            </div>
+        </a>
     </div>
+    <div class="row justify-between content-wrapper">
+        <div class="row row--gap8 align-center">
+            <button
+                    type="button"
+                    *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)"
+                    class="ap-btn ap-btn--secondary row align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
+                    [ngClass]="{ active: activeUserType === userRolesEnum.ADVERTISER }"
+                    (click)="setActiveUserType(userRolesEnum.ADVERTISER)">
+                <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
+                Advertiser
+            </button>
+            <button
+                    type="button"
+                    *ngIf="(session.isPublisher() && !session.isModerator()) || (session.isImpersonated() && actAsPublisher)"
+                    class="ap-btn ap-btn--secondary row align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
+                    [ngClass]="{ active: activeUserType === userRolesEnum.PUBLISHER }"
+                    (click)="setActiveUserType(userRolesEnum.PUBLISHER)">
+                <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
+                Publisher
+            </button>
+            <button
+                    type="button"
+                    *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
+                    class="ap-btn ap-btn--secondary align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
+                    [ngClass]="{ active: activeUserType === userType }"
+                    (click)="setActiveUserType(userType)">
+                <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
+                <span *ngIf="session.isModerator()">Moderator</span>
+                <span *ngIf="session.isAgency()">Agency</span>
+            </button>
+        </div>
 
-    <div class="row align-center">
-      <button
-        *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
-        class="ap-btn ap-btn--secondary ap-navigation__item ap-navigation__item--hidden row align-center hidden-md-down"
-        (click)="navigateToCreateNewAsset()"
-        data-test="header-create-new-asset-button">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
-        <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
-        <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
-      </button>
+        <div class="row align-center">
+            <button
+                    *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
+                    class="ap-btn ap-btn--secondary ap-navigation__item ap-navigation__item--hidden row align-center hidden-md-down"
+                    (click)="navigateToCreateNewAsset()"
+                    data-test="header-create-new-asset-button">
+                <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
+                <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
+                <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
+            </button>
 
-      <div
-        *ngIf="!session.isModerator() || session.isImpersonated()"
-        class="ap-btn ap-btn--text ap-btn-light row align-center help-menu no-underline"
-        (mouseover)="toggleHelpMenu(true)"
-        (mouseleave)="toggleHelpMenu(false)">
-        <fa-icon [icon]="faLifeRing" class="ap-icon ap-icon--prepend"></fa-icon>
-        <span>Support</span>
-        <fa-icon
-          [icon]="faChevronDown"
-          size="xs"
-          class="ap-icon ap-icon--append settings-menu-chevron"
-          [class.up]="helpMenuOpen"></fa-icon>
-        <ul class="settings-menu ap-copy" [class.open]="helpMenuOpen">
-          <li class="settings-menu__item" *ngIf="supportChat">
-            <fa-icon [icon]="faComments" class="ap-icon ap-icon--prepend"></fa-icon>
-            <a href="{{ supportChat }}" target="_blank" rel="noopener nofollow noreferrer">Community chat</a>
-          </li>
-          <li class="settings-menu__item" *ngIf="supportTelegram">
-            <fa-icon [icon]="faPaperPlane" class="ap-icon ap-icon--prepend"></fa-icon>
-            <a href="https://t.me/{{ supportTelegram }}" target="_blank" rel="noopener nofollow noreferrer"
-              >@{{ supportTelegram }}</a
-            >
-          </li>
-          <li class="settings-menu__item" *ngIf="supportEmail">
-            <fa-icon [icon]="faEnvelope" class="ap-icon ap-icon--prepend"></fa-icon>
-            <a href="mailto:{{ supportEmail }}" target="_blank" rel="noopener nofollow noreferrer">{{
-              supportEmail
-            }}</a>
-          </li>
-        </ul>
-      </div>
+            <div
+                    *ngIf="!session.isModerator() || session.isImpersonated()"
+                    class="ap-btn ap-btn--text ap-btn-light row align-center help-menu no-underline"
+                    (mouseover)="toggleHelpMenu(true)"
+                    (mouseleave)="toggleHelpMenu(false)">
+                <fa-icon [icon]="faLifeRing" class="ap-icon ap-icon--prepend"></fa-icon>
+                <span>Support</span>
+                <fa-icon
+                        [icon]="faChevronDown"
+                        size="xs"
+                        class="ap-icon ap-icon--append settings-menu-chevron"
+                        [class.up]="helpMenuOpen"></fa-icon>
+                <ul class="settings-menu ap-copy" [class.open]="helpMenuOpen">
+                    <li class="settings-menu__item" *ngIf="supportChat">
+                        <fa-icon [icon]="faComments" class="ap-icon ap-icon--prepend"></fa-icon>
+                        <a href="{{ supportChat }}" target="_blank" rel="noopener nofollow noreferrer">Community
+                            chat</a>
+                    </li>
+                    <li class="settings-menu__item" *ngIf="supportTelegram">
+                        <fa-icon [icon]="faPaperPlane" class="ap-icon ap-icon--prepend"></fa-icon>
+                        <a href="https://t.me/{{ supportTelegram }}" target="_blank" rel="noopener nofollow noreferrer"
+                        >@{{ supportTelegram }}</a
+                        >
+                    </li>
+                    <li class="settings-menu__item" *ngIf="supportEmail">
+                        <fa-icon [icon]="faEnvelope" class="ap-icon ap-icon--prepend"></fa-icon>
+                        <a href="mailto:{{ supportEmail }}" target="_blank" rel="noopener nofollow noreferrer">{{
+                            supportEmail
+                            }}</a>
+                    </li>
+                </ul>
+            </div>
 
-      <div
-        *ngIf="!session.isModerator() || session.isImpersonated()"
-        class="ap-btn ap-btn--text ap-btn-light row align-center relative ap-navigation__item no-underline"
-        [class.ap-btn--invalid]="!isTotalFundsValid"
-        matTooltipClass="ap-mat-tooltip"
-        [matTooltip]="!isTotalFundsValid ? 'Connection temporarily lost' : null"
-        matTooltipPosition="left"
-        (mouseover)="toggleSettingsMenu(true)"
-        (mouseleave)="toggleSettingsMenu(false)"
-        data-test="header-toggle-settings-menu">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faCreditCard"></fa-icon>
-        <div class="col justify-start">
+            <div
+                    *ngIf="!session.isModerator() || session.isImpersonated()"
+                    class="ap-btn ap-btn--text ap-btn-light row align-center relative ap-navigation__item no-underline"
+                    [class.ap-btn--invalid]="!isTotalFundsValid"
+                    matTooltipClass="ap-mat-tooltip"
+                    [matTooltip]="!isTotalFundsValid ? 'Connection temporarily lost' : null"
+                    matTooltipPosition="left"
+                    (mouseover)="toggleSettingsMenu(true)"
+                    (mouseleave)="toggleSettingsMenu(false)"
+                    data-test="header-toggle-settings-menu">
+                <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faCreditCard"></fa-icon>
+                <div class="col justify-start">
           <span class="ap-tokens" data-test="user-total-funds">
             {{ totalFunds | formatMoney : 2 : crypto : code }}
           </span>
-          <span *ngIf="calculateFunds" class="ap-header__money-in-currency" data-test="user-total-funds">
+                    <span *ngIf="calculateFunds" class="ap-header__money-in-currency" data-test="user-total-funds">
             {{ totalFunds | calculateInCurrency : 2 }}
           </span>
-          <span class="ap-usd" data-test="user-total-funds-in-currency"> </span>
-        </div>
-        <fa-icon
-          [icon]="faChevronDown"
-          size="xs"
-          class="ap-icon ap-icon--append settings-menu-chevron"
-          [class.up]="settingsMenuOpen"></fa-icon>
-        <ul class="settings-menu ap-copy" [class.open]="settingsMenuOpen">
-          <li class="settings-menu__item">
-            <button
-              class="ap-btn ap-btn--primary row justify-between align-center"
-              (click)="openAddFundsDialog()"
-              data-test="add-funds-dialog-open-button">
-              <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
-              Deposit funds
-            </button>
-          </li>
-          <li class="settings-menu__item" routerLink="/settings/general" data-test="header-account-settings-button">
-            Account settings
-          </li>
-          <li
-            class="settings-menu__item"
-            routerLink="/settings/general/referrals"
-            data-test="header-account-settings-button">
-            Referral links
-          </li>
-          <li class="settings-menu__item" routerLink="/settings/billing" data-test="header-billing-payments-button">
-            Billing & payments
-          </li>
-          <li class="settings-menu__item" routerLink="/settings/reports" data-test="header-reports-button">Reports</li>
-          <li class="settings-menu__item">
-            <span (click)="logout()" data-test="header-log-out-button"> Log out </span>
-          </li>
-        </ul>
-      </div>
+                    <span class="ap-usd" data-test="user-total-funds-in-currency"> </span>
+                </div>
+                <fa-icon
+                        [icon]="faChevronDown"
+                        size="xs"
+                        class="ap-icon ap-icon--append settings-menu-chevron"
+                        [class.up]="settingsMenuOpen"></fa-icon>
+                <ul class="settings-menu ap-copy" [class.open]="settingsMenuOpen">
+                    <li class="settings-menu__item">
+                        <button
+                                class="ap-btn ap-btn--primary row justify-between align-center"
+                                (click)="openAddFundsDialog()"
+                                data-test="add-funds-dialog-open-button">
+                            <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend"
+                                     [icon]="faPlusCircle"></fa-icon>
+                            Deposit funds
+                        </button>
+                    </li>
+                    <li class="settings-menu__item" routerLink="/settings/general"
+                        data-test="header-account-settings-button">
+                        Account settings
+                    </li>
+                    <li
+                            class="settings-menu__item"
+                            routerLink="/settings/general/referrals"
+                            data-test="header-account-settings-button">
+                        Referral links
+                    </li>
+                    <li class="settings-menu__item" routerLink="/settings/billing"
+                        data-test="header-billing-payments-button">
+                        Billing & payments
+                    </li>
+                    <li class="settings-menu__item" routerLink="/settings/reports" data-test="header-reports-button">
+                        Reports
+                    </li>
+                    <li class="settings-menu__item">
+                        <span (click)="logout()" data-test="header-log-out-button"> Log out </span>
+                    </li>
+                </ul>
+            </div>
 
-      <div class="row row--gap8 align-center">
-        <div *ngIf="adControllerUrl && session.isAdmin() && !session.isImpersonated()" class="justify-center">
-          <a
-            [href]="adControllerUrl"
-            rel="noopener nofollow noreferrer"
-            data-test="settings-category-link"
-            class="ap-btn ap-btn--secondary no-underline">
-            AdController Panel
-            <fa-icon [icon]="faGears" class="ap-icon ap-icon--append"></fa-icon>
-          </a>
-        </div>
+            <div class="row row--gap8 align-center">
+                <div *ngIf="adControllerUrl && (session.isAdmin() || session.isModerator()) && !session.isImpersonated()"
+                     class="justify-center">
+                    <a
+                            [href]="adControllerUrl"
+                            rel="noopener nofollow noreferrer"
+                            data-test="settings-category-link"
+                            class="ap-btn ap-btn--secondary no-underline">
+                        AdController Panel
+                        <fa-icon [icon]="faGears" class="ap-icon ap-icon--append"></fa-icon>
+                    </a>
+                </div>
 
-        <button
-          class="ap-btn ap-btn--text ap-btn-light col align-center no-underline"
-          [ngClass]="{
+                <button
+                        class="ap-btn ap-btn--text ap-btn-light col align-center no-underline"
+                        [ngClass]="{
             'visible-sm': session.isModerator() && !session.isImpersonated()
           }"
-          (click)="logout()"
-          data-test="header-log-out-button">
-          <small class="user-name">{{ userLabel }}</small>
-          Log out
-        </button>
-      </div>
+                        (click)="logout()"
+                        data-test="header-log-out-button">
+                    <small class="user-name">{{ userLabel }}</small>
+                    Log out
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
