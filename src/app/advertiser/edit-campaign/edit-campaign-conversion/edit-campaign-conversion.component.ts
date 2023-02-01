@@ -75,7 +75,7 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
 
   conversionItemForms: FormGroup[] = [];
   campaignsConfig: CampaignsConfig;
-  campaign: Campaign;
+  public campaign: Campaign;
 
   validateForm: boolean = false;
   submitted: boolean = false;
@@ -105,6 +105,10 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
 
   get conversionItemFormsBasic(): FormGroup[] {
     return this.conversionItemForms.filter(form => !form.get('isAdvanced').value);
+  }
+
+  onConversionClickChange(value): void {
+    this.campaign = { ...this.campaign, conversionClick: value };
   }
 
   updateCampaignConversion(): void {
