@@ -44,7 +44,20 @@
     <div class="row row--gap8 align-center coordinates-wrapper">
       <div class="ap-form-input__box">
         <label for="coordinate-x" class="ap-form-label"> Coordinate X </label>
-        <input #input id="coordinate-x" name="coordinate-x" class="ap-form-input" type="number" step="1" required />
+        <input
+          #input
+          id="coordinate-x"
+          name="coordinate-x"
+          class="ap-form-input"
+          type="number"
+          step="1"
+          (keyup.enter)="
+            (saveRequested = true) &&
+              input.validity.valid &&
+              inputCoordinationY.validity.valid &&
+              saveCustomParcel(input.value, inputCoordinationY.value)
+          "
+          required />
       </div>
       <div class="ap-form-input__box">
         <label for="coordinate-y" class="ap-form-label"> Coordinate Y </label>
@@ -55,7 +68,12 @@
           class="ap-form-input"
           type="number"
           step="1"
-          (keyup.enter)="saveCustomParcel(input.value, inputCoordinationY.value)"
+          (keyup.enter)="
+            (saveRequested = true) &&
+              input.validity.valid &&
+              inputCoordinationY.validity.valid &&
+              saveCustomParcel(input.value, inputCoordinationY.value)
+          "
           required />
       </div>
       <button
