@@ -339,7 +339,8 @@
         <label class="ap-form-label">Select click conversion type:</label>
         <mat-select
           class="ap-select"
-          [(value)]="campaign.conversionClick"
+          (selectionChange)="onConversionClickChange($event.value)"
+          [value]="campaign.conversionClick"
           data-test="advertiser-conversion-click-select">
           <mat-option
             *ngFor="let clickConversionType of clickConversionTypes"

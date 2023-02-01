@@ -42,19 +42,23 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div class="classifier-filtering__size-controls">
-      <mat-checkbox (change)="sizeOptionChange($event, 'allSizes')" [checked]="allSizes"> All </mat-checkbox>
-      <mat-checkbox (change)="sizeOptionChange($event, 'allSizesMatching')" [checked]="allSizesMatching">
-        All matching
-      </mat-checkbox>
-    </div>
+    <div class="col row--gap8">
+      <div class="row row--gap32">
+        <mat-checkbox (change)="sizeOptionChange($event, 'allSizes')" [checked]="allSizes"> All </mat-checkbox>
+        <mat-checkbox (change)="sizeOptionChange($event, 'allSizesMatching')" [checked]="allSizesMatching">
+          All matching
+        </mat-checkbox>
+      </div>
 
-    <mat-checkbox
-      *ngFor="let sizeOption of sizeOptions"
-      (change)="sizeSelect($event, sizeOption)"
-      [checked]="filtering.sizes.includes(sizeOption)">
-      {{ sizeOption }}
-    </mat-checkbox>
+      <div class="row row--gap8">
+        <mat-checkbox
+          *ngFor="let sizeOption of sizeOptions"
+          (change)="sizeSelect($event, sizeOption)"
+          [checked]="filtering.sizes.includes(sizeOption)">
+          {{ sizeOption }}
+        </mat-checkbox>
+      </div>
+    </div>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header class="classifier-filtering__content-padding">
