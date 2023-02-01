@@ -31,7 +31,7 @@
               <div class="col-xs-5 ap-copy">
                 <a
                   class="align-with-checkbox"
-                  href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks"
+                  [href]="CIRCUMVENT_ADBLOCKS_INSTRUCTION"
                   rel="noopener noreferrer"
                   target="_blank">
                   read more
@@ -56,7 +56,7 @@
               <div class="col-xs-5 ap-copy">
                 <a
                   class="align-with-checkbox"
-                  href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+                  [href]="AVAILABLE_ADZONE_OPTIONS"
                   rel="noopener noreferrer"
                   target="_blank">
                   read more
@@ -72,7 +72,7 @@
               <div class="col-xs-5 ap-copy">
                 <a
                   class="align-with-checkbox"
-                  href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+                  [href]="AVAILABLE_ADZONE_OPTIONS"
                   rel="noopener noreferrer"
                   target="_blank">
                   read more
@@ -101,7 +101,7 @@
               <div class="col-xs-5 ap-copy">
                 <a
                   class="align-with-checkbox"
-                  href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
+                  [href]="SETUP_FALLBACK_BACKFILL_CODE_INSTRUCTION"
                   rel="noopener noreferrer"
                   target="_blank">
                   read more
@@ -171,6 +171,7 @@
                   Copy the code
                 </button>
                 <textarea
+                  readonly
                   id="{{ 'code-container-pop' + indexPop }}"
                   class="code-container ap-copy"
                   [ngModel]="pop.code"></textarea>
@@ -188,6 +189,7 @@
                   Copy the code
                 </button>
                 <textarea
+                  readonly
                   id="{{ 'code-container-ad-unit' + indexAdUnits }}"
                   class="code-container ap-copy"
                   [ngModel]="adUnit.code"></textarea>

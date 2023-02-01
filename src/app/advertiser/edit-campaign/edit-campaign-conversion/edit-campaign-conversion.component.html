@@ -162,7 +162,7 @@
             <p *ngIf="campaign.secret" class="ap-copy">
               Secret phrase is a character string necessary to sign the transferred data. If you would like to learn how
               to use the secret phrase please
-              <a href="https://github.com/adshares/adserver/wiki/Conversions" rel="noopener noreferrer" target="_blank">
+              <a [href]="CONVERSIONS_DESCRIPTION" rel="noopener noreferrer" target="_blank">
                 refer to the instruction
               </a>
               .
