@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Font awesome icons instead of image assets
 ### Fixed
 - Fix external links
+- Forbidden to add parcel with incomplete coordinates
 
 ## [2.3.0] - 2023-01-26
 ### Added
