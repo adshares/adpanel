@@ -5,6 +5,7 @@ import { take, first } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { Campaign } from 'models/campaign.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { CONVERSIONS_DESCRIPTION } from 'models/enum/link.enum';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
@@ -27,6 +28,7 @@ export class EditCampaignSummaryComponent extends HandleSubscriptionComponent im
   targetingOptionsToExclude: TargetingOption[] = [];
   faEdit = faEdit;
   faCalendar = faCalendar;
+  CONVERSIONS_DESCRIPTION = CONVERSIONS_DESCRIPTION;
 
   constructor(
     private store: Store<AppState>,

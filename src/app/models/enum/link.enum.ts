@@ -43,3 +43,6 @@ export const AVAILABLE_ADZONE_OPTIONS = 'https://docs.adshares.net/adserver/list
 // setup fallback backfill code instruction
 export const SETUP_FALLBACK_BACKFILL_CODE_INSTRUCTION =
   'https://docs.adshares.net/adserver/how-to-setup-fallback-backfill-code.html';
+
+// conversions description
+export const CONVERSIONS_DESCRIPTION = 'https://docs.adshares.net/adserver/conversions.html';

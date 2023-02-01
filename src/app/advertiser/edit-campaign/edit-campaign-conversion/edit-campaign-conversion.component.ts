@@ -9,6 +9,7 @@ import { first } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem, CampaignsConfig } from 'models/campaign.model';
 import { campaignConversionItemInitialState } from 'models/initial-state/campaign';
+import { CONVERSIONS_DESCRIPTION } from 'models/enum/link.enum';
 import {
   ClearLastEditedCampaign,
   LoadCampaignsConfig,
@@ -44,6 +45,7 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
 
   faTriangleExclamation = faTriangleExclamation;
   faCopy = faCopy;
+  CONVERSIONS_DESCRIPTION = CONVERSIONS_DESCRIPTION;
 
   readonly availableEventTypes = [
     'Add payment info',
