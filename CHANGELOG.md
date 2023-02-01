@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Displaying user id on account settings section
+
+### Changed
+- Total rebuild of panel look (color palette, elements sizes, arrangement of elements)
+- Font change to Montserrat 
+- Improved navigation
+- Update labels
+- Font awesome icons instead of image assets
+
 ## [2.3.0] - 2023-01-26
 ### Added
 - Site's statuses (pending approval, rejected)
