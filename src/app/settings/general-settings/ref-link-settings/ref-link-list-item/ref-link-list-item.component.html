@@ -17,9 +17,9 @@
   <td class="row col-xs-2 text-left">
     <em>{{ refLink.comment || '-' }}</em>
   </td>
-  <td class="row col-xs-1 text-left">
+  <td class="row justify-center col-xs-1">
     {{ refLink.usageCount }}
-    <small *ngIf="refLink.singleUse">(single use)</small>
+    <span *ngIf="refLink.singleUse" class="ap-copy--small">single use</span>
   </td>
   <td class="row col-xs-2 text-left" *ngIf="refundEnabled">
     {{ refLink.refunded | formatMoney : 4 : crypto : code }}

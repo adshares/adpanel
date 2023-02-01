@@ -213,20 +213,20 @@
           <app-poster-units *ngFor="let adUnit of popAdUnits" [adUnit]="adUnit" class="ap-copy"></app-poster-units>
         </table>
       </div>
-      <div class="box-content row justify-center">
+      <div *ngIf="!!popAdUnits.length" class="box-content row justify-center">
         <button
           class="ap-btn ap-btn--secondary"
           [disabled]="!isSitePositivelyVerified"
           (click)="openGetCodeDialog()"
           data-test="publisher-get-code-button">
-          Get the ad codes
+          Get placement codes
         </button>
       </div>
     </div>
 
     <div class="col ap-box">
       <div class="row justify-between align-center box-title">
-        <h2 class="ap-heading ap-heading--h2">List of ad units</h2>
+        <h2 class="ap-heading ap-heading--h2">List of placements</h2>
         <button
           *ngIf="editAds"
           class="ap-btn ap-btn--text ap-btn--edit ap-btn--no-border"
@@ -239,7 +239,7 @@
       </div>
 
       <div class="box-content">
-        <p class="ap-copy ap-copy--semi ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</p>
+        <p class="ap-copy ap-copy--semi ad-units-warning" *ngIf="!displayAdUnits.length">No active placements</p>
       </div>
 
       <div class="box-content site-details__scrollable-table" *ngIf="!!displayAdUnits.length">
@@ -251,13 +251,13 @@
           <app-poster-units *ngFor="let adUnit of displayAdUnits" [adUnit]="adUnit" class="ap-copy"></app-poster-units>
         </table>
       </div>
-      <div class="box-content row justify-center">
+      <div *ngIf="!!displayAdUnits.length" class="box-content row justify-center">
         <button
           class="ap-btn ap-btn--secondary"
           [disabled]="!isSitePositivelyVerified"
           (click)="openGetCodeDialog()"
           data-test="publisher-get-code-button">
-          Get the ad codes
+          Get placement codes
         </button>
       </div>
     </div>
