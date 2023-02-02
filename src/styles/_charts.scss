@@ -56,6 +56,6 @@
 
   .chartjs-tooltip__title {
     color: pal(secondary);
-    @include font(14, semi);
+    @include font(14, semiBold);
   }
 }

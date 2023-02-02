@@ -71,11 +71,11 @@
 }
 
 .ap-tokens {
-  @include font(14, semi);
+  @include font(14, semiBold);
 }
 
 .ap-usd {
-  @include font(9, semi);
+  @include font(9, semiBold);
   color: pal(gray);
 }
 
