@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Displaying user id on account settings section
+- Access to AdController for moderator
 ### Changed
 - Total rebuild of panel look (color palette, elements sizes, arrangement of elements)
 - Font change to Montserrat 

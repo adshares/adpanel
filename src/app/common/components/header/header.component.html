@@ -141,7 +141,9 @@
       </div>
 
       <div class="row row--gap8 align-center">
-        <div *ngIf="adControllerUrl && session.isAdmin() && !session.isImpersonated()" class="justify-center">
+        <div
+          *ngIf="adControllerUrl && (session.isAdmin() || session.isModerator()) && !session.isImpersonated()"
+          class="justify-center">
           <a
             [href]="adControllerUrl"
             rel="noopener nofollow noreferrer"
