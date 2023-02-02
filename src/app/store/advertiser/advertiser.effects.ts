@@ -79,7 +79,7 @@ export class AdvertiserEffects {
     this.actions$.pipe(
       ofType<LoadCampaigns>(LOAD_CAMPAIGNS),
       switchMap(action =>
-        this.service.getCampaigns().pipe(
+        this.service.getCampaigns(action.payload.filter).pipe(
           switchMap(response => {
             const campaigns = response.map(campaign => {
               return {
@@ -96,6 +96,7 @@ export class AdvertiserEffects {
               new LoadCampaignsTotals({
                 from: action.payload.from,
                 to: action.payload.to,
+                filter: action.payload.filter,
               }),
             ]);
           }),
@@ -107,13 +108,13 @@ export class AdvertiserEffects {
 
   loadCampaignsTotals$ = createEffect(() =>
     this.actions$.pipe(
-      ofType<LoadCampaignTotals>(LOAD_CAMPAIGNS_TOTALS),
+      ofType<LoadCampaignsTotals>(LOAD_CAMPAIGNS_TOTALS),
       map(action => action.payload),
       switchMap(payload => {
         const from = moment(payload.from).format();
         const to = moment(payload.to).format();
 
-        return this.service.getCampaignsTotals(from, to).pipe(
+        return this.service.getCampaignsTotals(from, to, undefined, payload.filter).pipe(
           map(campaignsTotals => new LoadCampaignsTotalsSuccess(campaignsTotals)),
           catchError(() => observableOf(new LoadCampaignsTotalsFailure()))
         );

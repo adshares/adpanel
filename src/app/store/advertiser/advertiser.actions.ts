@@ -197,7 +197,7 @@ export class LoadCampaignsConfigFailure implements Action {
 export class LoadCampaignsTotals implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS;
 
-  constructor(public payload: TimespanFilter | { currentFrom: string; currentTo: string }) {}
+  constructor(public payload: TimespanFilter & { filter: any }) {}
 }
 
 export class LoadCampaignsTotalsSuccess implements Action {

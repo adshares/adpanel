@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-
+import { AdvertiserService } from 'advertiser/advertiser.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { mapDatesToChartLabels } from 'common/components/chart/chart-settings/chart-settings.helpers';
 import { ChartService } from 'common/chart.service';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
+import { createInitialDataSet, mapToIterable } from 'common/utilities/helpers';
 import { Campaign, CampaignTotals } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { createInitialDataSet } from 'common/utilities/helpers';
 import { LoadCampaigns, LoadCampaignsTotals } from 'store/advertiser/advertiser.actions';
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs';
@@ -36,14 +38,23 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
   barChartLabels: string[] = [];
   barChartData = createInitialDataSet();
 
+  campaignFilter: any = {};
+  campaignFilterIndex: number = 0;
+  campaignFilters = [];
   currentChartFilterSettings: ChartFilterSettings;
   faPlusCircle = faPlusCircle;
 
-  constructor(private chartService: ChartService, private store: Store<AppState>) {
+  constructor(
+    private route: ActivatedRoute,
+    private advertiserService: AdvertiserService,
+    private chartService: ChartService,
+    private store: Store<AppState>
+  ) {
     super();
   }
 
   ngOnInit() {
+    this.loadCampaignFilters();
     const chartFilterSubscription = this.store
       .select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
@@ -63,12 +74,43 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
           new LoadCampaignsTotals({
             from: this.currentChartFilterSettings.currentFrom,
             to: this.currentChartFilterSettings.currentTo,
+            filter: this.campaignFilter,
           })
         );
       }
     });
 
     this.subscriptions.push(chartFilterSubscription, refreshSubscription);
+  }
+
+  private loadCampaignFilters(): void {
+    const media = mapToIterable(this.route.snapshot.data.media);
+    const options = [];
+    options.push({
+      medium: null,
+      vendor: null,
+      label: 'All',
+    });
+    for (let i = 0; i < media.length; i++) {
+      const medium = media[i];
+      options.push({
+        medium: medium.key,
+        vendor: null,
+        label: medium.value,
+      });
+      this.advertiserService.getMediumVendors(medium.key).subscribe(vendors => {
+        for (const vendor of mapToIterable(vendors)) {
+          options.push({
+            medium: medium.key,
+            vendor: vendor.key,
+            label: `${medium.value} - ${vendor.value}`,
+          });
+        }
+        if (media.length - 1 === i) {
+          this.campaignFilters = options;
+        }
+      });
+    }
   }
 
   getChartData(chartFilterSettings, reload: boolean = true) {
@@ -83,7 +125,8 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
         chartFilterSettings.currentFrequency,
         chartFilterSettings.currentSeries.value,
         'campaigns',
-        chartFilterSettings.currentAssetId
+        chartFilterSettings.currentAssetId,
+        this.campaignFilter
       )
       .pipe(take(1))
       .subscribe(data => {
@@ -96,8 +139,8 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
       });
   }
 
-  loadCampaigns(from: string, to: string) {
-    this.store.dispatch(new LoadCampaigns({ from, to }));
+  loadCampaigns(from: string, to: string, filter: any = {}) {
+    this.store.dispatch(new LoadCampaigns({ from, to, filter }));
 
     const campaignsSubscription = this.store
       .select('state', 'advertiser', 'campaigns')
@@ -131,5 +174,22 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
         dateEnd: this.currentChartFilterSettings.currentTo,
       })
     );
+  }
+
+  updateCampaignFilter($event: MatSelectChange): void {
+    const campaignFilter = this.campaignFilters[$event.value];
+    let filter: any = {};
+    if (null !== campaignFilter.medium) {
+      filter.medium = campaignFilter.medium;
+    }
+    if (null !== campaignFilter.vendor) {
+      filter.vendor = campaignFilter.vendor;
+    }
+    if (Object.keys(filter).length > 0) {
+      filter = { filter: filter };
+    }
+    this.campaignFilter = filter;
+    this.getChartData(this.currentChartFilterSettings);
+    this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo, filter);
   }
 }

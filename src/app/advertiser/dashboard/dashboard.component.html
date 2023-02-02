@@ -5,9 +5,23 @@
         <h2 class="ap-heading ap-heading--h2 box-title">Statistics</h2>
         <div class="box-content">
           <div class="row justify-between">
-            <app-chart-filter-by-type
-              (updateId)="appChartRef.updateChartDataAssetId($event)"
-              (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
+            <div class="row">
+              <div>
+                <div class="filters col-xs-12">
+                  <mat-select
+                    class="ap-select"
+                    [(value)]="campaignFilterIndex"
+                    (selectionChange)="updateCampaignFilter($event)">
+                    <mat-option *ngFor="let filter of campaignFilters; let i = index" [value]="i">
+                      {{ filter.label }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <app-chart-filter-by-type
+                (updateId)="appChartRef.updateChartDataAssetId($event)"
+                (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
+            </div>
             <app-chart-filter
               *ngIf="!!campaigns.length"
               (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"></app-chart-filter>
