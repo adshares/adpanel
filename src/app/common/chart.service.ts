@@ -11,10 +11,11 @@ export class ChartService {
 
   getAssetChartData(from, to, frequency, type: string, role: string, id?: number, filter: any = {}): Observable<any> {
     const paramId = role === 'campaigns' ? 'campaign_id' : 'site_id';
+    let query = { ...filter };
     if (id > 0) {
-      filter[paramId] = `${id}`;
+      query[paramId] = `${id}`;
     }
-    const queryString = qs.stringify(filter);
+    const queryString = qs.stringify(query);
 
     return this.http
       .get(`${environment.apiUrl}/${role}/stats/chart/${type}/${frequency}/${from}/${to}?${queryString}`)
