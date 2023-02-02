@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="row settings">
+<div class="row no-wrap settings">
   <app-settings-navigation></app-settings-navigation>
   <div class="settings-outlet" [@fadeAnimation]="getRouterOutletState(o)">
     <router-outlet #o="outlet"></router-outlet>

@@ -44,8 +44,11 @@
 </ng-template>
 
 <div class="posters-list__add-new-poster-row">
-  <button (click)="navigateToCreateCampaign()" class="posters-list__add-btn" data-test="advertiser-create-new-campaign">
-    <img class="posters-list__add-btn-icon" src="assets/images/plus-circle--blue.svg" alt="" />
+  <button
+    (click)="navigateToCreateCampaign()"
+    class="ap-btn ap-btn--secondary"
+    data-test="advertiser-create-new-campaign">
+    <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
     Add new campaign
   </button>
 </div>

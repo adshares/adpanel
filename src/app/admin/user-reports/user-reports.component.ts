@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-reports',
@@ -15,6 +16,7 @@ export class UserReportsComponent implements OnInit {
   from: FormControl = new FormControl();
   to: FormControl = new FormControl();
   today = new Date();
+  faDownload = faDownload;
 
   constructor(private store: Store<AppState>) {}
 

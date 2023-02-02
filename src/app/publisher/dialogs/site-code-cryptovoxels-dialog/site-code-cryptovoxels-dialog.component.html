@@ -1,11 +1,9 @@
 <mat-dialog-content class="text-center mat-dialog-content fill-height">
   <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
-  <h1 class="ap-heading ap-heading--primary">Ad code</h1>
+  <h1 class="ap-heading ap-heading--h2">Ad code</h1>
 
   <div>
-    <p class="ap-copy ap-copy--large">
-      This code is intended for Cryptovoxels only. Please copy the code and place it in creator.
-    </p>
+    <p class="ap-copy">This code is intended for Cryptovoxels only. Please copy the code and place it in creator.</p>
 
     <div *ngIf="loaded; else loadingSpinner">
       <div *ngIf="null !== code">
@@ -26,8 +24,8 @@
           [ngModel]="code"></textarea>
       </div>
 
-      <div *ngIf="null === code" class="row align-center ap-alert ap-copy ap-gray">
-        <img src="assets/images/error.svg" alt="Attention" />
+      <div *ngIf="null !== code" class="row align-center ap-alert ap-alert--error">
+        <fa-icon [icon]="faExclamation" class="ap-icon ap-icon--prepend" size="lg"></fa-icon>
         An error occurred. Make sure that you confirmed an account and connected the wallet.
       </div>
     </div>

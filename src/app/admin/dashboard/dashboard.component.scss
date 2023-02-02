@@ -1,41 +1,25 @@
 @import '../../../styles';
 
 .admin-dashboard {
+  width: 100%;
   min-height: calc(100vh - #{$app-header-height});
 
-  &__side-menu {
-    min-height: 100%;
-    width: 240px;
-    padding: 24px;
-    background-color: pal(white);
-    transition: width 0.5s ease-in;
+  .settings-outlet {
+    width: 100%;
 
-    @include media(md-up) {
-      width: 300px;
-    }
-
-    .message {
-      border: 1px solid pal(red);
-      border-radius: 2px;
-      margin-bottom: 8px;
-      padding: 4px;
-    }
   }
 
-  .settings-outlet {
-    min-width: 540px;
-    width: calc(100% - 370px);
-
-    @include media(md-up) {
-      width: calc(100% - 400px);
-    }
-
-    @include media(lg-up) {
-      width: calc(100% - 400px);
-    }
-
-    @include media(xxl-up) {
-      width: calc(100vw - 740px);
+  &__side-menu {
+    width: 300px;
+    min-width: 300px;
+    background-color: pal(primary);
+    border-top: 1px solid pal(primary, dark);
+    transition: width 0.5s ease-in;
+    padding: 36px 0;
+    .message {
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }

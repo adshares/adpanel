@@ -1,81 +1,10 @@
 @import '../../../../styles.scss';
 
 .site-edit-create-posters-units {
-  width: 80%;
-  max-width: 1200px;
-  margin: 0 auto;
 
-  @include media(xxl-up) {
-    max-width: 1500px;
-  }
-
-  @include media(xxxl-up) {
-    max-width: 2000px;
-  }
-
-  &__poster-unit-title {
-    display: block;
-  }
-
-  .ap-box {
-    margin: 8px 0;
-  }
-
-  &__poster-unit {
-    text-align: center;
-    background: white;
-    padding: 7px;
-    flex-basis: 16%;
-    margin: 2px;
-    border-radius: 2px;
-    border: 2px solid pal(gray, ultra-light);
-    cursor: pointer;
-    pointer-events: all;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .selected-icon {
-      font-size: 175%;
-      color: pal(gray, 'semi-light');
-      margin-right: 7px;
-      vertical-align: middle;
-      display: inline-block;
-      width: 35px;
-    }
-
-    &:hover {
-      box-shadow: 0 4px 12px pal(gray, base);
-    }
-
-    &--selected {
-      background: pal(gray, ultra-light);
-      border-color: pal(green);
-
-      .selected-icon {
-        color: pal(green);
-      }
-    }
-
-    &__visualization {
-      background-color: pal(blue, light);
-      color: pal(blue);
-      @include font(14, bold);
-
-      &.large-rectangle {
-        padding: 25px;
-      }
-      &.large-mobile-banner {
-        padding: 15px;
-      }
-
-      &-box {
-        background-color: pal(gray, ultra-light);
-        padding: 30px 60px;
-        min-height: 150px;
-        margin-bottom: 15px;
-      }
-    }
+  & > .ap-heading {
+    margin-top: 18px;
+    margin-bottom: 18px;
   }
 
   & .error-msg:not(.error-msg--small) {
@@ -89,19 +18,11 @@
     }
   }
 
-  &__unit-label {
-    padding: 8px 0 2px;
-  }
-
   &__delete-btn-wrapper {
     margin: 16px 0 0;
   }
 
   .ap-chip-box {
     margin-bottom: 4px;
-  }
-
-  .ap-form-label {
-    margin: 0;
   }
 }

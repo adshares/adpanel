@@ -10,7 +10,12 @@
 
 .classifier-list-item {
   &__row {
-    max-height: 100px;
+    max-height: 109px;
+    border-bottom: 1px solid pal(gray);
+    padding: 4px;
+  }
+  &__size-box {
+    padding: 0 4px;
   }
   &__banner {
     height: auto;
@@ -22,31 +27,20 @@
     padding-right: 8px !important;
   }
 
-  &__btn {
-    width: calc(6ch + 16px);
-    border: 1px solid pal(gray, mid-dark);
-
-    &:disabled {
-      border: none;
-      pointer-events: none;
-    }
-
-    .classifier-list-item__btns--classified &:not(:disabled) {
-      color: pal(gray, mid-dark);
-      border: 1px solid pal(gray, mid-dark);
-    }
-  }
-
   &__btns {
     display: flex;
+    gap: 12px;
     max-width: 200px;
-    justify-content: space-between;
 
     &--classified {
       display: flex;
     }
     &--reversed {
       flex-direction: row-reverse;
+    }
+
+    & .classifier-btn {
+      min-width: 0;
     }
   }
 }

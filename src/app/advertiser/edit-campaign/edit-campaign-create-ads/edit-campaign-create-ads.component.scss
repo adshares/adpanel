@@ -1,8 +1,7 @@
 @import '../../../../styles.scss';
 
 .campaign-edit-create-bnr {
-  max-width: 800px;
-  margin: 0 auto;
+
 
   @include media(xxl-up) {
     max-width: 1400px;
@@ -12,77 +11,61 @@
     max-width: 2000px;
   }
 
-  &--narrow {
-    max-width: 500px;
-    margin: 0 auto;
-  }
+  & .file-box {
+    position: relative;
 
-  .ap-box {
-    margin: 8px 0;
+    &--upload {
+      height: 99px;
+    }
 
-    &__preview {
-      iframe {
-        background-color: pal(gray, x-light);
-        margin: 16px auto 16px;
-        max-width: 100%;
+    .file-box__image-preview {
+      background-color: pal(gray);
+    }
+
+    .file-box__file-info {
+      line-height: 22px;
+      font-size: 16px;
+      font-weight: 600;
+      color: pal(dark);
+    }
+
+    .file-box__file-sub-info {
+      @extend .ap-copy;
+      line-height: 24px;
+      color: pal(secondary);
+      font-weight: inherit;
+
+      &--secondary {
+        color: pal(gray);
       }
     }
 
+    .file-box__action-button {
+      position: absolute;
+      right: 26px;
+      top: 29px;
+      cursor: pointer;
+
+      &--cancel {
+        top: 26px;
+      }
+    }
+
+    .progress-bar {
+      margin: 12px 0 4px;
+    }
+  }
+
+  & .placeholders-box {
+    margin-top: 24px;
+  }
+
+  .ap-box {
     .file-select-input {
       width: 0;
     }
 
-    &.file-box {
-      height: 78px;
-      padding: 17px 10px;
-      position: relative;
-      border-radius: 2px;
-      border: 1px solid pal(gray, light);
 
-      &--upload {
-        height: 99px;
-      }
-
-      .file-box__image-preview {
-        background-color: pal(gray, x-light);
-      }
-
-      &--grey-background {
-        background-color: pal(gray, ultra-light);
-      }
-
-      .file-box__file-info {
-        line-height: 22px;
-        font-size: 16px;
-        font-weight: 600;
-        color: pal(black, mid-light);
-      }
-
-      .file-box__file-sub-info {
-        @extend .ap-copy;
-        line-height: 24px;
-        color: pal(blue, base);
-        font-weight: inherit;
-
-        &--secondary {
-          color: pal(gray, mid-dark);
-        }
-      }
-
-      .file-box__action-button {
-        position: absolute;
-        right: 26px;
-        top: 29px;
-
-        &--cancel {
-          top: 18px;
-        }
-      }
-
-      .progress-bar {
-        margin: 12px 0 4px;
-      }
-    }
   }
 
   .image-poster {
@@ -90,8 +73,8 @@
     overflow: hidden;
     align-items: center;
     justify-content: center;
-    background: pal(gray, x-light);
-    border: 1px solid pal(gray, light);
+    background: pal(gray);
+    border: 1px solid pal(gray);
 
     & img {
       width: 100%;
@@ -104,12 +87,18 @@
 }
 
 .drag-and-drop-box {
+  width: 100%;
+  margin: 16px auto 0;
+  border: 1px dashed pal(gray);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
   img {
     margin: 32px;
   }
 
   &.drag-and-drop-box--file-over {
-    border: 1px solid pal(blue);
+    border: 1px solid pal(secondary);
     background-color: #fdfdfd;
   }
 }
@@ -118,15 +107,14 @@
   height: 5px;
   width: 100%;
   border-radius: 2px;
-  background-color: pal(gray, semi-light);
+  background-color: pal(gray);
 
   &--active {
-    background-color: pal(blue);
+    background-color: pal(secondary);
   }
 }
 
 .ap-form-input__box {
-  margin-right: 15px;
 
   input#creative-contents {
     width: 100%;

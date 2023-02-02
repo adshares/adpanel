@@ -1,21 +1,25 @@
-<section class="billing-history">
-  <div class="ap-box ap-box--large">
-    <div class="col">
-      <div class="row align-center justify-between">
-        <h2 class="ap-heading ap-heading--primary">Billing history</h2>
-        <div class="row align-center">
-          <label class="billing-history__date-range">
-            From {{ dateFrom.format(DATE_FORMAT) }} to
-            {{ dateTo.format(DATE_FORMAT) }}
-          </label>
-          <app-billing-history-filter (filter)="updateFilterData($event)"></app-billing-history-filter>
-        </div>
+<section class="container">
+  <div class="ap-box">
+    <div class="box-title row justify-between">
+      <div class="col">
+        <h2 class="ap-heading ap-heading--h2">Billing history</h2>
+        <p class="ap-copy box-subtitle">List of all events on your account.</p>
       </div>
+      <div class="row row--gap8 align-center">
+        <label class="ap-copy">
+          From {{ dateFrom.format(DATE_FORMAT) }} to
+          {{ dateTo.format(DATE_FORMAT) }}
+        </label>
+        <app-billing-history-filter (filter)="updateFilterData($event)"></app-billing-history-filter>
+      </div>
+    </div>
 
-      <p class="ap-copy ap-copy--large">List of all events on your account.</p>
-
+    <div class="box-content col row--gap18">
       <div class="row justify-end">
-        <button class="ap-btn ap-btn--blue" (click)="refresh()" data-test="settings-billing-history-refresh-button">
+        <button
+          class="ap-btn ap-btn--secondary ap-btn-info"
+          (click)="refresh()"
+          data-test="settings-billing-history-refresh-button">
           <fa-icon class="ap-icon ap-icon--prepend" [icon]="refreshIcon"></fa-icon>
           Refresh
         </button>
@@ -23,22 +27,24 @@
       <div class="billing-table--scrollable">
         <table class="billing-table ap-copy">
           <thead class="billing-table__head">
-            <tr class="row justify-between">
-              <th class="billing-table__head-status" scope="col">Status</th>
-              <th class="col-xs-1" scope="col">Type</th>
-              <th class="col-xs-2" scope="col">Amount ({{ appCurrency }})</th>
-              <th class="col-xs-2" scope="col">Date</th>
-              <th class="col-xs-2" scope="col">Transaction</th>
+            <tr class="row">
+              <th class="col-xs-2 text-left" scope="col">Status</th>
+              <th class="col-xs-2 text-left" scope="col">Type</th>
+              <th class="col-xs-3 text-left" scope="col">Amount ({{ appCurrency }})</th>
+              <th class="col-xs-3 text-left" scope="col">Date</th>
+              <th class="col-xs-2 text-left" scope="col">Transaction</th>
             </tr>
           </thead>
 
           <tbody *ngIf="!showLoader; else loading">
-            <!--TODO display proper info when list is empty-->
             <app-billing-history-withdrawal
               *ngFor="let billingHistoryItem of billingHistory.items"
               [billingHistoryItem]="billingHistoryItem"
               data-test="settings-billing-history-item">
             </app-billing-history-withdrawal>
+            <tr *ngIf="!billingHistory.items.length" class="billing-history__loader-container">
+              Billing history is empty
+            </tr>
           </tbody>
           <mat-paginator
             #paginator

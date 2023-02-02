@@ -1,33 +1,34 @@
 @import '../../../../../styles.scss';
 
 .billing-table-row {
-  padding: 15px 0;
-  display: flex;
+  padding: 12px 0;
   border-bottom: 1px solid #eee;
 
-  & td {
-    text-align: center;
-    align-self: center;
-  }
-
   &__status {
-    @include font-weight(bold);
+    @include font-weight(semiBold);
     max-width: 150px;
     position: relative;
+    padding: 8px;
+    border-radius: 10px;
+    display: inline-block;
 
     &[data-status='ACCEPTED'] {
-      color: pal(green);
-      background-color: pal(green, light);
-    }
-
-    &[data-status='PENDING'] {
-      color: pal(gray);
-      background-color: pal(gray, ultra-light);
+      color: pal(success);
+      background-color: pal(success, light);
     }
 
     &[data-status='REJECTED'] {
-      color: pal(red);
-      background-color: pal(red, light);
+      color: pal(error);
+      background-color: pal(error, light);
+    }
+
+    &[data-status='PENDING'] {
+      color: pal(primary);
+      background-color: pal(secondary, light);
+    }
+
+    &[data-status='RESERVED'] {
+      background-color: pal(gray);
     }
   }
 
@@ -37,10 +38,10 @@
 
   &__bonus {
     position: absolute;
-    color: pal(yellow, base);
+    color: pal(warning);
     z-index: 1;
     left: -11px;
-    top: -20px;
+    top: -11px;
   }
 
   &__type {
@@ -51,22 +52,17 @@
     }
 
     &--income {
-      color: pal(green);
+      color: pal(success, light);
     }
 
     &--expenditure {
-      color: pal(red);
+      color: pal(error, light);
     }
   }
 
   &__link {
     text-overflow: ellipsis;
     overflow: hidden;
-  }
-
-  &__amount {
-    text-align: right;
-    font-size: 1.1em;
   }
 
   &__tooltip-placeholder {

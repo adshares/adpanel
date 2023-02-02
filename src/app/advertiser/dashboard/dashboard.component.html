@@ -1,59 +1,57 @@
-<section class="ap-advertiser-wrapper dashboard-view" *ngIf="campaignsLoaded; else loading">
+<section class="dashboard-view" *ngIf="campaignsLoaded; else loading">
   <div class="container">
-    <div class="row no-gutters justify-between">
-      <div class="col-xs-12 col-md-3">
-        <h1 class="ap-heading ap-heading--primary">My campaigns</h1>
-        <p class="ap-copy ap-copy--large">List of all campaigns</p>
-      </div>
-    </div>
-
     <div *ngIf="!!campaigns.length">
       <div class="ap-box">
-        <div class="row">
-          <div class="col-xs-3">
-            <a (click)="downloadReport()">
-              <button class="ap-btn ap-btn--white ap-copy--dark" data-test="advertiser-download-report-button">
-                Generate a report
-              </button>
-            </a>
-          </div>
-          <div class="col-xs-6">
+        <h2 class="ap-heading ap-heading--h2 box-title">Statistics</h2>
+        <div class="box-content">
+          <div class="row justify-between">
             <app-chart-filter-by-type
               (updateId)="appChartRef.updateChartDataAssetId($event)"
               (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
-          </div>
-          <div class="col-xs-3">
             <app-chart-filter
               *ngIf="!!campaigns.length"
               (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"></app-chart-filter>
           </div>
-        </div>
-        <div class="dashboard__chart-wrapper row align-center justify-center chart-wrapper">
-          <app-chart
-            class="dashboard__chart chart row align-center justify-center"
-            (update)="getChartData($event)"
-            [barChartData]="barChartData"
-            [barChartLabels]="barChartLabels"></app-chart>
+
+          <div class="dashboard__chart-wrapper row align-center justify-center chart-wrapper">
+            <app-chart
+              class="dashboard__chart chart row align-center justify-center"
+              (update)="getChartData($event)"
+              [barChartData]="barChartData"
+              [barChartLabels]="barChartLabels"></app-chart>
+          </div>
+          <div class="row justify-end">
+            <button
+              (click)="downloadReport()"
+              class="ap-btn ap-btn--secondary"
+              data-test="advertiser-download-report-button">
+              Generate a report
+            </button>
+          </div>
         </div>
       </div>
-      <app-campaign-list
-        [dataLoaded]="dataLoaded"
-        [campaigns]="campaigns"
-        [campaignsTotals]="campaignsTotals"></app-campaign-list>
+
+      <div class="ap-box">
+        <h2 class="ap-heading ap-heading--h2 box-title">List of all campaigns</h2>
+        <div class="box-content">
+          <app-campaign-list
+            [dataLoaded]="dataLoaded"
+            [campaigns]="campaigns"
+            [campaignsTotals]="campaignsTotals"></app-campaign-list>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="!campaigns.length">
-      <div class="ap-box ap-box--large col align-center justify-center text-center create-new-campaign-wrapper">
+      <div class="ap-box col align-center justify-center text-center create-new-campaign-wrapper">
         <img src="/assets/images/advertiser-account-illustration.svg" alt="Advertiser Account Illustration" />
         <div class="ap-customize__box-description">
-          <h2 class="ap-heading ap-heading--primary">Create your first campaign</h2>
+          <h2 class="ap-heading ap-heading--h2">Create your first campaign</h2>
         </div>
-        <a routerLink="/advertiser/create-campaign/basic-information" data-test="advertiser-create-new-campaign">
-          <button class="row align-center ap-btn ap-btn--large ap-btn--white ap-btn--no-border">
-            <img src="assets/images/plus-circle--blue.svg" alt="Add new" class="ap-icon ap-icon--prepend" />
-            <span class="ap-heading"> Create now </span>
-          </button>
-        </a>
+        <button routerLink="/advertiser/create-campaign/basic-information" class="ap-btn ap-btn--primary">
+          <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
+          Create now
+        </button>
       </div>
     </div>
   </div>

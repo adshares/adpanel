@@ -1,62 +1,28 @@
 @import '../../../styles.scss';
 
 .ap-login {
-  &-wrapper {
-    height: 100%;
+  background-color: pal(light);
+
+  & .ap-form-input__box:not(:first-child) {
+    margin-top: 24px;
   }
 
-  &__remember {
-    margin-top: 30px;
+  & .link-wrapper {
+    margin-top: 16px;
   }
-}
 
-h2 {
-  margin: 10px 0;
-}
-
-.block-link {
-  display: block;
-  margin: 10px 10px 10px 50px;
-}
-
-.login-buttons {
-  margin-top: 10px;
-
-  @include media(md-up) {
-    margin-top: 30px;
+  & .alternative-buttons-wrapper {
+    margin-bottom: 48px;
   }
 
   .ap-btn {
-    position: relative;
-    min-width: 220px;
     height: 42px;
     vertical-align: top;
-
-    &-with-img {
-      padding-left: 40px;
-    }
+    text-decoration: none;
 
     > img {
-      position: absolute;
-      left: 5px;
-      width: 30px;
-      max-height: 30px;
+      width: 24px;
+      max-height: 24px;
     }
-  }
-
-  .error-msg {
-    display: inline-block;
-  }
-}
-
-form {
-  margin-top: 10px;
-
-  @include media(md-up) {
-    margin-top: 30px;
-  }
-
-  .error-msg {
-    max-width: 320px;
   }
 }

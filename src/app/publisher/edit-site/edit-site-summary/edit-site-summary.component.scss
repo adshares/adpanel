@@ -1,38 +1,23 @@
 @import '../../../../styles.scss';
 
 .site-edit-summary {
-  max-width: 800px;
-  margin: 0 auto;
 
-  @include media(xxl-up) {
-    max-width: 1300px;
-  }
-
-  @include media(xxxl-up) {
-    max-width: 2000px;
-  }
-
-  .ap-heading {
-    margin-bottom: 22px;
-  }
-
-  .ap-box {
-    margin: 8px 0;
+  & > .ap-heading {
+    margin-top: 18px;
+    margin-bottom: 18px;
   }
 
   &__warning {
-    color: pal(red);
+    color: pal(error);
   }
 
   &__info-cell {
     padding-left: 0;
   }
 
-  &__basic-info {
-    padding: 20px;
-
-    .ap-heading {
-      margin-bottom: 16px;
+  &__poster-info {
+    & > a {
+      text-decoration: none;
     }
   }
 
@@ -40,35 +25,9 @@
     margin-right: 32px;
   }
 
-  .ap-chip-box {
-    margin: 2px;
-  }
-
-  &__poster-unit {
-    text-align: center;
-    background: white;
-    padding: 7px;
-    flex-basis: 16%;
-    margin: 2px;
-    border-radius: 2px;
-    border: 2px solid pal(gray, x-light);
-    cursor: pointer;
-    pointer-events: all;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    &__visualization {
-      color: pal(blue);
-      @include font(14, bold);
-
-      &-box {
-        background-color: pal(gray, ultra-light);
-        padding: 30px 60px;
-        min-height: 150px;
-        margin-bottom: 15px;
-      }
-    }
+  & .poster-unit {
+    flex: 0 1 18%;
+    max-width: 250px;
   }
 }
 

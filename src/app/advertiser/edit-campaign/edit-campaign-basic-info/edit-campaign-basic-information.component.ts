@@ -26,6 +26,7 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { CustomValidators } from 'common/utilities/forms';
 import { ServerOptionsService } from 'common/server-options.service';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -50,6 +51,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
   isAutoCpm: boolean;
   media: Entry[];
   vendors: Entry[] = [];
+  faCalendar = faCalendar;
 
   constructor(
     private router: Router,

@@ -1,23 +1,11 @@
 @use 'sass:math';
 
 .container {
-  padding: 0 16px;
+  max-width: 1248px;
+  padding: 36px 24px;
 
-  @include media(md-up) {
-    padding: 0 60px;
-  }
-
-  @include media(lg-up) {
-    max-width: 1400px;
-  }
-
-  @include media(xl-up) {
-    max-width: 1700px;
-  }
-
-  @include media(xxl-up) {
-    max-width: 2200px;
-    padding: 0 10%;
+  &--full {
+    max-width: none;
   }
 }
 
@@ -42,6 +30,18 @@
   &.reverse {
     flex-direction: row-reverse;
   }
+
+  &--gap8 {
+    gap: 8px;
+  }
+
+  &--gap18 {
+    gap: 18px;
+  }
+
+  &--gap32 {
+    gap: 32px;
+  }
 }
 
 .col {
@@ -56,7 +56,6 @@
 
 .no-wrap {
   flex-wrap: nowrap;
-  white-space: nowrap;
 }
 
 .wrap {

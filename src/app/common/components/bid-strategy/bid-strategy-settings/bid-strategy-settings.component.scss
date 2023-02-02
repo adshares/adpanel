@@ -1,10 +1,18 @@
 @import '../../../../../styles';
 
 .bid-strategy {
+  &__select {
+    min-width: 210px;
+  }
+
   &__row {
     min-height: 40px;
     padding-top: 4px;
     padding-bottom: 4px;
+
+    & > .ap-btn {
+      height: 47px;
+    }
   }
 
   &__input {
@@ -20,18 +28,15 @@
     margin-left: 4px;
     width: 3em;
   }
-
-  &__spreadsheet-button {
-    min-width: 150px;
-  }
 }
 
 .ap-box-narrow {
+  margin-top: 24px;
   max-width: 300px;
-}
 
-.appended {
-  margin-left: 16px;
+  & .ap-form-input__box:not(:first-child){
+    margin-top: 24px;
+  }
 }
 
 .space-top {
@@ -44,4 +49,9 @@
 
 ::ng-deep .mat-input-infix {
   width: 400px !important;
+}
+
+.section-subtitle {
+  margin-top: 4px;
+  line-height: 24px;
 }

@@ -10,11 +10,11 @@ import { UserAdserverWallet } from 'models/user.model';
 import { CODE, CRYPTO } from 'common/utilities/consts';
 import { ServerOptionsService } from 'common/server-options.service';
 import { GET_ADS_FAQ, WITHDRAW_ADS_FAQ } from 'models/enum/link.enum';
+import { faCreditCard } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-user-wallet',
   templateUrl: './user-wallet.component.html',
-  styleUrls: ['./user-wallet.component.scss'],
 })
 export class UserWalletComponent extends HandleSubscriptionComponent implements OnInit {
   getAdsFaqLink = GET_ADS_FAQ;
@@ -24,6 +24,7 @@ export class UserWalletComponent extends HandleSubscriptionComponent implements 
   code: string = CODE;
   calculateFunds: boolean;
   isImpersonated: boolean = false;
+  faCreditCard = faCreditCard;
 
   constructor(
     private dialog: MatDialog,

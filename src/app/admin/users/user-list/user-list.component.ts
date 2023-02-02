@@ -7,6 +7,7 @@ import { SessionService } from '../../../session.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseListComponent } from 'admin/users/base-list/base-list.component';
 import { LoadUsers } from 'store/admin/admin.actions';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export interface UsersQueryParams {
   selectedType: 'Advertisers' | 'Publishers' | 'All';
@@ -33,6 +34,7 @@ export class UserListComponent extends BaseListComponent implements OnInit {
   };
   localStorageName = 'usersQueryParams';
   userTypes: string[] = appSettings.USER_TYPES;
+  faSearch = faSearch;
 
   constructor(store: Store<AppState>, router: Router, activatedRoute: ActivatedRoute, private session: SessionService) {
     super(store, router, activatedRoute);

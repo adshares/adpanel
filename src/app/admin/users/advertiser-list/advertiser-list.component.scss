@@ -1,26 +1,19 @@
 @import '../../../../styles';
 
 .advertiser-list {
-  margin-top: 25px;
-
   &__sort {
     margin-left: 5px;
   }
 
-  &__items {
-    position: relative;
-    height: calc((54px * 15) + 40px);
-  }
-
   &__loader-container {
     @include copy($font-size: 32);
-    height: calc(54px * 15);
     display: flex;
     width: 100%;
-    background: rgba(255, 255, 255, 0.9);
+    color: pal(secondary);
     align-items: center;
     justify-content: center;
     top: 40px;
+    margin: 24px 0;
   }
 
   &__filters label {
@@ -31,27 +24,8 @@
     width: 100px;
   }
 
-  &__checkbox {
-    margin-right: 24px;
-  }
-
-  &__search-container {
-    @include container($border-color: pal(gray, light));
-    @include copy($font-size: 18, $color: pal(gray, x-dark));
-    mat-icon {
-      vertical-align: middle;
-    }
-    margin-top: 2px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  &__input {
-    @include input;
-    padding: 8px 12px;
-    margin-left: 16px;
-    width: 220px;
+  .mat-radio-group {
+    flex-direction: row;
   }
 }
 

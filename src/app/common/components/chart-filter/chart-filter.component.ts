@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { filterPresetsEnum } from 'models/enum/chart.enum';
 import { enumToObjectArray } from 'common/utilities/helpers';
 import { DATE_FORMAT } from 'common/utilities/consts';
+import { faCalendar, faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-chart-filter',
@@ -34,6 +35,8 @@ export class ChartFilterComponent extends HandleSubscriptionComponent implements
   currentToFilter: string;
   datepickerVisible: boolean = false;
   calendarOpened: boolean;
+  faCalendar = faCalendar;
+  faArrowAltCircleRight = faArrowAltCircleRight;
 
   constructor(private store: Store<AppState>) {
     super();

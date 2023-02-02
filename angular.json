@@ -37,9 +37,7 @@
               "src/favicon-48x48.png",
               "src/favicon-96x96.png"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,

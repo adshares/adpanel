@@ -1,13 +1,13 @@
 @import '../../../../styles';
 
 .table-nav {
-  @include container($border-color: pal(gray, nearly-white));
+  @include container();
+  border-bottom: 1px solid pal(gray);
   display: flex;
   justify-content: space-between;
   width: 100%;
 
   &__row {
-    @include copy($font-weight: semi);
     display: flex;
     align-items: center;
   }

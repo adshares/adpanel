@@ -6,7 +6,7 @@
     title="Search for targeting option"
     class="targeting-select__input"
     data-test="common-targeting-select-search-input" />
-  <img src="/assets/images/search.svg" alt="" class="targeting-select__search-icon" />
+  <fa-icon [icon]="faSearch" class="targeting-select__search-icon"></fa-icon>
 </div>
 
 <button
@@ -16,14 +16,14 @@
   role="button"
   class="targeting-select__option targeting-select__option--back"
   data-test="common-targeting-select-navigate-to-parent-button">
-  <img class="targeting-select__input-icon" src="/assets/images/chevron--left.svg" alt="Go back" />
+  <fa-icon class="ap-icon ap-icon--prepend" [icon]="faArrowLeft"></fa-icon>
   <span class="targeting-select__parent-option" data-test="common-targeting-select-parent-option">
     {{ parentOption.label }}
   </span>
 </button>
 
-<ul *ngFor="let option of viewModel">
-  <li>
+<ul>
+  <li *ngFor="let option of viewModel">
     <div
       *ngIf="!option.allowInput"
       tabindex="0"
@@ -35,13 +35,15 @@
       "
       data-test="common-targeting-select-option">
       {{ option.label }}
-      <span *ngIf="option.description" class="targeting-select__help-icon">
+      <span *ngIf="option.description">
         <fa-icon
+          class="ap-icon ap-icon--append ap-copy--secondary"
           matTooltipClass="ap-mat-tooltip"
           [matTooltip]="option.description"
           matTooltipPosition="above"
           [icon]="faQuestionCircle"></fa-icon>
       </span>
+
       <span
         *ngIf="option.hasOwnProperty('value')"
         (click)="toggleItem(option) || $event.stopPropagation()"
@@ -50,9 +52,11 @@
           'sub-selected': !option.selected && option.subSelected
         }"
         class="{{ checkClass }}-unselected"></span>
-      <span
+
+      <fa-icon
         *ngIf="option.hasOwnProperty('children') || option.hasOwnProperty('values')"
-        class="targeting-select__option-cross"></span>
+        class="ap-icon ap-icon--append"
+        [icon]="faArrowRight"></fa-icon>
     </div>
     <app-targeting-custom-option-input
       *ngIf="option.allowInput"

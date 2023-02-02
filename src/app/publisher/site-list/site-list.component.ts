@@ -6,6 +6,7 @@ import { enumToObjectArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { TableNavigationComponent } from 'common/components/table-navigation/table-navigation.component';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-site-list',
@@ -19,6 +20,7 @@ export class SiteListComponent extends HandleSubscriptionComponent implements On
   @ViewChild(TableNavigationComponent)
   tableNavigationRef: TableNavigationComponent;
   siteStatuses: any[];
+  faPlusCircle = faPlusCircle;
 
   constructor(private router: Router) {
     super();

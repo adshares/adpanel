@@ -1,7 +1,6 @@
 @import '../../../../styles';
 
 .ap-edit-asset__navigation {
-  background: pal(white);
   height: 64px;
 
   &-step:last-of-type {
@@ -10,13 +9,39 @@
     }
   }
 
-  .ap-circle {
+  .step-circle {
+    width: 24px;
+    height: 24px;
+    border: 1px solid pal(primary);
+    border-radius: 50%;
     margin-right: 15px;
 
-    &.done + p,
-    &.active + p {
-      @include font-weight(semi);
-      color: pal(navy);
+    &.inactive {
+      background-color: pal(gray);
+      border-color: pal(gray);
+      color: pal(light);
+
+      & + p {
+        color: pal(gray);
+      }
+    }
+
+    &.active {
+      background-color: pal(primary);
+      border-color: pal(primary);
+      color: pal(light);
+
+      & + p {
+        color: pal(primary);
+        @include font-weight(bold);
+      }
+    }
+
+    &.done {
+      border-color: pal(dark);
+      & + p {
+        @include font-weight(bold);
+      }
     }
   }
 }

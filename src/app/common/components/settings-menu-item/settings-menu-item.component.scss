@@ -1,21 +1,65 @@
 @import '../../../../../src/styles';
 
 .settings-menu-item {
-  height: 100%;
-  padding: 16px 0 16px 24px;
-  border-left: 2px solid pal(gray, light);
-  position: relative;
 
-  &.active {
-    border-color: pal(blue);
+  .mat-expansion-panel {
+    background-color: transparent;
+
+    & .mat-expansion-panel-header {
+      padding: 12px 2rem;
+      height: auto;
+      color: pal(light);
+
+      &:hover:not([aria-disabled=true]) {
+        background-color: rgba(0, 47, 54, 0.5);
+        border-radius: 10px
+      }
+    }
+
+    ::ng-deep .mat-expansion-indicator::after {
+      color: inherit;
+    }
+
+    ::ng-deep .mat-expansion-panel-body {
+      background-color: pal(primary, dark);
+      padding: 8px 0;
+      height: auto;
+      box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  &__submenu-title {
+    @include copy (
+      $color: pal(light),
+      $font-size: 18,
+      $font-weight: semiBold
+    );
   }
 
   &__submenu {
-    margin-top: 16px;
-    margin-left: 16px;
+    @include copy (
+      $color: pal(light),
+      $font-size: 18,
+    );
+
+    & .active-tab {
+      color: pal(secondary)
+    }
   }
 
   &__submenu-item {
-    padding: 8px 0;
+    cursor: pointer;
+    padding: 12px 2rem;
+    & > a {
+      color: inherit;
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &:hover{
+      background-color: rgba(0, 61, 77, 0.5);
+    }
   }
 }

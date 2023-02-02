@@ -12,7 +12,15 @@ import { User } from 'models/user.model';
 import { environment } from 'environments/environment';
 import { SetUser } from 'store/auth/auth.actions';
 import { CODE, CRYPTO } from 'common/utilities/consts';
-import { faComments, faEnvelope, faLifeRing, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faPlusCircle, faGears } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUser,
+  faComments,
+  faEnvelope,
+  faLifeRing,
+  faPaperPlane,
+  faCreditCard,
+} from '@fortawesome/free-regular-svg-icons';
 import { ServerOptionsService } from 'common/server-options.service';
 
 @Component({
@@ -39,9 +47,15 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
   faEnvelope = faEnvelope;
   faPaperPlane = faPaperPlane;
   faComments = faComments;
+  faUser = faUser;
+  faPlusCircle = faPlusCircle;
+  faChevronDown = faChevronDown;
+  faCreditCard = faCreditCard;
   envContext: string | null = environment.context;
   actAsAdvertiser: boolean;
   actAsPublisher: boolean;
+  faGears = faGears;
+  adControllerUrl = environment.adControllerUrl;
 
   constructor(
     private router: Router,

@@ -22,7 +22,7 @@
   }
 
   &__totals-row {
-    @include copy($font-weight: semi);
+    @include copy($font-weight: semiBold);
     @include container(
       $padding-vertical: 10px,
       $margin-top: 4px,
@@ -52,8 +52,8 @@
 
   &__add-btn {
     @include btn(
-      $color: pal(blue),
-      $background-color: pal(white),
+      $color: pal(secondary),
+      $background-color: pal(light),
       $border-color: transparent,
       $padding-vertical: 0
     );

@@ -8,7 +8,8 @@ import * as moment from 'moment';
 import { enumToObjectArray } from 'common/utilities/helpers';
 import { BillingHistoryFilter } from 'models/settings.model';
 import { billingHistoryItemTypeEnum } from 'models/enum/billing-history.enum';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-billing-history-filter',
@@ -32,6 +33,8 @@ export class BillingHistoryFilterComponent extends HandleSubscriptionComponent i
   calendarOpened: boolean = false;
 
   filterIcon = faCaretDown;
+  faCalendar = faCalendar;
+  faArrowCircleRight = faArrowCircleRight;
   transactionTypes: any[] = [];
   isCheckedAll: boolean = true;
 

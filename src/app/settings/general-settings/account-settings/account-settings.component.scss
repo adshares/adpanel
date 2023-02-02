@@ -1,18 +1,14 @@
 @import '../../../../styles';
 
 .general-settings {
-  padding: 30px;
-  min-width: 500px;
-
   .user-id {
-
-
-    code {
+    & .container {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    background-color: pal(light);
+    & .code {
       font-family: monospace;
     }
-  }
-
-  @include media(xxl-up) {
-    width: calc(100% - 380px);
   }
 }

@@ -1,21 +1,21 @@
-<section class="ap-auth row align-center">
-  <div class="container row ap-auth-wrapper">
-    <div class="col col-xs-12 col-lg-6 ap-auth__poster justify-between hidden-lg">
+<section class="container ap-auth row align-center justify-center">
+  <div class="ap-auth--wrapper">
+    <div class="ap-auth__header">
       <div
         *ngIf="null !== loginInfo; else isLoading ? loading : loginInfoTemplate"
         [innerHtml]="loginInfo"
-        class="col flex-auto ap-auth__poster-content"></div>
+        class="col ap-auth-container"></div>
+    </div>
 
-      <div class="row align-center justify-between ap-copy ap-copy--small">
+    <router-outlet #o="outlet"></router-outlet>
+
+    <div class="col ap-login__footer ap-copy ap-copy--small">
+      <div class="row align-center justify-between">
         <a href="https://adshares.net?utm_source={{ source }}&utm_campaign=auth" target="_blank">
-          <img
-            alt=""
-            class="ap-logo"
-            src="assets/images/logo--white.png"
-            srcset="assets/images/logo--white@2x.png 2x, assets/images/logo--white@3x.png 3x" />
+          <img class="ap-logo" src="assets/images/logo.svg" alt="Adshares Logo" />
         </a>
         <a
-          class="ap-copy--white"
+          class="ap-copy--light"
           [href]="termsOfServiceLink"
           rel="noopener noreferrer"
           target="_blank"
@@ -23,44 +23,23 @@
           Terms of Service
         </a>
         <a
-          class="ap-copy--white"
+          class="ap-copy--light"
           [href]="privacyPolicyLink"
           rel="noopener noreferrer"
           target="_blank"
           data-test="common-privacy-policy-link">
           Privacy Policy
         </a>
-        <span>{{ version }}</span>
+        <span class="ap-copy--gray">{{ version }}</span>
       </div>
     </div>
 
-    <div class="col col-xs-12 col-lg-6 ap-auth__content ap-bg-white justify-between">
-      <div [@fadeAnimation]="getRouterOutletState(o)">
-        <router-outlet #o="outlet"></router-outlet>
-      </div>
-      <div class="row align-center justify-between">
-        <p class="ap-copy ap-copy-instructions">
-          Learn how to use our platform -
-          <a [href]="advertiserInstructionLink" class="ap-blue" target="_blank">ADVERTISER</a>
-          /
-          <a [href]="publisherInstructionLink" class="ap-blue" target="_blank">PUBLISHER</a>
-        </p>
-      </div>
-    </div>
+    <p class="ap-copy links-wrapper">
+      Learn how to use our platform -
+      <a [href]="advertiserInstructionLink" class="ap-blue" target="_blank">ADVERTISER</a> /
+      <a [href]="publisherInstructionLink" class="ap-blue" target="_blank">PUBLISHER</a>
+    </p>
   </div>
-  <img alt="bubbles" class="ap-auth-bubbles" src="assets/images/bubbles1.svg" />
-  <img alt="bubbles" class="ap-auth-bubbles" src="assets/images/bubbles2.svg" />
-  <img alt="bubbles" class="ap-auth-bubbles" src="assets/images/bubbles3.svg" />
-  <img
-    alt="wave"
-    class="ap-auth-wave ap-auth-wave-up"
-    src="assets/images/wave-up.png"
-    srcset="assets/images/wave-up@2x.png 2x, assets/images/wave-up@3x.png 3x" />
-  <img
-    alt="waves"
-    class="ap-auth-wave ap-auth-wave-down"
-    src="assets/images/wave-down.png"
-    srcset="assets/images/wave-down@2x.png 2x, assets/images/wave-down@3x.png 3x" />
 </section>
 
 <ng-template #loading>
@@ -69,41 +48,10 @@
   </div>
 </ng-template>
 <ng-template #loginInfoTemplate>
-  <div class="col flex-auto justify-between ap-auth__poster-content">
+  <div class="col flex-auto justify-between ap-auth-container">
     <div>
-      <h1 class="ap-heading--hero ap-white">
-        <span class="ap-heading--light"> Blockchain </span>
-        Transformation<br />in Advertising
-      </h1>
-      <div class="row align-center ap-copy ap-copy--semi ap-copy--uppercase ap-blue ap-auth__poster-advantages">
-        <span> Low Fees </span>
-        <div class="ap-circle ap-circle--x-small ap-bg-blue"></div>
-        <span> Censorship Resistant </span>
-        <div class="ap-circle ap-circle--x-small ap-bg-blue"></div>
-        <span> AI Ready </span>
-      </div>
-    </div>
-    <div class="ap-copy ap-auth__poster-benefits">
-      <h3 class="ap-heading--secondary">Join as an ADVERTISER</h3>
-      <ul>
-        <li>Significantly lower fees compared to mainstream ad networks</li>
-        <li>Availability for small advertisers - no minimum budget</li>
-        <li>Innovation in ad delivery to prevent ad blocking</li>
-      </ul>
-      <h3 class="ap-heading--secondary">Join as a PUBLISHER</h3>
-      <ul>
-        <li>Availability for small publishers - no traffic requirements</li>
-        <li>Almost instant payments - automatic hourly transfers</li>
-        <li>Quick and easy registration</li>
-      </ul>
-    </div>
-    <div class="ap-copy ap-copy--semi ap-copy--uppercase">
-      <a
-        class="ap-blue"
-        href="https://adshares.net/about?utm_source={{ source }}&utm_campaign=auth#video"
-        target="_blank"
-        >Watch video about Adshares</a
-      >
+      <h2 class="ap-heading ap-heading--h2 ap-heading--secondary">Hello!</h2>
+      <p class="ap-copy ap-copy--semi ap-copy--medium ap-copy--light">Please log in to your account</p>
     </div>
   </div>
 </ng-template>

@@ -1,6 +1,6 @@
 <tr
   *ngIf="campaign; else loading"
-  class="row ap-box ap-campaign-list__item align-center justify-between ap-copy"
+  class="row ap-campaign-list__item align-center justify-between ap-copy"
   data-test="advertiser-navigate-to-campaign-details">
   <td class="row ap-campaign-list__status-cell align-center">
     <div
@@ -69,7 +69,7 @@
   </td>
   <td class="col-xs-1 row align-center justify-center ap-campaign-list__item-campaign-details" role="link">
     <a class="clickable-row-a" routerLink="/advertiser/campaign/{{ campaign.id }}">
-      <img [alt]="'Go to ' + campaign.basicInformation.name + ' details'" src="/assets/images/chevron--right.svg" />
+      <fa-icon [icon]="faChevronRight" class="ap-icon"></fa-icon>
     </a>
   </td>
 </tr>

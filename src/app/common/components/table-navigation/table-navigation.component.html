@@ -1,7 +1,7 @@
 <thead class="table-nav">
   <tr
     *ngFor="let menuItem of navigationItems"
-    class="table-nav__row"
+    class="ap-copy table-nav__row"
     [ngClass]="menuItem.columnWidth"
     (click)="sortTableByColumn(menuItem)"
     data-test="common-sort-assets-toggle">

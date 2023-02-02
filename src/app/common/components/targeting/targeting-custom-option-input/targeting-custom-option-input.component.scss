@@ -3,14 +3,19 @@
 .targeting-custom-option {
   &__form {
     @include container(
-      $border-color: pal(gray, light),
+      $border-color: pal(gray),
       $padding-vertical: 8px,
       $padding-horizontal: 8px,
-      $margin-top: 0
+      $margin-top: 4px,
+      $border-radius: 10px
     );
-    border-top-color: transparent;
     cursor: pointer;
-    width: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    display: flex;
+    align-items: center;
     padding-left: 24px;
 
     &--input-hidden {
@@ -19,43 +24,22 @@
       justify-content: space-between;
       cursor: pointer;
     }
+
+    & .custom-input-wrapper {
+      flex-grow: 1;
+      max-width: 390px;
+    }
+
+    & .coordinates-wrapper {
+      & .ap-form-input {
+        min-width: 0;
+        max-width: 150px;
+      }
+    }
   }
 
   &__label {
     align-items: center;
     display: block;
-  }
-
-  &__input {
-    margin-left: 8px;
-    padding: 8px;
-    width: 100%;
-  }
-
-  &__btn {
-    border: none;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 50%;
-    height: 24px;
-    width: 24px;
-    font-size: 26px;
-    color: pal(blue, base);
-    padding: 0;
-
-    & .material-icons {
-      margin: 0;
-      font-size: inherit;
-    }
-
-    &:focus,
-    &:hover {
-      color: darken(pal(blue, base), 10%);
-      box-shadow: 0 10px 20px rgba(196, 194, 194, 0.19),
-        -1px 5px 6px rgba(114, 112, 112, 0.23);
-    }
   }
 }

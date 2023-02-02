@@ -1,17 +1,26 @@
 @import '../../../styles';
 
 .classifier {
+
   &__type-info {
     display: flex;
     justify-content: center;
     padding: 8px;
     font-size: 18px;
   }
+
+  & .control-btn-wrapper > button:not(:last-child) {
+    margin-right: 4px;
+  }
 }
 
 .ap-ad-list {
-  margin-top: 2px;
+  margin-top: 24px;
   min-height: 100%;
+
+  & .pd24 {
+    margin: 24px 0;
+  }
 }
 
 .header {
@@ -25,7 +34,7 @@
 
   &__link {
     &:hover {
-      color: darken(pal(blue), 10%);
+      color: pal(secondary);
     }
   }
 }

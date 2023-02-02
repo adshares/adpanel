@@ -1,4 +1,4 @@
-<tr class="ap-box ap-box--no-padding row justify-between no-gutters align-center classifier-list-item__row">
+<tr class="row justify-between no-gutters align-center classifier-list-item__row">
   <td #appBannerPreviewContainer class="col-xs-7">
     <app-banner-preview
       [banner]="bannerClassification"
@@ -6,12 +6,14 @@
       [maxWidth]="appBannerPreviewContainer.clientWidth"></app-banner-preview>
   </td>
   <td class="col-xs-1 col">
-    <span class="text-left ap-copy ap-copy--blue ap-copy--small">
-      {{ bannerClassification.type }}
-    </span>
-    <span class="text-left ap-copy ap-copy--bold">
-      {{ bannerClassification.size }}
-    </span>
+    <div class="classifier-list-item__size-box col">
+      <span class="text-left ap-copy ap-copy--secondary ap-copy--small">
+        {{ bannerClassification.type }}
+      </span>
+      <span class="text-left ap-copy ap-copy--bold">
+        {{ bannerClassification.size }}
+      </span>
+    </div>
   </td>
   <td class="col-xs-2 col classifier-list-item__link">
     <a
@@ -29,17 +31,17 @@
         'classifier-list-item__btns--reversed': classified === REJECTED
       }">
       <button
-        class="ap-btn ap-btn--white ap-copy classifier-list-item__btn"
+        class="ap-btn ap-btn--secondary classifier-btn"
         (click)="classifyBanner(APPROVED)"
         [disabled]="classified === APPROVED"
-        [ngClass]="{ 'ap-copy--green': !isGlobal }">
+        [ngClass]="{ 'ap-btn-success': !isGlobal }">
         {{ classified === APPROVED ? (isGlobal ? 'Omitted' : 'Approved') : isGlobal ? 'Omit' : 'Approve' }}
       </button>
       <button
-        class="ap-btn ap-btn--white ap-copy classifier-list-item__btn"
+        class="ap-btn ap-btn--secondary classifier-btn"
         (click)="classifyBanner(REJECTED)"
         [disabled]="classified === REJECTED"
-        [ngClass]="{ 'ap-copy--red': isGlobal }">
+        [ngClass]="{ 'ap-btn-error': isGlobal }">
         {{ classified === REJECTED ? (isGlobal ? 'Rejected' : 'Omitted') : isGlobal ? 'Reject' : 'Omit' }}
       </button>
     </div>

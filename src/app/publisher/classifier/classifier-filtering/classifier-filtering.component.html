@@ -42,19 +42,23 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div class="classifier-filtering__size-controls">
-      <mat-checkbox (change)="sizeOptionChange($event, 'allSizes')" [checked]="allSizes"> All </mat-checkbox>
-      <mat-checkbox (change)="sizeOptionChange($event, 'allSizesMatching')" [checked]="allSizesMatching">
-        All matching
-      </mat-checkbox>
-    </div>
+    <div class="col row--gap8">
+      <div class="row row--gap32">
+        <mat-checkbox (change)="sizeOptionChange($event, 'allSizes')" [checked]="allSizes"> All </mat-checkbox>
+        <mat-checkbox (change)="sizeOptionChange($event, 'allSizesMatching')" [checked]="allSizesMatching">
+          All matching
+        </mat-checkbox>
+      </div>
 
-    <mat-checkbox
-      *ngFor="let sizeOption of sizeOptions"
-      (change)="sizeSelect($event, sizeOption)"
-      [checked]="filtering.sizes.includes(sizeOption)">
-      {{ sizeOption }}
-    </mat-checkbox>
+      <div class="row row--gap8">
+        <mat-checkbox
+          *ngFor="let sizeOption of sizeOptions"
+          (change)="sizeSelect($event, sizeOption)"
+          [checked]="filtering.sizes.includes(sizeOption)">
+          {{ sizeOption }}
+        </mat-checkbox>
+      </div>
+    </div>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header class="classifier-filtering__content-padding">
@@ -70,8 +74,10 @@
     </mat-expansion-panel-header>
     <form (submit)="changeFilteringByLandingUrl()">
       <label class="classifier-filtering__label" for="landingUrl"> Landing url </label>
-      <input id="landingUrl" [formControl]="landingUrl" type="text" class="classifier-filtering__input" />
-      <button type="submit" class="classifier-filtering__btn">Search</button>
+      <div class="row row--gap8">
+        <input id="landingUrl" [formControl]="landingUrl" type="text" class="classifier-filtering__input" />
+        <button type="submit" class="ap-btn ap-btn--secondary">Search</button>
+      </div>
     </form>
   </mat-expansion-panel>
   <mat-expansion-panel>
@@ -88,16 +94,19 @@
     </mat-expansion-panel-header>
     <form (submit)="changeFilteringByBannerId()">
       <label class="classifier-filtering__label" for="bannerId"> Banner id </label>
-      <input id="bannerId" [formControl]="bannerId" type="text" class="classifier-filtering__input" />
-      <button type="submit" class="classifier-filtering__btn">Search</button>
-      <button class="classifier-filtering__btn" (click)="changeFilteringByBannerIdReset()">Clear</button>
+      <div class="row row--gap8">
+        <input id="bannerId" [formControl]="bannerId" type="text" class="classifier-filtering__input" />
+        <div class="row row--gap8">
+          <button type="submit" class="ap-btn ap-btn--secondary">Search</button>
+          <button class="ap-btn ap-btn--secondary ap-btn-error" (click)="changeFilteringByBannerIdReset()">
+            Clear
+          </button>
+        </div>
+      </div>
     </form>
   </mat-expansion-panel>
 </mat-accordion>
-<div
-  [ngClass]="
-    classifierOption === 'local-only' ? 'classifier-filtering__hidden' : 'ap-box classifier-filtering__checkbox'
-  ">
+<div [ngClass]="classifierOption === 'local-only' ? 'classifier-filtering__hidden' : 'classifier-filtering__checkbox'">
   <mat-checkbox [checked]="classifierLocalBanners !== 0" (change)="changeFilterByServer($event.checked)">
     Show banners only from local server
   </mat-checkbox>

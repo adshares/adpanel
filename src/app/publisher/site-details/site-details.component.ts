@@ -30,7 +30,13 @@ import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
 import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component';
-import { faExternalLinkSquareAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faExternalLinkSquareAlt,
+  faRemove,
+  faEdit,
+  faArrowLeft,
+  faQuestionCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
 import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
 
@@ -59,12 +65,15 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   barChartData = createInitialDataSet();
   currentChartFilterSettings: ChartFilterSettings;
   mediumLabel: string;
+  faArrowLeft = faArrowLeft;
   isMetaverse: boolean = true;
   editPopups: boolean = true;
   editAds: boolean = true;
   siteLinkUrl: string;
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
-  readonly faQuestionCircle = faQuestionCircle;
+  faExternalLinkSquareAlt = faExternalLinkSquareAlt;
+  faRemove = faRemove;
+  faEdit = faEdit;
+  faQuestionCircle = faQuestionCircle;
 
   constructor(
     private route: ActivatedRoute,

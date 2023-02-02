@@ -1,43 +1,7 @@
 @import '../../../../styles';
 
-.total-funds {
-  margin: 20px 0;
-}
-
-.fee {
-  color: pal(red);
-}
-
-.total-amount {
-  color: pal(blue);
-}
-
-.ap-funds-summary__deposit-funds {
-  margin-bottom: 30px;
-}
-
-.withdraw-funds__btns-wrapper {
-  margin: 12px 0 0 0;
-}
-
-.withdraw-funds-dialog__hint {
-  margin-bottom: 16px;
-}
-
-.withdraw-funds-selector {
-  .dialog-description {
-    width: 100%;
+.withdraw {
+  & .ap-btn {
+    height: 42px;
   }
-
-  .ap-copy--medium {
-    @include font(17, normal);
-    margin-top: 10px;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-}
-
-.btc-amount {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }

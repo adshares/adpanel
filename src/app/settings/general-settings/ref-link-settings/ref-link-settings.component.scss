@@ -1,48 +1,9 @@
+@import "../../../../styles";
+
 .ref-link-settings {
-  margin-top: 10px;
-
-  button {
-    margin-top: 16px;
-  }
-
   &-table {
-    margin: 30px 0;
-    max-width: 100%;
-    width: 100%;
-    min-width: 870px;
-
-    &__scrollable {
-      overflow-x: auto;
-    }
-
     &__head {
-      margin-bottom: 10px;
-      margin-top: 15px;
-      display: block;
+      border-bottom: 1px solid pal(gray);
     }
-  }
-
-  ::ng-deep &__token {
-    width: 250px;
-  }
-
-  ::ng-deep &__refund {
-    width: 250px;
-  }
-
-  ::ng-deep &__comment {
-    width: 200px;
-  }
-
-  ::ng-deep &__usage {
-    width: 150px;
-  }
-
-  ::ng-deep &__refunded {
-    width: 175px;
-  }
-
-  ::ng-deep &__actions {
-    width: 105px;
   }
 }

@@ -1,7 +1,7 @@
 <section class="app-targeting-display">
-  <mat-chip-list *ngFor="let groupedTargeting of viewModel" class="app-targeting-display__chip-list">
+  <mat-chip-list *ngFor="let groupedTargeting of viewModel" class="app-targeting-display">
     <div
-      class="ap-copy"
+      class="ap-copy ap-copy--semi"
       [ngClass]="{ 'targeting-display__exclude-text': isExclude }"
       data-test="common-targeting-display-selected-item">
       {{ groupedTargeting.parentPath }}:
@@ -18,10 +18,10 @@
             {{ targetingItem.label }}
           </p>
         </a>
-        <p *ngIf="canRemove || !targetingItem.url" class="ap-copy ap-copy--x-dark ap-copy--semi">
+        <p *ngIf="canRemove || !targetingItem.url" class="ap-copy ap-copy--secondary ap-copy--semi">
           {{ targetingItem.label }}
         </p>
-        <mat-icon matChipRemove>cancel</mat-icon>
+        <fa-icon matChipRemove class="ap-icon ap-icon--append" [icon]="faClose"></fa-icon>
       </mat-chip>
     </div>
   </mat-chip-list>

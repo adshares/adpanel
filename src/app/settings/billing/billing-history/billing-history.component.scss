@@ -1,8 +1,6 @@
 @import '../../../../styles.scss';
 
 .billing-history {
-  min-width: 450px;
-
   &__icon {
     position: absolute;
     top: 30%;
@@ -27,17 +25,21 @@
     height: 52px;
   }
 
-  &__date-range {
-    @include copy($font-size: 16);
-    margin-right: 10px;
+  &__loader-container {
+    @include copy($font-size: 32);
+    display: flex;
+    width: 100%;
+    color: pal(secondary);
+    align-items: center;
+    justify-content: center;
+    top: 40px;
+    margin: 24px 0;
   }
 }
 
 .billing-table {
-  margin: 30px 0;
   max-width: 100%;
   width: 100%;
-  min-width: 870px;
 
   &--scrollable {
     overflow-x: auto;
@@ -46,9 +48,5 @@
   &__head {
     margin-bottom: 10px;
     display: block;
-  }
-
-  &__head-status {
-    min-width: 150px;
   }
 }

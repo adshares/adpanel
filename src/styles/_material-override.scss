@@ -1,22 +1,12 @@
-.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
-  opacity: 0.9;
-}
-
-.cdk-overlay-dark-backdrop {
-  background: pal(navy);
-}
-
 .mat-dialog-container {
   position: relative;
-  padding: 60px 15px 15px 15px !important;
-
-  @include media(md-up) {
-    padding: 50px 70px 40px !important;
-  }
+  padding: 32px 40px 30px 40px !important;
+  border-radius: 10px !important;
 }
 
 .mat-dialog-content {
   max-height: 85vh !important;
+  padding: 16px 24px !important;
 }
 
 .mat-dialog-content.mat-dialog-content--narrow {
@@ -36,57 +26,33 @@ mat-chip:not(.mat-basic-chip) {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   padding: 7px 12px;
-  border-radius: 0 !important;
   align-items: center;
   cursor: default;
 }
 
 .mat-chip:not(.mat-basic-chip) {
-  background-color: pal(gray, x-light);
-  @include font(14, 500);
+  background-color: transparent;
+  border-radius: 10px;
+  color: pal(secondary);
+  @include font(14, semiBold);
+
+  &.mat-standard-chip::after {
+    background: transparent;
+  }
+
+  &.mat-standard-chip:active {
+    box-shadow: none;
+  }
 }
 
 .mat-chip-list-wrapper {
-  align-items: flex-start !important;
-  flex-direction: column !important;
-  margin: 0 8px 0 0 !important;
-}
-
-.mat-chip:not(.mat-basic-chip) {
-  margin: 8px 8px 0 0 !important;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 0 !important;
 }
 
 .mat-chip .mat-chip-remove.mat-icon {
   margin: 0 0 0 8px;
-}
-
-.targeting-custom-option__chip-list-wrapper {
-  .mat-chip-list-wrapper {
-    flex-direction: row !important;
-  }
-  .mat-form-field {
-    width: calc(100% - 30px);
-  }
-  .mat-form-field-infix {
-    border: none;
-  }
-  .mat-form-field-wrapper {
-    padding: 0 !important;
-  }
-  .mat-chip:not(.mat-basic-chip) {
-    box-shadow: none;
-
-    &:hover {
-      box-shadow: none;
-    }
-  }
-
-  input.mat-chip-input {
-    width: 100%;
-    margin-top: 8px;
-    padding: 8px;
-    background: pal(gray, x-light);
-  }
 }
 
 .mat-slider-thumb-label {
@@ -105,10 +71,6 @@ mat-chip:not(.mat-basic-chip) {
   visibility: hidden !important;
 }
 
-.mat-expansion-panel:not(.mat-expanded)
-  .mat-expansion-panel-header:not([aria-disabled='true']):hover {
-  background: transparent !important;
-}
 
 .mat-select-value-text {
   text-transform: capitalize;
@@ -129,10 +91,6 @@ mat-chip:not(.mat-basic-chip) {
   padding-bottom: 11px !important;
 }
 
-.mat-datepicker-toggle {
-  visibility: hidden !important;
-}
-
 .mat-checkbox-layout {
   align-items: flex-end;
   &:first-of-type {
@@ -141,14 +99,14 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-checkbox-label {
-  color: pal(navy, light);
-  font-family: 'Lato-Regular', sans-serif;
+  color: pal(primary);
+  @include font($font-weight: normal);
   font-size: 15px;
   line-height: 1;
 }
 
 .mat-checkbox-frame {
-  border: 2px solid pal(navy, light);
+  border: 2px solid pal(primary);
 }
 
 .mat-expansion-panel-spacing {
@@ -157,7 +115,7 @@ mat-chip:not(.mat-basic-chip) {
 
 .mat-expansion-panel-header {
   padding: 0 24px 0 8px;
-  font-family: 'Lato-Regular', sans-serif;
+  @include font($font-weight: normal);
   font-size: 18px;
 }
 
@@ -168,14 +126,6 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .classifier-filtering {
-  .mat-checkbox {
-    min-width: 100px;
-
-    &:first-child {
-      min-width: 75px;
-    }
-  }
-
   .mat-expansion-panel-body {
     display: flex;
     flex-wrap: wrap;
@@ -218,23 +168,128 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-snack-bar-container {
-  background-color: pal(navy, light);
+  background-color: pal(transparent);
+  box-shadow: none;
 }
 
-.material-icons {
-  margin-right: 8px;
+.mat-select {
+  @include font($font-weight: semiBold);
 }
 
-.mat-paginator-container {
-  border: 1px solid pal(gray, nearly-white);
+.mat-option {
+  @include font($font-weight: semiBold);
 }
 
-.classifier-filtering .mat-expansion-panel:first-of-type {
-  border: 1px solid pal(gray, nearly-white);
-  border-bottom: none;
+.mat-radio-button {
+  @include font;
 }
 
-.classifier-filtering .mat-expansion-panel:last-of-type {
-  border: 1px solid pal(gray, nearly-white);
-  border-top: none;
+.mat-progress-spinner,
+.mat-spinner {
+  & circle {
+    stroke: pal(primary);
+  }
+
+  &.mat-accent {
+    & circle {
+      stroke: pal(secondary);
+    }
+  }
+}
+
+.mat-focused {
+  & input {
+    border-color: pal(secondary);
+  }
+}
+
+.mat-button-toggle-group {
+  border-radius: 10px;
+}
+
+.mat-slide-toggle {
+
+  & &-bar {
+    width: 32px;
+    height: 20px;
+    background-color: transparent;
+    border: 1px solid pal(primary);
+    border-radius: 13px;
+  }
+
+  & &-thumb-container {
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+  }
+
+  & &-thumb {
+    width: inherit;
+    height: inherit;
+    background-color: pal(primary);
+    box-shadow: none;
+  }
+
+  &.mat-primary.mat-checked &-bar {
+    background-color: pal(primary);
+  }
+
+  &.mat-primary.mat-checked &-thumb-container {
+    transform: translate3d(16px, -50%, 0);
+    left: -2px;
+  }
+
+  &.mat-primary.mat-checked &-thumb {
+    background-color: pal(light);
+  }
+}
+
+.ap-form-input-accordion {
+  width: 100%;
+
+  & .mat-expansion-panel {
+    border: 1px solid pal(primary);
+    border-radius: 10px !important;
+  }
+
+  & .mat-expansion-panel-header-title {
+    padding: 13px;
+  }
+
+  & .mat-expansion-panel-content {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  & p:not(:last-child) {
+    margin-bottom: 12px;
+  }
+
+  code {
+    font-family: monospace;
+  }
+}
+
+.mat-tab-label-content {
+  @include copy($font-weight: semiBold);
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: pal(primary);
+}
+.mat-tab-body-content {
+  padding: 8px;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: pal(primary);
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: pal(primary);
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: pal(primary);
 }

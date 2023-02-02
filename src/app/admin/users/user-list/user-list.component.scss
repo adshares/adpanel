@@ -1,56 +1,19 @@
 @import '../../../../styles';
 
 .user-list {
-  margin-top: 25px;
-
   &__sort {
     margin-left: 5px;
   }
 
-  &__items {
-    position: relative;
-    height: calc((54px * 15) + 40px);
-  }
-
   &__loader-container {
     @include copy($font-size: 32);
-    height: calc(54px * 15);
     display: flex;
     width: 100%;
-    background: rgba(255, 255, 255, 0.9);
+    color: pal(secondary);
     align-items: center;
     justify-content: center;
     top: 40px;
-  }
-
-  &__filters label {
-    padding-right: 8px;
-  }
-
-  &__checkbox {
-    margin-right: 24px;
-    color: #4d5b82;
-    font-family: 'Lato-Regular', sans-serif;
-    font-size: 15px;
-  }
-
-  &__search-container {
-    @include container($border-color: pal(gray, light));
-    @include copy($font-size: 18, $color: pal(gray, x-dark));
-    mat-icon {
-      vertical-align: middle;
-    }
-    margin-top: 2px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  &__input {
-    @include input;
-    padding: 8px 12px;
-    margin-left: 16px;
-    width: 220px;
+    margin: 24px 0;
   }
 
   ::ng-deep &__no-actions {
@@ -59,16 +22,8 @@
       display: none !important;
     }
   }
-}
 
-.choose-user-type {
-  margin-right: 20px;
-}
-
-.search {
-  max-width: 180px;
-
-  &-label {
-    margin-right: 20px;
+  & .mat-radio-group {
+    flex-direction: row;
   }
 }
