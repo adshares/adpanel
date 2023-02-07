@@ -34,6 +34,7 @@ import { faCalendar } from '@fortawesome/free-regular-svg-icons';
   styleUrls: ['./edit-campaign-basic-information.component.scss'],
 })
 export class EditCampaignBasicInformationComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
+  private static readonly ANY_VENDOR: string = 'any';
   currencyCode: string;
   campaignsConfig: CampaignsConfig;
   campaignBasicInfoForm: FormGroup;
@@ -77,7 +78,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
           : adsToClicks(campaignBasicInfoValue.maxCpm || 0),
       budget: adsToClicks(this.budgetValue || 0),
       medium: campaignBasicInfoValue.medium,
-      vendor: campaignBasicInfoValue.vendor,
+      vendor:
+        EditCampaignBasicInformationComponent.ANY_VENDOR === campaignBasicInfoValue.vendor
+          ? null
+          : campaignBasicInfoValue.vendor,
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null,
     };
@@ -89,7 +93,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
       name: lastEditedCampaign.name,
       targetUrl: lastEditedCampaign.targetUrl,
       medium: lastEditedCampaign.medium,
-      vendor: lastEditedCampaign.vendor,
+      vendor: lastEditedCampaign.vendor || EditCampaignBasicInformationComponent.ANY_VENDOR,
       maxCpc: 0,
       maxCpm: null,
       budget: null,
@@ -178,7 +182,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
         disabled: !this.createCampaignMode,
       }),
       vendor: new FormControl({
-        value: initialBasicInfo.vendor,
+        value: initialBasicInfo.vendor || EditCampaignBasicInformationComponent.ANY_VENDOR,
         disabled: !this.createCampaignMode,
       }),
     });
@@ -255,10 +259,13 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
       .getMediumVendors(medium)
       .pipe(take(1))
       .subscribe(vendors => {
-        this.vendors = mapToIterable(vendors);
+        const temporaryVendors = mapToIterable(vendors);
+        if (temporaryVendors.length > 0) {
+          temporaryVendors.unshift({ key: EditCampaignBasicInformationComponent.ANY_VENDOR, value: 'Any' });
+        }
+        this.vendors = temporaryVendors;
         if (this.createCampaignMode) {
-          const value = this.vendors.length > 0 ? this.vendors[0].key : null;
-          this.campaignBasicInfoForm.get('vendor').patchValue(value);
+          this.campaignBasicInfoForm.get('vendor').patchValue(EditCampaignBasicInformationComponent.ANY_VENDOR);
         }
       });
     this.subscriptions.push(subscription);
