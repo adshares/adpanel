@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - External links
 - Forbidden to add parcel with incomplete coordinates
 - Click conversion choice
+- Do not display double error on token error
 
 ## [2.3.0] - 2023-01-26
 ### Added
