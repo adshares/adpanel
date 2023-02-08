@@ -50,17 +50,18 @@
       (mouseover)="toggleRolesMenu(true)"
       (mouseleave)="toggleRolesMenu(false)">
       <fa-icon [icon]="faUser" class="ap-icon ap-icon--prepend"></fa-icon>
-      <span class="ap-copy--uppercase">{{ returnUserType() }}</span>
+      <span class="ap-copy--uppercase">{{ userRole }}</span>
       <fa-icon
         [icon]="faChevronDown"
         size="xs"
         class="ap-icon ap-icon--append settings-menu-chevron"
         [class.up]="rolesMenuOpen"></fa-icon>
       <ul class="roles-menu roles-menu--max-content ap-copy" [class.open]="rolesMenuOpen">
-        <li class="roles-menu__item">
+        <li
+          class="roles-menu__item"
+          *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)">
           <button
             type="button"
-            *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)"
             class="ap-btn ap-btn--secondary ap-copy--uppercase"
             [ngClass]="{ active: activeUserType === userRolesEnum.ADVERTISER }"
             (click)="setActiveUserType(userRolesEnum.ADVERTISER)">
@@ -68,10 +69,11 @@
             Advertiser
           </button>
         </li>
-        <li class="roles-menu__item">
+        <li
+          class="roles-menu__item"
+          *ngIf="(session.isPublisher() && !session.isModerator()) || (session.isImpersonated() && actAsPublisher)">
           <button
             type="button"
-            *ngIf="(session.isPublisher() && !session.isModerator()) || (session.isImpersonated() && actAsPublisher)"
             class="ap-btn ap-btn--secondary ap-copy--uppercase"
             [ngClass]="{ active: activeUserType === userRolesEnum.PUBLISHER }"
             (click)="setActiveUserType(userRolesEnum.PUBLISHER)">
@@ -79,10 +81,9 @@
             Publisher
           </button>
         </li>
-        <li class="roles-menu__item">
+        <li class="roles-menu__item" *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())">
           <button
             type="button"
-            *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
             class="ap-btn ap-btn--secondary ap-copy--uppercase"
             [ngClass]="{ active: activeUserType === userType }"
             (click)="setActiveUserType(userType)">
