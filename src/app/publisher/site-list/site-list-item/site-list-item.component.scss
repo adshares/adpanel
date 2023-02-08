@@ -5,10 +5,6 @@
   &__item {
     @include container();
     border-bottom: 1px solid pal(gray);
-
-    .ap-status {
-      border-radius: 10px;
-    }
   }
 
   &__sort {

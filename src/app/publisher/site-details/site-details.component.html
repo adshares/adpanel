@@ -23,6 +23,40 @@
     </div>
 
     <div class="ap-box">
+      <div class="box-content">
+        <div class="row row--gap18 justify-end align-center">
+          <span class="ap-copy">This site is</span>
+          <span class="ap-status justify-center" [attr.data-status]="currentSiteStatus">
+            {{ currentSiteStatus }}
+            <fa-icon
+              *ngIf="siteStatusEnum.PENDING === site.status"
+              [icon]="faQuestionCircle"
+              class="ap-icon ap-icon--append"
+              matTooltip="Site is pending approval of support team"
+              matTooltipClass="ap-mat-tooltip"
+              matTooltipPosition="right"></fa-icon>
+            <fa-icon
+              *ngIf="siteStatusEnum.REJECTED === site.status && site.rejectReason"
+              [icon]="faQuestionCircle"
+              [matTooltip]="site.rejectReason"
+              class="ap-icon ap-icon--append"
+              matTooltipClass="ap-mat-tooltip"
+              matTooltipPosition="right"></fa-icon>
+          </span>
+          <button
+            class="ap-btn ap-btn--secondary"
+            *ngIf="isSitePositivelyVerified"
+            (click)="onSiteStatusChange()"
+            [ngClass]="{ 'ap-btn-success': currentSiteStatus === 'inactive' }">
+            {{ statusButtonLabel }}
+          </button>
+          <button class="ap-btn ap-btn-error ap-btn--secondary" (click)="deleteSite()">
+            <fa-icon [icon]="faRemove" class="ap-icon ap-icon--prepend"></fa-icon>
+            Remove
+          </button>
+        </div>
+      </div>
+
       <div class="row justify-between align-start box-title">
         <div class="row">
           <div class="col">
@@ -58,47 +92,6 @@
             {{ language.name }}
           </span>
         </p>
-      </div>
-
-      <div class="box-content">
-        <div class="row row--gap18">
-          <div class="row row--gap8 status-button-wrapper align-center">
-            <span class="ap-copy">
-              This site is
-              <span class="ap-copy" data-test="publisher-site-status" [attr.data-status]="currentSiteStatus">
-                {{ currentSiteStatus }}
-              </span>
-              <fa-icon
-                *ngIf="siteStatusEnum.PENDING === site.status"
-                [icon]="faQuestionCircle"
-                class="ap-icon ap-icon--append ap-copy--secondary"
-                matTooltip="Site is pending approval of support team"
-                matTooltipClass="ap-mat-tooltip"
-                matTooltipPosition="right"></fa-icon>
-              <fa-icon
-                *ngIf="siteStatusEnum.REJECTED === site.status && site.rejectReason"
-                [icon]="faQuestionCircle"
-                [matTooltip]="site.rejectReason"
-                class="ap-icon ap-icon--append ap-copy--secondary"
-                matTooltipClass="ap-mat-tooltip"
-                matTooltipPosition="right"></fa-icon>
-            </span>
-            <button
-              class="ap-btn ap-btn--secondary ap-status--btn"
-              *ngIf="isSitePositivelyVerified"
-              (click)="onSiteStatusChange()"
-              data-test="publisher-site-status-change-button"
-              [ngClass]="{ 'ap-btn-success': currentSiteStatus === 'inactive' }">
-              {{ statusButtonLabel }}
-            </button>
-          </div>
-          <button
-            class="ap-btn ap-btn-error ap-btn--secondary ap-btn--with-icon btn-delete ap-copy--dark"
-            (click)="deleteSite()">
-            <fa-icon [icon]="faRemove" class="ap-icon ap-icon--prepend"></fa-icon>
-            Remove
-          </button>
-        </div>
       </div>
     </div>
 

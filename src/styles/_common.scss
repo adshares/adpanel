@@ -316,6 +316,7 @@
   width: 100%;
   max-width: 150px;
   border: none;
+  border-radius: 10px;
   padding: 4px 8px;
   margin: 0;
   display: flex;
@@ -329,32 +330,47 @@
     margin: 0 0 0 3px;
   }
 
-  &[data-status='active'] {
+  &[data-status='active'],
+  &[data-status='active'] .mat-select-arrow {
     background-color: pal(success, light);
+    color: pal(success);
   }
 
-  &[data-status='inactive'] {
+  &[data-status='inactive'],
+  &[data-status='inactive'] .mat-select-arrow {
     background-color: pal(secondary, light);
+    color: pal(primary);
   }
 
   &[data-status='suspended'],
-  &[data-status='outdated'] {
+  &[data-status='suspended'] .mat-select-arrow,
+  &[data-status='outdated'],
+  &[data-status='outdated'] .mat-select-arrow {
     background-color: pal(error, light);
+    color: pal(error);
   }
 
   &[data-status='archived'],
+  &[data-status='archived'] .mat-select-arrow,
   &[data-status='awaiting'],
-  &[data-status='draft'] {
+  &[data-status='awaiting'] .mat-select-arrow,
+  &[data-status='draft'],
+  &[data-status='draft'] .mat-select-arrow {
     background-color: pal(gray, light);
+    color: pal(primary);
   }
 
-  &[data-status='pending'] {
+  &[data-status='pending'],
+  &[data-status='pending'] .mat-select-arrow {
     background-color: pal(gray, light);
+    color: pal(primary);
     cursor: not-allowed;
   }
 
-  &[data-status='rejected'] {
+  &[data-status='rejected'],
+  &[data-status='rejected'] .mat-select-arrow {
     background-color: pal(error, light);
+    color: pal(error);
     cursor: not-allowed;
   }
 
