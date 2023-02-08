@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -46,6 +47,7 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private advertiserService: AdvertiserService,
     private chartService: ChartService,
     private store: Store<AppState>
@@ -191,5 +193,9 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
     this.campaignFilter = filter;
     this.getChartData(this.currentChartFilterSettings);
     this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo, filter);
+  }
+
+  navigateToCreateCampaign(): void {
+    this.router.navigate(['advertiser', 'create-campaign', 'basic-information']);
   }
 }

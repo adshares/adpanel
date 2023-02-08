@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
-import { userRolesEnum } from 'models/enum/user.enum';
+import { userRolesEnum, UserRole } from 'models/enum/user.enum';
 import { AuthService } from 'app/auth.service';
 import { SessionService } from 'app/session.service';
 import { Store } from '@ngrx/store';
@@ -41,8 +41,10 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
   userLabel: string;
   activeUserType: number;
   userRolesEnum = userRolesEnum;
+  userRole = UserRole;
   settingsMenuOpen = false;
   helpMenuOpen = false;
+  rolesMenuOpen = false;
   faLifeRing = faLifeRing;
   faEnvelope = faEnvelope;
   faPaperPlane = faPaperPlane;
@@ -118,17 +120,6 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
     this.subscriptions.push(userDataStateSubscription);
   }
 
-  navigateToCreateNewAsset() {
-    const moduleDir = `/${userRolesEnum[this.activeUserType].toLowerCase()}`;
-    const isUserAdvertiser = this.activeUserType === userRolesEnum.ADVERTISER;
-    const assetDir = isUserAdvertiser ? 'create-campaign' : 'create-site';
-    const queryParams = isUserAdvertiser ? { step: 1 } : {};
-
-    this.router.navigate([moduleDir, assetDir, 'basic-information'], {
-      queryParams,
-    });
-  }
-
   setActiveUserType(userType) {
     this.session.setAccountTypeChoice(userRolesEnum[userType].toLowerCase());
     this.router.navigate([`/${userRolesEnum[userType].toLowerCase()}`, 'dashboard']);
@@ -142,8 +133,30 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
     this.helpMenuOpen = state;
   }
 
+  toggleRolesMenu(state) {
+    this.rolesMenuOpen = state;
+  }
+
   openAddFundsDialog() {
     this.dialog.open(AddFundsDialogComponent);
+  }
+
+  returnUserType() {
+    switch (this.activeUserType) {
+      case 0:
+        return this.userRole.ADMIN;
+
+      case 1:
+        return this.userRole.MODERATOR;
+      case 2:
+        return this.userRole.AGENCY;
+      case 3:
+        return this.userRole.ADVERTISER;
+      case 4:
+        return this.userRole.PUBLISHER;
+      default:
+        return 'unknown role';
+    }
   }
 
   logout() {

@@ -11,49 +11,91 @@
       </div>
     </a>
   </div>
+
   <div class="row justify-between content-wrapper">
-    <div class="row row--gap8 align-center">
+    <!-- ROLES -->
+    <div class="row row--gap8 align-center hidden-xl">
       <button
         type="button"
         *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)"
-        class="ap-btn ap-btn--secondary row align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
+        class="ap-btn ap-btn--secondary ap-copy--uppercase"
         [ngClass]="{ active: activeUserType === userRolesEnum.ADVERTISER }"
         (click)="setActiveUserType(userRolesEnum.ADVERTISER)">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
+        <fa-icon class="ap-icon ap-icon--prepend" [icon]="faUser"></fa-icon>
         Advertiser
       </button>
       <button
         type="button"
         *ngIf="(session.isPublisher() && !session.isModerator()) || (session.isImpersonated() && actAsPublisher)"
-        class="ap-btn ap-btn--secondary row align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
+        class="ap-btn ap-btn--secondary ap-copy--uppercase"
         [ngClass]="{ active: activeUserType === userRolesEnum.PUBLISHER }"
         (click)="setActiveUserType(userRolesEnum.PUBLISHER)">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
+        <fa-icon class="ap-icon ap-icon--prepend" [icon]="faUser"></fa-icon>
         Publisher
       </button>
       <button
         type="button"
         *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
-        class="ap-btn ap-btn--secondary align-center ap-navigation__item ap-copy--uppercase ap-copy--semi ap-copy--lineheight-reset"
+        class="ap-btn ap-btn--secondary ap-copy--uppercase"
         [ngClass]="{ active: activeUserType === userType }"
         (click)="setActiveUserType(userType)">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faUser"></fa-icon>
+        <fa-icon class="ap-icon ap-icon--prepend" [icon]="faUser"></fa-icon>
         <span *ngIf="session.isModerator()">Moderator</span>
         <span *ngIf="session.isAgency()">Agency</span>
       </button>
     </div>
+    <div
+      *ngIf="!session.isModerator() || session.isImpersonated()"
+      class="ap-btn ap-btn--text ap-btn-light row align-center help-menu no-underline hidden-xl-up"
+      (mouseover)="toggleRolesMenu(true)"
+      (mouseleave)="toggleRolesMenu(false)">
+      <fa-icon [icon]="faUser" class="ap-icon ap-icon--prepend"></fa-icon>
+      <span class="ap-copy--uppercase">{{ returnUserType() }}</span>
+      <fa-icon
+        [icon]="faChevronDown"
+        size="xs"
+        class="ap-icon ap-icon--append settings-menu-chevron"
+        [class.up]="rolesMenuOpen"></fa-icon>
+      <ul class="roles-menu roles-menu--max-content ap-copy" [class.open]="rolesMenuOpen">
+        <li class="roles-menu__item">
+          <button
+            type="button"
+            *ngIf="(session.isAdvertiser() && !session.isModerator()) || (session.isImpersonated() && actAsAdvertiser)"
+            class="ap-btn ap-btn--secondary ap-copy--uppercase"
+            [ngClass]="{ active: activeUserType === userRolesEnum.ADVERTISER }"
+            (click)="setActiveUserType(userRolesEnum.ADVERTISER)">
+            <fa-icon class="ap-icon ap-icon--prepend" [icon]="faUser"></fa-icon>
+            Advertiser
+          </button>
+        </li>
+        <li class="roles-menu__item">
+          <button
+            type="button"
+            *ngIf="(session.isPublisher() && !session.isModerator()) || (session.isImpersonated() && actAsPublisher)"
+            class="ap-btn ap-btn--secondary ap-copy--uppercase"
+            [ngClass]="{ active: activeUserType === userRolesEnum.PUBLISHER }"
+            (click)="setActiveUserType(userRolesEnum.PUBLISHER)">
+            <fa-icon class="ap-icon ap-icon--prepend" [icon]="faUser"></fa-icon>
+            Publisher
+          </button>
+        </li>
+        <li class="roles-menu__item">
+          <button
+            type="button"
+            *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
+            class="ap-btn ap-btn--secondary ap-copy--uppercase"
+            [ngClass]="{ active: activeUserType === userType }"
+            (click)="setActiveUserType(userType)">
+            <fa-icon class="ap-icon ap-icon--prepend" [icon]="faUser"></fa-icon>
+            <span *ngIf="session.isModerator()">Moderator</span>
+            <span *ngIf="session.isAgency()">Agency</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- /ROLES -->
 
     <div class="row align-center">
-      <button
-        *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
-        class="ap-btn ap-btn--secondary ap-navigation__item ap-navigation__item--hidden row align-center hidden-md-down"
-        (click)="navigateToCreateNewAsset()"
-        data-test="header-create-new-asset-button">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
-        <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
-        <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
-      </button>
-
       <div
         *ngIf="!session.isModerator() || session.isImpersonated()"
         class="ap-btn ap-btn--text ap-btn-light row align-center help-menu no-underline"
@@ -88,7 +130,7 @@
 
       <div
         *ngIf="!session.isModerator() || session.isImpersonated()"
-        class="ap-btn ap-btn--text ap-btn-light row align-center relative ap-navigation__item no-underline"
+        class="ap-btn ap-btn--text ap-btn-light row align-center relative no-underline"
         [class.ap-btn--invalid]="!isTotalFundsValid"
         matTooltipClass="ap-mat-tooltip"
         [matTooltip]="!isTotalFundsValid ? 'Connection temporarily lost' : null"
@@ -96,7 +138,7 @@
         (mouseover)="toggleSettingsMenu(true)"
         (mouseleave)="toggleSettingsMenu(false)"
         data-test="header-toggle-settings-menu">
-        <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faCreditCard"></fa-icon>
+        <fa-icon class="ap-icon ap-icon--prepend" [icon]="faCreditCard"></fa-icon>
         <div class="col justify-start">
           <span class="ap-tokens" data-test="user-total-funds">
             {{ totalFunds | formatMoney : 2 : crypto : code }}
@@ -114,10 +156,10 @@
         <ul class="settings-menu ap-copy" [class.open]="settingsMenuOpen">
           <li class="settings-menu__item">
             <button
-              class="ap-btn ap-btn--primary row justify-between align-center"
+              class="ap-btn ap-btn--primary"
               (click)="openAddFundsDialog()"
               data-test="add-funds-dialog-open-button">
-              <fa-icon class="ap-icon ap-navigation__item--hidden ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
+              <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
               Deposit funds
             </button>
           </li>

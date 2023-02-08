@@ -1,6 +1,4 @@
 import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
-
 import { Campaign, CampaignTotals } from 'models/campaign.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
@@ -20,7 +18,7 @@ export class CampaignListComponent implements OnChanges {
   tableNavigationRef: TableNavigationComponent;
   faPlusCircle = faPlusCircle;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnChanges(_changes: SimpleChanges): void {
     if (this.tableNavigationRef) {
@@ -30,9 +28,5 @@ export class CampaignListComponent implements OnChanges {
 
   sortTable(event: TableSortEvent): void {
     this.campaigns = sortArrayByKeys(this.campaigns, event.keys, event.sortDesc);
-  }
-
-  navigateToCreateCampaign(): void {
-    this.router.navigate(['advertiser', 'create-campaign', 'basic-information']);
   }
 }
