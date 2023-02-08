@@ -12,14 +12,14 @@ import { User } from 'models/user.model';
 import { environment } from 'environments/environment';
 import { SetUser } from 'store/auth/auth.actions';
 import { CODE, CRYPTO } from 'common/utilities/consts';
-import { faChevronDown, faPlusCircle, faGears } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faGears, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {
-  faUser,
   faComments,
+  faCreditCard,
   faEnvelope,
   faLifeRing,
   faPaperPlane,
-  faCreditCard,
+  faUser,
 } from '@fortawesome/free-regular-svg-icons';
 import { ServerOptionsService } from 'common/server-options.service';
 
@@ -41,8 +41,10 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
   userLabel: string;
   activeUserType: number;
   userRolesEnum = userRolesEnum;
+  userRole: string;
   settingsMenuOpen = false;
   helpMenuOpen = false;
+  rolesMenuOpen = false;
   faLifeRing = faLifeRing;
   faEnvelope = faEnvelope;
   faPaperPlane = faPaperPlane;
@@ -109,6 +111,8 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
         break;
     }
 
+    this.userRole = accountType;
+
     const userDataStateSubscription = this.store.select('state', 'user', 'data').subscribe((data: User) => {
       this.totalFunds = data.adserverWallet.totalFunds;
       this.isTotalFundsValid = data.isAdserverWalletValid;
@@ -116,17 +120,6 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
       this.actAsPublisher = data.isPublisher;
     });
     this.subscriptions.push(userDataStateSubscription);
-  }
-
-  navigateToCreateNewAsset() {
-    const moduleDir = `/${userRolesEnum[this.activeUserType].toLowerCase()}`;
-    const isUserAdvertiser = this.activeUserType === userRolesEnum.ADVERTISER;
-    const assetDir = isUserAdvertiser ? 'create-campaign' : 'create-site';
-    const queryParams = isUserAdvertiser ? { step: 1 } : {};
-
-    this.router.navigate([moduleDir, assetDir, 'basic-information'], {
-      queryParams,
-    });
   }
 
   setActiveUserType(userType) {
@@ -140,6 +133,10 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
 
   toggleHelpMenu(state) {
     this.helpMenuOpen = state;
+  }
+
+  toggleRolesMenu(state) {
+    this.rolesMenuOpen = state;
   }
 
   openAddFundsDialog() {

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 import { ChartService } from 'common/chart.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
@@ -40,7 +41,7 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
   currentChartFilterSettings: ChartFilterSettings;
   faPlusCircle = faPlusCircle;
 
-  constructor(private chartService: ChartService, private store: Store<AppState>) {
+  constructor(private chartService: ChartService, private store: Store<AppState>, private router: Router) {
     super();
   }
 
@@ -134,5 +135,9 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
         dateEnd: this.currentChartFilterSettings.currentTo,
       })
     );
+  }
+
+  navigateToCreateSite(): void {
+    this.router.navigate(['publisher', 'create-site', 'basic-information']);
   }
 }

@@ -39,12 +39,6 @@
     @include copy($font-weight: bold);
   }
 
-  &__add-new-site-row {
-    @include container($padding-vertical: 10px);
-    display: flex;
-    justify-content: center;
-  }
-
   &__add-btn {
     @include btn(
       $color: pal(secondary),
