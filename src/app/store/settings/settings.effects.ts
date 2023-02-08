@@ -101,7 +101,7 @@ export class SettingsEffects {
       switchMap(() =>
         this.common.getAccessTokens().pipe(
           map(accessTokens => new GetAccessTokensSuccess(accessTokens)),
-          catchError(error => observableOf(new ShowDialogOnError(`Token fetch failed. Error code: ${error.status}`)))
+          catchError(error => this.handleBackendError(error, 'Token fetch failed'))
         )
       )
     )
@@ -113,7 +113,7 @@ export class SettingsEffects {
       switchMap(action =>
         this.common.addAccessToken(action.payload).pipe(
           map(accessToken => new AddAccessTokenSuccess(accessToken)),
-          catchError(error => observableOf(new ShowDialogOnError(`Token creation failed. Error code: ${error.status}`)))
+          catchError(error => this.handleBackendError(error, 'Token creation failed'))
         )
       )
     )
@@ -125,7 +125,7 @@ export class SettingsEffects {
       switchMap(action =>
         this.common.deleteAccessToken(action.payload).pipe(
           map(() => new DeleteAccessTokenSuccess(action.payload)),
-          catchError(error => observableOf(new ShowDialogOnError(`Token deletion failed. Error code: ${error.status}`)))
+          catchError(error => this.handleBackendError(error, 'Token deletion failed'))
         )
       )
     )
@@ -150,14 +150,16 @@ export class SettingsEffects {
         const refLinkId = action.payload;
         return this.common.deleteRefLink(refLinkId).pipe(
           switchMap(() => [new DeleteRefLinkSuccess(refLinkId), new ShowSuccessSnackbar(DELETE_SUCCESS)]),
-          catchError(error => {
-            if (HTTP_INTERNAL_SERVER_ERROR === error.status) {
-              return [];
-            }
-            return observableOf(new ShowDialogOnError(`Deletion failed. Error code: ${error.status}`));
-          })
+          catchError(error => this.handleBackendError(error, 'Deletion failed'))
         );
       })
     )
   );
+
+  private handleBackendError(error, message: string) {
+    if (HTTP_INTERNAL_SERVER_ERROR === error.status) {
+      return [];
+    }
+    return observableOf(new ShowDialogOnError(`${message}. Error code: ${error.status}`));
+  }
 }
