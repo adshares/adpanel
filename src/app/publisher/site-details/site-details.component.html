@@ -25,7 +25,7 @@
     <div class="ap-box">
       <div class="box-content">
         <div class="row row--gap18 justify-end align-center">
-          <span class="ap-copy">This site is</span>
+          <app-domain-checker [siteId]="site.id"></app-domain-checker>
           <span class="ap-status justify-center" [attr.data-status]="currentSiteStatus">
             {{ currentSiteStatus }}
             <fa-icon
@@ -52,28 +52,25 @@
           </button>
           <button class="ap-btn ap-btn-error ap-btn--secondary" (click)="deleteSite()">
             <fa-icon [icon]="faTrashAlt" class="ap-icon ap-icon--prepend"></fa-icon>
-            Remove
+            Delete site
           </button>
         </div>
       </div>
 
       <div class="row justify-between align-start box-title">
-        <div class="row">
-          <div class="col">
-            <h2 class="ap-heading ap-heading--h2" data-test="publisher-site-url">
-              {{ site.name }}
-              <span class="ap-copy" *ngIf="!isMetaverse">
-                {{ site.domain }}
-              </span>
-              <a *ngIf="siteLinkUrl" href="{{ siteLinkUrl }}" target="_blank" rel="noopener nofollow noreferrer">
-                <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon link-icon"></fa-icon>
-              </a>
-            </h2>
-            <p *ngIf="mediumLabel !== undefined" class="ap-copy box-subtitle">
-              {{ mediumLabel }}
-            </p>
-          </div>
-          <app-domain-checker [siteId]="site.id"></app-domain-checker>
+        <div class="col">
+          <h2 class="ap-heading ap-heading--h2" data-test="publisher-site-url">
+            {{ site.name }}
+            <span class="ap-copy" *ngIf="!isMetaverse">
+              {{ site.domain }}
+            </span>
+            <a *ngIf="siteLinkUrl" href="{{ siteLinkUrl }}" target="_blank" rel="noopener nofollow noreferrer">
+              <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon link-icon"></fa-icon>
+            </a>
+          </h2>
+          <p *ngIf="mediumLabel !== undefined" class="ap-copy box-subtitle">
+            {{ mediumLabel }}
+          </p>
         </div>
         <button
           class="ap-btn ap-btn--text"
