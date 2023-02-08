@@ -3,7 +3,6 @@ import { Campaign, CampaignTotals } from 'models/campaign.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import { TableNavigationComponent } from 'common/components/table-navigation/table-navigation.component';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-campaign-list',
@@ -16,9 +15,6 @@ export class CampaignListComponent implements OnChanges {
   @Input() campaignsTotals: CampaignTotals;
   @ViewChild(TableNavigationComponent)
   tableNavigationRef: TableNavigationComponent;
-  faPlusCircle = faPlusCircle;
-
-  constructor() {}
 
   ngOnChanges(_changes: SimpleChanges): void {
     if (this.tableNavigationRef) {
