@@ -1,12 +1,10 @@
 import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Site, SitesTotals } from 'models/site.model';
 import { enumToObjectArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { TableNavigationComponent } from 'common/components/table-navigation/table-navigation.component';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-site-list',
@@ -20,9 +18,8 @@ export class SiteListComponent extends HandleSubscriptionComponent implements On
   @ViewChild(TableNavigationComponent)
   tableNavigationRef: TableNavigationComponent;
   siteStatuses: any[];
-  faPlusCircle = faPlusCircle;
 
-  constructor(private router: Router) {
+  constructor() {
     super();
 
     this.siteStatuses = SiteListComponent.addLabelsToStatuses();
@@ -59,9 +56,5 @@ export class SiteListComponent extends HandleSubscriptionComponent implements On
 
   sortTable(event: TableSortEvent): void {
     this.sites = sortArrayByKeys(this.sites, event.keys, event.sortDesc);
-  }
-
-  navigateToCreateSite(): void {
-    this.router.navigate(['publisher', 'create-site', 'basic-information']);
   }
 }

@@ -42,9 +42,28 @@
       </div>
 
       <div class="ap-box ap-copy">
-        <h2 class="ap-heading ap-heading--h2 box-title">List of all sites</h2>
+        <div class="row justify-between box-title">
+          <h2 class="ap-heading ap-heading--h2">List of all sites</h2>
+          <button
+            *ngIf="sites.length > 5"
+            class="ap-btn ap-btn--secondary"
+            (click)="navigateToCreateSite()"
+            data-test="publisher-create-new-site">
+            <fa-icon [icon]="faPlusCircle" class="ap-icon ap-icon--prepend"></fa-icon>
+            Add new site
+          </button>
+        </div>
         <div class="box-content">
           <app-site-list [dataLoaded]="dataLoaded" [sites]="sites" [sitesTotals]="sitesTotals"></app-site-list>
+        </div>
+        <div class="box-content row justify-end">
+          <button
+            class="ap-btn ap-btn--secondary"
+            (click)="navigateToCreateSite()"
+            data-test="publisher-create-new-site">
+            <fa-icon [icon]="faPlusCircle" class="ap-icon ap-icon--prepend"></fa-icon>
+            Add new site
+          </button>
         </div>
       </div>
     </ng-container>

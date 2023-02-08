@@ -46,12 +46,31 @@
       </div>
 
       <div class="ap-box">
-        <h2 class="ap-heading ap-heading--h2 box-title">List of all campaigns</h2>
+        <div class="row justify-between box-title">
+          <h2 class="ap-heading ap-heading--h2">List of all campaigns</h2>
+          <button
+            *ngIf="campaigns.length > 5"
+            (click)="navigateToCreateCampaign()"
+            class="ap-btn ap-btn--secondary"
+            data-test="advertiser-create-new-campaign">
+            <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
+            Add new campaign
+          </button>
+        </div>
         <div class="box-content">
           <app-campaign-list
             [dataLoaded]="dataLoaded"
             [campaigns]="campaigns"
             [campaignsTotals]="campaignsTotals"></app-campaign-list>
+        </div>
+        <div class="box-content row justify-end">
+          <button
+            (click)="navigateToCreateCampaign()"
+            class="ap-btn ap-btn--secondary"
+            data-test="advertiser-create-new-campaign">
+            <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
+            Add new campaign
+          </button>
         </div>
       </div>
     </div>

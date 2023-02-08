@@ -51,22 +51,7 @@
   &__item {
     height: 42px;
     cursor: pointer;
-
-    .ap-chevron {
-      right: 10px;
-      top: 15px;
-    }
-
-    .ap-circle {
-      top: 6px;
-      right: 6px;
-    }
-
-    &--hidden {
-      @include media(md-down) {
-        display: none;
-      }
-    }
+    width: 100%;
   }
 }
 
@@ -88,7 +73,8 @@
 }
 
 .settings-menu,
-.choose-user-menu {
+.choose-user-menu,
+.roles-menu {
   position: absolute;
   top: 47px;
   border: 1px solid pal(primary);
@@ -120,6 +106,15 @@
     &:hover {
       background-color: pal(body-bg);
     }
+  }
+  &--max-content {
+    width: max-content;
+  }
+
+  & button {
+      height: 42px;
+      cursor: pointer;
+      width: 100%;
   }
 }
 
