@@ -11,35 +11,20 @@
     </div>
 
     <div class="ap-box">
-      <div class="box-title">
-        <h1 class="ap-heading ap-heading--h2">
-          {{ campaign.basicInformation.name }}
-        </h1>
-        <p *ngIf="mediumLabel !== undefined" class="ap-copy box-subtitle">
-          {{ mediumLabel }}
-        </p>
-      </div>
-
       <div class="box-content">
-        <div class="row row--gap18">
-          <div class="row row--gap18 align-center status-button-wrapper">
-            <span class="ap-copy">Campaign is </span>
-            <span
-              class="ap-copy lowercase-to-capitalize"
-              data-test="advertiser-campaign-status"
-              [attr.data-status]="currentCampaignStatus">
-              {{ currentCampaignStatus }}
-            </span>
-            <button
-              class="ap-btn ap-btn--secondary"
-              (click)="onCampaignStatusChange()"
-              data-test="advertiser-campaign-status-change-button"
-              [ngClass]="{
-                'ap-btn-success': currentCampaignStatus === 'inactive'
-              }">
-              {{ statusButtonLabel }}
-            </button>
-          </div>
+        <div class="row row--gap18 justify-end align-center">
+          <span class="ap-status justify-center" [attr.data-status]="currentCampaignStatus">
+            {{ currentCampaignStatus }}
+          </span>
+          <button
+            class="ap-btn ap-btn--secondary"
+            (click)="onCampaignStatusChange()"
+            data-test="advertiser-campaign-status-change-button"
+            [ngClass]="{
+              'ap-btn-success': currentCampaignStatus === 'inactive'
+            }">
+            {{ statusButtonLabel }}
+          </button>
           <button
             class="ap-btn ap-btn--secondary ap-btn-info"
             data-test="advertiser-campaign-delete-button"
@@ -56,45 +41,16 @@
           </button>
         </div>
       </div>
-      <div class="row align-center ap-alert ap-alert--error ap-copy ap-gray" *ngIf="budgetInfo">
-        <fa-icon [icon]="faExclamation" class="ap-icon ap-icon--prepend" size="lg"></fa-icon>
-        {{ budgetInfo }}
-      </div>
-    </div>
 
-    <!-- chart-->
-    <div class="ap-box">
-      <h2 class="ap-heading ap-heading--h2 box-title">Statistics</h2>
-      <div class="box-content">
-        <div class="justify-between row">
-          <app-chart-filter-by-type
-            class="details-filters"
-            [detailsPage]="true"
-            (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
-          <app-chart-filter class="details-filters" (filter)="appChartRef.updateChartData($event)"></app-chart-filter>
-        </div>
-        <div class="row align-center justify-center chart-wrapper">
-          <app-chart
-            class="chart row align-center justify-center"
-            (update)="getChartData($event, campaign.id)"
-            [barChartData]="barChartData"
-            [barChartLabels]="barChartLabels"></app-chart>
-        </div>
-        <div class="row justify-end">
-          <button
-            (click)="downloadReport()"
-            class="ap-btn ap-btn--secondary"
-            data-test="advertiser-campaign-download-report-button">
-            Generate a report
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- chart end-->
-
-    <div class="ap-box">
       <div class="row justify-between box-title">
-        <h2 class="ap-heading ap-heading--h2">Basic info</h2>
+        <div class="col">
+          <h1 class="ap-heading ap-heading--h2">
+            {{ campaign.basicInformation.name }}
+          </h1>
+          <p *ngIf="mediumLabel !== undefined" class="ap-copy box-subtitle">
+            {{ mediumLabel }}
+          </p>
+        </div>
         <button
           class="ap-btn ap-btn--text"
           (click)="navigateToCampaignEdition('basic-information')"
@@ -103,6 +59,7 @@
           Edit basic info
         </button>
       </div>
+
       <div class="row align-center ap-copy campaign-basic-information box-content">
         <div class="col row--gap8">
           <p class="ap-copy--small label">Target URL</p>
@@ -151,7 +108,42 @@
           </div>
         </div>
       </div>
+
+      <div class="row align-center ap-alert ap-alert--error ap-copy" *ngIf="budgetInfo">
+        <fa-icon [icon]="faExclamation" class="ap-icon ap-icon--prepend" size="lg"></fa-icon>
+        {{ budgetInfo }}
+      </div>
     </div>
+
+    <!-- chart-->
+    <div class="ap-box">
+      <h2 class="ap-heading ap-heading--h2 box-title">Statistics</h2>
+      <div class="box-content">
+        <div class="justify-between row">
+          <app-chart-filter-by-type
+            class="details-filters"
+            [detailsPage]="true"
+            (updateSeries)="appChartRef.updateChartDataSeries($event)"></app-chart-filter-by-type>
+          <app-chart-filter class="details-filters" (filter)="appChartRef.updateChartData($event)"></app-chart-filter>
+        </div>
+        <div class="row align-center justify-center chart-wrapper">
+          <app-chart
+            class="chart row align-center justify-center"
+            (update)="getChartData($event, campaign.id)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"></app-chart>
+        </div>
+        <div class="row justify-end">
+          <button
+            (click)="downloadReport()"
+            class="ap-btn ap-btn--secondary"
+            data-test="advertiser-campaign-download-report-button">
+            Generate a report
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- chart end-->
 
     <div *ngIf="campaign.classifications" class="ap-box">
       <h2 class="ap-heading ap-heading--h2 box-title">Classifications</h2>

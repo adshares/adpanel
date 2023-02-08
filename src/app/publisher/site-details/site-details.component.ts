@@ -30,13 +30,8 @@ import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
 import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component';
-import {
-  faExternalLinkSquareAlt,
-  faRemove,
-  faEdit,
-  faArrowLeft,
-  faQuestionCircle,
-} from '@fortawesome/free-solid-svg-icons';
+import { faExternalLinkSquareAlt, faEdit, faArrowLeft, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
 import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
 
@@ -71,7 +66,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   editAds: boolean = true;
   siteLinkUrl: string;
   faExternalLinkSquareAlt = faExternalLinkSquareAlt;
-  faRemove = faRemove;
+  faTrashAlt = faTrashAlt;
   faEdit = faEdit;
   faQuestionCircle = faQuestionCircle;
 

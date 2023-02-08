@@ -126,31 +126,40 @@
   @include font(14, semiBold);
   border-radius: 10px;
   margin-top: 5px;
-  padding: 12px 32px 12px 12px;
+  padding: 12px 12px 12px 12px;
   min-width: 150px;
 
   &__full-width {
     width: 100%;
   }
 
-  &--error {
+  &--error,
+  &[data-alert-status = 'rejected'] {
     color: pal(error);
     background-color: pal(error, light);
   }
 
-  &--success {
+  &--success,
+  &[data-alert-status = 'active'] {
     color: pal(success);
     background-color: pal(success, light);
   }
 
-  &--warning {
+  &--warning,
+  &[data-alert-status = 'pending'] {
     color: pal(warning);
     background-color: pal(warning, light);
   }
 
-  &--info {
+  &--info,
+  &[data-alert-status = 'inactive'] {
     color: pal(primary);
     background-color: pal(info-bg);
+  }
+
+  &[data-alert-status = 'draft'] {
+    color: pal(primary);
+    background-color: pal(body-bg);
   }
 }
 

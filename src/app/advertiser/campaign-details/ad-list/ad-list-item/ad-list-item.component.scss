@@ -6,10 +6,6 @@
     @include container();
     border-bottom: 1px solid pal(gray);
     overflow: hidden;
-
-    .ap-status {
-      border-radius: 10px;
-    }
   }
 
   &__nav-item {

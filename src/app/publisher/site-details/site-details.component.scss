@@ -27,8 +27,12 @@
     }
   }
 
-  app-domain-checker {
-    margin-left: 15px;
+  & .ap-status {
+    text-align: center;
+    justify-content: center;
+    padding: 8px 16px;
+    line-height: 1.5;
+    height: 42px;
   }
 }
 
