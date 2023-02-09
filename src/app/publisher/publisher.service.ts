@@ -65,10 +65,15 @@ export class PublisherService {
     });
   }
 
-  validateDomain(domain: string): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/sites/domain/validate`, {
+  validateDomain(domain: string, medium: string, vendor: string | null): Observable<any> {
+    const body = {
       domain,
-    });
+      medium,
+    };
+    if (null === vendor) {
+      body[vendor] = vendor;
+    }
+    return this.http.post<any>(`${environment.apiUrl}/sites/domain/validate`, body);
   }
 
   deleteSite(id: number): Observable<boolean> {
