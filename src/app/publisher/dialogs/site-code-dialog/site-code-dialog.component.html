@@ -144,9 +144,13 @@
               Paste this code in HEAD tag on your website (one time only)
             </label>
 
-            <button class="code-copy-btn" (click)="copyCode('code-container-common')">
-              <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-              Copy the code
+            <button
+              class="ap-icon-btn ap-icon-btn--secondary"
+              (click)="copyCode('code-container-common')"
+              matTooltipClass="ap-mat-tooltip"
+              matTooltip="Copy the code"
+              matTooltipPosition="above">
+              <fa-icon [icon]="faCopy"></fa-icon>
             </button>
             <textarea
               readonly
@@ -166,9 +170,13 @@
                   pop.label
                 }}</label>
 
-                <button class="code-copy-btn" (click)="copyCode('code-container-pop' + indexPop)">
-                  <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-                  Copy the code
+                <button
+                  class="ap-icon-btn ap-icon-btn--secondary"
+                  (click)="copyCode('code-container-pop' + indexPop)"
+                  matTooltipClass="ap-mat-tooltip"
+                  matTooltip="Copy the code"
+                  matTooltipPosition="above">
+                  <fa-icon [icon]="faCopy"></fa-icon>
                 </button>
                 <textarea
                   readonly
@@ -184,9 +192,13 @@
                   {{ adUnit.label }}
                 </label>
 
-                <button class="code-copy-btn" (click)="copyCode('code-container-ad-unit' + indexAdUnits)">
-                  <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-                  Copy the code
+                <button
+                  class="ap-icon-btn ap-icon-btn--secondary"
+                  (click)="copyCode('code-container-ad-unit' + indexAdUnits)"
+                  matTooltipClass="ap-mat-tooltip"
+                  matTooltip="Copy the code"
+                  matTooltipPosition="above">
+                  <fa-icon [icon]="faCopy"></fa-icon>
                 </button>
                 <textarea
                   readonly

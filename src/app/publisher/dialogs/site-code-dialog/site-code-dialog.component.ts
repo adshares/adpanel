@@ -6,7 +6,8 @@ import { PublisherService } from 'publisher/publisher.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { SiteCodes } from 'models/site.model';
-import { faCode, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { User } from 'models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
@@ -16,6 +17,7 @@ import {
   AVAILABLE_ADZONE_OPTIONS,
   SETUP_FALLBACK_BACKFILL_CODE_INSTRUCTION,
 } from 'models/enum/link.enum';
+import { ShowSuccessSnackbar } from 'store/common/common.actions';
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -24,7 +26,7 @@ import {
 })
 export class SiteCodeDialogComponent extends HandleSubscriptionComponent implements OnInit {
   private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 500;
-  faCode = faCode;
+  faCopy = faCopy;
 
   currencyCode: string;
   codes?: SiteCodes = null;
@@ -142,10 +144,12 @@ export class SiteCodeDialogComponent extends HandleSubscriptionComponent impleme
 
   copyCode(elementId: string): void {
     const input = <HTMLInputElement>document.getElementById(elementId);
-    input.focus();
-    input.select();
-    document.execCommand('copy');
-    input.setSelectionRange(0, 0);
+    navigator.clipboard
+      .writeText(input.value)
+      .then(() => {
+        this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
+      })
+      .catch(error => console.log(error));
   }
 
   onChangeAdvancedCircumvent($event): void {

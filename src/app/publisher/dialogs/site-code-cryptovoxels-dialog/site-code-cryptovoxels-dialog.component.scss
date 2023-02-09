@@ -1,7 +1,7 @@
 @import '../../../../styles.scss';
 
 .fill-height {
-  height: 50vh;
+  max-height: 50vh;
   overflow: auto;
 }
 
@@ -11,23 +11,4 @@
   overflow: hidden;
   padding: 5px 10px;
   width: 100%;
-}
-
-.code-copy-btn {
-  @include btn(
-    $color: pal(secondary),
-    $background-color: pal(light),
-    $border-color: pal(light)
-  );
-  max-height: 46px;
-  text-align: left;
-
-  @include media(md-down) {
-    padding: 4px 12px;
-  }
-
-  &--icon {
-    font-size: 12px;
-    margin-right: 10px;
-  }
 }

@@ -42,13 +42,12 @@ export class RefLinkListItemComponent implements OnInit {
   }
 
   copyUrl(): void {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', this.getRefLinkUrl());
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
-    this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
+    navigator.clipboard
+      .writeText(this.getRefLinkUrl())
+      .then(() => {
+        this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
+      })
+      .catch(error => console.log(error));
   }
 
   delete(): void {

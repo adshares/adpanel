@@ -4,6 +4,7 @@ import { AppState } from 'models/app-state.model';
 import { ShowSuccessSnackbar } from 'store/common/common.actions';
 import { Store } from '@ngrx/store';
 import { CONVERSIONS_DESCRIPTION } from 'models/enum/link.enum';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-conversion-link-information-dialog',
@@ -14,6 +15,7 @@ export class ConversionLinkInformationDialogComponent implements OnInit {
   isAdvanced: boolean;
   link: string;
   CONVERSIONS_DESCRIPTION = CONVERSIONS_DESCRIPTION;
+  faCopy = faCopy;
 
   constructor(
     public dialogRef: MatDialogRef<ConversionLinkInformationDialogComponent>,
@@ -27,12 +29,11 @@ export class ConversionLinkInformationDialogComponent implements OnInit {
   }
 
   copyToClipboard(content: string) {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', content);
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
-    this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
+    navigator.clipboard
+      .writeText(content)
+      .then(() => {
+        this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
+      })
+      .catch(error => console.log(error));
   }
 }
