@@ -62,7 +62,7 @@ import { ReportsListComponent } from 'common/components/reports-list/reports-lis
 import { ReportsListItemComponent } from 'common/components/reports-list/reports-list-item/reports-list-item.component';
 import { BidStrategySettingsComponent } from 'common/components/bid-strategy/bid-strategy-settings/bid-strategy-settings.component';
 import { InfoPageComponent } from 'common/info/info-page/info-page.component';
-import { PageNotFoundComponent } from 'common/info/page-not-found/page-not-found.component';
+import { Error4xxComponent } from 'common/info/page-not-found/error4xx.component';
 import { MediaResolver } from 'common/resolvers/media.resolver';
 import { SettingsNavigationComponent } from 'settings/settings-navigation/settings-navigation.component';
 import { ModelPreviewComponent } from 'common/components/model-preview/model-preview.component';
@@ -128,7 +128,7 @@ const appComponents = [
   ReportsListItemComponent,
   BidStrategySettingsComponent,
   InfoPageComponent,
-  PageNotFoundComponent,
+  Error4xxComponent,
   SettingsNavigationComponent,
   FormatNumberWithCommaPipe,
 ];
