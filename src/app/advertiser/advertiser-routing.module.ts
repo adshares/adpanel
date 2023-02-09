@@ -16,6 +16,7 @@ import { CampaignResolver } from './resolvers/campaign.resolver';
 import { MediaResolver } from 'common/resolvers/media.resolver';
 import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
+import { CampaignsMediaResolver } from 'advertiser/resolvers/campaigns-media.resolver';
 import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
 import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
 
@@ -35,6 +36,7 @@ const advertiserRoutes: Routes = [
         resolve: {
           filteringOptions: FilteringCriteriaResolver,
           media: MediaResolver,
+          campaignsMedia: CampaignsMediaResolver,
         },
       },
       {

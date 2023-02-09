@@ -7,9 +7,9 @@ import { ChartComponent } from 'common/components/chart/chart.component';
 import { mapDatesToChartLabels } from 'common/components/chart/chart-settings/chart-settings.helpers';
 import { ChartService } from 'common/chart.service';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
-import { createInitialDataSet, mapToIterable } from 'common/utilities/helpers';
-import { Campaign, CampaignTotals } from 'models/campaign.model';
+import { createInitialDataSet } from 'common/utilities/helpers';
 import { AppState } from 'models/app-state.model';
+import { Campaign, CampaignMedium, CampaignTotals } from 'models/campaign.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { LoadCampaigns, LoadCampaignsTotals } from 'store/advertiser/advertiser.actions';
 import { appSettings } from 'app-settings';
@@ -40,7 +40,7 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
 
   campaignFilter: any = {};
   campaignFilterIndex: number = 0;
-  campaignFilters = [];
+  campaignFilters: CampaignMedium[] = [];
   currentChartFilterSettings: ChartFilterSettings;
   faPlusCircle = faPlusCircle;
 
@@ -85,33 +85,13 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
   }
 
   private loadCampaignFilters(): void {
-    const media = mapToIterable(this.route.snapshot.data.media);
-    const options = [];
-    options.push({
+    const options = this.route.snapshot.data.campaignsMedia.campaignsMedia;
+    options.unshift({
       medium: null,
       vendor: null,
       label: 'All',
     });
-    for (let i = 0; i < media.length; i++) {
-      const medium = media[i];
-      options.push({
-        medium: medium.key,
-        vendor: null,
-        label: medium.value,
-      });
-      this.advertiserService.getMediumVendors(medium.key).subscribe(vendors => {
-        for (const vendor of mapToIterable(vendors)) {
-          options.push({
-            medium: medium.key,
-            vendor: vendor.key,
-            label: `${medium.value} - ${vendor.value}`,
-          });
-        }
-        if (media.length - 1 === i) {
-          this.campaignFilters = options;
-        }
-      });
-    }
+    this.campaignFilters = options;
   }
 
   getChartData(chartFilterSettings, reload: boolean = true) {
