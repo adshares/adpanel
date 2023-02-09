@@ -284,12 +284,7 @@ function checkDirectedDeal(campaign) {
 }
 
 function currencySymbolByCode(code: string): string {
-  switch (code) {
-    case 'USD':
-      return '$';
-    default:
-      return code;
-  }
+  return code === 'USD' ? '$' : code;
 }
 
 export {
