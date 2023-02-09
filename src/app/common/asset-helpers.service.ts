@@ -9,12 +9,16 @@ export class AssetHelpersService {
   constructor(private router: Router) {}
 
   redirectIfNameNotFilled(asset: Campaign | Site): boolean {
-    const obligatoryField = this.isSite(asset)
-      ? asset['name']
-      : asset['site'] && this.isSite(asset['site'])
-      ? asset['site']['name']
-      : asset['basicInformation']['name'];
-    const fieldFilled = obligatoryField !== '';
+    const obligatoryField = () => {
+      if (this.isSite(asset)) {
+        return asset['name'];
+      } else if (asset['site'] && this.isSite(asset['site'])) {
+        return asset['site']['name'];
+      } else {
+        return asset['basicInformation']['name'];
+      }
+    };
+    const fieldFilled = obligatoryField() !== '';
     if (!fieldFilled) {
       if (this.isSite(asset)) {
         this.router.navigate(['publisher', 'create-site', 'basic-information']);
