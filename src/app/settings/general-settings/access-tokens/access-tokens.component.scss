@@ -1,7 +1,19 @@
-.access-tokens {
-  margin-top: 10px;
-}
+@import "../../../../styles";
 
-.gap {
-  gap: 8px;
+.access-tokens {
+  .ap-btn {
+    height: 47px;
+    margin-top: 25px;
+  }
+
+  & .list-loader-container {
+    @include copy($font-size: 32);
+    display: flex;
+    width: 100%;
+    color: pal(secondary);
+    align-items: center;
+    justify-content: center;
+    top: 40px;
+    margin: 24px 0;
+  }
 }

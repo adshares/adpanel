@@ -1,23 +1,12 @@
 @import '../../../styles';
 
 .agency-dashboard {
+  width: 100%;
   min-height: calc(100vh - #{$app-header-height});
 
   .settings-outlet {
-    min-width: 540px;
-    width: calc(100% - 370px);
+    width: 100%;
 
-    @include media(md-up) {
-      width: calc(100% - 400px);
-    }
-
-    @include media(lg-up) {
-      width: calc(100% - 400px);
-    }
-
-    @include media(xxl-up) {
-      width: calc(100vw - 740px);
-    }
   }
 }
 

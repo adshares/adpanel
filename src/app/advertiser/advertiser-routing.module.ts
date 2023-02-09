@@ -34,6 +34,7 @@ const advertiserRoutes: Routes = [
         component: DashboardComponent,
         resolve: {
           filteringOptions: FilteringCriteriaResolver,
+          media: MediaResolver,
         },
       },
       {

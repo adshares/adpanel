@@ -1,6 +1,6 @@
 {
   "name": "adpanel",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve adshares",
@@ -42,6 +42,7 @@
     "ng2-charts": "^3.0.0",
     "ng2-file-upload": "1.4.0",
     "os-browserify": "^0.3.0",
+    "qs": "^6.11.0",
     "rxjs": "^6.5.3",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",

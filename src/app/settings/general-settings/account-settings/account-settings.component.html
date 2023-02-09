@@ -1,10 +1,16 @@
 <app-account-not-confirmed-bar></app-account-not-confirmed-bar>
 <div class="general-settings">
-  <div class="user-id ap-box ap-box--large">User ID: <code>{{ user.uuid }}</code></div>
-  <app-account-wallet-settings></app-account-wallet-settings>
-  <app-auto-withdrawal *ngIf="!isModerator"></app-auto-withdrawal>
-  <app-preferences></app-preferences>
-  <app-ref-link-settings></app-ref-link-settings>
-  <app-access-tokens></app-access-tokens>
-  <app-newsletter-settings></app-newsletter-settings>
+  <div class="user-id">
+    <div class="container">
+      <div class="row row--gap8 align-center">
+        <p class="ap-copy">
+          User ID: <code>{{ user.uuid }}</code>
+        </p>
+        <button matTooltip="Copy" class="ap-icon-btn ap-icon-btn--secondary" (click)="copyUserId()">
+          <fa-icon [icon]="faCopy"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
 </div>

@@ -1,37 +1,10 @@
+@import '../../../styles.scss';
+
 .ap__registration {
-  &-wrapper {
-    height: calc(70vh - 80px);
+  background-color: pal(light);
+
+  & .ap-btn {
+    height: 42px;
   }
 
-  &-consent {
-    margin: 20px 0 20px;
-  }
-
-  &-form {
-    margin-bottom: -20px;
-  }
-
-  &-login-info {
-    margin-top: 20px;
-  }
-
-  .error-msg:first-child {
-    margin-top: -20px;
-  }
-}
-
-h2 {
-  margin: 10px 0;
-}
-
-form {
-  margin-top: 10px;
-
-  .error-msg {
-    max-width: 320px;
-  }
-}
-
-.ap-form-submit-btn {
-  margin-top: 15px;
 }

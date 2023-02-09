@@ -19,6 +19,7 @@ import { HandleSubscriptionComponent } from 'common/handle-subscription.componen
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { first } from 'rxjs/operators';
+import { faPlus, faCheck, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-site-create-poster-units',
@@ -36,6 +37,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
   createSiteMode: boolean;
   changesSaved: boolean = false;
   site: Site;
+  faPlus = faPlus;
+  faCheck = faCheck;
+  faTimes = faTimes;
+  faTrash = faTrash;
 
   constructor(
     private publisherService: PublisherService,

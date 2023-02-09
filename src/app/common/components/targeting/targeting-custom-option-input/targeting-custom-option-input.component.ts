@@ -5,6 +5,7 @@ import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'mode
 import { prepareCustomOption } from 'common/components/targeting/targeting.helpers2';
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-targeting-custom-option-input',
@@ -22,6 +23,7 @@ export class TargetingCustomOptionInputComponent {
   inputShown = false;
   customOptionsArray: TargetingOptionValue[] = [];
   saveRequested = false;
+  faPlus = faPlus;
 
   showInput(): void {
     if (this.inputShown) {

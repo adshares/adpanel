@@ -2,35 +2,29 @@
 
 .fill-height {
   height: 85vh;
-  overflow: scroll;
+  width: 70vw;
 }
 
 #code-form {
   padding-top: 16px;
 }
 
-.code-row {
-  margin-top: 16px;
-}
-
-.code-row-section-start {
-  margin-top: 40px;
-}
-
 .code-container {
   height: 32px;
   min-height: 32px;
   overflow: hidden;
-  padding: 5px 10px;
+  padding: 12px 24px;
   width: 100%;
   resize: none;
+  border-radius: 10px;
+  margin-top: 8px;
 }
 
 .code-copy-btn {
   @include btn(
-    $color: pal(blue),
-    $background-color: pal(white),
-    $border-color: pal(white)
+    $color: pal(secondary),
+    $background-color: pal(light),
+    $border-color: pal(light)
   );
   max-height: 46px;
   text-align: left;
@@ -45,14 +39,16 @@
   }
 }
 
-.ad-codes {
+.codes-param {
   min-height: 40px;
+  border-bottom: 1px solid pal(gray);
 }
 
 .input-in-text {
   margin: 0 5px;
   padding: 2px 5px;
   width: 40px;
+  min-width: 0;
 
   &--amount {
     width: 65px;
@@ -75,8 +71,4 @@
 .error-msg-in-text {
   margin-left: 10px;
   margin-top: 0;
-}
-
-::ng-deep .mat-expansion-panel-body {
-  border: 1px pal(gray, light) solid;
 }

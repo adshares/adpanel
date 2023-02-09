@@ -1,42 +1,43 @@
-<section class="access-tokens">
-  <div class="ap-box ap-box--large">
-    <div class="col">
-      <h2 class="ap-heading ap-heading--primary">Access tokens</h2>
-      <div class="row">
-        <form class="ap-form" [formGroup]="newTokenForm" (ngSubmit)="onAddToken()">
-          <div class="row gap no-wrap">
-            <div class="ap-form-input__box">
-              <label class="ap-form-label" for="name">Name: </label>
-              <input class="ap-form-input" id="name" type="text" formControlName="name" />
-            </div>
+<section class="container access-tokens">
+  <div class="ap-box">
+    <h2 class="ap-heading ap-heading--h2 box-title">Access tokens</h2>
+    <div class="box-content">
+      <form class="ap-form" [formGroup]="newTokenForm" (ngSubmit)="onAddToken()">
+        <div class="row row--gap18 no-wrap">
+          <div class="ap-form-input__box">
+            <label class="ap-form-label" for="name">Name: </label>
+            <input class="ap-form-input" id="name" type="text" formControlName="name" />
+          </div>
 
-            <div class="ap-form-input__box">
-              <label class="ap-form-label">Scopes: </label>
-              <div class="row gap">
-                <ng-container *ngFor="let availableScope of availableScopes; let i = index" formGroupName="scopes">
-                  <mat-checkbox formControlName="{{ availableScope.id }}">{{
-                    availableScope.description
-                  }}</mat-checkbox>
-                </ng-container>
-              </div>
-            </div>
-
-            <div class="ap-form-input__box">
-              <button class="ap-form-submit-btn ap-btn ap-btn--blue" type="submit" [disabled]="!newTokenForm.valid">
-                <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlus"></fa-icon>
-                Create
-              </button>
+          <div class="ap-form-input__box">
+            <label class="ap-form-label">Scopes:</label>
+            <div class="row row--gap18">
+              <ng-container *ngFor="let availableScope of availableScopes; let i = index" formGroupName="scopes">
+                <mat-checkbox formControlName="{{ availableScope.id }}">{{ availableScope.description }}</mat-checkbox>
+              </ng-container>
             </div>
           </div>
-        </form>
-      </div>
 
+          <div class="ap-form-input__box">
+            <button class="ap-btn ap-btn--secondary" type="submit" [disabled]="!newTokenForm.valid">
+              <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlus"></fa-icon>
+              Create
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="box-content">
       <table class="ap-copy">
         <app-table-navigation [navigationName]="'accessTokenItems'"></app-table-navigation>
         <tbody *ngIf="!isLoading; else loading">
           <app-access-token-list-item
             *ngFor="let accessToken of list"
             [accessToken]="accessToken"></app-access-token-list-item>
+          <tr *ngIf="!list.length" class="list-loader-container">
+            NO RESULTS
+          </tr>
         </tbody>
         <ng-template #loading>
           <div class="loading-wrapper">

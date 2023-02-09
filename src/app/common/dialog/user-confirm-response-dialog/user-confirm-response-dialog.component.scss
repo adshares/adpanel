@@ -1,15 +1,7 @@
 .dialog {
-  &__controls {
-    margin-top: 1rem;
+
+  & .ap-btn {
+    min-width: 120px;
   }
 
-  &__confirm-btn {
-    min-width: 120px;
-    margin-left: 16px;
-  }
-  .ap-success {
-    &--large {
-      font-size: 1.5rem !important;
-    }
-  }
 }

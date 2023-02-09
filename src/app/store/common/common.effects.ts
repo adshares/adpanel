@@ -75,6 +75,8 @@ export class CommonEffects {
           this.snackBar.openFromComponent(SuccessSnackbarComponent, {
             data: `${action.payload}`,
             duration: 500,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
           });
         })
       ),

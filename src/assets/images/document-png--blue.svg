@@ -9,7 +9,7 @@
         </g>
         <path fill="#DEEEF9" stroke="#55A8FD" stroke-linecap="square" stroke-width="2" d="M24 3v7h7"/>
         <rect width="27" height="15" x="11" y="20" fill="#55A8FD" rx="2"/>
-        <text fill="#FFF" font-family="Lato-Bold,  Next" font-size="9" font-weight="bold">
+        <text fill="#FFF" font-family="sans-serif" font-size="9" font-weight="normal">
             <tspan x="15" y="31">PNG</tspan>
         </text>
     </g>

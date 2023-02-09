@@ -1,99 +1,85 @@
-<section class="advertiser-list">
-  <div class="row justify-between align-center">
-    <div class="advertiser-list__search-container row justify-between">
-      <div>
-        <mat-icon> search</mat-icon>
-        <label
-          >Search for advertiser:
-          <input
-            [(ngModel)]="queryParams.searchPhrase"
-            (ngModelChange)="onParamChange('searchPhrase', $event)"
-            class="advertiser-list__input"
-            data-test="admin-user-search-input"
-            id="search"
-            placeholder="Search by email or target url" />
-        </label>
+<section class="container container--full">
+  <div class="advertiser-list ap-box ap-copy--small">
+    <h2 class="box-title ap-heading ap-heading--h2">Advertisers</h2>
+    <div class="box-content">
+      <div class="row justify-between align-center">
+        <div class="row row--gap32 align-baseline">
+          <div class="ap-form-input__box">
+            <label class="ap-form-label">
+              <fa-icon [icon]="faSearch" class="ap-icon ap-icon--prepend"></fa-icon>
+              Search for advertiser:
+            </label>
+            <input
+              [(ngModel)]="queryParams.searchPhrase"
+              (ngModelChange)="onParamChange('searchPhrase', $event)"
+              class="ap-form-input"
+              data-test="admin-user-search-input"
+              id="search"
+              placeholder="Search by email or target url" />
+          </div>
+          <div class="ap-form-input__box">
+            <label class="ap-form-label">Min daily views: </label>
+            <input
+              [(ngModel)]="queryParams.minDailyViews"
+              (ngModelChange)="onParamChange('minDailyViews', $event)"
+              type="number"
+              min="0"
+              step="1"
+              class="ap-form-input"
+              id="minViews" />
+          </div>
+          <div class="ap-form-input__box">
+            <label class="ap-form-label">Group by:</label>
+            <mat-radio-group [value]="queryParams.groupBy || defaultParams.groupBy" class="row row--gap8">
+              <mat-radio-button value="campaign" (change)="onParamChange('groupBy', 'campaign')"
+                >campaign</mat-radio-button
+              >
+              <mat-radio-button value="user" (change)="onParamChange('groupBy', 'user')">user</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="ap-form-input__box">
+            <label class="ap-form-label">Interval:</label>
+            <mat-radio-group [value]="queryParams.interval || defaultParams.interval" class="row row--gap8">
+              <mat-radio-button value="week" (change)="onParamChange('interval', 'week')">week</mat-radio-button>
+              <mat-radio-button value="day" (change)="onParamChange('interval', 'day')">day</mat-radio-button>
+              <mat-radio-button value="hour" (change)="onParamChange('interval', 'hour')">hour</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <button class="ap-btn ap-btn--secondary ap-btn-error" (click)="onResetButtonClick()">Reset filters</button>
       </div>
-      <div class="advertiser-list__filters">
-        <label>Group by:</label>
-        <mat-checkbox
-          (change)="onParamChange('groupBy', 'campaign')"
-          [checked]="'campaign' === queryParams.groupBy"
-          class="advertiser-list__checkbox">
-          campaign
-        </mat-checkbox>
-        <mat-checkbox
-          (change)="onParamChange('groupBy', 'user')"
-          [checked]="'user' === queryParams.groupBy"
-          class="advertiser-list__checkbox">
-          user
-        </mat-checkbox>
-      </div>
-      <div class="advertiser-list__filters">
-        <label>Interval:</label>
-        <mat-checkbox
-          (change)="onParamChange('interval', 'week')"
-          [checked]="'week' === queryParams.interval"
-          class="advertiser-list__checkbox">
-          week
-        </mat-checkbox>
-        <mat-checkbox
-          (change)="onParamChange('interval', 'day')"
-          [checked]="'day' === queryParams.interval"
-          class="advertiser-list__checkbox">
-          day
-        </mat-checkbox>
-        <mat-checkbox
-          (change)="onParamChange('interval', 'hour')"
-          [checked]="'hour' === queryParams.interval"
-          class="publisher-list__checkbox">
-          hour
-        </mat-checkbox>
-      </div>
-      <div class="advertiser-list__filters">
-        <label
-          >Min daily views:
-          <input
-            [(ngModel)]="queryParams.minDailyViews"
-            (ngModelChange)="onParamChange('minDailyViews', $event)"
-            type="number"
-            min="0"
-            step="1"
-            class="advertiser-list__input"
-            id="minViews" />
-        </label>
-      </div>
-      <button class="ap-btn ap-btn--tiny ap-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
+    </div>
+
+    <div class="box-content">
+      <table class="advertiser-list__items">
+        <app-table-navigation
+          (sortTable)="sortTable($event)"
+          navigationName="advertiserListNavigationItems"></app-table-navigation>
+        <tbody *ngIf="!isLoading; else loading" class="col advertiser-list__table-body">
+          <app-advertiser-list-item
+            *ngFor="let advertiser of filteredList"
+            [advertiser]="advertiser"></app-advertiser-list-item>
+          <tr *ngIf="!filteredList.length" class="advertiser-list__loader-container">
+            NO RESULTS
+          </tr>
+        </tbody>
+        <ng-template #loading>
+          <tr>
+            <td>
+              <div class="loading-wrapper advertiser-list__loader-container">
+                <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </table>
+
+      <mat-paginator
+        (page)="handlePaginationEvent($event)"
+        [length]="list ? list.data.length : 0"
+        [pageIndex]="page - 1"
+        [pageSize]="pageSize">
+      </mat-paginator>
     </div>
   </div>
-
-  <table class="advertiser-list__items">
-    <app-table-navigation
-      (sortTable)="sortTable($event)"
-      navigationName="advertiserListNavigationItems"></app-table-navigation>
-    <tbody *ngIf="!isLoading; else loading" class="col advertiser-list__table-body">
-      <app-advertiser-list-item
-        *ngFor="let advertiser of filteredList"
-        [advertiser]="advertiser"></app-advertiser-list-item>
-      <tr *ngIf="!filteredList.length" class="advertiser-list__loader-container">
-        NO RESULTS
-      </tr>
-    </tbody>
-    <ng-template #loading>
-      <tr>
-        <td>
-          <div class="loading-wrapper advertiser-list__loader-container">
-            <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
-          </div>
-        </td>
-      </tr>
-    </ng-template>
-  </table>
-
-  <mat-paginator
-    (page)="handlePaginationEvent($event)"
-    [length]="list ? list.data.length : 0"
-    [pageIndex]="page - 1"
-    [pageSize]="pageSize">
-  </mat-paginator>
 </section>

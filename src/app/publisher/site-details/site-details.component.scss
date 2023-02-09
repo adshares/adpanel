@@ -1,9 +1,11 @@
 @import '../../../styles.scss';
 
 .site-details {
+
   &__checkbox {
     cursor: not-allowed;
     pointer-events: none;
+    margin-right: 8px;
   }
 
   &__classification {
@@ -19,40 +21,31 @@
     overflow-x: auto;
   }
 
-  .status-button-wrapper {
-    margin-right: 4px;
-  }
-
   .ap-heading--primary small {
-    font-size: 75%;
-    font-weight: normal;
-    font-family: 'Lato-Regular', sans-serif;
-
     &:before {
       content: ' - ';
     }
   }
 
-  app-domain-checker {
-    margin-left: 15px;
-    margin-top: 12px;
+  & .ap-status {
+    text-align: center;
+    justify-content: center;
+    padding: 8px 16px;
+    line-height: 1.5;
+    height: 42px;
   }
 }
 
 .ad-units-warning {
-  color: pal(red);
+  color: pal(error);
 }
 
 .back {
   margin-right: 10px;
 }
 
-.app-targeting-display {
-  display: flex;
-
-  &:not(:first-of-type) {
-    margin-top: 20px;
-  }
+.targeting-display-wrapper {
+  margin-top: 16px;
 }
 
 .status-toggle-wrapper {
@@ -67,6 +60,10 @@
   height: 250px;
 }
 
+.chart-wrapper {
+  margin-bottom: 24px;
+}
+
 .btn-icon {
   font-size: 12px;
   margin-right: 10px;
@@ -74,4 +71,5 @@
 
 .link-icon {
   margin-left: 4px;
+  color: pal(primary, light);
 }

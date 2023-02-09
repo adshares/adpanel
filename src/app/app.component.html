@@ -3,10 +3,12 @@
   <router-outlet #o="outlet"></router-outlet>
 </div>
 <ng-template #loading>
-  <div class="loader">
-    <div class="loading-wrapper user-list__loader-container">
-      <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+  <div class="loader-wrapper">
+    <div class="col align-center loader">
+      <img class="ap-logo" src="assets/images/logo.svg" [alt]="name" />
+      <div class="loading-wrapper">
+        <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+      </div>
     </div>
-    <img src="assets/images/logo--white@2x.png" [alt]="name" />
   </div>
 </ng-template>

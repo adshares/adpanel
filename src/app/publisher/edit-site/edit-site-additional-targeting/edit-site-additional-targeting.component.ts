@@ -18,6 +18,7 @@ import { Site } from 'models/site.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { siteStatusEnum } from 'models/enum/site.enum';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-site-additional-targeting',
@@ -36,6 +37,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
   changesSaved: boolean = false;
   showRequiresSection: boolean = false;
   isCheckedOnlyAcceptedBanners: boolean;
+  faQuestionCircle = faQuestionCircle;
 
   constructor(
     private route: ActivatedRoute,

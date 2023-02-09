@@ -1,16 +1,10 @@
 @import '../../../styles';
 
-.ap-confirmation-alert {
-  padding: 18px 0;
-  background: #e6eaf3;
-
-  .admin-unconfirmed {
-    margin-right: 10px;
-    color: pal(orange, dark);
+.unconfirmed {
+  &.ap-alert{
+    margin: 0;
   }
-
-  .container {
-    padding-left: 30px;
-    margin-left: 0;
+  & .container {
+    padding: 0 24px;
   }
 }

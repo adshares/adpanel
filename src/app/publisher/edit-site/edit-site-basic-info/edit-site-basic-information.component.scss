@@ -1,15 +1,9 @@
 @import '../../../../styles.scss';
 
 .site-edit-basic-information {
-  max-width: 500px;
-  margin: 0 auto;
 
-  @include media(xxl-up) {
-    max-width: 900px;
-  }
-
-  @include media(xxxl-up) {
-    max-width: 1100px;
+  & .ap-form-input__box:not(:last-child) {
+    margin-bottom: 24px;
   }
 
   &__info-box {
@@ -24,16 +18,12 @@
 
     .https-warning {
       margin: 5px 0 10px 0;
-      color: pal(red);
+      color: pal(error);
     }
   }
 
   .ap-form-label--no-margin-top {
     margin-top: 0;
-  }
-
-  .ap-box {
-    margin: 16px 0 8px 0;
   }
 
   &__language {
@@ -47,7 +37,7 @@
   }
 
   & .ap-copy__hint {
-    transform: translateY(-15px);
+    transform: translateY(-12px);
   }
 }
 

@@ -10,18 +10,15 @@
     justify-content: center;
   }
 
-  &--userselect {
-    background: pal(grey);
-    padding: 0 20px;
+  & .logo-wrapper {
+    width: calc(300px - 2rem);
+    min-width: calc(300px - 2rem);
+    transition: width 0.5s ease-in;
+    padding-right: 2rem;
+  }
 
-    &.active-type {
-      background: pal(white);
-    }
-
-    img {
-      top: calc((42px - 18px) / 2);
-      left: 15px;
-    }
+  & .content-wrapper {
+    flex-grow: 1;
   }
 
   > div {
@@ -31,60 +28,39 @@
     }
   }
 
-  &__logo-subtitle {
-    text-transform: uppercase;
-    color: pal(red, dark);
-    font-size: 14px;
-    line-height: 1;
+  &__logo-link {
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   &__money-in-currency {
     @include font(12);
   }
+
+  & .no-underline {
+    text-decoration: none;
+  }
 }
 
 .ap-btn.ap-btn--invalid {
-  color: pal(gray, mid-dark);
+  color: pal(gray);
 }
 
 .ap-navigation {
   &__item {
-    margin: 0 5px;
     height: 42px;
     cursor: pointer;
-
-    .ap-logo {
-      margin-right: 15px;
-
-      @include media(md-up) {
-        margin-right: 30px;
-      }
-    }
-
-    .ap-chevron {
-      right: 10px;
-      top: 15px;
-    }
-
-    .ap-circle {
-      top: 6px;
-      right: 6px;
-    }
-
-    &--hidden {
-      @include media(md-down) {
-        display: none;
-      }
-    }
+    width: 100%;
   }
 }
 
 .ap-tokens {
-  @include font(14, semi);
+  @include font(14, semiBold);
 }
 
 .ap-usd {
-  @include font(9, semi);
+  @include font(9, semiBold);
   color: pal(gray);
 }
 
@@ -97,15 +73,22 @@
 }
 
 .settings-menu,
-.choose-user-menu {
+.choose-user-menu,
+.roles-menu {
   position: absolute;
-  top: 36px;
-  background: pal(white);
+  top: 47px;
+  border: 1px solid pal(primary);
+  border-radius: 10px;
+  background: pal(light);
   z-index: 999;
-  width: 240px;
+  width: 260px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
+
+  a {
+    color: inherit;
+  }
 
   @include media(xxl-up) {
     top: 46px;
@@ -120,14 +103,18 @@
     text-align: left;
     padding: 8px 20px;
 
-    &:first-of-type {
-      padding-bottom: 0;
+    &:hover {
+      background-color: pal(body-bg);
     }
+  }
+  &--max-content {
+    width: max-content;
+  }
 
-    button {
+  & button {
+      height: 42px;
+      cursor: pointer;
       width: 100%;
-      min-width: 100px;
-    }
   }
 }
 
@@ -138,8 +125,8 @@
     display: flex;
     align-items: center;
     padding: 12px 20px;
-    color: pal(black);
-    border: 1px solid pal(gray, light);
+    color: pal(dark);
+    border: 1px solid pal(gray);
 
     &:not(:first-of-type) {
       border-top: none;

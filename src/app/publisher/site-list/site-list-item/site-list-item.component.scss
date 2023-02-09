@@ -1,6 +1,12 @@
 @import '../../../../styles.scss';
 
 .ap-site-list {
+
+  &__item {
+    @include container();
+    border-bottom: 1px solid pal(gray);
+  }
+
   &__sort {
     margin-left: 5px;
   }

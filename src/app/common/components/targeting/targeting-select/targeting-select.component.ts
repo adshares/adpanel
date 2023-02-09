@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { findOption, findOptionList } from 'common/components/targeting/targeting.helpers';
 import { cloneDeep } from 'common/utilities/helpers';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle, faArrowLeft, faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-targeting-select',
@@ -23,9 +23,13 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   targetingOptionsForSearch: (TargetingOption | TargetingOptionValue)[] = [];
   itemsToRemove: TargetingOptionValue[] = [];
   faQuestionCircle = faQuestionCircle;
+  faArrowLeft = faArrowLeft;
+  faArrowRight = faArrowRight;
+  faSearch = faSearch;
 
   backAvailable = false;
   searchTerm = '';
+  panelOpenState = false;
 
   ngOnInit(): void {
     this.selectedItems = this.addedItems;

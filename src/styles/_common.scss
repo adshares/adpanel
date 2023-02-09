@@ -39,16 +39,16 @@
   }
 
   &.inactive {
-    border: 1px solid pal(gray, light);
+    border: 1px solid pal(gray);
   }
 
   &.active {
-    background: pal(green, light);
-    border: 1px solid pal(green);
+    background: pal(success, light);
+    border: 1px solid pal(success);
   }
 
   &.done {
-    background: pal(green);
+    background: pal(success);
 
     &:after {
       content: '';
@@ -57,26 +57,26 @@
       left: 6px;
       width: 3px;
       height: 6px;
-      border: solid #fff;
+      border: solid pal(light);
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
   }
 
   &--blue {
-    background: pal(blue);
+    background: pal(secondary);
   }
 
   &--navy {
-    background: pal(navy);
+    background: pal(primary);
   }
 
   &--green {
-    background: pal(green);
+    background: pal(success);
 
     &#{$module}--empty {
-      background: pal(green, light);
-      border: 1px solid pal(green);
+      background: pal(success, light);
+      border: 1px solid pal(success);
     }
   }
 
@@ -92,12 +92,10 @@
 .ap-step-link-indicator {
   width: 64px;
   margin: 0 30px;
-  border: 1px dashed pal(gray, light);
+  border: 1px dashed pal(gray);
 }
 
 .ap-icon {
-  height: 16px;
-
   &--prepend {
     margin-right: 10px;
 
@@ -129,13 +127,13 @@
     display: flex;
     align-items: center;
     align-self: flex-end;
-    color: pal(blue, base);
+    color: pal(secondary, base);
   }
 }
 
 .ap-chevron {
   &:before {
-    border-color: pal(navy);
+    border-color: pal(primary);
     border-style: solid;
     border-width: 0.15em 0.15em 0 0;
     content: '';
@@ -162,7 +160,7 @@
   }
 
   &--white:before {
-    border-color: pal(white);
+    border-color: pal(light);
   }
 
   &--gray:before {
@@ -177,13 +175,13 @@
 .ap-sort-triangle {
   width: 5px;
   height: 7px;
-  border-bottom: solid 5px pal(gray, mid-light);
+  border-bottom: solid 5px pal(gray);
   border-left: solid 4px transparent;
   border-right: solid 4px transparent;
   margin: 1px;
 
   &.active {
-    border-bottom: solid 5px pal(blue);
+    border-bottom: solid 5px pal(secondary);
   }
 
   &--down {
@@ -196,89 +194,69 @@
 */
 
 .ap-box {
-  border-radius: 2px;
-  background-color: pal(white);
-  border: 1px solid pal(gray, nearly-white);
-  padding: 8px 7px;
-  margin-top: 2px;
+  border-radius: 10px;
+  background-color: pal(light);
+  padding: 12px 22px 22px 22px;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.25), 4px 4px 5px rgba(0, 0, 0, 0.25);
 
-  & .ap-box {
-    border: none;
-    padding: 0;
-    margin: 0;
+  &:not(:first-child) {
+    margin-top: 24px;
   }
 
-  &--mid-size {
-    padding: 10px;
+  & .box-title {
+    padding: 16px;
   }
 
-  &--large {
-    padding: 20px;
-    margin-top: 2px;
+  & .box-content {
+    padding: 12px 16px 16px 16px;
   }
 
-  &--high {
-    margin-top: 2px;
+  & .box-subtitle {
+    margin-top: 4px;
+    line-height: 24px;
+  }
+}
+
+.poster-unit {
+  text-align: center;
+  background: transparent;
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid pal(gray);
+  cursor: pointer;
+  pointer-events: all;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  transition: 0.3s ease;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.25), 4px 4px 5px rgba(0, 0, 0, 0.25);
+
+  .selected-icon {
+    color: pal(gray);
+    vertical-align: middle;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
   }
 
-  &--small {
-    padding: 5px 10px;
+  &:hover {
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.25), 0 0 0 rgba(0, 0, 0, 0.25);
   }
 
-  &--short-right {
-    padding-right: 20px;
-  }
+  &--selected {
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.25), 0 0 0 rgba(0, 0, 0, 0.25);
 
-  &--light-green {
-    background-color: pal(green, light);
-  }
-
-  &--light-navy {
-    background-color: pal(navy, faded);
-  }
-
-  &--light {
-    background-color: pal(gray, x-light);
-    border: solid 1px pal(gray, light);
-  }
-
-  &--light-border {
-    border: solid 1px pal(gray, light);
-  }
-
-  &--no-top-border {
-    border-top: none;
-  }
-
-  &--bordered {
-    border-width: 1px;
-  }
-
-  &--blue-border {
-    border-color: pal(blue);
-  }
-
-  &--dashed {
-    border-style: dashed;
-  }
-
-  &--no-padding {
-    padding: 0;
-  }
-
-  &--no-margin {
-    margin: 0;
-  }
-
-  &--no-border {
-    border: none;
+    .selected-icon {
+      color: pal(success);
+    }
   }
 }
 
 .ap-chip-box {
-  background-color: pal(gray, x-light);
-  color: pal(gray, dark);
-  @include font(14, semi);
+  background-color: transparent;
+  color: pal(secondary);
+  @include font(14, semiBold);
   padding: 7px;
   border-radius: 2px;
   display: inline-table;
@@ -286,7 +264,7 @@
   text-transform: uppercase;
 
   &--dark {
-    color: pal(navy);
+    color: pal(primary);
   }
 }
 
@@ -305,15 +283,15 @@
 }
 
 .ap-bg-navy--light {
-  background-color: pal(navy, light);
+  background-color: pal(primary);
 }
 
 .ap-bg-gray--light {
-  background-color: pal(gray, light);
+  background-color: pal(gray);
 }
 
 .ap-header-bg {
-  background: pal(navy);
+  background: pal(primary);
 }
 
 /*
@@ -329,37 +307,22 @@
 }
 
 /*
- router animations
- */
-
-router-outlet ~ * {
-  position: absolute;
-  width: 100%;
-  min-height: 100%;
-}
-
-.settings-outlet router-outlet ~ * {
-  position: initial;
-  min-height: calc(100vh - 80px);
-  height: calc(100vh - 80px);
-}
-
-/*
   status
 */
 
 .ap-status {
-  @include font(14, semi);
+  @include font(14, semiBold);
   text-transform: uppercase;
   width: 100%;
   max-width: 150px;
   border: none;
+  border-radius: 10px;
   padding: 4px 8px;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: pal(navy, base);
+  color: pal(primary);
 
   & .mat-select-arrow {
     border-left: 5px solid transparent;
@@ -367,32 +330,56 @@ router-outlet ~ * {
     margin: 0 0 0 3px;
   }
 
-  &[data-status='active'] {
-    background-color: pal(green, light);
+  &[data-status='active'],
+  &[data-status='active'] .mat-select-arrow {
+    background-color: pal(success, light);
+    color: pal(success);
   }
 
-  &[data-status='inactive'] {
-    background-color: pal(blue, light);
+  &[data-status='inactive'],
+  &[data-status='inactive'] .mat-select-arrow {
+    background-color: pal(secondary, light);
+    color: pal(primary);
   }
 
   &[data-status='suspended'],
-  &[data-status='outdated'] {
-    background-color: pal(red, light);
+  &[data-status='suspended'] .mat-select-arrow,
+  &[data-status='outdated'],
+  &[data-status='outdated'] .mat-select-arrow {
+    background-color: pal(error, light);
+    color: pal(error);
   }
 
   &[data-status='archived'],
+  &[data-status='archived'] .mat-select-arrow,
   &[data-status='awaiting'],
-  &[data-status='draft'] {
-    background-color: pal(gray, ultra-light);
+  &[data-status='awaiting'] .mat-select-arrow,
+  &[data-status='draft'],
+  &[data-status='draft'] .mat-select-arrow {
+    background-color: pal(gray, light);
+    color: pal(primary);
+  }
+
+  &[data-status='pending'],
+  &[data-status='pending'] .mat-select-arrow {
+    background-color: pal(gray, light);
+    color: pal(primary);
+    cursor: not-allowed;
+  }
+
+  &[data-status='rejected'],
+  &[data-status='rejected'] .mat-select-arrow {
+    background-color: pal(error, light);
+    color: pal(error);
+    cursor: not-allowed;
   }
 
   &--btn {
     min-width: auto;
     width: auto;
-    color: pal(gray, dark) !important;
 
     &[data-status='active'] {
-      color: pal(green, dark);
+      color: pal(success, light);
     }
   }
 }
@@ -442,7 +429,6 @@ router-outlet ~ * {
 }
 
 .clickable-row-a {
-  color: pal(gray, mid-dark) !important;
   display: block;
   width: 100%;
   padding: 16px 0.5em;
@@ -453,8 +439,8 @@ router-outlet ~ * {
   padding: 20px 25px;
   min-width: 200px;
   max-width: 300px;
-  background: pal(white);
-  color: white;
+  background: pal(light);
+  color: pal(light);
   @include center(vertical);
   left: 75%;
   opacity: 0;
@@ -475,20 +461,11 @@ router-outlet ~ * {
     height: 0;
     border-style: solid;
     border-width: 30px 40px 30px 0;
-    border-color: transparent white transparent transparent;
+    border-color: transparent pal(light) transparent transparent;
   }
 }
 
 // targeting
-
-.ap-targeting-details {
-  &__title {
-    transform: translateY(-32px);
-    z-index: 1;
-    position: absolute;
-    font-size: 16px;
-  }
-}
 
 .break-word {
   word-wrap: break-word;
@@ -507,28 +484,20 @@ router-outlet ~ * {
   }
 
   .ap-select {
-    border: 1px solid pal(gray, light);
+    border: 1px solid pal(gray);
   }
 }
 
 .status-button-wrapper {
-  margin-top: 2px;
-
-  > span {
-    margin: 0 4px;
-    align-items: center;
-    display: flex;
-  }
-
   [data-status='active'] {
-    color: pal(green);
+    color: pal(success, light);
   }
 
   .ap-copy[data-status='inactive'],
   .ap-copy[data-status='suspended'],
   .ap-copy[data-status='archived'],
   .ap-copy[data-status='draft'] {
-    color: pal(red, dark);
+    color: pal(error, light);
   }
 }
 
@@ -538,7 +507,7 @@ router-outlet ~ * {
 
 .ap-mat-tooltip {
   font-size: 1rem;
-  background-color: pal(navy, faded);
+  background-color: pal(primary);
 }
 
 .hidden {
@@ -569,12 +538,24 @@ router-outlet ~ * {
 }
 
 .now_payments_logo {
-  font-weight: 400;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  color: #2b2b37;
+  @include font-weight(normal);
+  color: pal(primary);
 
   > span {
-    font-weight: 600;
-    color: #64acff;
+    color: #79b8fc;
+  }
+}
+
+.ap-auth-container {
+  @media screen and (max-width: $sm-breakpoint) {
+    padding: 48px 50px
+  }
+
+  @media screen and (min-width: $sm-breakpoint) and (max-width: $md-breakpoint) {
+    padding: 48px 150px
+  }
+
+  @media screen and (min-width: $md-breakpoint) {
+    padding: 48px 205px
   }
 }

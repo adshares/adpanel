@@ -1,17 +1,10 @@
 @import '../../../styles.scss';
 
 .ap-confirmation {
-  &-wrapper {
-    height: 100%;
+  & .ap-heading {
+    word-break: break-word;
   }
-}
-
-h2 {
-  margin-bottom: 20px;
-}
-
-p {
-  @include media(lg-up) {
-    max-width: 80%;
+  &-wrapper {
+    background-color: pal(light);
   }
 }

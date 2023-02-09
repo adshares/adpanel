@@ -5,6 +5,7 @@ import { take, first } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { Campaign } from 'models/campaign.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { CONVERSIONS_DESCRIPTION } from 'models/enum/link.enum';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
@@ -13,6 +14,8 @@ import { AddCampaignToCampaigns } from 'store/advertiser/advertiser.actions';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -23,6 +26,9 @@ export class EditCampaignSummaryComponent extends HandleSubscriptionComponent im
   campaign: Campaign;
   targetingOptionsToAdd: TargetingOption[] = [];
   targetingOptionsToExclude: TargetingOption[] = [];
+  faEdit = faEdit;
+  faCalendar = faCalendar;
+  CONVERSIONS_DESCRIPTION = CONVERSIONS_DESCRIPTION;
 
   constructor(
     private store: Store<AppState>,

@@ -1,30 +1,23 @@
-<div class="dashboard-view">
-  <div class="container classifier">
-    <div class="row align-center justify-between">
-      <h1 class="ap-heading ap-heading--primary">
+<div class="container classifier">
+  <div class="ap-box">
+    <div class="row align-center justify-between box-title">
+      <h1 class="ap-heading ap-heading--h2">
         {{ isGlobal ? 'Reject banners' : 'Approve banners for ' + siteName }}
       </h1>
-      <div class="row align-center">
-        <button
-          *ngIf="isSingleBanner"
-          type="button"
-          class="ap-btn ap-btn--prepend ap-btn--white ap-blue"
-          (click)="goToGeneralClassifier()">
-          Show all
-        </button>
-        <button
-          *ngIf="!isSingleBanner"
-          type="button"
-          class="ap-btn ap-btn--prepend ap-btn--white ap-blue"
-          (click)="refresh()">
+      <div class="row row--gap18 align-center control-btn-wrapper">
+        <button *ngIf="!isSingleBanner" type="button" class="ap-btn ap-btn-info ap-btn--secondary" (click)="refresh()">
           <fa-icon class="ap-icon ap-icon--prepend" [icon]="refreshIcon"> </fa-icon>
           Refresh
         </button>
-        <button type="button" class="ap-btn ap-btn--white ap-blue" (click)="onStepBack()">
+        <button *ngIf="isSingleBanner" type="button" class="ap-btn ap-btn--secondary" (click)="goToGeneralClassifier()">
+          Show all
+        </button>
+        <button type="button" class="ap-btn ap-btn--secondary" (click)="onStepBack()">
           {{ isGlobal ? 'Dashboard' : 'Back to the site' }}
         </button>
       </div>
     </div>
+
     <app-classifier-filtering
       *ngIf="!isSingleBanner"
       [sizeOptions]="adSizesOptions"
@@ -41,18 +34,19 @@
           [bannerClassification]="bannerClassification"
           [siteId]="siteId"></app-classifier-list-item>
       </ng-container>
-      <tr *ngIf="bannerClassifications.length === 0 && !isLoading" class="ap-box row justify-center">
-        <td class="ap-copy ap-copy--blue ap-copy--large">
+      <tr *ngIf="bannerClassifications.length === 0 && !isLoading" class="row justify-center">
+        <td class="ap-copy ap-copy--semi ap-copy--secondary pd24">
           {{ filtering.status || !!filtering.sizes ? 'No banners matching filters' : 'There are no banners to reject' }}
         </td>
       </tr>
       <ng-template #loading>
-        <div class="ap-box row justify-center">
+        <div class="row justify-center pd24">
           <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
         </div>
       </ng-template>
     </table>
     <mat-paginator
+      class="ap-copy ap-copy--small"
       #paginator
       [hidePageSize]="true"
       [length]="totalCount"

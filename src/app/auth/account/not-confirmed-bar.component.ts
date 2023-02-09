@@ -9,6 +9,7 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-account-not-confirmed-bar',
@@ -20,6 +21,7 @@ export class AccountNotConfirmedBarComponent extends HandleSubscriptionComponent
   display: boolean;
   isEmailConfirmed: boolean = true;
   isAdminConfirmed: boolean;
+  faUser = faUser;
 
   constructor(private api: ApiService, private dialog: MatDialog, private store: Store<AppState>) {
     super();

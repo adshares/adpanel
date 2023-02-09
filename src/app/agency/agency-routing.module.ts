@@ -9,6 +9,7 @@ import { UserListComponent } from 'admin/users/user-list/user-list.component';
 import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component';
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
 import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
+import { UserReportsComponent } from 'admin/user-reports/user-reports.component';
 
 const agencyRoutes: Routes = [
   {
@@ -22,7 +23,6 @@ const agencyRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-
         children: [
           {
             path: '',
@@ -49,6 +49,10 @@ const agencyRoutes: Routes = [
               {
                 path: 'publishers',
                 component: PublisherListComponent,
+              },
+              {
+                path: 'reports',
+                component: UserReportsComponent,
               },
             ],
           },

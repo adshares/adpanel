@@ -1,21 +1,19 @@
 @import '../../../../../styles';
 
 .report-list-item {
-  min-height: 50px;
-
+  min-height: 40px;
   &__icon {
-    font-size: 1.7em;
 
     &--ready {
-      color: pal(green);
+      color: pal(success);
     }
 
     &--preparing {
-      color: pal(gray);
+      color: pal(secondary);
     }
 
     &--deleted {
-      color: pal(red);
+      color: pal(error);
     }
   }
 }

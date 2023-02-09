@@ -11,6 +11,7 @@ import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
 import { AppState } from 'models/app-state.model';
 import { Ad, Campaign } from 'models/campaign.model';
 import { ShowSuccessSnackbar } from 'store/common/common.actions';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-poster-list-item',
@@ -21,6 +22,7 @@ export class AdListItemComponent {
   @Input() ad: Ad;
   @Input() campaign: Campaign;
   adStatusesEnum = adStatusesEnum;
+  faChevronRight = faChevronRight;
 
   constructor(
     private advertiserService: AdvertiserService,

@@ -1,13 +1,13 @@
 :root {
-  color: pal(gray, dark);
+  color: pal(body-color);
 }
 
 .ap-heading {
-  color: pal(navy);
+  color: pal(body-color);
   word-break: break-all;
 
   &--hero {
-    @include font(64, bold);
+    @include font(36, bold);
     line-height: 1.11;
   }
 
@@ -18,35 +18,24 @@
     text-overflow: ellipsis;
   }
 
-  &--primary {
+  &--h2 {
     @include font(32, bold);
-    letter-spacing: -0.1px;
-    margin: 10px 0;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
 
-    @include media(md-up) {
-      @include font(36, bold);
-    }
+  &--h3 {
+    @include font(24, semiBold);
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
 
-    @include media(lg-up) {
-      @include font(32, bold);
-    }
+  &--primary {
+    color: pal(primary);
   }
 
   &--secondary {
-    @include font(24, semi);
-    margin: 7px 0;
-  }
-
-  &--white {
-    color: pal(white);
-  }
-
-  &--faded {
-    color: pal(navy, faded);
-  }
-
-  &--light {
-    color: pal(navy, light);
+    color: pal(secondary);
   }
 
   &--uppercase {
@@ -55,73 +44,48 @@
 }
 
 .ap-copy {
-  color: pal(gray, mid-dark);
+  color: pal(body-color);
   @include font(16, normal);
   overflow: hidden;
   text-overflow: ellipsis;
-
-  &--large {
-    @include font(22, normal);
-    margin: 5px 0;
-  }
-
-  &--medium {
-    @include font(20, normal);
-    margin: 5px 0;
-  }
-
-  &--plus {
-    @include font(18, normal);
-    margin: 5px 0;
-  }
 
   &--small {
     @include font(14, normal);
   }
 
-  &--x-small {
-    @include font(14, normal);
+  &--medium {
+    @include font(22, normal);
   }
-
-  &--white {
-    color: pal(white) !important;
+  &--large {
+    @include font(32, normal);
   }
 
   &--light {
-    color: pal(gray) !important;
+    color: pal(light) !important;
   }
 
-  &--dark {
-    line-height: 1;
-    color: pal(gray, dark) !important;
+  &--primary {
+    color: pal(primary) !important;
   }
 
-  &--x-dark {
-    color: pal(navy, light) !important;
+  &--secondary {
+    color: pal(secondary) !important;
   }
 
-  &--blue {
-    color: darken(pal(blue), 5) !important;
+  &--error {
+    color: pal(error) !important;
   }
 
-  &--red {
-    color: pal(red) !important;
+  &--warning {
+    color: pal(warning) !important;
   }
 
-  &--redder {
-    color: red !important;
+  &--success {
+    color: pal(success) !important;
   }
 
-  &--green {
-    color: pal(green, dark) !important;
-  }
-
-  &--green-light {
-    color: pal(green, base) !important;
-  }
-
-  &--orange {
-    color: palette(orange, dark) !important;
+  &--gray {
+    color: pal(gray)
   }
 
   &--thin {
@@ -132,7 +96,7 @@
   }
 
   &--semi {
-    @include font-weight(semi);
+    @include font-weight(semiBold);
   }
 
   &--bold {
@@ -151,13 +115,52 @@
     word-break: keep-all !important;
     white-space: nowrap !important;
   }
+
+  &--tnum {
+    font-feature-settings:'tnum';
+  }
 }
 
 .ap-alert {
-  padding: 18px 7px;
-  background: pal(red, light);
-  justify-content: center;
-  border: 1px solid pal(red, dark);
+  position: relative;
+  @include font(14, semiBold);
+  border-radius: 10px;
+  margin-top: 5px;
+  padding: 12px 12px 12px 12px;
+  min-width: 150px;
+
+  &__full-width {
+    width: 100%;
+  }
+
+  &--error,
+  &[data-alert-status = 'rejected'] {
+    color: pal(error);
+    background-color: pal(error, light);
+  }
+
+  &--success,
+  &[data-alert-status = 'active'] {
+    color: pal(success);
+    background-color: pal(success, light);
+  }
+
+  &--warning,
+  &[data-alert-status = 'pending'] {
+    color: pal(warning);
+    background-color: pal(warning, light);
+  }
+
+  &--info,
+  &[data-alert-status = 'inactive'] {
+    color: pal(primary);
+    background-color: pal(info-bg);
+  }
+
+  &[data-alert-status = 'draft'] {
+    color: pal(primary);
+    background-color: pal(body-bg);
+  }
 }
 
 .text-center {
@@ -166,15 +169,6 @@
 
 .text-left {
   text-align: left;
-}
-
-.lowercase-to-capitalize {
-  text-transform: lowercase;
-  display: inline-block;
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
 }
 
 .lowercase {

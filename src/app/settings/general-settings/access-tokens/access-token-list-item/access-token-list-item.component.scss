@@ -1,9 +1,10 @@
 @import '../../../../../styles';
 
 .access-token-list-item {
-  @include container($border-color: pal(gray, nearly-white));
+  @include container();
   display: flex;
   min-height: 52px;
+  border-bottom: 1px solid pal(gray);
 
   & td {
     align-self: center;

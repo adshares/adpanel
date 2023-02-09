@@ -1,48 +1,46 @@
-<section class="ref-link-settings">
-  <div class="ap-box ap-box--large">
-    <div class="col">
-      <h2 class="ap-heading ap-heading--primary">Referral links</h2>
-      <div class="row justify-end">
-        <button [disabled]="isImpersonated" class="ap-btn ap-btn--blue" (click)="create()">
-          <fa-icon class="ap-icon ap-icon--prepend" [icon]="createIcon"></fa-icon>
-          Generate new link
-        </button>
-      </div>
+<section class="container ref-link-settings">
+  <div class="ap-box">
+    <div class="box-title row justify-between">
+      <h2 class="ap-heading ap-heading--h2">Referral links</h2>
+      <button [disabled]="isImpersonated" class="ap-btn ap-btn--text" (click)="create()">
+        <fa-icon class="ap-icon ap-icon--prepend" [icon]="createIcon"></fa-icon>
+        Generate new link
+      </button>
+    </div>
 
-      <div class="ref-link-settings-table__scrollable">
-        <table class="billing-table ap-copy">
-          <thead class="ref-link-settings-table__head">
-            <tr class="row justify-between">
-              <th class="ref-link-settings__token" scope="col">Referral token</th>
-              <th class="ref-link-settings__refund" scope="col" *ngIf="refundEnabled">You Receive/Friends Receive</th>
-              <th class="ref-link-settings__comment" scope="col">Note</th>
-              <th class="ref-link-settings__usage" scope="col">Friends</th>
-              <th class="ref-link-settings__refunded" scope="col" *ngIf="refundEnabled">You Earned</th>
-              <th class="ref-link-settings__actions" scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="!isLoading; else loading">
-            <app-ref-link-list-item
-              *ngFor="let refLink of list.data"
-              [refundEnabled]="refundEnabled"
-              [defaultRefundCommission]="defaultRefundCommission"
-              [refLink]="refLink">
-            </app-ref-link-list-item>
-          </tbody>
-          <ng-template #loading>
-            <div class="loading-wrapper">
-              <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
-            </div>
-          </ng-template>
-        </table>
+    <div class="box-content">
+      <table class="billing-table ap-copy">
+        <thead>
+          <tr class="row ref-link-settings-table__head">
+            <th class="row col-xs-3 text-left" scope="col">Referral token</th>
+            <th class="row col-xs-2 text-left" scope="col" *ngIf="refundEnabled">You Receive/Friends Receive</th>
+            <th class="row col-xs-2 text-left" scope="col">Note</th>
+            <th class="row col-xs-1 text-left" scope="col">Friends</th>
+            <th class="row col-xs-2 text-left" scope="col" *ngIf="refundEnabled">You Earned</th>
+            <th class="row col-xs-2 text-left" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="!isLoading; else loading">
+          <app-ref-link-list-item
+            *ngFor="let refLink of list.data"
+            [refundEnabled]="refundEnabled"
+            [defaultRefundCommission]="defaultRefundCommission"
+            [refLink]="refLink">
+          </app-ref-link-list-item>
+        </tbody>
+        <ng-template #loading>
+          <div class="loading-wrapper">
+            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+          </div>
+        </ng-template>
+      </table>
 
-        <mat-paginator
-          (page)="handlePaginationEvent($event, true)"
-          [length]="total"
-          [pageIndex]="page - 1"
-          [pageSize]="pageSize">
-        </mat-paginator>
-      </div>
+      <mat-paginator
+        (page)="handlePaginationEvent($event, true)"
+        [length]="total"
+        [pageIndex]="page - 1"
+        [pageSize]="pageSize">
+      </mat-paginator>
     </div>
   </div>
 </section>

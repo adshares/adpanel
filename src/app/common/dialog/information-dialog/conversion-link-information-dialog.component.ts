@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AppState } from 'models/app-state.model';
 import { ShowSuccessSnackbar } from 'store/common/common.actions';
 import { Store } from '@ngrx/store';
+import { CONVERSIONS_DESCRIPTION } from 'models/enum/link.enum';
 
 @Component({
   selector: 'app-conversion-link-information-dialog',
@@ -12,6 +13,7 @@ import { Store } from '@ngrx/store';
 export class ConversionLinkInformationDialogComponent implements OnInit {
   isAdvanced: boolean;
   link: string;
+  CONVERSIONS_DESCRIPTION = CONVERSIONS_DESCRIPTION;
 
   constructor(
     public dialogRef: MatDialogRef<ConversionLinkInformationDialogComponent>,

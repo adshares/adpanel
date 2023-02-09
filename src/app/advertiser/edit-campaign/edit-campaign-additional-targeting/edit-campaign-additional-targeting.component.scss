@@ -1,8 +1,7 @@
 @import '../../../../styles.scss';
 
 .campaign-edit-additional-targeting {
-  max-width: 1000px;
-  margin: 0 auto;
+
 
   @include media(xxl-up) {
     max-width: 1300px;
@@ -11,17 +10,18 @@
   @include media(xxxl-up) {
     max-width: 2000px;
   }
+
+  .cpm-form {
+    width: 210px
+  }
+}
+
+.targeting-reach-wrapper {
+  min-height: 58px;
 }
 
 .targeting-select-wrapper {
   margin-top: 30px;
-}
-
-.targeting-accordion {
-  > .ap-box {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
 }
 
 .loading-wrapper {

@@ -1,15 +1,17 @@
 <div class="filters" (clickOutside)="hideDatepicker()">
-  <button class="ap-select lowercase-to-capitalize" (click)="showDatepicker()">
-    <span *ngIf="currentFilterPreset">{{ currentFilterPreset.name }}</span>
-    <span *ngIf="!currentFilterPreset">From {{ ' ' + currentFromFilter + ' ' }} to {{ ' ' + currentToFilter }}</span>
-  </button>
+  <div class="ap-select" (click)="showDatepicker()">
+    <span class="mat-select-trigger" *ngIf="currentFilterPreset">{{ currentFilterPreset.name }}</span>
+    <span class="mat-select-trigger" *ngIf="!currentFilterPreset"
+      >From {{ ' ' + currentFromFilter + ' ' }} to {{ ' ' + currentToFilter }}</span
+    >
+  </div>
   <div class="chart-filters ap-box" [class.visible]="datepickerVisible">
     <div class="row filter-row align-center justify-end">
       <span class="ap-copy hidden-md"> Sort by date range </span>
       <button
         type="button"
         *ngFor="let preset of filterPresets"
-        class="ap-btn ap-button--small ap-bg-white ap-navy lowercase-to-capitalize"
+        class="ap-btn ap-btn--secondary"
         [class.selected]="preset.id === currentDaysSpan"
         (click)="filterChart(preset.id, 0, false)"
         data-test="chart-filter-preset">
@@ -23,7 +25,7 @@
       <mat-form-field
         (click)="dateFromPicker.open()"
         class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
-        <img src="assets/images/calendar.svg" alt="Select date from" class="ap-icon ap-icon--prepend" />
+        <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
         <input
           matInput
           [matDatepicker]="dateFromPicker"
@@ -41,7 +43,7 @@
       <mat-form-field
         (click)="dateToPicker.open()"
         class="ap-form-input ap-form-input--narrow ap-form-input--datepicker ap-form-input--datepicker--narrow row">
-        <img src="assets/images/calendar.svg" alt="Select date to" class="ap-icon ap-icon--prepend" />
+        <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
         <input
           matInput
           [matDatepicker]="dateToPicker"
@@ -57,12 +59,12 @@
       </mat-form-field>
       <button
         type="button"
-        class="ap-btn ap-button--small ap-bg-gray--light ap-navy"
+        class="ap-btn ap-btn--primary"
         [class.disabled]="!dateTo.value || !dateFrom.value"
         (click)="filterChartByDatepicker()"
         data-test="chart-filter-apply-datespan-button">
         Apply
-        <img class="ap-icon--append" src="assets/images/chevron--right.svg" alt="" />
+        <fa-icon [icon]="faArrowAltCircleRight" class="ap-icon ap-icon--append"></fa-icon>
       </button>
     </div>
   </div>

@@ -22,12 +22,7 @@
   }
 
   &__totals-row {
-    @include copy($font-weight: semi);
-    @include container(
-      $padding-vertical: 10px,
-      $margin-top: 4px,
-      $margin-bottom: 2px
-    );
+    @include container();
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,16 +39,10 @@
     @include copy($font-weight: bold);
   }
 
-  &__add-new-site-row {
-    @include container($padding-vertical: 10px);
-    display: flex;
-    justify-content: center;
-  }
-
   &__add-btn {
     @include btn(
-      $color: pal(blue),
-      $background-color: pal(white),
+      $color: pal(secondary),
+      $background-color: pal(light),
       $border-color: transparent,
       $padding-vertical: 0
     );

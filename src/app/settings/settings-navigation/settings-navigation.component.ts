@@ -34,10 +34,10 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
         description: '',
         link: '/moderator/dashboard/users',
         values: [
-          { name: 'Users List', icon: 'assets/images/user-gray.svg' },
-          { name: 'Publishers', icon: 'assets/images/user-gray.svg' },
-          { name: 'Advertisers', icon: 'assets/images/user-gray.svg' },
-          { name: 'Reports', icon: 'assets/images/user-gray.svg' },
+          { name: 'Users List', path: '/all' },
+          { name: 'Publishers', path: '/publishers' },
+          { name: 'Advertisers', path: '/advertisers' },
+          { name: 'Reports', path: '/reports' },
         ],
       });
     }
@@ -48,9 +48,10 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
         description: '',
         link: '/agency/dashboard/users',
         values: [
-          { name: 'Users List', icon: 'assets/images/user-gray.svg' },
-          { name: 'Publishers', icon: 'assets/images/user-gray.svg' },
-          { name: 'Reports', icon: 'assets/images/user-gray.svg' },
+          { name: 'Users List', path: '/all' },
+          { name: 'Publishers', path: '/publishers' },
+          { name: 'Advertisers', path: '/advertisers' },
+          { name: 'Reports', path: '/reports' },
         ],
       });
     }
@@ -60,11 +61,11 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
       description: '',
       link: '/settings/general',
       values: [
-        { name: 'Wallet settings', icon: 'assets/images/preferences.svg' },
-        { name: 'Email & password', icon: 'assets/images/preferences.svg' },
-        { name: 'Referral links', icon: 'assets/images/preferences.svg' },
-        { name: 'Access tokens', icon: 'assets/images/preferences.svg' },
-        { name: 'Newsletter', icon: 'assets/images/preferences.svg' },
+        { name: 'Wallet settings', path: '/wallet' },
+        { name: 'Email & password', path: '/preferences' },
+        { name: 'Referral links', path: '/referrals' },
+        { name: 'Access tokens', path: '/access-token' },
+        { name: 'Newsletter', path: '/newsletter' },
       ],
     });
 
@@ -74,15 +75,15 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
         description: '',
         link: '/settings/billing',
         values: [
-          { name: 'Your wallet', icon: 'assets/images/wallet--gray.svg' },
-          { name: 'Billing history', icon: 'assets/images/history.svg' },
+          { name: 'Your wallet', path: '/wallet' },
+          { name: 'Billing history', path: '/history' },
         ],
       });
       this.settings.push({
         title: 'Reports',
         description: '',
         link: '/settings/reports',
-        values: [{ name: 'Reports', icon: 'assets/images/chevron--gray.svg' }],
+        values: [{ name: 'Reports', path: '' }],
       });
     }
   }

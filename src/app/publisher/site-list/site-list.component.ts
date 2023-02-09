@@ -1,5 +1,4 @@
 import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Site, SitesTotals } from 'models/site.model';
 import { enumToObjectArray, sortArrayByKeys } from 'common/utilities/helpers';
@@ -20,7 +19,7 @@ export class SiteListComponent extends HandleSubscriptionComponent implements On
   tableNavigationRef: TableNavigationComponent;
   siteStatuses: any[];
 
-  constructor(private router: Router) {
+  constructor() {
     super();
 
     this.siteStatuses = SiteListComponent.addLabelsToStatuses();
@@ -57,9 +56,5 @@ export class SiteListComponent extends HandleSubscriptionComponent implements On
 
   sortTable(event: TableSortEvent): void {
     this.sites = sortArrayByKeys(this.sites, event.keys, event.sortDesc);
-  }
-
-  navigateToCreateSite(): void {
-    this.router.navigate(['publisher', 'create-site', 'basic-information']);
   }
 }

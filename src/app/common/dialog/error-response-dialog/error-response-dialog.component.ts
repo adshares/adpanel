@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-error-response-dialog',
   templateUrl: './error-response-dialog.component.html',
-  styleUrls: ['./error-response-dialog.component.scss'],
 })
 export class ErrorResponseDialogComponent implements OnInit {
   title = 'Request Failed';

@@ -8,7 +8,6 @@ import { ReportsListItem } from 'models/settings.model';
 @Component({
   selector: 'app-reports-list',
   templateUrl: './reports-list.component.html',
-  styleUrls: ['./reports-list.component.scss'],
 })
 export class ReportsListComponent extends HandleSubscriptionComponent implements OnInit {
   private readonly REFRESH_PERIOD = 2000;

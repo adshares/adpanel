@@ -23,13 +23,13 @@ const fs = require('fs');
 const templateFile = process.argv[2];
 if (!templateFile) {
   console.log('No template file name provided');
-  process.exit(1)
+  process.exit(1);
 }
 
 const indexFile = process.argv[3];
 if (!indexFile) {
   console.log('No preview file name provided');
-  process.exit(1)
+  process.exit(1);
 }
 
 let message = fs.readFileSync('/dev/stdin').toString().trim();
@@ -55,18 +55,18 @@ function getContentFromJson(field) {
 fs.readFile(templateFile, 'utf8', function (error, data) {
   if (error) {
     console.log(`Error while reading template ${templateFile}`, error);
-    process.exit(1)
+    process.exit(1);
   }
 
-  indexFields.forEach(field => {
+  indexFields.forEach((field) => {
     const searchValue = '${' + field.replace(/-/g, '_').toUpperCase() + '}';
-    data = data.replace(searchValue, getContentFromJson(field))
+    data = data.replace(searchValue, getContentFromJson(field));
   });
 
   fs.writeFile(indexFile, data, function (error) {
     if (error) {
       console.log(`Error while writing ${indexFile}`, error);
-      process.exit(1)
+      process.exit(1);
     }
 
     console.log(`The index file ${indexFile} has been saved`);
@@ -78,7 +78,7 @@ if (robotsFile) {
   fs.writeFile(robotsFile, getContentFromJson(robotsField), (error) => {
     if (error) {
       console.log(`Error while writing ${robotsFile}`, error);
-      process.exit(1)
+      process.exit(1);
     }
     console.log(`The robots file ${robotsFile} has been saved`);
   });

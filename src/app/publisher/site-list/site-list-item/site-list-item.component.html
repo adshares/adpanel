@@ -1,6 +1,6 @@
 <tr
   *ngIf="site; else loading"
-  class="ap-box ap-site-list__item row justify-between align-center ap-copy"
+  class="ap-site-list__item row justify-between align-center ap-copy"
   data-test="publisher-navigate-to-site-details">
   <td class="row ap-site-list__status-cell align-center" (click)="statusSelect.open()" role="button">
     <div class="ap-status" [attr.data-status]="currentSiteStatus">
@@ -63,7 +63,7 @@
   </td>
   <td class="col-xs-1 row align-center justify-center ap-site-list__item-site-details" role="link">
     <a routerLink="/publisher/site/{{ site.id }}" class="clickable-row-a">
-      <img src="/assets/images/chevron--right.svg" [alt]="'Go to  ' + site.name + ' details'" />
+      <fa-icon [icon]="faChevronRight" class="ap-icon"></fa-icon>
     </a>
   </td>
 </tr>

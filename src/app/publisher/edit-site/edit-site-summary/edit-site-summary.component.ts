@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from 'models/app-state.model';
 import { AdUnit, Site } from 'models/site.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
+import { PUBLISHER_INSTRUCTION_LINK } from 'models/enum/link.enum';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { AddSiteToSites } from 'store/publisher/publisher.actions';
@@ -24,6 +25,7 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
   filteringOptions: TargetingOption[];
   canSubmit: boolean;
   displayAds: boolean;
+  PUBLISHER_INSTRUCTION_LINK = PUBLISHER_INSTRUCTION_LINK;
 
   constructor(
     private store: Store<AppState>,

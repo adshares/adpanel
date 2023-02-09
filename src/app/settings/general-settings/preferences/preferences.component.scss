@@ -1,26 +1,18 @@
-#email {
-  width: 356px;
-  max-width: 356px;
-}
+.preference {
+  .email-wrapper {
+    width: 400px
+  }
 
-#email::placeholder {
-  opacity: 0.7;
-}
+  .password-wrapper {
+    width: 250px
+  }
 
-.preferences {
-  margin-top: 10px;
-
-  .ap-form-input__box {
-    margin-right: 25px;
+  & .ap-btn {
+    height: 47px;
+    margin-top: 25px;
   }
 }
 
 .delete-account {
   margin-top: 30px;
-}
-
-.change-form {
-  button {
-    margin-top: 37px;
-  }
 }

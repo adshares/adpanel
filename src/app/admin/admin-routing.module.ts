@@ -13,6 +13,12 @@ import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
 import { AccessTokenScopesResolver } from 'common/resolvers/access-token-scopes-resolver.service';
 import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
+import { UserReportsComponent } from 'admin/user-reports/user-reports.component';
+import { AccountWalletSettingsComponent } from 'settings/general-settings/ads-wallet-settings/account-wallet-settings.component';
+import { PreferencesComponent } from 'settings/general-settings/preferences/preferences.component';
+import { RefLinkSettingsComponent } from 'settings/general-settings/ref-link-settings/ref-link-settings.component';
+import { AccessTokensComponent } from 'settings/general-settings/access-tokens/access-tokens.component';
+import { NewsletterSettingsComponent } from 'settings/general-settings/newsletter-settings/newsletter-settings.component';
 
 const adminRoutes: Routes = [
   {
@@ -54,6 +60,10 @@ const adminRoutes: Routes = [
                 path: 'publishers',
                 component: PublisherListComponent,
               },
+              {
+                path: 'reports',
+                component: UserReportsComponent,
+              },
             ],
           },
           {
@@ -69,6 +79,36 @@ const adminRoutes: Routes = [
             resolve: {
               scopes: AccessTokenScopesResolver,
             },
+            children: [
+              {
+                path: '',
+                redirectTo: 'wallet',
+                pathMatch: 'full',
+              },
+              {
+                path: 'wallet',
+                component: AccountWalletSettingsComponent,
+              },
+              {
+                path: 'preferences',
+                component: PreferencesComponent,
+              },
+              {
+                path: 'referrals',
+                component: RefLinkSettingsComponent,
+              },
+              {
+                path: 'access-token',
+                component: AccessTokensComponent,
+                resolve: {
+                  scopes: AccessTokenScopesResolver,
+                },
+              },
+              {
+                path: 'newsletter',
+                component: NewsletterSettingsComponent,
+              },
+            ],
           },
         ],
       },

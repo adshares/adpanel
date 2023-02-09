@@ -9,7 +9,6 @@ import { HTTP_FORBIDDEN, HTTP_NOT_FOUND } from 'common/utilities/codes';
 @Component({
   selector: 'app-page-not-found',
   templateUrl: './page-not-found.component.html',
-  styleUrls: ['./page-not-found.component.scss'],
 })
 //TODO Rename module after styling
 export class PageNotFoundComponent extends HandleSubscriptionComponent implements OnInit {

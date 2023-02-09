@@ -1,12 +1,12 @@
 @import '../../../../styles';
 
-.poster-unit {
-  @include container($border-color: pal(gray, light));
+.table-poster-unit {
+  @include container();
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid pal(gray);
 
   &__cell {
-    @include copy;
     margin: 0 0 0 0.5rem;
     padding: 0;
     display: flex;
@@ -39,7 +39,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: pal(gray, ultra-light);
+    background-color: pal(gray);
   }
 
   &__chip-box {
@@ -48,9 +48,9 @@
 
   &__btn {
     @include btn(
-      $color: pal(blue),
-      $background-color: pal(white),
-      $border-color: pal(white)
+      $color: pal(secondary),
+      $background-color: pal(light),
+      $border-color: pal(light)
     );
     max-height: 46px;
     text-align: left;

@@ -1,10 +1,11 @@
 .ap-dialog-close {
   cursor: pointer;
   padding: 10px;
-  border: 1px solid pal(gray, light);
+  border: 1px solid pal(gray);
+  border-radius: 4px;
   position: absolute;
-  top: 33px;
-  right: 33px;
+  top: 16px;
+  right: 16px;
 
   &:before,
   &:after {
@@ -15,7 +16,7 @@
     width: 2px;
     height: 12px;
     display: block;
-    background-color: pal(navy, light);
+    background-color: pal(primary);
   }
 
   &:before {
@@ -28,11 +29,11 @@
 }
 
 .ap-error {
-  color: pal(red);
+  color: pal(error);
 }
 
 .ap-success {
-  color: pal(green);
+  color: pal(success);
 }
 
 .ap-multiline {

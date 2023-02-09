@@ -6,6 +6,7 @@ import { SessionService } from '../../session.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { User } from 'models/user.model';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-impersonation',
@@ -18,6 +19,7 @@ export class ImpersonationComponent extends HandleSubscriptionComponent implemen
   userEmail: string;
   userId: number;
   userIsBanned: boolean;
+  faTriangleExclamation = faTriangleExclamation;
 
   constructor(
     private router: Router,

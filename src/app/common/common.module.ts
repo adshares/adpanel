@@ -24,11 +24,8 @@ import { ClickOutsideDirective } from './clickOutside.directive';
 import { CommonService } from './common.service';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
 import { AdPreviewDialogComponent } from 'common/dialog/ad-preview-dialog/ad-preview-dialog.component';
-import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
 import { AddFundsDialogComponent } from './dialog/add-funds-dialog/add-funds-dialog.component';
-import { ChangeAddressDialogComponent } from './dialog/change-address-dialog/change-address-dialog.component';
 import { WithdrawFundsDialogComponent } from './dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
-import { ChangeAutomaticWithdrawDialogComponent } from './dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
 import { UserConfirmResponseDialogComponent } from './dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChartComponent } from './components/chart/chart.component';
@@ -95,11 +92,8 @@ const matModules = [
 const dialogs = [
   AccountChooseDialogComponent,
   AdPreviewDialogComponent,
-  LeaveEditProcessDialogComponent,
   AddFundsDialogComponent,
   WithdrawFundsDialogComponent,
-  ChangeAddressDialogComponent,
-  ChangeAutomaticWithdrawDialogComponent,
   UserConfirmResponseDialogComponent,
   WarningDialogComponent,
   ConversionLinkInformationDialogComponent,

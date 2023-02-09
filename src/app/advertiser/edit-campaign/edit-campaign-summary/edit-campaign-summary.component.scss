@@ -1,22 +1,7 @@
 @import '../../../../styles.scss';
 
-.campaign-basic-information {
-  > div {
-    margin-right: 45px;
-  }
-
-  .label {
-    margin-bottom: 5px;
-  }
-
-  .ap-heading {
-    margin-bottom: 22px;
-  }
-}
-
 .campaign-edit-summary {
-  max-width: 800px;
-  margin: 0 auto;
+
 
   @include media(xxl-up) {
     max-width: 1300px;
@@ -26,80 +11,15 @@
     max-width: 2000px;
   }
 
-  &--narrow {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .ap-box {
-    margin: 8px 0;
-
-    .campaign-info {
-      &--primary {
-        @extend .ap-copy;
-        color: pal(navy);
-        padding-left: 0;
-      }
-    }
-  }
-
-  &__info-cell {
-    padding-left: 0;
-
-    p:first-of-type {
-      margin-bottom: 10px;
-    }
-  }
-
-  &__basic-info {
-    &-wrapper {
-      padding: 20px;
-    }
-
-    .ap-heading {
-      margin-bottom: 32px;
-    }
-
-    .ap-icon {
-      margin: 0 4px 0 0;
-      width: 15px;
-      height: 15px;
-    }
-
-    > div {
-      margin: 15px 50px 0 0;
-    }
-
-    .label {
-      margin-bottom: 5px;
-    }
-  }
-
-  &__targeting-info {
-    padding: 41px 30px 38px;
-
-    .ap-heading {
-      margin-bottom: 22px;
-    }
-  }
-
-  &__poster-info {
-    padding: 40px 30px 42px;
-
-    .ap-heading {
-      margin-bottom: 25px;
-    }
-  }
-
-  &__note-info {
-    padding: 12px 30px 12px;
+  & .ap-alert {
+    margin-top: 24px;
   }
 }
 
 .campaign-poster {
   position: relative;
-  background-color: pal(white);
-  border: 1px solid pal(gray, nearly-white);
+  background-color: pal(light);
+  border: 1px solid pal(gray);
   border-radius: 2px;
   margin-top: 6px;
   width: 49.6%;

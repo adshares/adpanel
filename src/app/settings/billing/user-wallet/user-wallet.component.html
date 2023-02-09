@@ -1,52 +1,46 @@
-<section class="preferences user-wallet">
-  <div class="user-wallet__wallet-box user-wallet__wallet-box--with-margin">
-    <h2 class="user-wallet__title">Your wallet</h2>
-    <p class="user-wallet__sub-title">Deposit or withdraw funds</p>
-
-    <div class="user-wallet__content-container">
-      <p *ngIf="calculateFunds" class="user-wallet__funds-in-currency" data-test="user-total-funds-in-currency">
-        {{ wallet.walletBalance | calculateInCurrency : 2 }}
-      </p>
-      <h1 class="user-wallet__funds" data-test="user-total-funds">
-        {{ wallet.walletBalance | formatMoney : 4 : crypto : code }}
-      </h1>
-
+<section class="container user-wallet">
+  <div class="ap-box">
+    <div class="box-title">
+      <h2 class="ap-heading ap-heading--h2">Your wallet</h2>
+      <p class="ap-copy box-subtitle">Deposit or withdraw funds</p>
       <div class="error-msg" *ngIf="isImpersonated">You cannot change user balance during impersonation.</div>
+    </div>
 
-      <div class="user-wallet__funds-actions" *ngIf="!isImpersonated">
-        <div>
+    <div class="box-content col row--gap18">
+      <div class="col row--gap8">
+        <p
+          *ngIf="calculateFunds"
+          class="ap-copy ap-copy--medium ap-copy--secondary"
+          data-test="user-total-funds-in-currency">
+          {{ wallet.walletBalance | calculateInCurrency : 2 }}
+        </p>
+        <p class="ap-copy ap-copy--large ap-copy--semi" data-test="user-total-funds">
+          {{ wallet.walletBalance | formatMoney : 4 : crypto : code }}
+        </p>
+      </div>
+
+      <div class="row row--gap18 ap-copy" *ngIf="!isImpersonated">
+        <div class="col row--gap8">
           <button
-            class="user-wallet__btn user-wallet__btn--white"
+            class="ap-btn ap-btn--secondary"
             (click)="openAddFundsDialog()"
             data-test="add-funds-dialog-open-button">
-            <img class="user-wallet__icon" src="assets/images/credit-card--blue.svg" alt="" />
+            <fa-icon [icon]="faCreditCard" class="ap-icon ap-icon--prepend"></fa-icon>
             Deposit funds
           </button>
-          <br />
-          <a
-            [href]="getAdsFaqLink"
-            rel="noopener noreferrer"
-            target="_blank"
-            class="user-wallet__link"
-            data-test="settings-faq-link">
+          <a [href]="getAdsFaqLink" rel="noopener noreferrer" target="_blank" data-test="settings-faq-link">
             How to get ADS coins
           </a>
         </div>
-        <div>
+        <div class="col row--gap8">
           <button
-            class="user-wallet__btn"
+            class="ap-btn ap-btn--secondary ap-btn-info"
             (click)="openWithdrawFundsDialog()"
             data-test="withdraw-funds-dialog-open-button">
-            <img class="user-wallet__icon" src="assets/images/credit-card--white.svg" alt="" />
+            <fa-icon [icon]="faCreditCard" class="ap-icon ap-icon--prepend"></fa-icon>
             Withdraw funds
           </button>
-          <br />
-          <a
-            [href]="withdrawAdsFaqLink"
-            rel="noopener noreferrer"
-            target="_blank"
-            class="user-wallet__link"
-            data-test="settings-faq-link">
+          <a [href]="withdrawAdsFaqLink" rel="noopener noreferrer" target="_blank" data-test="settings-faq-link">
             How to withdraw ADS coins
           </a>
         </div>
@@ -54,16 +48,23 @@
     </div>
   </div>
 
-  <div class="user-wallet__wallet-box">
-    <div class="user-wallet__content-container">
-      <h2 class="user-wallet__title">BONUS</h2>
-      <p class="user-wallet__sub-title">You can spend your bonus funds on advertising. Withdrawal is not possible.</p>
-      <p *ngIf="calculateFunds" class="user-wallet__funds-in-currency" data-test="bonus-funds-in-currency">
-        {{ wallet.bonusBalance | calculateInCurrency : 2 }}
-      </p>
-      <strong class="user-wallet__funds" data-test="bonus-funds">
-        {{ wallet.bonusBalance | formatMoney : 4 : crypto : code }}
-      </strong>
+  <div class="ap-box">
+    <div class="box-title">
+      <h2 class="ap-heading ap-heading--h2">BONUS</h2>
+      <p class="ap-copy box-subtitle">You can spend your bonus funds on advertising. Withdrawal is not possible.</p>
+    </div>
+    <div class="box-content">
+      <div class="col row--gap8">
+        <p
+          *ngIf="calculateFunds"
+          class="ap-copy ap-copy--medium ap-copy--secondary"
+          data-test="bonus-funds-in-currency">
+          {{ wallet.bonusBalance | calculateInCurrency : 2 }}
+        </p>
+        <p class="ap-copy ap-copy--large ap-copy--semi" data-test="bonus-funds">
+          {{ wallet.bonusBalance | formatMoney : 4 : crypto : code }}
+        </p>
+      </div>
     </div>
   </div>
 </section>

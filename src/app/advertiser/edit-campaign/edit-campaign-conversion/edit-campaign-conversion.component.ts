@@ -9,6 +9,7 @@ import { first } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem, CampaignsConfig } from 'models/campaign.model';
 import { campaignConversionItemInitialState } from 'models/initial-state/campaign';
+import { CONVERSIONS_DESCRIPTION } from 'models/enum/link.enum';
 import {
   ClearLastEditedCampaign,
   LoadCampaignsConfig,
@@ -16,6 +17,7 @@ import {
   UPDATE_CAMPAIGN_FAILURE,
   UPDATE_CAMPAIGN_SUCCESS,
 } from 'store/advertiser/advertiser.actions';
+import { faTriangleExclamation, faCopy } from '@fortawesome/free-solid-svg-icons';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
@@ -40,6 +42,10 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
   private readonly CONVERSION_COUNT_MAXIMAL: number = 100;
   private readonly BUDGET_TYPE_IN: string = 'in_budget';
   private readonly BUDGET_TYPE_OUT: string = 'out_of_budget';
+
+  faTriangleExclamation = faTriangleExclamation;
+  faCopy = faCopy;
+  CONVERSIONS_DESCRIPTION = CONVERSIONS_DESCRIPTION;
 
   readonly availableEventTypes = [
     'Add payment info',
@@ -69,7 +75,7 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
 
   conversionItemForms: FormGroup[] = [];
   campaignsConfig: CampaignsConfig;
-  campaign: Campaign;
+  public campaign: Campaign;
 
   validateForm: boolean = false;
   submitted: boolean = false;
@@ -99,6 +105,10 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
 
   get conversionItemFormsBasic(): FormGroup[] {
     return this.conversionItemForms.filter(form => !form.get('isAdvanced').value);
+  }
+
+  onConversionClickChange(value): void {
+    this.campaign = { ...this.campaign, conversionClick: value };
   }
 
   updateCampaignConversion(): void {
@@ -144,6 +154,18 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
 
   get isFormValid(): boolean {
     this.validateAdvancedValueControl();
+    return this.conversionItemForms.every(item => item.valid);
+  }
+
+  isFormError(type: 'basic' | 'advanced'): boolean {
+    this.validateAdvancedValueControl();
+    if (type === 'basic') {
+      return this.conversionItemForms.filter(form => !form.get('isAdvanced').value).every(item => item.valid);
+    }
+
+    if (type === 'advanced') {
+      return this.conversionItemForms.filter(form => form.get('isAdvanced').value).every(item => item.valid);
+    }
     return this.conversionItemForms.every(item => item.valid);
   }
 

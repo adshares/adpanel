@@ -1,18 +1,19 @@
 <div class="report-list-item row align-center">
-  <div class="col-xs-1">
+  <div class="col-xs-10 ap-copy">
     <fa-icon
-      class="report-list-item__icon report-list-item__icon--{{ item.state }}"
+      class="ap-icon ap-icon--prepend report-list-item__icon--{{ item.state }}"
+      size="lg"
       matTooltip="{{ item.state }}"
       matTooltipClass="ap-mat-tooltip"
       [icon]="icon">
     </fa-icon>
+    {{ item.name }}
   </div>
-  <div class="col-xs-9 ap-copy">{{ item.name }}</div>
   <div class="col-xs-2">
     <button
       *ngIf="REPORT_STATE_READY === item.state"
       type="button"
-      class="ap-btn ap-btn--white ap-blue"
+      class="ap-btn ap-btn--text"
       (click)="download()"
       data-test="report-download-button">
       Download

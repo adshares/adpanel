@@ -17,10 +17,19 @@
   }
 }
 
+.filters {
+  margin: 4px 0 20px;
+
+  .ap-select {
+    height: 34px;
+  }
+}
+
 .dashboard {
   &__chart-wrapper {
     overflow: hidden;
     overflow-x: auto;
+    margin-bottom: 24px;
   }
 
   &__chart {

@@ -14,7 +14,6 @@ import { SessionService } from '../../../session.service';
 @Component({
   selector: 'app-newsletter-settings',
   templateUrl: './newsletter-settings.component.html',
-  styleUrls: ['./newsletter-settings.component.scss'],
 })
 export class NewsletterSettingsComponent extends HandleSubscriptionComponent implements OnInit {
   isSubscribed: boolean = false;

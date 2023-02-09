@@ -4,8 +4,8 @@
   right: 12px;
   width: 16px;
   height: 16px;
-  background: pal(white);
-  border: 1px solid pal(navy, light);
+  background: pal(light);
+  border: 1px solid pal(primary);
 
   &.sub-selected {
     &:after {
@@ -15,7 +15,7 @@
       left: 2px;
       width: 10px;
       height: 10px;
-      background: pal(navy, light);
+      background: pal(primary);
     }
   }
 
@@ -27,7 +27,7 @@
       left: 3px;
       width: 6px;
       height: 10px;
-      border: solid pal(navy, light);
+      border: solid pal(primary);
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
@@ -42,7 +42,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: pal(green);
+  background: pal(success);
 
   &:after {
     content: '';
@@ -51,7 +51,7 @@
     left: 5px;
     width: 3px;
     height: 6px;
-    border: solid pal(white);
+    border: solid pal(light);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
@@ -64,7 +64,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: pal(gray, light);
+  background: pal(gray);
 }
 
 .stopmark-unselected.selected {
@@ -74,7 +74,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: pal(red);
+  background: pal(error);
 }
 
 .stopmark-unselected,
@@ -86,7 +86,7 @@
     left: 5px;
     width: 3px;
     height: 6px;
-    border: solid pal(white);
+    border: solid pal(light);
     border-width: 0 3px 0 0;
     transform: rotate(90deg);
   }
@@ -100,20 +100,31 @@
   }
 
   &-label {
-    @include font(16, medium);
-    color: pal(gray);
-    margin: 10px 0 4px;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    @include font(12, medium);
+    color: pal(dark);
     display: inline-block;
   }
 
   &-input,
   &-select {
-    border-radius: 2px;
-    background-color: #f8f9fc;
-    border: solid 1px pal(gray, light);
+    border: solid 1px pal(dark);
+    border-radius: 10px;
     padding: 13px 13px 13px 18px;
-    max-width: 320px;
+    max-width: 210px;
+    min-width: 180px;
     @include font(16, medium);
+
+    &::placeholder {
+      color: pal(gray);
+      @include font(14, normal)
+    }
+
+    &:focus {
+      border-color: pal(secondary);
+    }
 
     //full input width accounts for input's padding
     &--full {
@@ -142,6 +153,11 @@
     &--narrow {
       padding: 0 13px 0 18px;
     }
+
+    &[disabled] {
+      border-color: pal(gray);
+      color: pal(gray);
+    }
   }
 
   &-search-option {
@@ -153,7 +169,7 @@
   }
 
   &-submit-btn {
-    margin: 35px 0 20px 0;
+    margin: 32px 0;
   }
 }
 
@@ -167,7 +183,7 @@ label .checkbox-label {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 1px solid pal(gray, mid-light);
+  border: 1px solid pal(gray);
   position: relative;
   margin-right: 10px;
   vertical-align: text-bottom;
@@ -179,8 +195,8 @@ label .checkbox-label {
 
 input[type='checkbox']:checked + label .checkbox-label,
 input[type='radio']:checked + label .checkbox-label {
-  background: pal(green);
-  border: 1px solid pal(green);
+  background: pal(success);
+  border: 1px solid pal(success);
 
   &:after {
     content: '';
@@ -189,7 +205,7 @@ input[type='radio']:checked + label .checkbox-label {
     left: 5px;
     width: 3px;
     height: 6px;
-    border: solid pal(white);
+    border: solid pal(light);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
@@ -199,14 +215,11 @@ input[type='radio']:checked + label .checkbox-label {
   position: relative;
   width: 100%;
   cursor: pointer;
-  border-radius: 2px;
-  color: pal(navy);
-  @include font(14, semi);
-  background: pal(white);
+  border-radius: 10px;
+  @include font(14, semiBold);
+  background: pal(light);
   margin: 0 auto;
-  padding: 0 35px 0 15px;
-  height: 42px;
-  border: 1px solid pal(gray, x-light);
+  border: 1px solid pal(dark);
   /* needed */
   appearance: none;
   outline: none;
@@ -218,10 +231,13 @@ input[type='radio']:checked + label .checkbox-label {
     display: block;
     @include center(vertical);
     right: 15px;
+    z-index: 10;
   }
 
   .mat-select-trigger {
     height: 100%;
+    padding: 13px 35px 13px 15px;
+    z-index: 20;
   }
 
   .mat-select-value {
@@ -246,13 +262,12 @@ input[type='radio']:checked + label .checkbox-label {
 
 .error-msg {
   position: relative;
-  @include font(14, medium);
-  color: pal(red);
-  background-color: pal(red, light);
-  border: 1px solid pal(red);
-  border-radius: 2px;
+  @include font(14, semiBold);
+  color: pal(error);
+  background-color: pal(error, light);
+  border-radius: 10px;
   margin-top: 5px;
-  padding: 8px 32px 8px 8px;
+  padding: 12px 32px 12px 12px;
   min-width: 150px;
 
   &__full-width {
@@ -263,7 +278,7 @@ input[type='radio']:checked + label .checkbox-label {
     position: absolute;
     display: block;
     content: url('/assets/images/error_icon.svg');
-    top: 9px;
+    top: 13px;
     right: 5px;
   }
 
@@ -280,32 +295,32 @@ input[type='radio']:checked + label .checkbox-label {
 
 .success-msg {
   @extend .error-msg;
-  color: pal(green);
-  background-color: pal(green, light);
-  border-color: pal(green);
+  color: pal(success);
+  background-color: pal(success, light);
+  border-color: pal(success);
   padding-right: 30px;
 
   &:after {
     position: absolute;
     display: block;
     content: url('/assets/images/confirm_icon.svg');
-    top: 9px;
+    top: 13px;
     right: 5px;
   }
 }
 
 .warning-msg {
   @extend .error-msg;
-  color: pal(black);
-  background-color: pal(orange, base);
-  border-color: pal(orange);
+  color: pal(warning);
+  background-color: pal(warning, light);
+  border-color: pal(warning);
   padding-right: 30px;
 
   &:after {
     position: absolute;
     display: block;
     content: url('/assets/images/confirm_icon.svg');
-    top: 9px;
+    top: 13px;
     right: 5px;
   }
 }

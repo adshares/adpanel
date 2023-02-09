@@ -1,15 +1,21 @@
 <section class="ap-edit-asset__navigation row align-center">
   <div class="container row align-center justify-center">
-    <div *ngFor="let step of steps" class="ap-edit-asset__navigation-step row align-center">
+    <div *ngFor="let step of steps; let i = index" class="ap-edit-asset__navigation-step row align-center">
       <div
-        class="ap-circle"
+        class="step-circle row align-center justify-center"
         [class.inactive]="currentStep < step.id"
         [class.active]="currentStep === step.id"
-        [class.done]="currentStep > step.id"></div>
+        [class.done]="currentStep > step.id">
+        <span class="ap-copy--small ap-copy--semi">{{ i + 1 }}</span>
+      </div>
       <p class="ap-copy">
         {{ step.name }}
       </p>
-      <div class="ap-step-link-indicator"></div>
+      <div
+        class="ap-step-link-indicator"
+        [class.inactive]="currentStep < step.id"
+        [class.active]="currentStep === step.id"
+        [class.done]="currentStep > step.id"></div>
     </div>
   </div>
 </section>

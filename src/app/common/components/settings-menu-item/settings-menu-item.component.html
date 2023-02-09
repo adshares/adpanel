@@ -1,20 +1,22 @@
-<li class="settings-menu-item" routerLinkActive="active">
-  <a [routerLink]="menuItem.link" data-test="settings-category-link">
-    <h3 class="ap-copy--large ap-copy--x-dark">
-      {{ menuItem.title }}
-    </h3>
-  </a>
-  <p class="ap-copy">
-    {{ menuItem.description }}
-  </p>
-  <ul class="settings-menu-item__submenu">
-    <li *ngFor="let subMenuItems of menuItem.values" class="settings-menu-item__submenu-item">
-      <a [routerLink]="menuItem.link" data-test="settings-category-link-direct">
-        <div class="row align-center" routerLinkActive="active">
-          <img alt="" class="ap-icon ap-icon--prepend" [src]="subMenuItems.icon" />
-          <span class="ap-copy">{{ subMenuItems.name }}</span>
-        </div>
-      </a>
-    </li>
-  </ul>
-</li>
+<div class="settings-menu-item">
+  <mat-expansion-panel
+    [routerLinkActive]="'active-group'"
+    #rla="routerLinkActive"
+    [expanded]="rla.isActive || isPanelExpanded">
+    <mat-expansion-panel-header class="panel-header">
+      <mat-panel-title class="settings-menu-item__submenu-title">
+        {{ menuItem.title }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ul class="settings-menu-item__submenu">
+      <li
+        *ngFor="let subMenuItems of menuItem.values"
+        [routerLink]="subMenuItems.path ? menuItem.link + subMenuItems.path : menuItem.link"
+        routerLinkActive="active-tab"
+        class="settings-menu-item__submenu-item">
+        <span *ngIf="!!subMenuItems.name">{{ subMenuItems.name }}</span>
+      </li>
+    </ul>
+  </mat-expansion-panel>
+</div>

@@ -16,6 +16,7 @@ import { adCreativeTypes } from 'models/enum/ad.enum';
 import { campaignInitialState } from 'models/initial-state/campaign';
 import { AssetTargeting, TargetingReachResponse } from 'models/targeting-option.model';
 import { Media, Medium } from 'models/taxonomy-medium.model';
+import * as qs from 'qs';
 import { forkJoin, Observable, of, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
@@ -31,17 +32,23 @@ export class AdvertiserService {
     });
   }
 
-  getCampaigns(): Observable<Campaign[]> {
-    return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
+  getCampaigns(filter: any = {}): Observable<Campaign[]> {
+    const queryString = qs.stringify(filter);
+    return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns?${queryString}`);
   }
 
-  getCampaignsTotals(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotalsResponse> {
-    const options = campaignId && {
-      params: { campaign_id: `${campaignId}` },
-    };
+  getCampaignsTotals(
+    dateStart: string,
+    dateEnd: string,
+    campaignId?: number,
+    filter: any = {}
+  ): Observable<CampaignTotalsResponse> {
+    if (campaignId) {
+      filter.campaign_id = `${campaignId}`;
+    }
+    const queryString = qs.stringify(filter);
     return this.http.get<CampaignTotalsResponse>(
-      `${environment.apiUrl}/campaigns/stats/table2/${dateStart}/${dateEnd}`,
-      options
+      `${environment.apiUrl}/campaigns/stats/table2/${dateStart}/${dateEnd}?${queryString}`
     );
   }
 

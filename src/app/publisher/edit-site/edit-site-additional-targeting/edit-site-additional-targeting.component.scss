@@ -1,15 +1,10 @@
 @import '../../../../styles.scss';
 
 .site-edit-additional-targeting {
-  max-width: 1000px;
-  margin: 0 auto;
 
-  @include media(xxl-up) {
-    max-width: 1300px;
-  }
-
-  @include media(xxxl-up) {
-    max-width: 2000px;
+  & > .ap-heading {
+    margin-top: 18px;
+    margin-bottom: 18px;
   }
 
   &__checkbox-container {
@@ -22,14 +17,6 @@
 }
 
 .classification-section {
-  &__title {
-    line-height: 64px;
-  }
-
-  &__info {
-    margin-bottom: 24px;
-  }
-
   &__info-create-site {
     margin-top: 16px;
     margin-bottom: 8px;
@@ -40,11 +27,7 @@
     max-width: 300px;
 
     &:hover {
-      color: darken(pal(blue), 10%);
+      color: pal(secondary);
     }
   }
-}
-
-.ap-box {
-  margin-top: 8px;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 import { ChartService } from 'common/chart.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
@@ -16,6 +17,7 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,8 +39,9 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
   barChartData = createInitialDataSet();
 
   currentChartFilterSettings: ChartFilterSettings;
+  faPlusCircle = faPlusCircle;
 
-  constructor(private chartService: ChartService, private store: Store<AppState>) {
+  constructor(private chartService: ChartService, private store: Store<AppState>, private router: Router) {
     super();
   }
 
@@ -132,5 +135,9 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
         dateEnd: this.currentChartFilterSettings.currentTo,
       })
     );
+  }
+
+  navigateToCreateSite(): void {
+    this.router.navigate(['publisher', 'create-site', 'basic-information']);
   }
 }

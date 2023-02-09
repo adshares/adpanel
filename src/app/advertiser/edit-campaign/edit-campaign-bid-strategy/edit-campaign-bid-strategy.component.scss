@@ -1,18 +1,12 @@
 @import '../../../../styles.scss';
 
 .campaign-edit-bid-strategy {
-  max-width: 1300px;
-  margin: 0 auto;
 
-  @include media(xxxl-up) {
-    max-width: 2000px;
-  }
-
-  .ap-box {
-    margin: 10px 0;
+  & .bid-strategy-wrapper {
+    margin-top: 24px;
   }
 }
 
-.space-top {
-  margin-top: 30px;
+.bid-strategy__select {
+  min-width: 210px;
 }

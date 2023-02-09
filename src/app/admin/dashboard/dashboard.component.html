@@ -1,19 +1,9 @@
-<section class="admin-dashboard row">
+<section class="admin-dashboard row no-wrap">
   <app-panel-blockade *ngIf="isPanelBlocked" [url]="licenseDetailUrl"></app-panel-blockade>
   <div class="admin-dashboard__side-menu">
-    <div *ngIf="adControllerUrl" class="ap-copy justify-center message">
-      <a [href]="adControllerUrl" rel="noopener nofollow noreferrer" data-test="settings-category-link">
-        <h3 class="ap-copy--large">
-          <span class="ap-copy--x-dark"> AdController Panel </span>
-          <fa-icon [icon]="faGears" class="ap-icon ap-icon--large"></fa-icon>
-        </h3>
-      </a>
-    </div>
-    <ul>
-      <li *ngFor="let menuItem of settings">
-        <app-settings-menu-item [menuItem]="menuItem"></app-settings-menu-item>
-      </li>
-    </ul>
+    <mat-accordion>
+      <app-settings-menu-item *ngFor="let menuItem of settings" [menuItem]="menuItem"></app-settings-menu-item>
+    </mat-accordion>
   </div>
   <div class="settings-outlet">
     <router-outlet></router-outlet>

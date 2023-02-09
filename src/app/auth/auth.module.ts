@@ -11,9 +11,10 @@ import { ForgottenPasswordComponent } from './forgotten-password/forgotten-passw
 import { RegisteredComponent } from './registered/registered.component';
 import { EmailProcessingComponent } from 'auth/account/email-processing.component';
 import { ResetPasswordComponent } from 'auth/reset-password/reset-password.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
-  imports: [CommonModule, AppCommonModule, FormsModule, ReactiveFormsModule, AuthRoutingModule],
+  imports: [CommonModule, AppCommonModule, FormsModule, ReactiveFormsModule, AuthRoutingModule, MatCheckboxModule],
   declarations: [
     EmailProcessingComponent,
     AuthComponent,

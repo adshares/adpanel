@@ -1,31 +1,31 @@
 @import '../../../../styles.scss';
 
 .domain-checker {
-  @include font(16, normal);
-  border: 1px solid pal(gray, light);
-  border-radius: 2px;
-  padding: 8px 16px;
-  color: pal(gray, dark);
-  background: pal(white);
+  position: relative;
+  @include font(14, semiBold);
+  color: pal(error);
+  border-radius: 10px;
+  padding: 12px 12px;
+  min-width: 150px;
 
   &:not(:last-child) {
-    margin-right: 10px;
+    margin-right: 18px;
   }
 
   &.q-great {
-    border-color: pal(green);
-    color: pal(green);
+    background-color: pal(success, light);
+    color: pal(success);
   }
   &.q-good {
-    border-color: pal(blue);
-    color: pal(blue);
+    background-color: pal(secondary, light);
+    color: pal(secondary);
   }
   &.q-medium {
-    border-color: pal(orange, dark);
-    color: pal(orange, dark);
+    background-color: pal(warning, light);
+    color: pal(warning);
   }
   &.q-bad {
-    border-color: pal(red);
-    color: pal(red);
+    background-color: pal(error, light);
+    color: pal(error);
   }
 }

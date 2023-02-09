@@ -5,10 +5,11 @@ import { AppState } from 'models/app-state.model';
 import { LoadPublishers } from 'store/admin/admin.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseListComponent } from 'admin/users/base-list/base-list.component';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export interface PublishersQueryParams {
   searchPhrase: string | null;
-  groupBy: 'domain' | 'user';
+  groupBy: 'campaign' | 'user';
   interval: 'week' | 'day' | 'hour';
   minDailyViews: number;
   sort?: string[];
@@ -29,11 +30,12 @@ export interface PublishersQueryParams {
 export class PublisherListComponent extends BaseListComponent implements OnInit {
   readonly defaultParams: PublishersQueryParams = {
     searchPhrase: '',
-    groupBy: 'domain',
+    groupBy: 'campaign',
     interval: 'week',
     minDailyViews: 10000,
   };
   localStorageName = 'publishersQueryParams';
+  faSearch = faSearch;
 
   constructor(store: Store<AppState>, router: Router, activatedRoute: ActivatedRoute) {
     super(store, router, activatedRoute);

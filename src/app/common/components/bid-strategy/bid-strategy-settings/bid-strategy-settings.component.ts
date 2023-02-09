@@ -13,6 +13,7 @@ import { DELETE_SUCCESS, SAVE_SUCCESS } from 'common/utilities/messages';
 import { SessionService } from '../../../../session.service';
 import { BidStrategyService } from 'common/bid-strategy.service';
 import { HTTP_INTERNAL_SERVER_ERROR, HTTP_NOT_FOUND } from 'common/utilities/codes';
+import { faPlus, faDownload, faUpload, faSave } from '@fortawesome/free-solid-svg-icons';
 
 interface BidStrategyComponentEntry {
   key: string;
@@ -47,6 +48,10 @@ export class BidStrategySettingsComponent extends HandleSubscriptionComponent im
   isUploadInProgress: boolean = false;
   media: Entry[] = [];
   vendors: Entry[] = [];
+  faPlus = faPlus;
+  faDownload = faDownload;
+  faUpload = faUpload;
+  faSave = faSave;
 
   constructor(
     private bidStrategyService: BidStrategyService,
