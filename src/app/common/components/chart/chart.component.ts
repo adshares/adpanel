@@ -14,7 +14,6 @@ import { ServerOptionsService } from 'common/server-options.service';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy, OnChanges {
   @Input() chartSpan: string;
