@@ -61,10 +61,8 @@
     animation: slideDown 0.2s ease-out;
   }
 
-  .filter-row {
-    > * {
-      margin: 10px 0 10px 10px;
-    }
+  & .ap-btn {
+    min-width: 0;
   }
 }
 
