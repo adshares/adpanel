@@ -386,7 +386,7 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
         const result = await this.tokenContract.methods
           .unwrapMessage(
             (amount * 1e11).toFixed(0),
-            '0x' + this.adsharesAddress.replace(new RegExp('-', 'g'), ''),
+            '0x' + this.adsharesAddress.replace(/-/g, ''),
             '0x' + this.paymentMemo
           )
           .send({ from: this.metamaskAccount });
