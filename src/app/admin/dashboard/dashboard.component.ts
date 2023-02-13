@@ -34,11 +34,11 @@ export class DashboardComponent extends HandleSubscriptionComponent implements O
       values: [{ name: 'Bid strategy', path: '' }],
     },
     {
-      title: 'Wallet settings',
+      title: 'Account settings',
       description: '',
       link: '/admin/dashboard/account',
       values: [
-        { name: 'Account wallet', path: '/wallet' },
+        { name: 'Wallet', path: '/wallet' },
         { name: 'Email & password', path: '/preferences' },
         { name: 'Referral links', path: '/referrals' },
         { name: 'Access tokens', path: '/access-token' },
