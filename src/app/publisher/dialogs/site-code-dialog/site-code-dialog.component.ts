@@ -17,7 +17,7 @@ import {
   AVAILABLE_ADZONE_OPTIONS,
   SETUP_FALLBACK_BACKFILL_CODE_INSTRUCTION,
 } from 'models/enum/link.enum';
-import { ShowSuccessSnackbar } from 'store/common/common.actions';
+import { HelperService } from 'common/helper.service';
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -46,6 +46,7 @@ export class SiteCodeDialogComponent extends HandleSubscriptionComponent impleme
     private serverOptionsService: ServerOptionsService,
     private store: Store<AppState>,
     private dialog: MatDialog,
+    private helperService: HelperService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     super();
@@ -144,12 +145,7 @@ export class SiteCodeDialogComponent extends HandleSubscriptionComponent impleme
 
   copyCode(elementId: string): void {
     const input = <HTMLInputElement>document.getElementById(elementId);
-    navigator.clipboard
-      .writeText(input.value)
-      .then(() => {
-        this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
-      })
-      .catch(error => console.log(error));
+    this.helperService.copyToClipboard(input.value);
   }
 
   onChangeAdvancedCircumvent($event): void {

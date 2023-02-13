@@ -2,9 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
-import { ShowSuccessSnackbar } from 'store/common/common.actions';
-import { Store } from '@ngrx/store';
-import { AppState } from 'models/app-state.model';
+import { HelperService } from 'common/helper.service';
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -17,17 +15,12 @@ export class AccessTokenDialogComponent extends HandleSubscriptionComponent {
   constructor(
     public dialogRef: MatDialogRef<AccessTokenDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
-    private store: Store<AppState>
+    private helperService: HelperService
   ) {
     super();
   }
 
   copyCode(token: string): void {
-    navigator.clipboard
-      .writeText(token)
-      .then(() => {
-        this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
-      })
-      .catch(error => console.log(error));
+    this.helperService.copyToClipboard(token);
   }
 }

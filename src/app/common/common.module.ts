@@ -69,6 +69,7 @@ import { ModelPreviewComponent } from 'common/components/model-preview/model-pre
 import { ServerOptionsService } from 'common/server-options.service';
 import { AccessTokenScopesResolver } from 'common/resolvers/access-token-scopes-resolver.service';
 import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
+import { HelperService } from 'common/helper.service';
 
 const matModules = [
   MatDialogModule,
@@ -154,6 +155,7 @@ const appComponents = [
     MediaResolver,
     ServerOptionsResolver,
     ServerOptionsService,
+    HelperService,
   ],
   exports: [
     ...appComponents,

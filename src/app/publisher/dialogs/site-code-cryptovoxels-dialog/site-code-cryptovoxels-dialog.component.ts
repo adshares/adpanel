@@ -4,9 +4,7 @@ import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { PublisherService } from 'publisher/publisher.service';
-import { ShowSuccessSnackbar } from 'store/common/common.actions';
-import { Store } from '@ngrx/store';
-import { AppState } from 'models/app-state.model';
+import { HelperService } from 'common/helper.service';
 
 @Component({
   selector: 'app-site-code-cryptovoxels-dialog',
@@ -22,7 +20,7 @@ export class SiteCodeCryptovoxelsDialogComponent extends HandleSubscriptionCompo
   constructor(
     public dialogRef: MatDialogRef<SiteCodeCryptovoxelsDialogComponent>,
     private publisherService: PublisherService,
-    private store: Store<AppState>
+    private helperService: HelperService
   ) {
     super();
   }
@@ -41,11 +39,6 @@ export class SiteCodeCryptovoxelsDialogComponent extends HandleSubscriptionCompo
   }
 
   copyCode(token: string): void {
-    navigator.clipboard
-      .writeText(token)
-      .then(() => {
-        this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
-      })
-      .catch(error => console.log(error));
+    this.helperService.copyToClipboard(token);
   }
 }

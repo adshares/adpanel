@@ -1,10 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AppState } from 'models/app-state.model';
-import { ShowSuccessSnackbar } from 'store/common/common.actions';
-import { Store } from '@ngrx/store';
 import { CONVERSIONS_DESCRIPTION } from 'models/enum/link.enum';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { HelperService } from 'common/helper.service';
 
 @Component({
   selector: 'app-conversion-link-information-dialog',
@@ -19,7 +17,7 @@ export class ConversionLinkInformationDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ConversionLinkInformationDialogComponent>,
-    private store: Store<AppState>,
+    private helpersService: HelperService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -29,11 +27,6 @@ export class ConversionLinkInformationDialogComponent implements OnInit {
   }
 
   copyToClipboard(content: string) {
-    navigator.clipboard
-      .writeText(content)
-      .then(() => {
-        this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
-      })
-      .catch(error => console.log(error));
+    this.helpersService.copyToClipboard(content);
   }
 }

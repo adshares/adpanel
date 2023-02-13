@@ -23,9 +23,7 @@ import Web3 from 'web3';
 import { ServerOptionsService } from 'common/server-options.service';
 import { GET_ADS_FAQ } from 'models/enum/link.enum';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
-import { ShowSuccessSnackbar } from 'store/common/common.actions';
-import { Store } from '@ngrx/store';
-import { AppState } from 'models/app-state.model';
+import { HelperService } from 'common/helper.service';
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -138,7 +136,7 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
     private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private settings: SettingsService,
-    private store: Store<AppState>
+    private helperService: HelperService
   ) {
     super();
   }
@@ -299,12 +297,7 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
   }
 
   copyInput(input: HTMLInputElement): void {
-    navigator.clipboard
-      .writeText(input.value)
-      .then(() => {
-        this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
-      })
-      .catch(error => console.log(error));
+    this.helperService.copyToClipboard(input.value);
   }
 
   selectNativeDeposit(): void {
