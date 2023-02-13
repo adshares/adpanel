@@ -94,7 +94,7 @@ function formatMoney(
   const l = v.length - 11;
   let a = v.substring(0, l) || '0';
   const j = a.length > 3 ? a.length % 3 : 0;
-  let b = Math.round(parseInt(v.substring(l, p + l))).toString();
+  let b = Math.round(parseInt((v + '0').substring(l, p + l + 1)) / 10).toString();
   if (b.length > p) {
     b = '0';
     a = (parseInt(a) + 1).toString();
