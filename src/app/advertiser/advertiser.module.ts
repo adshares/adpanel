@@ -39,6 +39,7 @@ import { CampaignResolver } from './resolvers/campaign.resolver';
 import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
 import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
+import { CampaignsMediaResolver } from 'advertiser/resolvers/campaigns-media.resolver';
 import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
 import { EditCampaignNavigationComponent } from 'advertiser/edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { TargetingReachComponent } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
@@ -98,6 +99,7 @@ const advertiserComponents = [
     BannersConfigResolver,
     CampaignResolver,
     CampaignsConfigResolver,
+    CampaignsMediaResolver,
     { provide: NGX_MAT_DATE_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS },
   ],
 

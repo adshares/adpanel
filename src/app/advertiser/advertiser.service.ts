@@ -10,6 +10,7 @@ import {
   Campaign,
   CampaignConversionStatistics,
   CampaignsConfig,
+  CampaignsMediaResponse,
   CampaignTotalsResponse,
 } from 'models/campaign.model';
 import { adCreativeTypes } from 'models/enum/ad.enum';
@@ -146,6 +147,10 @@ export class AdvertiserService {
 
   getCampaignsConfig(): Observable<CampaignsConfig> {
     return this.http.get<CampaignsConfig>(`${environment.apiUrl}/options/campaigns`);
+  }
+
+  getCampaignsMedia(): Observable<CampaignsMediaResponse> {
+    return this.http.get<CampaignsMediaResponse>(`${environment.apiUrl}/campaigns/media`);
   }
 
   getMedium(
