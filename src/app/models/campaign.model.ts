@@ -140,6 +140,16 @@ interface AdPreview {
   landingUrl: string;
 }
 
+interface CampaignMedium {
+  medium: string;
+  vendor: string | null;
+  label: string;
+}
+
+interface CampaignsMediaResponse {
+  campaignsMedium: CampaignMedium[];
+}
+
 interface CampaignTotalsResponse {
   total: CampaignTotals;
   data: CampaignTotals[];
@@ -178,6 +188,8 @@ export {
   CampaignTargeting,
   Ad,
   AdPreview,
+  CampaignsMediaResponse,
+  CampaignMedium,
   CampaignTotals,
   CampaignTotalsResponse,
   BidStrategy,
