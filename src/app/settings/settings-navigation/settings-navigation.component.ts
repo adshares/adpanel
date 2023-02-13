@@ -61,7 +61,7 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
       description: '',
       link: '/settings/general',
       values: [
-        { name: 'Wallet settings', path: '/wallet' },
+        { name: 'Wallet', path: '/wallet' },
         { name: 'Email & password', path: '/preferences' },
         { name: 'Referral links', path: '/referrals' },
         { name: 'Access tokens', path: '/access-token' },

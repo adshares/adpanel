@@ -115,8 +115,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscriptionCompone
       return;
     }
 
-    const domain = this.site.domain;
-    this.publisherService.validateDomain(domain).subscribe(
+    this.publisherService.validateDomain(this.site.domain, this.site.medium, this.site.vendor).subscribe(
       () => {
         this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
       },
