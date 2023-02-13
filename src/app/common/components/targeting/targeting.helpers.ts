@@ -45,17 +45,18 @@ function createFilteringChoice(
       return null;
     }
   };
+  const sublistName = choiceSublistName();
 
   Object.assign(targetingChoice, { id });
 
-  if (choiceSublistName()) {
+  if (sublistName) {
     const targetingChoiceSublist = [];
 
-    for (let targetingChoiceSublistItem of targetingChoice[choiceSublistName()]) {
+    for (let targetingChoiceSublistItem of targetingChoice[sublistName]) {
       targetingChoiceSublist.push(createFilteringChoice(targetingChoiceSublistItem, key, targetingChoice));
     }
 
-    Object.assign(targetingChoice[choiceSublistName()], targetingChoiceSublist);
+    Object.assign(targetingChoice[sublistName], targetingChoiceSublist);
   }
 
   if (targetingChoice.value) {
