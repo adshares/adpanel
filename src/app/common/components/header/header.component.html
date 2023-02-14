@@ -40,12 +40,12 @@
         [ngClass]="{ active: activeUserType === userType }"
         (click)="setActiveUserType(userType)">
         <fa-icon class="ap-icon ap-icon--prepend" [icon]="faUser"></fa-icon>
-        <span *ngIf="session.isModerator()">Moderator</span>
+        <span *ngIf="session.isModerator() && !session.isAdmin()">Moderator</span>
+        <span *ngIf="session.isAdmin()">Admin</span>
         <span *ngIf="session.isAgency()">Agency</span>
       </button>
     </div>
     <div
-      *ngIf="!session.isModerator() || session.isImpersonated()"
       class="ap-btn ap-btn--text ap-btn-light row align-center help-menu no-underline hidden-xl-up"
       (mouseover)="toggleRolesMenu(true)"
       (mouseleave)="toggleRolesMenu(false)">
@@ -88,7 +88,8 @@
             [ngClass]="{ active: activeUserType === userType }"
             (click)="setActiveUserType(userType)">
             <fa-icon class="ap-icon ap-icon--prepend" [icon]="faUser"></fa-icon>
-            <span *ngIf="session.isModerator()">Moderator</span>
+            <span *ngIf="session.isModerator() && !session.isAdmin()">Moderator</span>
+            <span *ngIf="session.isAdmin()">Admin</span>
             <span *ngIf="session.isAgency()">Agency</span>
           </button>
         </li>
