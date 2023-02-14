@@ -6,18 +6,8 @@
 
 .ap-logo {
   height: auto;
-  max-width: 100px;
-  margin-bottom: 10px;
-
-  @include media(sm-up) {
-    margin-bottom: 0;
-    max-width: 110px;
-  }
-
-  @include media(md-up) {
-    margin-bottom: 0;
-    max-width: 120px;
-  }
+  max-width: 200px;
+  max-height: 40px;
 }
 
 .ap-circle {
