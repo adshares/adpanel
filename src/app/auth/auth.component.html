@@ -11,7 +11,7 @@
 
     <div class="col ap-login__footer ap-copy ap-copy--small">
       <div class="row align-center justify-between">
-        <a href="https://adshares.net?utm_source={{ source }}&utm_campaign=auth" target="_blank">
+        <a [href]="landingPageUrl" target="_self">
           <img class="ap-logo" src="assets/images/logo.png" alt="Adshares Logo" />
         </a>
         <a
@@ -34,11 +34,16 @@
       </div>
     </div>
 
-    <p class="ap-copy links-wrapper">
-      Learn how to use our platform -
-      <a [href]="advertiserInstructionLink" class="ap-blue" target="_blank">ADVERTISER</a> /
-      <a [href]="publisherInstructionLink" class="ap-blue" target="_blank">PUBLISHER</a>
-    </p>
+    <div class="col row--gap8 links-wrapper">
+      <p class="ap-copy">
+        Learn how to use our platform -
+        <a [href]="advertiserInstructionLink" class="ap-blue" target="_blank">ADVERTISER</a> /
+        <a [href]="publisherInstructionLink" class="ap-blue" target="_blank">PUBLISHER</a>
+      </p>
+      <p class="ap-copy">
+        <a href="https://adshares.net?utm_source={{ source }}&utm_campaign=auth" target="_blank">Powered by Adshares</a>
+      </p>
+    </div>
   </div>
 </section>
 

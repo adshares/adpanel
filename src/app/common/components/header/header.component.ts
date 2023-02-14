@@ -22,6 +22,7 @@ import {
   faUser,
 } from '@fortawesome/free-regular-svg-icons';
 import { ServerOptionsService } from 'common/server-options.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -45,6 +46,12 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
   settingsMenuOpen = false;
   helpMenuOpen = false;
   rolesMenuOpen = false;
+  landingPageUrl: string = null;
+  envContext: string | null = environment.context;
+  adControllerUrl = environment.adControllerUrl;
+  actAsAdvertiser: boolean;
+  actAsPublisher: boolean;
+  faGears = faGears;
   faLifeRing = faLifeRing;
   faEnvelope = faEnvelope;
   faPaperPlane = faPaperPlane;
@@ -53,11 +60,6 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
   faPlusCircle = faPlusCircle;
   faChevronDown = faChevronDown;
   faCreditCard = faCreditCard;
-  envContext: string | null = environment.context;
-  actAsAdvertiser: boolean;
-  actAsPublisher: boolean;
-  faGears = faGears;
-  adControllerUrl = environment.adControllerUrl;
 
   constructor(
     private router: Router,
@@ -119,6 +121,14 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
       this.actAsAdvertiser = data.isAdvertiser;
       this.actAsPublisher = data.isPublisher;
     });
+
+    this.store
+      .select('state', 'common', 'info')
+      .pipe(take(1))
+      .subscribe(info => {
+        this.landingPageUrl = info.landingUrl;
+      });
+
     this.subscriptions.push(userDataStateSubscription);
   }
 
