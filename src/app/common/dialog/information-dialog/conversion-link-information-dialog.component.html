@@ -2,18 +2,16 @@
   <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
   <div class="col row--gap18">
     <h2 class="ap-heading ap-heading--h3">Conversion link</h2>
-    <div *ngIf="link" class="row align-center justify-center">
+    <div *ngIf="link" class="row align-center justify-center no-wrap">
       <span class="ap-copy--bold information-dialog__info">{{ link }}</span>
-      <i
+      <button
+        class="ap-icon-btn ap-icon-btn--secondary"
         matTooltipClass="ap-mat-tooltip"
         matTooltip="Copy link"
         matTooltipPosition="above"
-        role="button"
-        tabindex="0"
-        (click)="copyToClipboard(link)"
-        class="material-icons information-dialog__copy-icon information-dialog__copy-icon">
-        file_copy
-      </i>
+        (click)="copyToClipboard(link)">
+        <fa-icon [icon]="faCopy"></fa-icon>
+      </button>
     </div>
     <p *ngIf="isAdvanced" class="ap-copy">
       The link above is a conversion address, that must be used to execute a conversion. Please, place it on your site

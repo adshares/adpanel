@@ -7,11 +7,10 @@ import { Info } from 'models/info.model';
 import { HTTP_FORBIDDEN, HTTP_NOT_FOUND } from 'common/utilities/codes';
 
 @Component({
-  selector: 'app-page-not-found',
-  templateUrl: './page-not-found.component.html',
+  selector: 'app-error-4xx',
+  templateUrl: './error4xx.component.html',
 })
-//TODO Rename module after styling
-export class PageNotFoundComponent extends HandleSubscriptionComponent implements OnInit {
+export class Error4xxComponent extends HandleSubscriptionComponent implements OnInit {
   code: number;
   codeDescription: string;
   supportEmail: string;

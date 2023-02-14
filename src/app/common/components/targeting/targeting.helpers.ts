@@ -36,18 +36,27 @@ function createFilteringChoice(
     key += option['key'];
   }
   const id = option['value'] ? `${key}${SEPARATOR}${option['value']}` : key;
-  const choiceSublistName = option['children'] ? 'children' : option['values'] ? 'values' : null;
+  const choiceSublistName = () => {
+    if (option['children']) {
+      return 'children';
+    } else if (option['values']) {
+      return 'values';
+    } else {
+      return null;
+    }
+  };
+  const sublistName = choiceSublistName();
 
   Object.assign(targetingChoice, { id });
 
-  if (choiceSublistName) {
+  if (sublistName) {
     const targetingChoiceSublist = [];
 
-    for (let targetingChoiceSublistItem of targetingChoice[choiceSublistName]) {
+    for (let targetingChoiceSublistItem of targetingChoice[sublistName]) {
       targetingChoiceSublist.push(createFilteringChoice(targetingChoiceSublistItem, key, targetingChoice));
     }
 
-    Object.assign(targetingChoice[choiceSublistName], targetingChoiceSublist);
+    Object.assign(targetingChoice[sublistName], targetingChoiceSublist);
   }
 
   if (targetingChoice.value) {

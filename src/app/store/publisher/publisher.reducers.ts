@@ -20,10 +20,6 @@ const unitStatsInitialState = {
   revenue: 0,
 };
 
-/** FIXME -> PAN-364 -> refactor reducer by creating class containing needed helper function and data
- * set to help modify data in less repetitive more readable way
- */
-
 export function publisherReducers(state = initialState, action: PublisherActions.actions | AuthActions.actions) {
   switch (action.type) {
     case PublisherActions.LOAD_SITES:

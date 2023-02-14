@@ -8,23 +8,29 @@
     <div *ngIf="loaded; else loadingSpinner">
       <div *ngIf="null !== code">
         <div class="row align-center">
-          <label class="ap-copy ap-copy--bold col text-left" for="code-container-common"
-            >Paste this code in creator</label
-          >
+          <label class="ap-copy ap-copy--bold col text-left" for="code-container-common">
+            Paste this code in creator
+          </label>
 
-          <button class="code-copy-btn" (click)="copyCode('code-container-common')">
-            <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-            Copy the code
+          <button
+            class="ap-icon-btn ap-icon-btn--secondary"
+            (click)="copyCode(code)"
+            matTooltipClass="ap-mat-tooltip"
+            matTooltip="Copy the code"
+            matTooltipPosition="above">
+            <fa-icon [icon]="faCopy"></fa-icon>
           </button>
         </div>
 
         <textarea
           id="code-container-common"
           class="code-container ap-box ap-box--large ap-box--light-border ap-copy"
+          cdkTextareaAutosize
+          readonly
           [ngModel]="code"></textarea>
       </div>
 
-      <div *ngIf="null !== code" class="row align-center ap-alert ap-alert--error">
+      <div *ngIf="null === code" class="row align-center ap-alert ap-alert--error">
         <fa-icon [icon]="faExclamation" class="ap-icon ap-icon--prepend" size="lg"></fa-icon>
         An error occurred. Make sure that you confirmed an account and connected the wallet.
       </div>

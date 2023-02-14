@@ -70,7 +70,13 @@ export class DomainCheckerComponent extends HandleSubscriptionComponent implemen
   }
 
   cpmMessage(): string {
-    return this.inVerification ? 'in verification' : this.isBanned ? 'banned' : `approved`;
+    if (this.inVerification) {
+      return 'in verification';
+    } else if (this.isBanned) {
+      return 'banned';
+    } else {
+      return 'approved';
+    }
   }
 
   cpaTooltip(): string {

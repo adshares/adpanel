@@ -23,7 +23,7 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
-import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
+import { ShowDialogOnError } from 'store/common/common.actions';
 import { adsToClicks, clicksToAds, formatMoney } from 'common/utilities/helpers';
 import { campaignConversionClick } from 'models/enum/campaign.enum';
 import { CustomValidators } from 'common/utilities/forms';
@@ -341,15 +341,5 @@ export class EditCampaignConversionComponent extends HandleSubscriptionComponent
   onStepBack(): void {
     this.store.dispatch(new ClearLastEditedCampaign());
     this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
-  }
-
-  copyToClipboard(content: string) {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', content);
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
-    this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
   }
 }

@@ -4,16 +4,22 @@
   <div class="col row--gap8">
     <h2 class="ap-heading ap-heading--h3">Access token</h2>
     <p class="ap-copy">
-      Here is your new access token. Copy it and store securely. This is the only time it will be shown so don't lose
-      it.
+      Here is your new access token.
+      <span class="ap-copy--semi">
+        Copy it and store securely. This is the only time it will be shown so don't lose it.
+      </span>
     </p>
 
     <div class="row align-center">
       <label class="ap-copy ap-copy--bold col text-left" for="access-token">Access token</label>
 
-      <button class="copy-btn" (click)="copyCode('access-token')">
-        <fa-icon class="copy-btn--icon" [icon]="faCode"></fa-icon>
-        Copy the token
+      <button
+        class="ap-icon-btn ap-icon-btn--secondary"
+        (click)="copyCode(data)"
+        matTooltipClass="ap-mat-tooltip"
+        matTooltip="Copy the token"
+        matTooltipPosition="above">
+        <fa-icon [icon]="faCopy"></fa-icon>
       </button>
     </div>
 
