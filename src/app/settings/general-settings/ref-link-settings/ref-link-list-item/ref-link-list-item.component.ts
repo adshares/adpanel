@@ -7,8 +7,8 @@ import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-r
 import { CODE, CRYPTO, DATE_FORMAT } from 'common/utilities/consts';
 import { AppState } from 'models/app-state.model';
 import { RefLink } from 'models/settings.model';
-import { ShowSuccessSnackbar } from 'store/common/common.actions';
 import { DeleteRefLink } from 'store/settings/settings.actions';
+import { HelperService } from 'common/helper.service';
 
 @Component({
   selector: 'app-ref-link-list-item',
@@ -28,7 +28,7 @@ export class RefLinkListItemComponent implements OnInit {
   readonly faTrash = faTrashAlt;
   readonly faCopy = faCopy;
 
-  constructor(private dialog: MatDialog, private store: Store<AppState>) {}
+  constructor(private dialog: MatDialog, private store: Store<AppState>, private helperService: HelperService) {}
 
   ngOnInit(): void {
     let refund = this.refLink.refund || this.defaultRefundCommission;
@@ -42,13 +42,7 @@ export class RefLinkListItemComponent implements OnInit {
   }
 
   copyUrl(): void {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', this.getRefLinkUrl());
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
-    this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
+    this.helperService.copyToClipboard(this.getRefLinkUrl());
   }
 
   delete(): void {

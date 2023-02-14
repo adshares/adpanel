@@ -98,7 +98,7 @@ export class PublisherListItemComponent implements OnInit {
   }
 
   private static isDecentralandDomain(domain: string): boolean {
-    return null !== domain.match(/^scene-[n]?\d+-[n]?\d+.decentraland.org/);
+    return null !== domain.match(/^scene-n?\d+-n?\d+.decentraland.org/);
   }
 
   private static isCryptovoxelsDomain(domain: string): boolean {

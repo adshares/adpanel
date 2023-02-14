@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { faCode, faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { PublisherService } from 'publisher/publisher.service';
+import { HelperService } from 'common/helper.service';
 
 @Component({
   selector: 'app-site-code-cryptovoxels-dialog',
@@ -10,14 +12,15 @@ import { PublisherService } from 'publisher/publisher.service';
   styleUrls: ['./site-code-cryptovoxels-dialog.component.scss'],
 })
 export class SiteCodeCryptovoxelsDialogComponent extends HandleSubscriptionComponent implements OnInit {
-  readonly faCode = faCode;
+  readonly faCopy = faCopy;
   readonly faExclamation = faExclamation;
   code: string | null = null;
   loaded: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<SiteCodeCryptovoxelsDialogComponent>,
-    private publisherService: PublisherService
+    private publisherService: PublisherService,
+    private helperService: HelperService
   ) {
     super();
   }
@@ -35,11 +38,7 @@ export class SiteCodeCryptovoxelsDialogComponent extends HandleSubscriptionCompo
     this.subscriptions.push(codeSubscription);
   }
 
-  copyCode(elementId: string): void {
-    const input = <HTMLInputElement>document.getElementById(elementId);
-    input.focus();
-    input.select();
-    document.execCommand('copy');
-    input.setSelectionRange(0, 0);
+  copyCode(token: string): void {
+    this.helperService.copyToClipboard(token);
   }
 }

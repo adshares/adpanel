@@ -1,8 +1,8 @@
 <section class="ap-header ap-header-bg container-fluid row align-center no-wrap">
   <div class="row logo-wrapper justify-center">
-    <a [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']" class="ap-header__logo-link">
+    <a [href]="landingPageUrl" class="ap-header__logo-link" target="_self">
       <div class="col align-center">
-        <img class="ap-logo" src="assets/images/logo.png" alt="Adshares Logo" />
+        <img class="ap-logo" src="assets/images/logo.png" [alt]="name" />
         <span
           *ngIf="!!envContext"
           class="ap-copy ap-copy--small ap-copy--uppercase ap-copy--error ap-header__logo-link"

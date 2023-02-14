@@ -26,6 +26,8 @@ export class AuthComponent extends HandleSubscriptionComponent implements OnInit
   version: string;
   isLoading = true;
   loginInfo = null;
+  landingPageUrl: string = null;
+  name: string = null;
 
   constructor(private commonService: CommonService, private store: Store<AppState>) {
     super();
@@ -40,6 +42,8 @@ export class AuthComponent extends HandleSubscriptionComponent implements OnInit
       .subscribe(info => {
         this.privacyPolicyLink = info.privacyUrl;
         this.termsOfServiceLink = info.termsUrl;
+        this.landingPageUrl = info.landingUrl;
+        this.name = info.name;
       });
 
     const placeholdersSubscription = this.store.select('state', 'common', 'placeholders').subscribe(placeholders => {

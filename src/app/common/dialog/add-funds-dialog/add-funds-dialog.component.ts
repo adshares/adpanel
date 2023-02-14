@@ -23,6 +23,7 @@ import Web3 from 'web3';
 import { ServerOptionsService } from 'common/server-options.service';
 import { GET_ADS_FAQ } from 'models/enum/link.enum';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { HelperService } from 'common/helper.service';
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -134,7 +135,8 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
     private api: ApiService,
     private serverOptionsService: ServerOptionsService,
     private session: SessionService,
-    private settings: SettingsService
+    private settings: SettingsService,
+    private helperService: HelperService
   ) {
     super();
   }
@@ -295,9 +297,7 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
   }
 
   copyInput(input: HTMLInputElement): void {
-    input.select();
-    document.execCommand('copy');
-    input.setSelectionRange(0, 0);
+    this.helperService.copyToClipboard(input.value);
   }
 
   selectNativeDeposit(): void {
@@ -379,7 +379,7 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
         const result = await this.tokenContract.methods
           .unwrapMessage(
             (amount * 1e11).toFixed(0),
-            '0x' + this.adsharesAddress.replace(new RegExp('-', 'g'), ''),
+            '0x' + this.adsharesAddress.replace(/-/g, ''),
             '0x' + this.paymentMemo
           )
           .send({ from: this.metamaskAccount });

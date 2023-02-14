@@ -3,6 +3,7 @@ export interface Info {
   capabilities: string[];
   demandFee: number;
   inventoryUrl: string;
+  landingUrl: string;
   mode: string;
   module: string;
   name: string;
