@@ -47,6 +47,7 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
   helpMenuOpen = false;
   rolesMenuOpen = false;
   landingPageUrl: string = null;
+  name: string = null;
   envContext: string | null = environment.context;
   adControllerUrl = environment.adControllerUrl;
   actAsAdvertiser: boolean;
@@ -127,6 +128,7 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
       .pipe(take(1))
       .subscribe(info => {
         this.landingPageUrl = info.landingUrl;
+        this.name = info.name;
       });
 
     this.subscriptions.push(userDataStateSubscription);
