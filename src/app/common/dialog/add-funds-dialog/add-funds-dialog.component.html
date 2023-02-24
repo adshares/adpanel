@@ -8,6 +8,10 @@
       <span *ngIf="useNowPaymentsDeposit" class="now_payments_logo"><span>NOW</span>Payments</span>
       <span *ngIf="!useNativeDeposit && !useNowPaymentsDeposit && !useWrappedDeposit">Deposit funds</span>
     </h2>
+    <div *ngIf="isAutoWithdrawal" class="ap-alert ap-alert--warning">
+      You have automatic withdrawal turned on. Depending on your settings, deposited funds may be returned to the sender
+      immediately. Go to the <a (mousedown)="navigateToSettings($event)">settings</a>.
+    </div>
     <div
       *ngIf="
         !useNativeDeposit && !useWrappedDeposit && !useNowPaymentsDeposit && !useFiatDeposit;

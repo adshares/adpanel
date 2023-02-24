@@ -112,7 +112,7 @@ export class LoginComponent extends HandleSubscriptionComponent implements OnIni
         if (HTTP_FORBIDDEN === res.status) {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
-              title: 'Your account is banned',
+              title: 'Your account is locked',
               message: `Info: ${res.error.reason} \n\n In case of doubts, please contact support ${this.supportEmail}`,
             },
           });
