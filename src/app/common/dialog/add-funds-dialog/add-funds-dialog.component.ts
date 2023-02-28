@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import {
   Country,
@@ -14,6 +16,7 @@ import { ApiService } from 'app/api/api.service';
 import { SessionService } from 'app/session.service';
 import { forkJoin as observableForkJoin } from 'rxjs';
 import { isNumeric } from 'rxjs/internal-compatibility';
+import { take } from 'rxjs/operators';
 import { CODE, CRYPTO } from 'common/utilities/consts';
 import { Contract } from 'web3-eth-contract';
 import { hexToNumber } from 'web3-utils';
@@ -21,7 +24,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from 'settings/settings.service';
 import Web3 from 'web3';
 import { ServerOptionsService } from 'common/server-options.service';
+import { AppState } from 'models/app-state.model';
 import { GET_ADS_FAQ } from 'models/enum/link.enum';
+import { UserAdserverWallet } from 'models/user.model';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { HelperService } from 'common/helper.service';
 
@@ -85,6 +90,7 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
   appCurrency: string;
   crypto: string = CRYPTO;
   code: string = CODE;
+  isAutoWithdrawal: boolean = false;
   isConfirmed = false;
 
   loadingInfo: boolean = true;
@@ -133,9 +139,11 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
   constructor(
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
     private api: ApiService,
+    private router: Router,
     private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private settings: SettingsService,
+    private store: Store<AppState>,
     private helperService: HelperService
   ) {
     super();
@@ -145,6 +153,14 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
     this.appCurrency = this.serverOptionsService.getOptions().appCurrency;
     const user = this.session.getUser();
     this.isConfirmed = user.isConfirmed;
+
+    const walletSubscription = this.store
+      .select('state', 'user', 'data', 'adserverWallet')
+      .pipe(take(2))
+      .subscribe((wallet: UserAdserverWallet) => {
+        this.isAutoWithdrawal = wallet.isAutoWithdrawal;
+      });
+    this.subscriptions.push(walletSubscription);
 
     const infoSubscription = observableForkJoin([this.api.config.depositInfo(), this.api.config.countries()]).subscribe(
       (responses: [DepositInfo, Country[]]) => {
@@ -409,5 +425,9 @@ export class AddFundsDialogComponent extends HandleSubscriptionComponent impleme
         this.nowPaymentsServerError = true;
       }
     });
+  }
+
+  navigateToSettings(_$event: MouseEvent): void {
+    this.router.navigate(['/settings', 'general', 'wallet']).then(() => this.dialogRef.close());
   }
 }

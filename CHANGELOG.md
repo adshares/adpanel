@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.4] - 2023-02-28
+### Added
+- Warning before deposit if automatic withdrawal is active
+
 ## [2.4.3] - 2023-02-21
 ### Fixed
 Display admin role on screen smaller than 1800px
@@ -557,7 +561,8 @@ Display admin role on screen smaller than 1800px
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.4.3...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.4.4...develop
+[2.4.4]: https://github.com/adshares/adpanel/compare/v2.4.3...v2.4.4
 [2.4.3]: https://github.com/adshares/adpanel/compare/v2.4.2...v2.4.3
 [2.4.2]: https://github.com/adshares/adpanel/compare/v2.4.1...v2.4.2
 [2.4.1]: https://github.com/adshares/adpanel/compare/v2.4.0...v2.4.1
