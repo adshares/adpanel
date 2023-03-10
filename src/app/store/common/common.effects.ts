@@ -24,6 +24,7 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
 import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { SessionService } from '../../session.service';
+import { HTTP_SERVICE_UNAVAILABLE } from 'common/utilities/codes';
 
 @Injectable()
 export class CommonEffects {
@@ -45,7 +46,12 @@ export class CommonEffects {
           placeholders: this.service.getLoginPlaceholders(),
         }).pipe(
           switchMap(result => [new LoadInfoSuccess(result.info), new LoadPlaceholdersSuccess(result.placeholders)]),
-          catchError(error => observableOf(new ShowDialogOnError(error.message)))
+          catchError(error => {
+            if (HTTP_SERVICE_UNAVAILABLE === error.status) {
+              return [];
+            }
+            return observableOf(new ShowDialogOnError(error.message));
+          })
         )
       )
     )

@@ -25,6 +25,7 @@ export class AppComponent extends HandleSubscriptionComponent implements OnInit 
   private readonly MODE_INITIALIZATION = 'initialization';
   name: string = null;
   info: Info = null;
+  isLoaded = false;
 
   constructor(
     private store: Store<AppState>,
@@ -39,13 +40,22 @@ export class AppComponent extends HandleSubscriptionComponent implements OnInit 
   getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 
   ngOnInit(): void {
+    if (window.location.href.match(/\/503(\?)?/)) {
+      this.onMaintenanceRedirect();
+      return;
+    }
     this.name = environment.name;
     const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
-      if (!this.isOauth() && environment.adControllerUrl && this.MODE_INITIALIZATION === info?.mode) {
+      if (null === info) {
+        this.onMaintenanceRedirect();
+        return;
+      }
+      if (!this.isOauth() && environment.adControllerUrl && this.MODE_INITIALIZATION === info.mode) {
         window.location.href = environment.adControllerUrl;
         return;
       }
       this.info = info;
+      this.isLoaded = true;
     });
     this.subscriptions.push(infoSubscription);
     this.loadInfo();
@@ -71,5 +81,10 @@ export class AppComponent extends HandleSubscriptionComponent implements OnInit 
 
   isOauth(): boolean {
     return undefined !== this.route.snapshot.queryParams.redirect_uri;
+  }
+
+  private onMaintenanceRedirect(): void {
+    this.router.navigate(['/503']);
+    this.isLoaded = true;
   }
 }
