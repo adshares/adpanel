@@ -3,17 +3,17 @@
 
 
 "@adshares/ads-connector@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@adshares/ads-connector/-/ads-connector-1.0.4.tgz#fa346e8a2d6be116ea3e4c3d87af55b558d4b4fd"
-  integrity sha512-t/+yUvsH3pds3Yp+9z9r1QkVBZT6FX/uK3rmKsalzcZrjTledky0STwo35fOPs140OjUiH4sEQxtXpClKpyviw==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@adshares/ads-connector/-/ads-connector-1.0.5.tgz#46eb0cf8b893d5c81007bf12e8017a7e69de2c6b"
+  integrity sha512-8rizdcJvLDgpCVGiykVPFkhmwDVOnPp4+/ClOYCyntfuh7jcAGGwi07H1W9aKb0BdsPNJXqzAxnxq1sJaDP/nQ==
   dependencies:
     "@adshares/ads-wallet" "^1.0.1"
     "@babel/runtime" "^7.15.4"
 
 "@adshares/ads-wallet@^1.0.1":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@adshares/ads-wallet/-/ads-wallet-1.0.2.tgz#8eaea0599b668fa5395c13a3f9bab1843c6bed47"
-  integrity sha512-rj4NMDCqoAhDX2Pb0aYE6D0PAPXd9JRWxtQV5t5lTEsI79uj0yAujGVrvcMGjM/yom/tgtiDe3g0pcoNLSNSag==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@adshares/ads-wallet/-/ads-wallet-1.0.3.tgz#e4305621d67ffe7bab3f8c0fad28c7a47347ab20"
+  integrity sha512-Qfc6JW7zHhcbUg8L+XKRjHOhrSwLQCLsLEIOJd2xA92CH//GNzG/Gl5/gBXPAGaIsClpNRnm3T3sNYwwaL1arQ==
   dependencies:
     "@babel/runtime" "^7.15.4"
 
@@ -1257,7 +1257,14 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
-"@babel/runtime@^7.15.4", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.15.4":
+  version "7.21.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
+  integrity sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
+"@babel/runtime@^7.8.4":
   version "7.18.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.18.3.tgz#c7b654b57f6f63cf7f8b418ac9ca04408c4579f4"
   integrity sha512-38Y8f7YUhce/K7RMwTp7m0uCumpv9hZkitCbBClqQIow1qSbCvGkcegKOXpEWCQLfWmevgRiWokZ1GkpfhbZug==
@@ -6461,9 +6468,9 @@ mock-fs@^4.1.0:
   integrity sha512-qYvlv/exQ4+svI3UOvPUpLDF0OMX5euvUH0Ny4N5QyRyhNdgAgUrVH3iUINSzEPLvx0kbo/Bp28GJKIqvE7URw==
 
 moment@^2.22.2:
-  version "2.29.3"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.3.tgz#edd47411c322413999f7a5940d526de183c031f3"
-  integrity sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 ms@2.0.0:
   version "2.0.0"
@@ -7751,12 +7758,12 @@ regenerate@^1.4.2:
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.2.tgz#b9346d8827e8f5a32f7ba29637d398b69014848a"
   integrity sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==
 
-regenerator-runtime@0.13.9, regenerator-runtime@^0.13.4:
+regenerator-runtime@0.13.9:
   version "0.13.9"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
   integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
 
-regenerator-runtime@^0.13.11:
+regenerator-runtime@^0.13.11, regenerator-runtime@^0.13.4:
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
   integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
