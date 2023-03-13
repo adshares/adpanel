@@ -15,4 +15,4 @@ const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
 })
-export class App4xxRoutingModule {}
+export class AppErrorRoutingModule {}

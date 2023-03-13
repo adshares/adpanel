@@ -139,7 +139,6 @@ export class RequestInterceptor extends HandleSubscriptionComponent implements H
 
           if (err instanceof HttpErrorResponse && err.status === HTTP_SERVICE_UNAVAILABLE) {
             this.session.drop();
-            console.log('err', err);
             this.router.navigate(['/503']);
             return err;
           }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
@@ -14,6 +14,7 @@ import { Info } from 'models/info.model';
 
 import { appSettings } from 'app-settings';
 import { environment } from 'environments/environment';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -40,14 +41,14 @@ export class AppComponent extends HandleSubscriptionComponent implements OnInit 
   getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 
   ngOnInit(): void {
-    if (window.location.href.match(/\/503(\?)?/)) {
-      this.onMaintenanceRedirect();
-      return;
-    }
+    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe((event: NavigationStart) => {
+      if ('/503' === event.url) {
+        this.isLoaded = true;
+      }
+    });
     this.name = environment.name;
     const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
       if (null === info) {
-        this.onMaintenanceRedirect();
         return;
       }
       if (!this.isOauth() && environment.adControllerUrl && this.MODE_INITIALIZATION === info.mode) {
@@ -81,10 +82,5 @@ export class AppComponent extends HandleSubscriptionComponent implements OnInit 
 
   isOauth(): boolean {
     return undefined !== this.route.snapshot.queryParams.redirect_uri;
-  }
-
-  private onMaintenanceRedirect(): void {
-    this.router.navigate(['/503']);
-    this.isLoaded = true;
   }
 }
