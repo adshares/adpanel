@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Server maintenance page
+- Default message for rejected site
 
 ## [2.4.4] - 2023-02-28
 ### Added
