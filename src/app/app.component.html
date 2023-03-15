@@ -1,4 +1,4 @@
-<div [@fadeAnimation]="getRouterOutletState(o)" *ngIf="info; else loading">
+<div [@fadeAnimation]="getRouterOutletState(o)" *ngIf="isLoaded; else loading">
   <app-impersonation></app-impersonation>
   <router-outlet #o="outlet"></router-outlet>
 </div>

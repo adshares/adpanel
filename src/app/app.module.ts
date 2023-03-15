@@ -38,7 +38,7 @@ import { DATE_PICKER_FORMATS } from 'common/utilities/consts';
 import { ImpersonationService } from './impersonation/impersonation.service';
 import { ImpersonationModule } from './impersonation/impersonation.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { App4xxRoutingModule } from './app4xx-routing.module';
+import { AppErrorRoutingModule } from './app-error-routing.module';
 import { AgencyModule } from 'agency/agency.module';
 
 const appModules = [
@@ -72,7 +72,7 @@ const appModules = [
       AuthEffects,
     ]),
     ...appModules,
-    App4xxRoutingModule,
+    AppErrorRoutingModule,
   ],
   providers: [
     {

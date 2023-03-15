@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.5] - 2023-03-15
+### Added
+- Server maintenance page
+- Default message for rejected site
+
 ## [2.4.4] - 2023-02-28
 ### Added
 - Warning before deposit if automatic withdrawal is active
@@ -561,7 +566,8 @@ Display admin role on screen smaller than 1800px
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.4.4...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.4.5...develop
+[2.4.5]: https://github.com/adshares/adpanel/compare/v2.4.4...v2.4.5
 [2.4.4]: https://github.com/adshares/adpanel/compare/v2.4.3...v2.4.4
 [2.4.3]: https://github.com/adshares/adpanel/compare/v2.4.2...v2.4.3
 [2.4.2]: https://github.com/adshares/adpanel/compare/v2.4.1...v2.4.2

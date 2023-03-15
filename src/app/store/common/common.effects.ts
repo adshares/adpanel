@@ -23,6 +23,7 @@ import { UPDATE_CAMPAIGN_FAILURE, UpdateCampaignFailure } from 'store/advertiser
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
+import { HTTP_SERVICE_UNAVAILABLE } from 'common/utilities/codes';
 import { SessionService } from '../../session.service';
 
 @Injectable()
@@ -45,7 +46,12 @@ export class CommonEffects {
           placeholders: this.service.getLoginPlaceholders(),
         }).pipe(
           switchMap(result => [new LoadInfoSuccess(result.info), new LoadPlaceholdersSuccess(result.placeholders)]),
-          catchError(error => observableOf(new ShowDialogOnError(error.message)))
+          catchError(error => {
+            if (HTTP_SERVICE_UNAVAILABLE === error.status) {
+              return [];
+            }
+            return observableOf(new ShowDialogOnError(error.message));
+          })
         )
       )
     )
