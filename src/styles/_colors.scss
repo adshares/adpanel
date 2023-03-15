@@ -8,14 +8,16 @@
   --dark: #000000;
   --light: #ffffff;
   --gray: #bfbfbf;
-  --error: #ff414d;
-  --error-bg: #ffa0a6;
+  --danger: #ff414d;
+  --danger-bg: #ffa0a6;
   --warning: #ffb400;
   --warning-bg: #f8e7bf;
   --success: #19ad42;
   --success-bg: #8debc8;
   --info: #003d4d;
   --info-bg: #96dfef;
+  --muted: #606060;
+  --muted-bg: #809EA6;
 }
 
 $primary: var(--primary);
@@ -27,20 +29,22 @@ $body-color: var(--body-color);
 $dark: var(--dark);
 $light: var(--light);
 $gray: var(--gray);
-$error: var(--error);
-$error-bg: var(--error-bg);
+$danger: var(--danger);
+$danger-bg: var(--danger-bg);
 $warning: var(--warning);
 $warning-bg: var(--warning-bg);
 $success: var(--success);
 $success-bg: var(--success-bg);
 $info: var(--info);
 $info-bg: var(--info-bg);
+$muted: var(--muted);
+$muted-bg: var(--muted-bg);
 
 $palette-colors: (
   primary: (
     base: $primary,
     dark: $primary-alt,
-    light: #809ea6,
+    light: $muted-bg,
   ),
   secondary: (
     base: $secondary,
@@ -69,12 +73,12 @@ $palette-colors: (
     light: $body-bg,
   ),
   error: (
-    base: $error,
+    base: $danger,
     dark: #a0000a,
-    light: $error-bg,
+    light: $danger-bg,
   ),
   error-bg: (
-    base: $error-bg,
+    base: $danger-bg,
   ),
   warning: (
     base: $warning,
