@@ -36,9 +36,9 @@
               matTooltipClass="ap-mat-tooltip"
               matTooltipPosition="right"></fa-icon>
             <fa-icon
-              *ngIf="siteStatusEnum.REJECTED === site.status && site.rejectReason"
+              *ngIf="siteStatusEnum.REJECTED === site.status"
               [icon]="faQuestionCircle"
-              [matTooltip]="site.rejectReason"
+              [matTooltip]="site.rejectReason || 'Domain rejected'"
               class="ap-icon ap-icon--append"
               matTooltipClass="ap-mat-tooltip"
               matTooltipPosition="right"></fa-icon>
