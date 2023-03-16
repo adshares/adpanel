@@ -1,22 +1,4 @@
-:root {
-  --primary: #003d4d;
-  --secondary: #96dfef;
-  --primary-alt: #002f36;
-  --secondary-alt: #bff7ff;
-  --body-bg: #dfdfdf;
-  --body-color: #000000;
-  --dark: #000000;
-  --light: #ffffff;
-  --gray: #bfbfbf;
-  --error: #ff414d;
-  --error-bg: #ffa0a6;
-  --warning: #ffb400;
-  --warning-bg: #f8e7bf;
-  --success: #19ad42;
-  --success-bg: #8debc8;
-  --info: #003d4d;
-  --info-bg: #96dfef;
-}
+@import 'colors-light';
 
 $primary: var(--primary);
 $secondary: var(--secondary);
@@ -35,6 +17,8 @@ $success: var(--success);
 $success-bg: var(--success-bg);
 $info: var(--info);
 $info-bg: var(--info-bg);
+$pink: #eb347d;
+
 
 $palette-colors: (
   primary: (
@@ -110,3 +94,5 @@ $main_colors: light, primary, secondary, success, error, warning;
 @function pal($palette, $tone: 'base') {
   @return palette($palette, $tone);
 }
+
+
