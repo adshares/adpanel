@@ -40,7 +40,8 @@ $palette-colors: (
     base: $body-bg,
   ),
   body-color: (
-    base: $body-color,
+    base: rgba($body-color,1),
+    light: rgba($body-color,.6),
   ),
   dark: (
     base: $dark,

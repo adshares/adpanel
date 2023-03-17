@@ -549,3 +549,33 @@
     padding: 48px 205px
   }
 }
+
+///////////// ------ * --------- ///////////
+
+.ap-btn--secondary {
+  background-color: pal(info-bg);
+}
+
+.ap-btn-error {
+  background-color: pal(light);
+}
+
+.ap-form-input {
+  background-color: pal(gray);
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+  background-color: pal(body-color);
+}
+
+.ref-link-list-item  {
+  color: pal(body-color);
+}
+
+a, a:has(.fa-icon) {
+  color: pal(body-color,light);
+}
+
+.ap-btn-info {
+  color: pal(primary);
+}
