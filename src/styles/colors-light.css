@@ -1,0 +1,34 @@
+:root {
+    --primary: #003d4d;
+    --primary-rgb: 0, 61, 77;
+    --primary-alt: #002f36;
+    --primary-alt-rgb: 0, 47, 54;
+    --secondary: #96dfef;
+    --secondary-alt: #bff7ff;
+    --body-bg: #dfdfdf;
+    --body-color: #002f36;
+    --dark: #000000;
+    --light: #ffffff;
+    --gray: #bfbfbf;
+    --gray-rgb: 191,191,191;
+    --error: #ff414d;
+    --error-bg: #ffa0a6;
+    --warning: #ffb400;
+    --warning-bg: #f8e7bf;
+    --success: #19ad42;
+    --success-bg: #8debc8;
+    --info: #003d4d;
+    --info-bg: #96dfef;
+    --pink: #eb347d;
+}
+
+/*@media (prefers-color-scheme: light) {*/
+/*    :root {*/
+/*        --body-bg: #002f36;*/
+/*        --body-color: #f2f2f2;*/
+/*        --success: #8debc8;*/
+/*        !*--error: #ffa0a6;*!*/
+/*        --gray: #666;*/
+/*        --light: #d9d9d9;*/
+/*    }*/
+/*}*/
