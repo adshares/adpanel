@@ -19,7 +19,7 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
 import { environment } from 'environments/environment';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
-import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNAUTHORIZED } from 'common/utilities/codes';
+import { HTTP_INTERNAL_SERVER_ERROR, HTTP_SERVICE_UNAVAILABLE, HTTP_UNAUTHORIZED } from 'common/utilities/codes';
 
 @Injectable()
 export class RequestInterceptor extends HandleSubscriptionComponent implements HttpInterceptor {
@@ -137,7 +137,13 @@ export class RequestInterceptor extends HandleSubscriptionComponent implements H
             return err;
           }
 
-          if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == 'Unknown Error') {
+          if (err instanceof HttpErrorResponse && err.status === HTTP_SERVICE_UNAVAILABLE) {
+            this.session.drop();
+            this.router.navigate(['/503']);
+            return err;
+          }
+
+          if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText === 'Unknown Error') {
             this.onConnectionFailure();
             return err;
           }

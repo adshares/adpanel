@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
@@ -14,6 +14,7 @@ import { Info } from 'models/info.model';
 
 import { appSettings } from 'app-settings';
 import { environment } from 'environments/environment';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ export class AppComponent extends HandleSubscriptionComponent implements OnInit 
   private readonly MODE_INITIALIZATION = 'initialization';
   name: string = null;
   info: Info = null;
+  isLoaded = false;
 
   constructor(
     private store: Store<AppState>,
@@ -39,13 +41,22 @@ export class AppComponent extends HandleSubscriptionComponent implements OnInit 
   getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 
   ngOnInit(): void {
+    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe((event: NavigationStart) => {
+      if ('/503' === event.url) {
+        this.isLoaded = true;
+      }
+    });
     this.name = environment.name;
     const infoSubscription = this.store.select('state', 'common', 'info').subscribe((info: Info) => {
-      if (!this.isOauth() && environment.adControllerUrl && this.MODE_INITIALIZATION === info?.mode) {
+      if (null === info) {
+        return;
+      }
+      if (!this.isOauth() && environment.adControllerUrl && this.MODE_INITIALIZATION === info.mode) {
         window.location.href = environment.adControllerUrl;
         return;
       }
       this.info = info;
+      this.isLoaded = true;
     });
     this.subscriptions.push(infoSubscription);
     this.loadInfo();
