@@ -1,8 +1,6 @@
 :root {
     --primary: #003d4d;
-    --primary-rgb: 0, 61, 77;
     --primary-alt: #002f36;
-    --primary-alt-rgb: 0, 47, 54;
     --secondary: #96dfef;
     --secondary-alt: #bff7ff;
     --body-bg: #dfdfdf;
@@ -29,5 +27,6 @@
         --success: #8debc8;
         --gray: #666;
         --light: #d9d9d9;
+        --secondary: #bff7ff;
     }
 }

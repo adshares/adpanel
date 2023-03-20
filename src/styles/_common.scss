@@ -550,12 +550,9 @@
   }
 }
 
-///////////// ------ * --------- ///////////
+// ------ colors settings --------- //
 
-.ap-btn--secondary {
-  background-color: pal(info-bg);
-}
-
+.ap-btn--secondary,
 .ap-btn-error {
   background-color: pal(light);
 }
@@ -599,7 +596,7 @@ input {
 }
 
 .user-id {
-  background-color: pal(body-bg) !important;
+  background-color: pal(gray) !important;
   color: pal(body-color) !important;
 }
 
@@ -610,7 +607,7 @@ input {
 }
 
 .bid-strategy__rank-button {
- color: pal(body-bg);
+ color: pal(body-bg) !important;
 }
 
 .table-nav,
