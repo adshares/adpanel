@@ -1,9 +1,7 @@
 @import 'colors-light';
 
 $primary: var(--primary);
-$primary-rgb: var(--primary-rgb);
 $primary-alt: var(--primary-alt);
-$primary-alt-rgb: var(--primary-alt-rgb);
 $secondary: var(--secondary);
 $secondary-alt: var(--secondary-alt);
 $body-bg: var(--body-bg);
@@ -11,23 +9,22 @@ $body-color: var(--body-color);
 $dark: var(--dark);
 $light: var(--light);
 $gray: var(--gray);
-$gray-rgb: var(--gray-rgb);
-$error: var(--error);
-$error-bg: var(--error-bg);
+$danger: var(--danger);
+$danger-bg: var(--danger-bg);
 $warning: var(--warning);
 $warning-bg: var(--warning-bg);
 $success: var(--success);
 $success-bg: var(--success-bg);
 $info: var(--info);
 $info-bg: var(--info-bg);
-$pink: #eb347d;
-
+$muted: var(--muted);
+$muted-bg: var(--muted-bg);
 
 $palette-colors: (
   primary: (
     base: $primary,
     dark: $primary-alt,
-    light: #809ea6,
+    light: $muted-bg,
   ),
   secondary: (
     base: $secondary,
@@ -57,12 +54,12 @@ $palette-colors: (
     light: $body-bg,
   ),
   error: (
-    base: $error,
+    base: $danger,
     dark: #a0000a,
-    light: $error-bg,
+    light: $danger-bg,
   ),
   error-bg: (
-    base: $error-bg,
+    base: $danger-bg,
   ),
   warning: (
     base: $warning,

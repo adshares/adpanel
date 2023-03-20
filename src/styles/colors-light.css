@@ -9,15 +9,16 @@
     --light: #ffffff;
     --gray: #bfbfbf;
     --gray-rgb: 191,191,191;
-    --error: #ff414d;
-    --error-bg: #ffa0a6;
+    --danger: #ff414d;
+    --danger-bg: #ffa0a6;
     --warning: #ffb400;
     --warning-bg: #f8e7bf;
     --success: #19ad42;
     --success-bg: #8debc8;
     --info: #003d4d;
     --info-bg: #96dfef;
-    --pink: #eb347d;
+    --muted: #606060;
+    --muted-bg: #809ea6;
 }
 
 @media (prefers-color-scheme: dark) {
