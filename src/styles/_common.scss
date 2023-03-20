@@ -563,10 +563,10 @@
 .ap-form-input {
   background-color: pal(gray);
 }
-
-.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
-  background-color: pal(body-color);
-}
+//
+//.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+//  background-color: pal(body-color);
+//}
 
 .ref-link-list-item  {
   color: pal(body-color);
@@ -582,4 +582,24 @@ a, a:has(.fa-icon) {
 
 .ap-sort-triangle {
   border-bottom: solid 5px pal(body-color);
+}
+.ap-box {
+  background-color: pal(gray);
+  color: pal(body-color);
+}
+
+.mat-expansion-panel {
+  background: pal(body-bg);
+}
+
+.mat-expansion-panel-header-description, .mat-expansion-indicator::after {
+  color: pal(body-color);
+}
+
+input {
+  background-color: pal(body-color);
+}
+
+.general-settings .user-id {
+  background-color: pal(body-bg);
 }

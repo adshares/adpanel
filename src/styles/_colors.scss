@@ -1,14 +1,17 @@
 @import 'colors-light';
 
 $primary: var(--primary);
-$secondary: var(--secondary);
+$primary-rgb: var(--primary-rgb);
 $primary-alt: var(--primary-alt);
+$primary-alt-rgb: var(--primary-alt-rgb);
+$secondary: var(--secondary);
 $secondary-alt: var(--secondary-alt);
 $body-bg: var(--body-bg);
 $body-color: var(--body-color);
 $dark: var(--dark);
 $light: var(--light);
 $gray: var(--gray);
+$gray-rgb: var(--gray-rgb);
 $error: var(--error);
 $error-bg: var(--error-bg);
 $warning: var(--warning);
@@ -40,8 +43,8 @@ $palette-colors: (
     base: $body-bg,
   ),
   body-color: (
-    base: rgba($body-color,1),
-    light: rgba($body-color,.6),
+    base: $body-color,
+    light: $body-color,
   ),
   dark: (
     base: $dark,
