@@ -549,3 +549,88 @@
     padding: 48px 205px
   }
 }
+
+// ------ colors settings --------- //
+
+.ap-btn--secondary,
+.ap-btn-error {
+  background-color: pal(light);
+}
+
+.ap-form-input {
+  background-color: pal(gray);
+}
+
+.ref-link-list-item  {
+  color: pal(body-color);
+}
+
+a, a:has(.fa-icon) {
+  color: pal(body-color,light);
+}
+
+.ap-btn-info {
+  color: pal(primary);
+}
+
+.ap-sort-triangle {
+  border-bottom: solid 5px pal(body-color);
+}
+.ap-box {
+  background-color: pal(gray);
+  color: pal(body-color);
+}
+
+.mat-expansion-panel {
+  background: pal(body-bg);
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
+  color: pal(body-color);
+}
+
+.ap-form-input,
+input {
+  background-color: pal(light);
+}
+
+.user-id {
+  background-color: pal(gray) !important;
+  color: pal(body-color) !important;
+}
+
+.bid-strategy__input {
+  background-color: pal(body-bg);
+  color: pal(body-color);
+  border: 1px solid pal(body-color) !important;
+}
+
+.bid-strategy__rank-button {
+ color: pal(body-bg) !important;
+}
+
+.table-nav,
+.user-list-item {
+  background-color: pal(body-bg) !important;
+  color: pal(body-color) !important;
+  border: 0 !important;
+}
+
+.mat-paginator {
+  background-color: pal(body-bg);
+
+  &-container,
+  .mat-button-wrapper,
+  .mat-paginator-icon {
+    color: pal(body-color);
+  }
+}
+
+.ap-form-label {
+  color: pal(body-color);
+}
+
+.mat-slide-toggle .mat-slide-toggle-bar {
+  background-color: pal(warning);
+}
