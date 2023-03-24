@@ -554,7 +554,7 @@
 
 .ap-btn--secondary,
 .ap-btn-error {
-  background-color: pal(light);
+  background-color: pal(info-bg);
 }
 
 .ap-form-input {
@@ -575,10 +575,6 @@ a, a:has(.fa-icon) {
 
 .ap-sort-triangle {
   border-bottom: solid 5px pal(body-color);
-}
-.ap-box {
-  background-color: pal(gray);
-  color: pal(body-color);
 }
 
 .mat-expansion-panel {
