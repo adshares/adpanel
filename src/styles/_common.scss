@@ -630,3 +630,7 @@ input {
 .ap-form-label {
   color: pal(body-color);
 }
+
+.mat-slide-toggle .mat-slide-toggle-bar {
+  background-color: pal(warning);
+}
