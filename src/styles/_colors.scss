@@ -1,6 +1,5 @@
 @import 'colors-light';
 
-:root {
 $primary: var(--primary);
 $primary-alt: var(--primary-alt);
 $secondary: var(--secondary);
@@ -96,5 +95,3 @@ $main_colors: light, primary, secondary, success, error, warning;
 @function pal($palette, $tone: 'base') {
   @return palette($palette, $tone);
 }
-
-
