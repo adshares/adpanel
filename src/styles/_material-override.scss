@@ -1,12 +1,22 @@
 .mat-dialog-container {
   position: relative;
-  padding: 32px 40px 30px 40px !important;
+  padding: 48px 34px 30px 40px !important;
   border-radius: 10px !important;
+  background-color: pal(body-bg);
 }
 
 .mat-dialog-content {
   max-height: 85vh !important;
   padding: 16px 24px !important;
+
+  .commission .ap-copy,
+  .commission-select.ap-copy .checked {
+    color: pal(primary);
+  }
+
+  .mat-radio-label-content {
+    font-size: .925rem;
+  }
 }
 
 .mat-dialog-content.mat-dialog-content--narrow {
@@ -71,7 +81,6 @@ mat-chip:not(.mat-basic-chip) {
   visibility: hidden !important;
 }
 
-
 .mat-select-value-text {
   text-transform: capitalize;
 }
@@ -106,7 +115,7 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-checkbox-frame {
-  border: 2px solid pal(primary);
+  border: 2px solid pal(body-color);
 }
 
 .mat-expansion-panel-spacing {
@@ -156,6 +165,11 @@ mat-chip:not(.mat-basic-chip) {
     padding-right: 16px;
     margin-right: 8px;
   }
+}
+
+.mat-radio-label-content,
+.mat-checkbox-label {
+  color: pal(body-color);
 }
 
 .mat-radio-group {
@@ -250,8 +264,15 @@ mat-chip:not(.mat-basic-chip) {
   width: 100%;
 
   & .mat-expansion-panel {
-    border: 1px solid pal(primary);
+    border: 1px solid pal(body-color);
     border-radius: 10px !important;
+    background-color: pal(light);
+    color: pal(body-color);
+
+    .mat-expansion-indicator::after {
+      color: inherit;
+    }
+
   }
 
   & .mat-expansion-panel-header-title {
@@ -283,13 +304,27 @@ mat-chip:not(.mat-basic-chip) {
   padding: 8px;
 }
 
-.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-  border-color: pal(primary);
+// --- radio --- //
+
+.mat-radio-button.mat-accent,
+.mat-radio-button.mat-accent.mat-radio-checked {
+  .mat-radio-outer-circle {
+    border-color: pal(body-color);
+  }
+
+  .mat-radio-inner-circle {
+    background-color: pal(body-color);
+  }
 }
-.mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: pal(primary);
-}
+
+// --- checkbox --- //
 
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
   background-color: pal(primary);
 }
+
+.ap-header .ap-btn-light {
+  color: pal(light,light);
+}
+
+

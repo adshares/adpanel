@@ -577,15 +577,6 @@ a, a:has(.fa-icon) {
   border-bottom: solid 5px pal(body-color);
 }
 
-.mat-expansion-panel {
-  background: pal(body-bg);
-}
-
-.mat-expansion-panel-header-description,
-.mat-expansion-indicator::after {
-  color: pal(body-color);
-}
-
 .ap-form-input,
 input {
   background-color: pal(light);
@@ -633,4 +624,12 @@ input {
 
 .adshares-logo {
   fill: pal(light);
+}
+
+.ap-form-input {
+  color: pal(body-color);
+}
+
+.ref-link-settings .ap-btn--text {
+  color: pal(info-bg);
 }

@@ -225,24 +225,36 @@ input[type='radio']:checked + label .checkbox-label {
   outline: none;
   box-sizing: border-box;
 
-  &:after {
-    position: absolute;
-    content: url('/assets/images/chevron.svg');
-    display: block;
-    @include center(vertical);
-    right: 15px;
-    z-index: 10;
-  }
+  //&:after {
+  //  position: absolute;
+  //  content: url('/assets/images/chevron.svg');
+  //  display: block;
+  //  @include center(vertical);
+  //  right: 15px;
+  //  z-index: 10;
+  //}
 
   .mat-select-trigger {
     height: 100%;
-    padding: 13px 35px 13px 15px;
+    padding: 13px 25px 13px 15px;
     z-index: 20;
   }
 
   .mat-select-value {
     text-align: initial;
     vertical-align: middle; // vertically aligned selected value
+  }
+
+  .mat-select-arrow-wrapper {
+    &::after {
+      border-style: solid;
+      border-width: 0 2px 2px 0;
+      content: '';
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+      vertical-align: middle;
+    }
   }
 
   .mat-select-arrow {

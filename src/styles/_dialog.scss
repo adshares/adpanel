@@ -4,8 +4,8 @@
   border: 1px solid pal(gray);
   border-radius: 4px;
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 10px;
+  right: 10px;
 
   &:before,
   &:after {
@@ -16,7 +16,7 @@
     width: 2px;
     height: 12px;
     display: block;
-    background-color: pal(primary);
+    background-color: pal(body-color);
   }
 
   &:before {

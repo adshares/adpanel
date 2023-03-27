@@ -1,10 +1,10 @@
 :root {
-    --primary: #003d4d;
-    --primary-alt: #002f36;
+    --primary-alt: #003d4d;
+    --primary: #002f36;
     --secondary: #96dfef;
     --secondary-alt: #bff7ff;
     --body-bg: #dfdfdf;
-    --body-color: #002f36;
+    --body-color: #003d4d;
     --dark: #000000;
     --light: #ffffff;
     --gray: #bfbfbf;
@@ -22,11 +22,11 @@
 
 @media (prefers-color-scheme: light) {
     :root {
-        --body-bg: #002f36;
+        --body-bg: #003d4d;
         --body-color: #f2f2f2;
-        --success: #8debc8;
         --gray: #666666;
         --light: #000;
         --secondary: #bff7ff;
+        --dark: #fff;
     }
 }
