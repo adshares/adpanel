@@ -20,7 +20,7 @@
     --muted-bg: #809ea6;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
     :root {
         --body-bg: #002f36;
         --body-color: #f2f2f2;
