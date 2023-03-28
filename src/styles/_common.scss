@@ -553,12 +553,8 @@
 // ------ colors settings --------- //
 
 .ap-btn--secondary,
-.ap-btn-error {
-  background-color: pal(info-bg);
-}
-
-.ap-form-input {
-  background-color: pal(gray);
+.ap-btn-err {
+  color: pal(body-color);
 }
 
 .ref-link-list-item  {
@@ -580,6 +576,7 @@ a, a:has(.fa-icon) {
 .ap-form-input,
 input {
   background-color: pal(light);
+  color: pal(body-color);
 }
 
 .user-id {
@@ -599,37 +596,23 @@ input {
 
 .table-nav,
 .user-list-item {
-  background-color: pal(body-bg) !important;
+  background-color: pal(light) !important;
   color: pal(body-color) !important;
   border: 0 !important;
-}
-
-.mat-paginator {
-  background-color: pal(body-bg);
-
-  &-container,
-  .mat-button-wrapper,
-  .mat-paginator-icon {
-    color: pal(body-color);
-  }
 }
 
 .ap-form-label {
   color: pal(body-color);
 }
 
-.mat-slide-toggle .mat-slide-toggle-bar {
-  background-color: pal(warning);
-}
-
 .adshares-logo {
   fill: pal(light);
 }
 
-.ap-form-input {
-  color: pal(body-color);
-}
-
 .ref-link-settings .ap-btn--text {
   color: pal(info-bg);
+}
+
+.box-content .user-list__items tbody {
+  background-color: pal(gray);
 }

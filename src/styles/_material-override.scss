@@ -327,4 +327,23 @@ mat-chip:not(.mat-basic-chip) {
   color: pal(light,light);
 }
 
+// --- toggle --- //
+
+.mat-slide-toggle .mat-slide-toggle-bar {
+  background-color: pal(warning);
+}
+
+// --- paginator --- //
+
+.mat-paginator {
+  background-color: pal(light);
+
+  &-container,
+  .mat-button-wrapper,
+  .mat-paginator-icon {
+    color: pal(body-color);
+  }
+}
+
+
 
