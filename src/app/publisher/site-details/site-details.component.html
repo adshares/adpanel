@@ -22,6 +22,25 @@
       </button>
     </div>
 
+    <div *ngIf="site.needsAdsTxtConfirmation" class="ap-box">
+      <h1 class="ap-heading ap-heading--h2 box-title">Add ads.txt entry</h1>
+      <div class="box-content">
+        <span class="ap-copy">
+          This site needs specific ads.txt entry to display advertisements. Please add the following entry to your
+          ads.txt file:<br />{{ adsTxtEntry }}
+        </span>
+      </div>
+      <div class="box-content">
+        <span class="ap-copy">
+          Detailed instructions can be found in documentation:
+          <a href="{{ ADS_TXT_INSTRUCTION }}" rel="noopener nofollow noreferrer" target="_blank">{{
+            ADS_TXT_INSTRUCTION
+          }}</a
+          >.
+        </span>
+      </div>
+    </div>
+
     <div class="ap-box">
       <div class="box-content">
         <div class="row row--gap18 justify-end align-center">
@@ -32,7 +51,9 @@
               *ngIf="siteStatusEnum.PENDING === site.status"
               [icon]="faQuestionCircle"
               class="ap-icon ap-icon--append"
-              matTooltip="Site is pending approval of support team"
+              [matTooltip]="
+                site.needsAdsTxtConfirmation ? 'File ads.txt is needed' : 'Site is pending approval of support team'
+              "
               matTooltipClass="ap-mat-tooltip"
               matTooltipPosition="right"></fa-icon>
             <fa-icon
