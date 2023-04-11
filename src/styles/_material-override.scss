@@ -267,13 +267,12 @@ mat-chip:not(.mat-basic-chip) {
   & .mat-expansion-panel {
     border: 1px solid pal(body-color);
     border-radius: 10px !important;
-    background-color: pal(light);
-    color: pal(body-color);
-
-    .mat-expansion-indicator::after {
-      color: inherit;
-    }
-
+    //background-color: pal(light);
+    //color: pal(body-color);
+    //
+    //.mat-expansion-indicator::after {
+    //  color: pal(body-color);
+    //}
   }
 
   & .mat-expansion-panel-header-title {
@@ -299,7 +298,7 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-tab-group.mat-primary .mat-ink-bar {
-  background-color: pal(primary);
+  background-color: pal(body-color);
 }
 .mat-tab-body-content {
   padding: 8px;
@@ -346,18 +345,42 @@ mat-chip:not(.mat-basic-chip) {
   }
 }
 
-// --- list of campaigns --- //
+// --- buttons --- //
 
-.posters-list__scrollable-table {
-  .ap-status[data-status="draft"] {
-    color: pal(body-color) !important;
+.dashboard-view button.ap-btn.ap-btn--text[data-test],
+.ap-box .ap-btn[data-test="advertiser-campaign-delete-button"],
+.posters-list__scrollable-table .ap-status[data-status="draft"] {
+  color: pal(body-color) !important;
 
-    .mat-select-arrow {
-      color: pal(body-color);
-    };
-  }
-
+  .mat-select-arrow {
+    color: pal(body-color);
+  };
 }
 
+// --- navigation -- //
 
+.ap-edit-asset__navigation .step-circle.active {
+  background-color: pal(body-color) !important;
+}
 
+.ap-edit-asset__navigation .step-circle.active + .ap-copy {
+  color: pal(body-color) !important;
+}
+
+// --- expansion-panel --- //
+
+.mat-expansion-panel {
+  background-color: pal(light);
+  color: pal(body-color);
+
+  .mat-expansion-indicator::after {
+    color: pal(body-color);
+  }
+}
+
+// --- table-border --- //
+
+.mat-tab-nav-bar,
+.mat-tab-header {
+  border-bottom-color: pal(gray);
+}

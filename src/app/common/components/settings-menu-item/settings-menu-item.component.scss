@@ -3,7 +3,8 @@
 .settings-menu-item {
 
   .mat-expansion-panel {
-    background-color: transparent;
+    background-color: pal(light);
+    //background-color: transparent;
 
     & .mat-expansion-panel-header {
       padding: 12px 2rem;
