@@ -82,6 +82,7 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-select-value-text {
+  color: pal(body-color);
   text-transform: capitalize;
 }
 
@@ -343,6 +344,19 @@ mat-chip:not(.mat-basic-chip) {
   .mat-paginator-icon {
     color: pal(body-color);
   }
+}
+
+// --- list of campaigns --- //
+
+.posters-list__scrollable-table {
+  .ap-status[data-status="draft"] {
+    color: pal(body-color) !important;
+
+    .mat-select-arrow {
+      color: pal(body-color);
+    };
+  }
+
 }
 
 
