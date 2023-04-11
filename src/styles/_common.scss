@@ -616,3 +616,7 @@ input {
 .box-content .user-list__items tbody {
   background-color: pal(gray);
 }
+
+.mat-select-panel .mat-option-text {
+  color: pal(primary);
+}
