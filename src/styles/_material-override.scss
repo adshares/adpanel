@@ -223,13 +223,12 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-slide-toggle {
-
   & &-bar {
     width: 32px;
     height: 20px;
-    background-color: transparent;
     border: 1px solid pal(primary);
     border-radius: 13px;
+    background-color: pal(warning);
   }
 
   & &-thumb-container {
@@ -319,12 +318,6 @@ mat-chip:not(.mat-basic-chip) {
 
 .ap-header .ap-btn-light {
   color: pal(light,light);
-}
-
-// --- toggle --- //
-
-.mat-slide-toggle .mat-slide-toggle-bar {
-  background-color: pal(warning);
 }
 
 // --- paginator --- //

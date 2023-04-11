@@ -165,7 +165,7 @@
 .ap-sort-triangle {
   width: 5px;
   height: 7px;
-  border-bottom: solid 5px pal(gray);
+  border-bottom: solid 5px pal(body-color);
   border-left: solid 4px transparent;
   border-right: solid 4px transparent;
   margin: 1px;
@@ -567,10 +567,6 @@ a, a:has(.fa-icon) {
 
 .ap-btn-info {
   color: pal(body-color);
-}
-
-.ap-sort-triangle {
-  border-bottom: solid 5px pal(body-color);
 }
 
 .ap-form-input,
