@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { adStatusesEnum } from 'models/enum/ad.enum';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { Campaign, CampaignsConfig } from 'models/campaign.model';
 import { User } from 'models/user.model';
@@ -161,7 +162,7 @@ const adjustCampaignStatus = (campaignInfo, currentDate): number => {
   }
 };
 
-const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: User): string[] => {
+const validateCampaignAndReturnErrors = (config: CampaignsConfig, campaign: Campaign, user: User): string[] => {
   let accountError = false;
   let budgetError = false;
   let cpmError = false;
@@ -237,6 +238,11 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
     errors.push('The campaign is outdated. Unset end date or change to a future date.');
   }
 
+  const noActiveAd = -1 === campaign.ads.findIndex(ad => ad.status === adStatusesEnum.ACTIVE);
+  if (noActiveAd) {
+    errors.push('The campaign has no active ads.');
+  }
+
   return errors;
 };
 
@@ -302,7 +308,7 @@ export {
   createInitialDataSet,
   sortArrayByKeys,
   adjustCampaignStatus,
-  validCampaignBudget,
+  validateCampaignAndReturnErrors,
   downloadReport,
   mapToIterable,
   buildUrl,

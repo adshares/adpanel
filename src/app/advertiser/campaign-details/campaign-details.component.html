@@ -109,9 +109,9 @@
         </div>
       </div>
 
-      <div class="row align-center ap-alert ap-alert--error ap-copy" *ngIf="budgetInfo">
+      <div class="row align-center ap-alert ap-alert--error ap-copy" *ngIf="campaignErrors">
         <fa-icon [icon]="faExclamation" class="ap-icon ap-icon--prepend" size="lg"></fa-icon>
-        {{ budgetInfo }}
+        {{ campaignErrors }}
       </div>
     </div>
 

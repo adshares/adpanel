@@ -56,7 +56,7 @@ import * as moment from 'moment';
 import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNPROCESSABLE_ENTITY } from 'common/utilities/codes';
 import { SAVE_SUCCESS, STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
-import { adjustCampaignStatus, validCampaignBudget } from 'common/utilities/helpers';
+import { adjustCampaignStatus, validateCampaignAndReturnErrors } from 'common/utilities/helpers';
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignsConfig } from 'models/campaign.model';
 import { User } from 'models/user.model';
@@ -280,7 +280,7 @@ export class AdvertiserEffects {
 
             let errorMsg;
             if (error.status === HTTP_UNPROCESSABLE_ENTITY) {
-              const errors = validCampaignBudget(config, campaign, user);
+              const errors = validateCampaignAndReturnErrors(config, campaign, user);
 
               if (errors.length == 1 && isCampaignOutdated()) {
                 this.dialog
@@ -345,7 +345,7 @@ export class AdvertiserEffects {
             }
             let errorMsg;
             if (error.status === HTTP_UNPROCESSABLE_ENTITY) {
-              const errors = validCampaignBudget(config, campaign, user);
+              const errors = validateCampaignAndReturnErrors(config, campaign, user);
               if (errors.length == 0) {
                 errors.push('Please check if you have enough money on your account.');
               }
