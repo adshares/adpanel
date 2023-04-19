@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
-- Inform user while campaign has no active creatives
+- Inform user while campaign has no active ads
+- Allow to add new advertisement to campaign without ads
 
 ## [2.4.6] - 2023-03-16
 ### Fixed

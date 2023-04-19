@@ -254,10 +254,11 @@
 
     <!--Campaign list section-->
 
-    <div *ngIf="campaign.ads.length" class="col ap-box">
+    <div class="col ap-box">
       <div class="row justify-between box-title">
         <h2 class="ap-heading ap-heading--h2">List of ads</h2>
         <button
+          *ngIf="campaign.ads.length > 0"
           class="ap-btn ap-btn--text"
           (click)="navigateToCampaignEdition('create-ad')"
           data-test="advertiser-campaign-edit-targeting-button">
@@ -265,13 +266,13 @@
           Add new advertisement
         </button>
       </div>
-      <div class="box-content">
-        <app-poster-list *ngIf="campaign.ads.length" [adList]="campaign.ads" [campaign]="campaign"></app-poster-list>
+      <div *ngIf="campaign.ads.length > 0" class="box-content">
+        <app-poster-list [adList]="campaign.ads" [campaign]="campaign"></app-poster-list>
       </div>
       <div class="box-content row justify-center">
         <button class="ap-btn ap-btn--secondary" (click)="navigateToCampaignEdition('create-ad')">
           <fa-icon [icon]="faPlusCircle" class="ap-icon ap-icon--prepend"></fa-icon>
-          {{ campaign.ads.length ? 'Add new advertisement' : 'Upload your first ad' }}
+          {{ 0 === campaign.ads.length ? 'Upload your first ad' : 'Add new advertisement' }}
         </button>
       </div>
     </div>
