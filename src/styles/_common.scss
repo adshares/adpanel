@@ -616,3 +616,17 @@ input {
 .mat-select-panel .mat-option-text {
   color: pal(primary);
 }
+
+.ap-logo-dark-mode {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ap-logo {
+    display: none;
+  }
+
+  .ap-logo-dark-mode {
+    display: block;
+  }
+}

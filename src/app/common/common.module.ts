@@ -71,7 +71,6 @@ import { ServerOptionsService } from 'common/server-options.service';
 import { AccessTokenScopesResolver } from 'common/resolvers/access-token-scopes-resolver.service';
 import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
 import { HelperService } from 'common/helper.service';
-import { LogoComponent } from "common/components/logo/logo.component";
 
 const matModules = [
   MatDialogModule,
@@ -104,7 +103,6 @@ const dialogs = [
 
 const appComponents = [
   HeaderComponent,
-  LogoComponent,
   AdsharesTokenPipe,
   FormatFileSizePipe,
   CalculateInCurrency,
