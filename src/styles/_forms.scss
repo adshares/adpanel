@@ -225,15 +225,6 @@ input[type='radio']:checked + label .checkbox-label {
   outline: none;
   box-sizing: border-box;
 
-  //&:after {
-  //  position: absolute;
-  //  content: url('/assets/images/chevron.svg');
-  //  display: block;
-  //  @include center(vertical);
-  //  right: 15px;
-  //  z-index: 10;
-  //}
-
   .mat-select-trigger {
     height: 100%;
     padding: 13px 25px 13px 15px;
