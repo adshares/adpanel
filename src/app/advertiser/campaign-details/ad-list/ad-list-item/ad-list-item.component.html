@@ -5,6 +5,7 @@
         color="primary"
         [checked]="ad.status === adStatusesEnum.ACTIVE"
         [disabled]="ad.status === adStatusesEnum.REJECTED"
+        [title]="ad.status === adStatusesEnum.ACTIVE ? 'Deactivate' : 'Activate'"
         (change)="changeAdStatus($event.checked)"
         matTooltipClass="ap-mat-tooltip"
         [matTooltip]="ad.status === adStatusesEnum.REJECTED ? 'Banner was rejected by the classifier.' : null"

@@ -16,7 +16,8 @@
           color="primary"
           [disabled]="isSettingDisabled"
           [(ngModel)]="isSubscribed"
-          (change)="onChangeSubscription(isSubscribed)">
+          (change)="onChangeSubscription(isSubscribed)"
+          [title]="!isSubscribed ? 'Activate' : 'Deactivate'">
           Subscription
         </mat-slide-toggle>
       </div>

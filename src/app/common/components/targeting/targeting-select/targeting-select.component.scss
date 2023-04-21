@@ -17,7 +17,7 @@
   }
 
   &__option {
-    @include copy($color: pal(primary), $font-weight: semiBold);
+    @include copy($color: pal(body-color), $font-weight: semiBold);
     @include container(
       $border-color: pal(gray),
       $padding-vertical: 8px,

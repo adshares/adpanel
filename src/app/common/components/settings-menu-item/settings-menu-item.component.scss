@@ -8,7 +8,7 @@
     & .mat-expansion-panel-header {
       padding: 12px 2rem;
       height: auto;
-      color: pal(light);
+      color: pal(light,light);
 
       &:hover:not([aria-disabled=true]) {
         background-color: rgba(0, 47, 54, 0.5);
@@ -30,7 +30,7 @@
 
   &__submenu-title {
     @include copy (
-      $color: pal(light),
+      $color: pal(light,light),
       $font-size: 18,
       $font-weight: semiBold
     );
@@ -38,7 +38,7 @@
 
   &__submenu {
     @include copy (
-      $color: pal(light),
+      $color: pal(light,light),
       $font-size: 18,
     );
 
