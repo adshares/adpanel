@@ -165,7 +165,7 @@
 .ap-sort-triangle {
   width: 5px;
   height: 7px;
-  border-bottom: solid 5px pal(gray);
+  border-bottom: solid 5px pal(body-color);
   border-left: solid 4px transparent;
   border-right: solid 4px transparent;
   margin: 1px;
@@ -547,5 +547,86 @@
 
   @media screen and (min-width: $md-breakpoint) {
     padding: 48px 205px
+  }
+}
+
+// ------ colors settings --------- //
+
+.ap-btn--secondary,
+.ap-btn-err {
+  color: pal(body-color);
+}
+
+.ref-link-list-item  {
+  color: pal(body-color);
+}
+
+a, a:has(.fa-icon) {
+  color: pal(body-color,light);
+}
+
+.ap-btn-info {
+  color: pal(body-color);
+}
+
+.ap-form-input,
+input {
+  background-color: pal(light);
+  color: pal(body-color);
+}
+
+.user-id {
+  background-color: pal(gray) !important;
+  color: pal(body-color) !important;
+}
+
+.bid-strategy__input {
+  background-color: pal(body-bg);
+  color: pal(body-color);
+  border: 1px solid pal(body-color) !important;
+}
+
+.bid-strategy__rank-button {
+ color: pal(body-bg) !important;
+}
+
+.table-nav,
+.user-list-item {
+  background-color: pal(light) !important;
+  color: pal(body-color) !important;
+  border: 0 !important;
+}
+
+.ap-form-label {
+  color: pal(body-color);
+}
+
+.adshares-logo {
+  fill: #fff;
+}
+
+.ref-link-settings .ap-btn--text {
+  color: pal(info-bg);
+}
+
+.box-content .user-list__items tbody {
+  background-color: pal(gray);
+}
+
+.mat-select-panel .mat-option-text {
+  color: pal(primary);
+}
+
+.ap-logo-dark-mode {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ap-logo {
+    display: none;
+  }
+
+  .ap-logo-dark-mode {
+    display: block;
   }
 }

@@ -1,12 +1,22 @@
 .mat-dialog-container {
   position: relative;
-  padding: 32px 40px 30px 40px !important;
+  padding: 48px 34px 30px 40px !important;
   border-radius: 10px !important;
+  background-color: pal(body-bg);
 }
 
 .mat-dialog-content {
   max-height: 85vh !important;
   padding: 16px 24px !important;
+
+  .commission .ap-copy,
+  .commission-select.ap-copy .checked {
+    color: pal(primary);
+  }
+
+  .mat-radio-label-content {
+    font-size: .925rem;
+  }
 }
 
 .mat-dialog-content.mat-dialog-content--narrow {
@@ -71,8 +81,8 @@ mat-chip:not(.mat-basic-chip) {
   visibility: hidden !important;
 }
 
-
 .mat-select-value-text {
+  color: pal(body-color);
   text-transform: capitalize;
 }
 
@@ -106,7 +116,7 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-checkbox-frame {
-  border: 2px solid pal(primary);
+  border: 2px solid pal(body-color);
 }
 
 .mat-expansion-panel-spacing {
@@ -156,6 +166,11 @@ mat-chip:not(.mat-basic-chip) {
     padding-right: 16px;
     margin-right: 8px;
   }
+}
+
+.mat-radio-label-content,
+.mat-checkbox-label {
+  color: pal(body-color);
 }
 
 .mat-radio-group {
@@ -208,13 +223,12 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-slide-toggle {
-
   & &-bar {
     width: 32px;
     height: 20px;
-    background-color: transparent;
     border: 1px solid pal(primary);
     border-radius: 13px;
+    background-color: pal(warning);
   }
 
   & &-thumb-container {
@@ -250,7 +264,7 @@ mat-chip:not(.mat-basic-chip) {
   width: 100%;
 
   & .mat-expansion-panel {
-    border: 1px solid pal(primary);
+    border: 1px solid pal(body-color);
     border-radius: 10px !important;
   }
 
@@ -277,19 +291,81 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-tab-group.mat-primary .mat-ink-bar {
-  background-color: pal(primary);
+  background-color: pal(body-color);
 }
 .mat-tab-body-content {
   padding: 8px;
 }
 
-.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-  border-color: pal(primary);
+// --- radio --- //
+
+.mat-radio-button.mat-accent,
+.mat-radio-button.mat-accent.mat-radio-checked {
+  .mat-radio-outer-circle {
+    border-color: pal(body-color);
+  }
+
+  .mat-radio-inner-circle {
+    background-color: pal(body-color);
+  }
 }
-.mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: pal(primary);
-}
+
+// --- checkbox --- //
 
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
   background-color: pal(primary);
+}
+
+.ap-header .ap-btn-light {
+  color: pal(light,light);
+}
+
+// --- paginator --- //
+
+.mat-paginator {
+  background-color: pal(light);
+
+  &-container,
+  .mat-button-wrapper,
+  .mat-paginator-icon {
+    color: pal(body-color);
+  }
+}
+
+// --- buttons --- //
+
+.dashboard-view button.ap-btn.ap-btn--text[data-test],
+.ap-box .ap-btn[data-test="advertiser-campaign-delete-button"],
+.posters-list__scrollable-table .ap-status[data-status="draft"] {
+  color: pal(body-color) !important;
+
+  .mat-select-arrow {
+    color: pal(body-color);
+  }
+}
+
+// --- navigation -- //
+
+.ap-edit-asset__navigation .step-circle.active {
+  background-color: pal(body-color) !important;
+}
+
+.ap-edit-asset__navigation .step-circle.active + .ap-copy {
+  color: pal(body-color) !important;
+}
+
+// --- expansion-panel --- //
+
+.mat-expansion-panel {
+
+  .mat-expansion-indicator::after {
+    color: pal(body-color);
+  }
+}
+
+// --- table-border --- //
+
+.mat-tab-nav-bar,
+.mat-tab-header {
+  border-bottom-color: pal(gray);
 }

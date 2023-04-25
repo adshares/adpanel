@@ -25,6 +25,7 @@ interface Site {
   ctr?: number;
   revenue?: number;
   code?: string;
+  needsAdsTxtConfirmation?: boolean;
   rejectReason?: string | null;
 }
 

@@ -107,7 +107,8 @@
                         class="row align-self-center"
                         [id]="'isMutable' + conversionItemFormIndex"
                         formControlName="isValueMutable"
-                        data-test="advertiser-conversion-item-is-value-mutable">
+                        data-test="advertiser-conversion-item-is-value-mutable"
+                        [title]="!conversionItemForm.get('isValueMutable').value ? 'Activate' : 'Deactivate'">
                       </mat-slide-toggle>
                     </div>
                     <span
@@ -269,7 +270,8 @@
                         class="row align-self-center"
                         [id]="'isMutableAdv' + conversionItemFormIndex"
                         formControlName="isValueMutable"
-                        data-test="advertiser-conversion-item-is-value-mutable">
+                        data-test="advertiser-conversion-item-is-value-mutable"
+                        [title]="!conversionItemForm.get('isValueMutable').value ? 'Activate' : 'Deactivate'">
                       </mat-slide-toggle>
                     </div>
                     <span
@@ -284,7 +286,8 @@
                       color="primary"
                       [id]="'budget' + conversionItemFormIndex"
                       formControlName="isInBudget"
-                      data-test="advertiser-conversion-item-is-in-budget">
+                      data-test="advertiser-conversion-item-is-in-budget"
+                      [title]="!conversionItemForm.get('isInBudget').value ? 'Activate' : 'Deactivate'">
                     </mat-slide-toggle>
                   </div>
 
@@ -293,7 +296,8 @@
                       color="primary"
                       [id]="'isRepeatable' + conversionItemFormIndex"
                       formControlName="isRepeatable"
-                      data-test="advertiser-conversion-item-is-repeatable">
+                      data-test="advertiser-conversion-item-is-repeatable"
+                      [title]="!conversionItemForm.get('isRepeatable').value ? 'Activate' : 'Deactivate'">
                     </mat-slide-toggle>
                   </div>
                   <div class="col-xs-1 row cell justify-center align-center">

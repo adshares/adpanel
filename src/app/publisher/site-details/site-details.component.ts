@@ -33,7 +33,8 @@ import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-me
 import { faExternalLinkSquareAlt, faEdit, faArrowLeft, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
-import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
+import { ADS_TXT_INSTRUCTION, DECENTRALAND_BUILDER } from 'models/enum/link.enum';
+import { SessionService } from '../../session.service';
 
 @Component({
   selector: 'app-site-details',
@@ -41,7 +42,9 @@ import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
   styleUrls: ['./site-details.component.scss'],
 })
 export class SiteDetailsComponent extends HandleSubscriptionComponent implements OnInit {
+  readonly ADS_TXT_INSTRUCTION = ADS_TXT_INSTRUCTION;
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
+  adsTxtEntry: string = '';
   dataLoaded: boolean = false;
   site: Site;
   siteStatusEnum = siteStatusEnum;
@@ -74,6 +77,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
     private route: ActivatedRoute,
     private publisherService: PublisherService,
     private router: Router,
+    private session: SessionService,
     private store: Store<AppState>,
     private chartService: ChartService,
     private dialog: MatDialog
@@ -146,6 +150,23 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
     });
 
     this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription, refreshSubscription);
+
+    const infoSubscription = this.store.select('state', 'common', 'info').subscribe(info => {
+      const domain = info.serverUrl.substring(info.serverUrl.indexOf('//') + 2);
+      const user = this.session.getUser();
+      const uuid =
+        user.uuid.substring(0, 8) +
+        '-' +
+        user.uuid.substring(8, 12) +
+        '-' +
+        user.uuid.substring(12, 16) +
+        '-' +
+        user.uuid.substring(16, 20) +
+        '-' +
+        user.uuid.substring(20);
+      this.adsTxtEntry = `${domain}, ${uuid}, DIRECT`;
+    });
+    this.subscriptions.push(infoSubscription);
   }
 
   private getSiteLinkUrl(): string {
