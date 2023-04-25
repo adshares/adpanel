@@ -4,6 +4,9 @@ export const ADD_UNIT_DECENTRALAND = 'https://adshar.es/decentraland';
 
 export const ADD_UNIT_DECENTRALAND_SMART = 'https://adshar.es/dclsmart';
 
+// Instructions for adding adserver entry to the ads.txt file
+export const ADS_TXT_INSTRUCTION = 'https://adshar.es/adstxt';
+
 // List of ad units available in the network
 export const ADSHARES_UNITS = 'https://adshares.net/units';
 
@@ -41,7 +44,7 @@ export const PUBLISHER_INSTRUCTION_LINK =
 export const SETUP_FALLBACK_BACKFILL_CODE_INSTRUCTION =
   'https://docs.adshares.net/adserver/how-to-setup-fallback-backfill-code.html';
 
-// wiki guide on how to add an html ad
+// wiki guide on how to add a html ad
 export const WIKI_HTML_AD = 'https://adshar.es/howtohtmlbanner';
 
 // withdraw ADS faq
