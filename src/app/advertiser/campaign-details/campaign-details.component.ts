@@ -15,7 +15,7 @@ import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { cloneDeep, createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers';
+import { cloneDeep, createInitialDataSet, validateCampaignAndReturnErrors } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -62,7 +62,7 @@ export class CampaignDetailsComponent extends HandleSubscriptionComponent implem
   targetingOptions: TargetingOption[];
   currentChartFilterSettings: ChartFilterSettings;
   currentCampaignStatus: string;
-  budgetInfo: string;
+  campaignErrors: string;
   isDefaultBidStrategy: boolean = false;
   isTaxonomyMissing = false;
   mediumLabel: string;
@@ -130,7 +130,7 @@ export class CampaignDetailsComponent extends HandleSubscriptionComponent implem
             });
           this.prepareMediumLabel(this.campaign);
         }
-        this.updateBudgetInfo();
+        this.updateCampaignErrors();
         this.updateConversionTableItems();
       });
 
@@ -142,12 +142,12 @@ export class CampaignDetailsComponent extends HandleSubscriptionComponent implem
       .select('state', 'advertiser', 'campaignsConfig')
       .subscribe((campaignsConfig: CampaignsConfig) => {
         this.campaignsConfig = campaignsConfig;
-        this.updateBudgetInfo();
+        this.updateCampaignErrors();
       });
 
     const userSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
       this.user = user;
-      this.updateBudgetInfo();
+      this.updateCampaignErrors();
     });
 
     const refreshSubscription = timer(
@@ -183,14 +183,14 @@ export class CampaignDetailsComponent extends HandleSubscriptionComponent implem
     }
   }
 
-  updateBudgetInfo(): void {
-    this.budgetInfo = null;
+  updateCampaignErrors(): void {
+    this.campaignErrors = null;
     if (!this.campaignsConfig || !this.campaign || !this.user) {
       return;
     }
-    const errors = validCampaignBudget(this.campaignsConfig, this.campaign, this.user);
+    const errors = validateCampaignAndReturnErrors(this.campaignsConfig, this.campaign, this.user);
     if (errors.length > 0) {
-      this.budgetInfo = errors.join(' ');
+      this.campaignErrors = errors.join(' ');
     }
   }
 

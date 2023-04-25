@@ -69,7 +69,7 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
       ],
     });
 
-    if (!session.isModerator()) {
+    if (!session.isModerator() || session.isImpersonated()) {
       this.settings.push({
         title: 'Billing & payments',
         description: '',
