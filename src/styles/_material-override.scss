@@ -264,6 +264,8 @@ mat-chip:not(.mat-basic-chip) {
   width: 100%;
 
   & .mat-expansion-panel {
+    background-color: pal(light);
+    color: pal(body-color);
     border: 1px solid pal(body-color);
     border-radius: 10px !important;
   }
