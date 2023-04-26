@@ -265,8 +265,6 @@ mat-chip:not(.mat-basic-chip) {
   width: 100%;
 
   & .mat-expansion-panel {
-    background-color: pal(light);
-    color: pal(body-color);
     border: 1px solid pal(body-color);
     border-radius: 10px !important;
   }
@@ -360,6 +358,8 @@ mat-chip:not(.mat-basic-chip) {
 // --- expansion-panel --- //
 
 .mat-expansion-panel {
+  background-color: pal(light);
+  color: pal(body-color);
 
   .mat-expansion-indicator::after {
     color: pal(body-color);
