@@ -56,12 +56,14 @@
   &--medium {
     @include font(22, normal);
   }
+
   &--large {
     @include font(32, normal);
   }
 
   &--light {
-    color: pal(light) !important;
+    color: #fff !important;
+    //color: pal(light) !important;
   }
 
   &--primary {

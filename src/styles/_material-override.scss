@@ -372,9 +372,18 @@ mat-chip:not(.mat-basic-chip) {
 .mat-tab-header {
   border-bottom-color: pal(gray);
 }
+// --- form --- //
 
 // --- textarea --- //
 
 .code-container {
   background-color: pal(light);
+}
+
+// --- input --- //
+
+//:is(.ap-form-input, .ap-form-select):focus {
+.ap-form-input:focus {
+  box-shadow: inset 2px 2px 5px rgb(0,61,77,.4),
+  inset -2px -2px 5px rgb(0,61,77,0.4)
 }
