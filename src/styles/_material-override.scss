@@ -382,7 +382,6 @@ mat-chip:not(.mat-basic-chip) {
 
 // --- input --- //
 
-//:is(.ap-form-input, .ap-form-select):focus {
 .ap-form-input:focus {
   box-shadow: inset 3px 3px 5px rgb(70,90,126,.4),
   inset -3px -3px 5px rgb(70,90,126,0.4);
