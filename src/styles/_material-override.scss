@@ -318,7 +318,7 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .ap-header .ap-btn-light {
-  color: pal(light,light);
+  color: pal(secondary);
 }
 
 // --- paginator --- //
@@ -372,6 +372,7 @@ mat-chip:not(.mat-basic-chip) {
 .mat-tab-header {
   border-bottom-color: pal(gray);
 }
+
 // --- form --- //
 
 // --- textarea --- //
@@ -382,8 +383,25 @@ mat-chip:not(.mat-basic-chip) {
 
 // --- input --- //
 
-.ap-form-input:focus {
-  box-shadow: inset 3px 3px 5px rgb(70,90,126,.4),
-  inset -3px -3px 5px rgb(70,90,126,0.4);
-  border-color: rgb(255,255,255,0.4);
+.ap-form-input {
+  background-color: pal(light);
+  color: pal(dark);
+
+  &__box span {
+    color: pal(dark);
+  }
+}
+
+.mat-select-panel {
+  background: pal(body-bg);
+
+  .mat-option-text {
+    color: pal(body-color) !important;
+  }
+}
+
+// --- reports --- //
+
+.ap-btn.ap-btn--text {
+  color: pal(body-color);
 }

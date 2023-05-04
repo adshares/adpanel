@@ -8,7 +8,7 @@
     & .mat-expansion-panel-header {
       padding: 12px 2rem;
       height: auto;
-      color: pal(light,light);
+      color: pal(secondary);
 
       &:hover:not([aria-disabled=true]) {
         background-color: rgba(0, 47, 54, 0.5);
@@ -30,7 +30,7 @@
 
   &__submenu-title {
     @include copy (
-      $color: pal(light,light),
+      $color: pal(secondary),
       $font-size: 18,
       $font-weight: semiBold
     );
@@ -38,12 +38,12 @@
 
   &__submenu {
     @include copy (
-      $color: pal(light,light),
+      $color: pal(secondary),
       $font-size: 18,
     );
 
     & .active-tab {
-      color: pal(secondary)
+      color: pal(secondary-alt)
     }
   }
 
