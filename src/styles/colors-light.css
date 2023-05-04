@@ -2,7 +2,8 @@
     --primary: #003d4d;
     --primary-alt: #002f36;
     --secondary: #96dfef;
-    --secondary-alt: #bff7ff;
+    --secondary-alt: #56a6b7;
+    /*--secondary-alt: #bff7ff;*/
     --body-bg: #dfdfdf;
     --body-color: #003d4d;
     --dark: #000000;
@@ -21,7 +22,7 @@
     --muted-bg: #809ea6;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
     :root {
         --body-bg: #002f36;
         --body-color: #f2f2f2;
