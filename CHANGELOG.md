@@ -6,8 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.5.0] - 2023-05-15
 ### Added
 - Instructions for adding the ads.txt file entry
+- Dark mode support
 ### Fixed
 - Inform user while campaign has no active ads
 - Allow to add new advertisement to campaign without ads
@@ -27,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.4.3] - 2023-02-21
 ### Fixed
-Display admin role on screen smaller than 1800px
+- Display admin role on screen smaller than 1800px
 
 ## [2.4.2] - 2023-02-14
 ### Changed
@@ -575,7 +578,8 @@ Display admin role on screen smaller than 1800px
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.4.6...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.5.0...develop
+[2.5.0]: https://github.com/adshares/adpanel/compare/v2.4.6...v2.5.0
 [2.4.6]: https://github.com/adshares/adpanel/compare/v2.4.5...v2.4.6
 [2.4.5]: https://github.com/adshares/adpanel/compare/v2.4.4...v2.4.5
 [2.4.4]: https://github.com/adshares/adpanel/compare/v2.4.3...v2.4.4
