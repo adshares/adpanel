@@ -56,12 +56,13 @@
   &--medium {
     @include font(22, normal);
   }
+
   &--large {
     @include font(32, normal);
   }
 
   &--light {
-    color: pal(light) !important;
+    color: #fff !important;
   }
 
   &--primary {
@@ -129,6 +130,11 @@
   padding: 12px 12px 12px 12px;
   min-width: 150px;
 
+  p {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
   &__full-width {
     width: 100%;
   }
@@ -137,29 +143,44 @@
   &[data-alert-status = 'rejected'] {
     color: pal(error);
     background-color: pal(error, light);
+    a {
+      color: pal(error);
+    }
   }
 
   &--success,
   &[data-alert-status = 'active'] {
     color: pal(success);
     background-color: pal(success, light);
+    a {
+      color: pal(success);
+    }
   }
 
   &--warning,
   &[data-alert-status = 'pending'] {
     color: pal(warning);
     background-color: pal(warning, light);
+    a {
+      color: pal(warning);
+    }
   }
 
   &--info,
   &[data-alert-status = 'inactive'] {
     color: pal(primary);
     background-color: pal(info-bg);
+    a {
+      color: pal(primary);
+    }
   }
 
   &[data-alert-status = 'draft'] {
     color: pal(primary);
     background-color: pal(body-bg);
+    a {
+      color: pal(primary);
+    }
   }
 }
 
@@ -173,4 +194,9 @@
 
 .lowercase {
   text-transform: lowercase;
+}
+
+code {
+  font-family: monospace;
+  text-wrap: none;
 }

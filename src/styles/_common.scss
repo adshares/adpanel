@@ -569,12 +569,6 @@ a, a:has(.fa-icon) {
   color: pal(body-color);
 }
 
-.ap-form-input,
-input {
-  background-color: pal(light);
-  color: pal(body-color);
-}
-
 .user-id {
   background-color: pal(gray) !important;
   color: pal(body-color) !important;
@@ -587,7 +581,7 @@ input {
 }
 
 .bid-strategy__rank-button {
- color: pal(body-bg) !important;
+ color: pal(primary-alt) !important;
 }
 
 .table-nav,

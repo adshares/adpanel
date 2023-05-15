@@ -89,6 +89,7 @@ mat-chip:not(.mat-basic-chip) {
 .mat-expansion-panel-header-title {
   flex-grow: 1;
   display: inline;
+  color: pal(dark);
 }
 
 .mat-form-field-infix {
@@ -317,7 +318,7 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .ap-header .ap-btn-light {
-  color: pal(light,light);
+  color: pal(secondary);
 }
 
 // --- paginator --- //
@@ -357,6 +358,8 @@ mat-chip:not(.mat-basic-chip) {
 // --- expansion-panel --- //
 
 .mat-expansion-panel {
+  background-color: pal(light);
+  color: pal(body-color);
 
   .mat-expansion-indicator::after {
     color: pal(body-color);
@@ -368,4 +371,37 @@ mat-chip:not(.mat-basic-chip) {
 .mat-tab-nav-bar,
 .mat-tab-header {
   border-bottom-color: pal(gray);
+}
+
+// --- form --- //
+
+// --- textarea --- //
+
+.code-container {
+  background-color: pal(light);
+}
+
+// --- input --- //
+
+.ap-form-input {
+  background-color: pal(light);
+  color: pal(dark);
+
+  &__box span {
+    color: pal(dark);
+  }
+}
+
+.mat-select-panel {
+  background: pal(body-bg);
+
+  .mat-option-text {
+    color: pal(body-color) !important;
+  }
+}
+
+// --- reports --- //
+
+.ap-btn.ap-btn--text {
+  color: pal(body-color);
 }

@@ -2,7 +2,7 @@
     --primary: #003d4d;
     --primary-alt: #002f36;
     --secondary: #96dfef;
-    --secondary-alt: #bff7ff;
+    --secondary-alt: #56a6b7;
     --body-bg: #dfdfdf;
     --body-color: #003d4d;
     --dark: #000000;
@@ -12,7 +12,7 @@
     --danger-bg: #ffa0a6;
     --warning: #ffb400;
     --warning-bg: #f8e7bf;
-    --success: #19ad42;
+    --success: #05ad6e;
     --success-bg: #8debc8;
     --info: #003d4d;
     --info-bg: #96dfef;
@@ -22,10 +22,10 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --body-bg: #002f36;
+        --body-bg: #292929;
         --body-color: #f2f2f2;
         --gray: #666666;
-        --light: #000;
+        --light: #222222;
         --secondary: #bff7ff;
         --dark: #fff;
     }
