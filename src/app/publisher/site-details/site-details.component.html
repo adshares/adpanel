@@ -22,23 +22,20 @@
       </button>
     </div>
 
-    <div *ngIf="site.needsAdsTxtConfirmation" class="ap-box">
-      <h1 class="ap-heading ap-heading--h2 box-title">Add ads.txt entry</h1>
-      <div class="box-content">
-        <span class="ap-copy">
-          This site needs specific ads.txt entry to display advertisements. Please add the following entry to your
-          ads.txt file:<br />{{ adsTxtEntry }}
-        </span>
-      </div>
-      <div class="box-content">
-        <span class="ap-copy">
-          Detailed instructions can be found in documentation:
-          <a href="{{ ADS_TXT_INSTRUCTION }}" rel="noopener nofollow noreferrer" target="_blank">{{
-            ADS_TXT_INSTRUCTION
-          }}</a
-          >.
-        </span>
-      </div>
+    <div *ngIf="site.needsAdsTxtConfirmation" class="ap-alert ap-alert--warning">
+      <h1 class="ap-heading--h4">Add ads.txt entry</h1>
+      <p>
+        This site needs specific ads.txt entry to display advertisements. Please add the following entry to your
+        ads.txt file:<br />
+        <code>{{ adsTxtEntry }}</code>
+      </p>
+      <p>
+        Detailed instructions can be found in documentation:
+        <a href="{{ ADS_TXT_INSTRUCTION }}" rel="noopener nofollow noreferrer" target="_blank">{{
+          ADS_TXT_INSTRUCTION
+        }}</a
+        >.
+      </p>
     </div>
 
     <div class="ap-box">
