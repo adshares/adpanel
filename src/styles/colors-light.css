@@ -22,10 +22,10 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --body-bg: #002f36;
+        --body-bg: #292929;
         --body-color: #f2f2f2;
         --gray: #666666;
-        --light: #000;
+        --light: #222222;
         --secondary: #bff7ff;
         --dark: #fff;
     }
