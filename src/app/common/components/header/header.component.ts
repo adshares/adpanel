@@ -158,4 +158,8 @@ export class HeaderComponent extends HandleSubscriptionComponent implements OnIn
   logout() {
     this.auth.logout();
   }
+
+  onLogoError(event) {
+    event.target.src = '/logo.png';
+  }
 }

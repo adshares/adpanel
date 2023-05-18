@@ -67,6 +67,7 @@
     "@types/node": "^12.12.6",
     "@typescript-eslint/eslint-plugin": "5.27.1",
     "@typescript-eslint/parser": "5.27.1",
+    "angular-http-server": "^1.11.1",
     "eslint": "8.22.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-angular": "^4.1.0",
