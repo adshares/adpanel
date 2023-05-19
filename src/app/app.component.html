@@ -6,6 +6,8 @@
   <div class="loader-wrapper">
     <div class="col align-center loader">
       <img class="ap-logo" src="/logo.png" [alt]="name" />
+      <img class="ap-logo-dark-mode" src="/logo-dark-mode.png" [alt]="name" (error)="onLogoError($event)" />
+
       <div class="loading-wrapper">
         <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
       </div>

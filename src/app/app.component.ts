@@ -83,4 +83,8 @@ export class AppComponent extends HandleSubscriptionComponent implements OnInit 
   isOauth(): boolean {
     return undefined !== this.route.snapshot.queryParams.redirect_uri;
   }
+
+  onLogoError(event) {
+    event.target.src = '/logo.png';
+  }
 }
