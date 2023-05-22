@@ -91,6 +91,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   }
 
   updateTargetingAndCpm(): void {
+    this.changesSaved = true;
     const targeting = {
       requires: this.addedItems,
       excludes: this.excludedItems,

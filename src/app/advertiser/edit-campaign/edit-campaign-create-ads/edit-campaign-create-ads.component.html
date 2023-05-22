@@ -341,16 +341,14 @@
 
       <div class="row row--gap8">
         <button
+          type="button"
           *ngIf="!isEditMode"
           (click)="onSubmit(true)"
           class="ap-btn ap-btn--secondary"
-          data-test="advertiser-edit-campaign-save-as-draft">
+          [disabled]="changesSaved">
           Save as draft
         </button>
-        <button
-          class="ap-btn ap-btn--primary"
-          (click)="onSubmit()"
-          data-test="advertiser-edit-campaign-save-and-continue">
+        <button type="button" class="ap-btn ap-btn--primary" (click)="onSubmit()" [disabled]="changesSaved">
           <span *ngIf="!changesSaved; else loading">
             {{ isEditMode ? 'Update' : 'Save & continue' }}
           </span>
