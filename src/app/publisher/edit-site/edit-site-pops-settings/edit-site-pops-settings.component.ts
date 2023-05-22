@@ -106,7 +106,6 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
     } else {
       this.router.navigate(['/publisher', 'create-site', 'create-ad-units']);
     }
-    this.changesSaved = false;
   }
 
   updateAdUnits(): void {

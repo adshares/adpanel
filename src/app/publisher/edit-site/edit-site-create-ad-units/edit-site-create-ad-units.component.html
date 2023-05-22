@@ -152,14 +152,10 @@
         (click)="saveAdUnits(true)"
         type="button"
         class="ap-btn ap-btn--secondary"
-        data-test="publisher-edit-site-save-as-draft">
+        [disabled]="changesSaved">
         Save as draft
       </button>
-      <button
-        type="submit"
-        class="ap-btn ap-btn--primary"
-        (click)="onSubmit()"
-        data-test="publisher-edit-site-save-and-continue">
+      <button type="submit" class="ap-btn ap-btn--primary" (click)="onSubmit()" [disabled]="changesSaved">
         <span *ngIf="!changesSaved; else loading">{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>

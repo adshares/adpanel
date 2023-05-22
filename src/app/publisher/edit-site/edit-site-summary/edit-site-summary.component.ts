@@ -14,6 +14,8 @@ import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { first } from 'rxjs/operators';
+import { Actions, ofType } from '@ngrx/effects';
+import { SHOW_DIALOG_ON_ERROR } from 'store/common/common.actions';
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -23,7 +25,7 @@ import { first } from 'rxjs/operators';
 export class EditSiteSummaryComponent extends HandleSubscriptionComponent implements OnInit {
   site: Site;
   filteringOptions: TargetingOption[];
-  canSubmit: boolean;
+  changeSaved: boolean = false;
   displayAds: boolean;
   PUBLISHER_INSTRUCTION_LINK = PUBLISHER_INSTRUCTION_LINK;
 
@@ -32,7 +34,8 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private actions: Actions
   ) {
     super();
   }
@@ -64,7 +67,7 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
   }
 
   saveSite(isDraft): void {
-    this.canSubmit = false;
+    this.changeSaved = true;
     if (!isDraft) {
       this.site = {
         ...this.site,
@@ -72,5 +75,9 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
       };
     }
     this.store.dispatch(new AddSiteToSites(this.site));
+    const errorSubscription = this.actions.pipe(ofType(SHOW_DIALOG_ON_ERROR)).subscribe(() => {
+      this.changeSaved = false;
+    });
+    this.subscriptions.push(errorSubscription);
   }
 }
