@@ -234,7 +234,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
     }
   }
 
-  async redirectAfterSave(isDraft: boolean): Promise<void> {
+  redirectAfterSave(isDraft: boolean): void {
     if (isDraft) {
       this.site = {
         ...this.site,
@@ -243,8 +243,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
       this.store.dispatch(new AddSiteToSites(this.site));
       return;
     }
-    await this.router.navigate(['/publisher', 'create-site', 'additional-filtering']);
-    this.changesSaved = false;
+    this.router.navigate(['/publisher', 'create-site', 'additional-filtering']);
   }
 
   removeAdUnit(adIndex: number): void {
