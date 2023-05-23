@@ -349,12 +349,7 @@
           Save as draft
         </button>
         <button type="button" class="ap-btn ap-btn--primary" (click)="onSubmit()" [disabled]="changesSaved">
-          <span *ngIf="!changesSaved; else loading">
-            {{ isEditMode ? 'Update' : 'Save & continue' }}
-          </span>
-          <ng-template #loading>
-            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-          </ng-template>
+          {{ isEditMode ? 'Update' : 'Save & continue' }}
         </button>
       </div>
     </div>

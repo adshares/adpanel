@@ -272,10 +272,7 @@
           class="ap-btn ap-btn--primary"
           (click)="onSubmit()"
           [disabled]="changesSaving">
-          <span *ngIf="!changesSaving; else loading">{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
-          <ng-template #loading>
-            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-          </ng-template>
+          {{ createSiteMode ? 'Save & continue' : 'Update' }}
         </button>
       </div>
     </div>

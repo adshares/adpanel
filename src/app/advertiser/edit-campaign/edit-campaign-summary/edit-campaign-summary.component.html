@@ -142,10 +142,7 @@
           Save as draft
         </button>
         <button class="ap-btn ap-btn--primary" (click)="saveCampaign(false)" [disabled]="changesSaved">
-          <span *ngIf="!changesSaved; else loading"> Start campaign </span>
-          <ng-template #loading>
-            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-          </ng-template>
+          Start campaign
         </button>
       </div>
     </div>
