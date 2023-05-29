@@ -4,6 +4,8 @@
   &__input {
     @include input($max-width: initial);
     width: 100%;
+    background-color: pal(body-bg);
+    color: pal(body-color);
   }
 
   &__input-icon {
