@@ -141,6 +141,11 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .classifier-filtering {
+  &__input {
+    background-color: pal(body-bg);
+    color: pal(body-color);
+  }
+
   .mat-expansion-panel-body {
     display: flex;
     flex-wrap: wrap;
