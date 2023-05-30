@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Block buttons while campaign/site creation is in progress
 - Fixing background of targeting select input
+- Classifier filtering and Targeting & exclusions text and backgrounds contrasting colors set
 
 ## [2.5.0] - 2023-05-15
 ### Added
