@@ -30,6 +30,15 @@ import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { HTTP_SERVICE_UNAVAILABLE } from 'common/utilities/codes';
 import { SessionService } from '../../session.service';
+import {
+  ADD_SITE_TO_SITES_FAILURE,
+  AddSiteToSitesFailure,
+  UPDATE_SITE_FAILURE,
+  UPDATE_SITE_UNITS_FAILURE,
+  UpdateSite,
+  UpdateSiteFailure,
+  UpdateSiteUnitsFailure,
+} from 'store/publisher/publisher.actions';
 
 @Injectable()
 export class CommonEffects {
@@ -65,10 +74,20 @@ export class CommonEffects {
   handleErrors = createEffect(
     () =>
       this.actions$.pipe(
-        ofType<ShowDialogOnError | UpdateCampaignFailure | AddCampaignToCampaignsFailure>(
+        ofType<
+          | ShowDialogOnError
+          | UpdateCampaignFailure
+          | AddCampaignToCampaignsFailure
+          | AddSiteToSitesFailure
+          | UpdateSiteUnitsFailure
+          | UpdateSiteFailure
+        >(
           SHOW_DIALOG_ON_ERROR,
           UPDATE_CAMPAIGN_FAILURE,
-          ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE
+          ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE,
+          ADD_SITE_TO_SITES_FAILURE,
+          UPDATE_SITE_UNITS_FAILURE,
+          UPDATE_SITE_FAILURE
         ),
         tap(action => {
           this.dialog.open(ErrorResponseDialogComponent, {
