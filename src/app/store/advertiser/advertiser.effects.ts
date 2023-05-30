@@ -12,6 +12,7 @@ import {
   ActivateOutdatedCampaignStatusSuccess,
   ADD_CAMPAIGN_TO_CAMPAIGNS,
   AddCampaignToCampaigns,
+  AddCampaignToCampaignsFailure,
   AddCampaignToCampaignsSuccess,
   ClearLastEditedCampaign,
   CLONE_CAMPAIGN,
@@ -209,7 +210,9 @@ export class AdvertiserEffects {
             return [new AddCampaignToCampaignsSuccess(campaign), new ClearLastEditedCampaign()];
           }),
           catchError(error =>
-            observableOf(new ShowDialogOnError((error.error && error.error.message) || `Error code: ${error.status}`))
+            observableOf(
+              new AddCampaignToCampaignsFailure((error.error && error.error.message) || `Error code: ${error.status}`)
+            )
           )
         )
       )

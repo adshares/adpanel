@@ -10,7 +10,12 @@ import { Campaign, CampaignBasicInformation, CampaignsConfig } from 'models/camp
 import { campaignInitialState } from 'models/initial-state/campaign';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { Entry } from 'models/targeting-option.model';
-import { LoadCampaignsConfig, SaveCampaignBasicInformation, UpdateCampaign } from 'store/advertiser/advertiser.actions';
+import {
+  LoadCampaignsConfig,
+  SaveCampaignBasicInformation,
+  UpdateCampaign,
+  UPDATE_CAMPAIGN_FAILURE,
+} from 'store/advertiser/advertiser.actions';
 
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
@@ -27,6 +32,7 @@ import { HandleSubscriptionComponent } from 'common/handle-subscription.componen
 import { CustomValidators } from 'common/utilities/forms';
 import { ServerOptionsService } from 'common/server-options.service';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -59,7 +65,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
-    private serverOptionsService: ServerOptionsService
+    private serverOptionsService: ServerOptionsService,
+    private actions$: Actions
   ) {
     super();
   }
@@ -151,6 +158,11 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
     };
 
     this.store.dispatch(new UpdateCampaign(this.campaign));
+
+    const errorSubscription = this.actions$.pipe(ofType(UPDATE_CAMPAIGN_FAILURE)).subscribe(() => {
+      this.changesSaved = false;
+    });
+    this.subscriptions.push(errorSubscription);
   }
 
   createForm() {

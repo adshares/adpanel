@@ -10,14 +10,13 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { adStatusesEnum } from 'models/enum/ad.enum';
-import { AddCampaignToCampaigns, UPDATE_CAMPAIGN_FAILURE } from 'store/advertiser/advertiser.actions';
+import { AddCampaignToCampaigns, ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE } from 'store/advertiser/advertiser.actions';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 import { Actions, ofType } from '@ngrx/effects';
-import { SHOW_DIALOG_ON_ERROR } from 'store/common/common.actions';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -79,11 +78,9 @@ export class EditCampaignSummaryComponent extends HandleSubscriptionComponent im
       };
     }
     this.store.dispatch(new AddCampaignToCampaigns(this.campaign));
-    const errorSubscription = this.actions$
-      .pipe(ofType(SHOW_DIALOG_ON_ERROR, UPDATE_CAMPAIGN_FAILURE), first())
-      .subscribe(() => {
-        this.changesSaved = false;
-      });
+    const errorSubscription = this.actions$.pipe(ofType(ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE)).subscribe(() => {
+      this.changesSaved = false;
+    });
     this.subscriptions.push(errorSubscription);
   }
 }

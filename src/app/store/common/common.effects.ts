@@ -19,7 +19,12 @@ import {
   ShowDialogOnError,
   ShowSuccessSnackbar,
 } from './common.actions';
-import { UPDATE_CAMPAIGN_FAILURE, UpdateCampaignFailure } from 'store/advertiser/advertiser.actions';
+import {
+  ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE,
+  AddCampaignToCampaignsFailure,
+  UPDATE_CAMPAIGN_FAILURE,
+  UpdateCampaignFailure,
+} from 'store/advertiser/advertiser.actions';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
@@ -60,7 +65,11 @@ export class CommonEffects {
   handleErrors = createEffect(
     () =>
       this.actions$.pipe(
-        ofType<ShowDialogOnError | UpdateCampaignFailure>(SHOW_DIALOG_ON_ERROR, UPDATE_CAMPAIGN_FAILURE),
+        ofType<ShowDialogOnError | UpdateCampaignFailure | AddCampaignToCampaignsFailure>(
+          SHOW_DIALOG_ON_ERROR,
+          UPDATE_CAMPAIGN_FAILURE,
+          ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE
+        ),
         tap(action => {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
