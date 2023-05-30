@@ -210,9 +210,7 @@ export class AdvertiserEffects {
             return [new AddCampaignToCampaignsSuccess(campaign), new ClearLastEditedCampaign()];
           }),
           catchError(error =>
-            observableOf(
-              new AddCampaignToCampaignsFailure((error.error && error.error.message) || `Error code: ${error.status}`)
-            )
+            observableOf(new AddCampaignToCampaignsFailure(error.error?.message || `Error code: ${error.status}`))
           )
         )
       )

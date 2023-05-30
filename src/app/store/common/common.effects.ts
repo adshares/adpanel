@@ -35,7 +35,6 @@ import {
   AddSiteToSitesFailure,
   UPDATE_SITE_FAILURE,
   UPDATE_SITE_UNITS_FAILURE,
-  UpdateSite,
   UpdateSiteFailure,
   UpdateSiteUnitsFailure,
 } from 'store/publisher/publisher.actions';
