@@ -383,7 +383,8 @@ mat-chip:not(.mat-basic-chip) {
 
 // --- input --- //
 
-.ap-form-input {
+.ap-form-input,
+.targeting-select__input {
   background-color: pal(light);
   color: pal(dark);
 
