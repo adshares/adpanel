@@ -16,6 +16,10 @@
   }
   &__size-box {
     padding: 0 4px;
+
+    .ap-copy--small {
+      color: pal(secondary-alt);
+    }
   }
   &__banner {
     height: auto;
