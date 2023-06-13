@@ -623,4 +623,8 @@ a, a:has(.fa-icon) {
   .ap-logo-dark-mode {
     display: block;
   }
+
+  .svg-dark {
+    filter: invert(1);
+  }
 }

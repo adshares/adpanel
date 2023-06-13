@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
+- Png icons replaced with svgs
 - Classifier filtering and Targeting & exclusions text and backgrounds contrasting colors set
 
 ## [2.5.0] - 2023-05-15
