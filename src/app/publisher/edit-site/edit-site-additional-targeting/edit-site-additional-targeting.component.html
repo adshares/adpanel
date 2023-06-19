@@ -127,15 +127,11 @@
         *ngIf="createSiteMode"
         (click)="saveSite(true)"
         [disabled]="changesSaved"
-        class="ap-btn ap-btn--secondary"
-        data-test="publisher-edit-site-save-as-draft">
+        class="ap-btn ap-btn--secondary">
         Save as draft
       </button>
-      <button (click)="onSubmit()" class="ap-btn ap-btn--primary" data-test="publisher-edit-site-save-and-continue">
-        <span *ngIf="!changesSaved; else loading">{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
-        <ng-template #loading>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
+      <button (click)="onSubmit()" class="ap-btn ap-btn--primary" [disabled]="changesSaved">
+        {{ createSiteMode ? 'Save & continue' : 'Update' }}
       </button>
     </div>
   </div>

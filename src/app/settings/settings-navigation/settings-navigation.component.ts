@@ -28,7 +28,7 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
   ) {
     super();
 
-    if (session.isModerator()) {
+    if (session.isModerator() && !session.isImpersonated()) {
       this.settings.push({
         title: 'Moderator',
         description: '',
@@ -42,7 +42,7 @@ export class SettingsNavigationComponent extends HandleSubscriptionComponent imp
       });
     }
 
-    if (session.isAgency()) {
+    if (session.isAgency() && !session.isImpersonated()) {
       this.settings.push({
         title: 'Agency',
         description: '',

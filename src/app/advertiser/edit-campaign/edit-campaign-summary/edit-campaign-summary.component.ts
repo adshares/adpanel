@@ -10,12 +10,13 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { adStatusesEnum } from 'models/enum/ad.enum';
-import { AddCampaignToCampaigns } from 'store/advertiser/advertiser.actions';
+import { AddCampaignToCampaigns, ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE } from 'store/advertiser/advertiser.actions';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -29,11 +30,13 @@ export class EditCampaignSummaryComponent extends HandleSubscriptionComponent im
   faEdit = faEdit;
   faCalendar = faCalendar;
   CONVERSIONS_DESCRIPTION = CONVERSIONS_DESCRIPTION;
+  changesSaved: boolean = false;
 
   constructor(
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
-    private assetHelpers: AssetHelpersService
+    private assetHelpers: AssetHelpersService,
+    private readonly actions$: Actions
   ) {
     super();
   }
@@ -58,6 +61,7 @@ export class EditCampaignSummaryComponent extends HandleSubscriptionComponent im
   }
 
   saveCampaign(isDraft): void {
+    this.changesSaved = true;
     if (!isDraft) {
       this.campaign = {
         ...this.campaign,
@@ -74,5 +78,9 @@ export class EditCampaignSummaryComponent extends HandleSubscriptionComponent im
       };
     }
     this.store.dispatch(new AddCampaignToCampaigns(this.campaign));
+    const errorSubscription = this.actions$.pipe(ofType(ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE)).subscribe(() => {
+      this.changesSaved = false;
+    });
+    this.subscriptions.push(errorSubscription);
   }
 }

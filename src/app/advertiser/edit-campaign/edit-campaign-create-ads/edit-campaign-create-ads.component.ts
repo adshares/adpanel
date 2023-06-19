@@ -6,9 +6,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { first, take } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload';
 import {
+  ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE,
   AddCampaignToCampaigns,
   ClearLastEditedCampaign,
   SaveCampaignAds,
+  UPDATE_CAMPAIGN_FAILURE,
   UpdateCampaign,
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
@@ -28,6 +30,7 @@ import { SessionService } from '../../../session.service';
 import { ShowDialogOnError } from 'store/common/common.actions';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import { Actions, ofType } from '@ngrx/effects';
 
 interface UploadingFile {
   name: string;
@@ -87,7 +90,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscriptionComponent 
     private router: Router,
     private store: Store<AppState>,
     private session: SessionService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private actions$: Actions
   ) {
     super();
   }
@@ -461,6 +465,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscriptionComponent 
       this.isEditMode
         ? this.store.dispatch(new UpdateCampaign(this.campaign))
         : this.saveCampaignAds(this.campaign, isDraft);
+
+      const errorSubscription = this.actions$
+        .pipe(ofType(ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE, UPDATE_CAMPAIGN_FAILURE), first())
+        .subscribe(() => {
+          this.changesSaved = false;
+        });
+      this.subscriptions.push(errorSubscription);
     } else {
       this.changesSaved = false;
     }

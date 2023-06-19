@@ -625,4 +625,8 @@ a, a:has(.fa-icon) {
     max-width: 200px;
     max-height: 40px;
   }
+
+  .svg-dark {
+    filter: invert(1);
+  }
 }
