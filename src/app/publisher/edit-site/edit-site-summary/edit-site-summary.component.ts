@@ -8,12 +8,13 @@ import { siteStatusEnum } from 'models/enum/site.enum';
 import { PUBLISHER_INSTRUCTION_LINK } from 'models/enum/link.enum';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import { AddSiteToSites } from 'store/publisher/publisher.actions';
+import { ADD_SITE_TO_SITES_FAILURE, AddSiteToSites } from 'store/publisher/publisher.actions';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { first } from 'rxjs/operators';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -23,7 +24,7 @@ import { first } from 'rxjs/operators';
 export class EditSiteSummaryComponent extends HandleSubscriptionComponent implements OnInit {
   site: Site;
   filteringOptions: TargetingOption[];
-  canSubmit: boolean;
+  changeSaved: boolean = false;
   displayAds: boolean;
   PUBLISHER_INSTRUCTION_LINK = PUBLISHER_INSTRUCTION_LINK;
 
@@ -32,7 +33,8 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private actions: Actions
   ) {
     super();
   }
@@ -64,7 +66,7 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
   }
 
   saveSite(isDraft): void {
-    this.canSubmit = false;
+    this.changeSaved = true;
     if (!isDraft) {
       this.site = {
         ...this.site,
@@ -72,5 +74,9 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
       };
     }
     this.store.dispatch(new AddSiteToSites(this.site));
+    const errorSubscription = this.actions.pipe(ofType(ADD_SITE_TO_SITES_FAILURE)).subscribe(() => {
+      this.changeSaved = false;
+    });
+    this.subscriptions.push(errorSubscription);
   }
 }

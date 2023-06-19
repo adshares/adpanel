@@ -14,12 +14,15 @@ import {
   SaveLastEditedSiteAdUnits,
   AddSiteToSites,
   UpdateSiteUnits,
+  UPDATE_SITE_UNITS_FAILURE,
+  ADD_SITE_TO_SITES_FAILURE,
 } from 'store/publisher/publisher.actions';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { first } from 'rxjs/operators';
 import { faPlus, faCheck, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-site-create-poster-units',
@@ -47,7 +50,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private actions$: Actions
   ) {
     super();
   }
@@ -188,15 +192,23 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
   }
 
   updateAdUnits(): void {
+    this.changesSaved = true;
     const adUnitsValid = this.adUnitForms.every(adForm => adForm.valid);
     this.adUnitsSubmitted = true;
-    if (!adUnitsValid) return;
+    if (!adUnitsValid) {
+      this.changesSaved = false;
+      return;
+    }
     this.adUnitsSubmitted = false;
     const site = {
       ...this.site,
       adUnits: this.adUnitsToSave,
     };
     this.store.dispatch(new UpdateSiteUnits(site));
+    const errorSubscription = this.actions$.pipe(ofType(UPDATE_SITE_UNITS_FAILURE)).subscribe(() => {
+      this.changesSaved = false;
+    });
+    this.subscriptions.push(errorSubscription);
   }
 
   get adUnitsToSave(): AdUnit[] {
@@ -235,13 +247,16 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
   }
 
   redirectAfterSave(isDraft: boolean): void {
-    this.changesSaved = false;
     if (isDraft) {
       this.site = {
         ...this.site,
         status: siteStatusEnum.DRAFT,
       };
       this.store.dispatch(new AddSiteToSites(this.site));
+      const errorSubscription = this.actions$.pipe(ofType(ADD_SITE_TO_SITES_FAILURE)).subscribe(() => {
+        this.changesSaved = false;
+      });
+      this.subscriptions.push(errorSubscription);
       return;
     }
     this.router.navigate(['/publisher', 'create-site', 'additional-filtering']);

@@ -214,18 +214,15 @@
 
     <div class="ap-box">
       <div class="box-content row justify-between">
-        <button
-          type="button"
-          class="ap-btn ap-btn--secondary"
-          (click)="onStepBack()"
-          [disabled]="campaignBasicInformationSubmitted || changesSaved"
-          data-test="advertiser-navigate-to-dashboard">
+        <button type="button" class="ap-btn ap-btn--secondary" (click)="onStepBack()" [disabled]="changesSaved">
           {{ createCampaignMode ? 'Back to dashboard' : 'Back' }}
         </button>
         <button
+          type="button"
+          (click)="onSubmit()"
           *ngIf="isTaxonomy"
           class="ap-btn ap-btn--primary"
-          data-test="advertiser-edit-campaign-save-and-continue">
+          [disabled]="changesSaved">
           <span *ngIf="!changesSaved; else loading">
             {{ createCampaignMode ? 'Save & continue' : 'Update' }}
           </span>

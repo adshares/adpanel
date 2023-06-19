@@ -9,15 +9,18 @@ import { AdUnit, AdUnitMetaData, Site } from 'models/site.model';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import {
+  ADD_SITE_TO_SITES_FAILURE,
   AddSiteToSites,
   ClearLastEditedSite,
   SaveLastEditedSiteAdUnits,
+  UPDATE_SITE_UNITS_FAILURE,
   UpdateSiteUnits,
 } from 'store/publisher/publisher.actions';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { adUnitStatusesEnum, adUnitTypesEnum } from 'models/enum/ad.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-site-pops-settings',
@@ -38,7 +41,8 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private actions$: Actions
   ) {
     super();
   }
@@ -81,7 +85,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   }
 
   onSubmit(): void {
-    return this.createSiteMode ? this.saveAdUnits(false) : this.updateAdUnits();
+    this.createSiteMode ? this.saveAdUnits(false) : this.updateAdUnits();
   }
 
   onStepBack(): void {
@@ -103,18 +107,26 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
         status: siteStatusEnum.DRAFT,
       };
       this.store.dispatch(new AddSiteToSites(this.site));
+      const errorSubscription = this.actions$.pipe(ofType(ADD_SITE_TO_SITES_FAILURE)).subscribe(() => {
+        this.changesSaved = false;
+      });
+      this.subscriptions.push(errorSubscription);
     } else {
       this.router.navigate(['/publisher', 'create-site', 'create-ad-units']);
     }
-    this.changesSaved = false;
   }
 
   updateAdUnits(): void {
+    this.changesSaved = true;
     const site = {
       ...this.site,
       adUnits: this.adUnitsToSave,
     };
     this.store.dispatch(new UpdateSiteUnits(site));
+    const errorSubscription = this.actions$.pipe(ofType(UPDATE_SITE_UNITS_FAILURE)).subscribe(() => {
+      this.changesSaved = false;
+    });
+    this.subscriptions.push(errorSubscription);
   }
 
   get adUnitsToSave(): AdUnit[] {

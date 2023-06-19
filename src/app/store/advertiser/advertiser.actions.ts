@@ -12,6 +12,7 @@ export const SAVE_CONVERSION = 'Save conversion';
 
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
+export const ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE = 'Campaign added to user campaigns failure';
 
 export const LOAD_CAMPAIGNS = 'Campaigns loading';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loading success';
@@ -138,6 +139,12 @@ export class AddCampaignToCampaignsSuccess implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS;
 
   constructor(public payload: Campaign) {}
+}
+
+export class AddCampaignToCampaignsFailure implements Action {
+  readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE;
+
+  constructor(public payload?: any) {}
 }
 
 export class LoadCampaigns implements Action {
@@ -269,6 +276,7 @@ export type actions =
   | SaveConversion
   | AddCampaignToCampaigns
   | AddCampaignToCampaignsSuccess
+  | AddCampaignToCampaignsFailure
   | LoadCampaigns
   | LoadCampaignsSuccess
   | LoadCampaignsFailure

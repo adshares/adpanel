@@ -3,10 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import {
+  ADD_SITE_TO_SITES_FAILURE,
   AddSiteToSites,
   ClearLastEditedSite,
   SaveSiteFiltering,
   SaveSiteOnlyAcceptedBanners,
+  UPDATE_SITE_FAILURE,
   UpdateSite,
 } from 'store/publisher/publisher.actions';
 import { AppState } from 'models/app-state.model';
@@ -19,6 +21,7 @@ import { parseTargetingForBackend } from 'common/components/targeting/targeting.
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-site-additional-targeting',
@@ -44,7 +47,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
     private store: Store<AppState>,
     private router: Router,
     private publisherService: PublisherService,
-    private assetHelpers: AssetHelpersService
+    private assetHelpers: AssetHelpersService,
+    private actions$: Actions
   ) {
     super();
   }
@@ -100,6 +104,10 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
   updateSite(): void {
     this.changesSaved = true;
     this.store.dispatch(new UpdateSite(this.siteToSave));
+    const errorSubscription = this.actions$.pipe(ofType(UPDATE_SITE_FAILURE)).subscribe(() => {
+      this.changesSaved = false;
+    });
+    this.subscriptions.push(errorSubscription);
   }
 
   saveSite(isDraft): void {
@@ -118,6 +126,10 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
         filteringArray: chosenTargeting,
       };
       this.store.dispatch(new AddSiteToSites(this.site));
+      const errorSubscription = this.actions$.pipe(ofType(ADD_SITE_TO_SITES_FAILURE)).subscribe(() => {
+        this.changesSaved = false;
+      });
+      this.subscriptions.push(errorSubscription);
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
       this.store.dispatch(new SaveSiteOnlyAcceptedBanners(this.isCheckedOnlyAcceptedBanners));

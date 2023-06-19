@@ -32,6 +32,7 @@ export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site placements saved';
 
 export const ADD_SITE_TO_SITES = 'Save site';
 export const ADD_SITE_TO_SITES_SUCCESS = 'Save site success';
+export const ADD_SITE_TO_SITES_FAILURE = 'Save site failure';
 
 export const UPDATE_SITE = 'Site update';
 export const UPDATE_SITE_SUCCESS = 'Site update success';
@@ -46,6 +47,7 @@ export const UPDATE_SITE_FILTERING_FAILURE = 'Site filtering update failure';
 
 export const UPDATE_SITE_UNITS = 'Site units update';
 export const UPDATE_SITE_UNITS_SUCCESS = 'Site units update success';
+export const UPDATE_SITE_UNITS_FAILURE = 'Site units update failure';
 
 export class LoadSites implements Action {
   readonly type: string = LOAD_SITES;
@@ -167,6 +169,12 @@ export class AddSiteToSitesSuccess implements Action {
   constructor(public payload: Site) {}
 }
 
+export class AddSiteToSitesFailure implements Action {
+  readonly type = ADD_SITE_TO_SITES_FAILURE;
+
+  constructor(public payload?: any) {}
+}
+
 export class GetLanguagesList implements Action {
   readonly type = GET_LANGUAGES_LIST;
 
@@ -245,6 +253,12 @@ export class UpdateSiteUnitsSuccess implements Action {
   constructor(public payload?: Site) {}
 }
 
+export class UpdateSiteUnitsFailure implements Action {
+  readonly type = UPDATE_SITE_UNITS_FAILURE;
+
+  constructor(public payload?: any) {}
+}
+
 export type actions =
   | GetLanguagesList
   | GetLanguagesListSuccess
@@ -268,6 +282,7 @@ export type actions =
   | SaveLastEditedSiteAdUnits
   | AddSiteToSites
   | AddSiteToSitesSuccess
+  | AddSiteToSitesFailure
   | UpdateSite
   | UpdateSiteSuccess
   | UpdateSiteFailure
@@ -277,4 +292,5 @@ export type actions =
   | UpdateSiteFilteringSuccess
   | UpdateSiteFilteringFailure
   | UpdateSiteUnits
-  | UpdateSiteUnitsSuccess;
+  | UpdateSiteUnitsSuccess
+  | UpdateSiteUnitsFailure;
