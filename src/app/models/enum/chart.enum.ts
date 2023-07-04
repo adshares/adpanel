@@ -8,6 +8,7 @@ export enum pubChartSeriesEnum {
   viewUnique = 'Unique Views',
   viewInvalidRate = 'Invalid Views Rate',
   clickInvalidRate = 'Invalid Clicks Rate',
+  viewMissedRate = 'Missed Views Rate',
 }
 
 export enum advChartSeriesEnum {
