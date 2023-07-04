@@ -20,20 +20,9 @@ export class TargetingCustomOptionInputComponent {
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   readonly separatorKeysCodes: number[] = [COMMA, SPACE, ENTER];
   readonly TargetingOptionType = TargetingOptionType;
-  inputShown = false;
   customOptionsArray: TargetingOptionValue[] = [];
   saveRequested = false;
   faPlus = faPlus;
-
-  showInput(): void {
-    if (this.inputShown) {
-      return;
-    }
-    this.inputShown = true;
-    setTimeout(() => {
-      this.input.nativeElement.focus();
-    }, 100);
-  }
 
   add(event: MatChipInputEvent): void {
     const input = event.chipInput.inputElement;

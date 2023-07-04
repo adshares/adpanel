@@ -1,19 +1,10 @@
-<div
-  class="targeting-custom-option__form row row--gap18"
-  role="form"
-  [ngClass]="{ 'targeting-custom-option__form--input-hidden': !inputShown }"
-  (click)="showInput()">
+<div class="targeting-custom-option__form row row--gap18" role="form">
   <label
-    class="targeting-custom-option__label align-center ap-copy ap-copy--semi"
-    [ngClass]="{ 'targeting-custom-option__label--input-shown': inputShown }">
+    class="targeting-custom-option__label align-center ap-copy ap-copy--semi targeting-custom-option__label--input-show">
     {{ option.label }}
   </label>
 
-  <button *ngIf="!inputShown" class="ap-icon-btn" title="Click to show option input">
-    <fa-icon [icon]="faPlus"></fa-icon>
-  </button>
-
-  <div *ngIf="inputShown && option.valueType === TargetingOptionType.STRING" class="col row--gap8 custom-input-wrapper">
+  <div *ngIf="option.valueType === TargetingOptionType.STRING" class="col row--gap8 custom-input-wrapper">
     <mat-chip-list #chipList>
       <mat-chip
         *ngFor="let option of customOptionsArray"
@@ -40,7 +31,7 @@
     </div>
   </div>
 
-  <div *ngIf="inputShown && option.valueType === TargetingOptionType.PARCEL_COORDINATES" class="col row--gap8">
+  <div *ngIf="option.valueType === TargetingOptionType.PARCEL_COORDINATES" class="col row--gap8">
     <div class="row row--gap8 align-center coordinates-wrapper">
       <div class="ap-form-input__box">
         <label for="coordinate-x" class="ap-form-label"> Coordinate X </label>
