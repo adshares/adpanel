@@ -22,7 +22,7 @@ export class TargetingCustomOptionInputComponent {
   faPlus = faPlus;
 
   private adjustValueBeforeSave(value: string): TargetingOptionValue {
-    const trimmedValue = value.replace(' ', '').toLowerCase();
+    const trimmedValue = value.replace(/\s+/g, '').toLowerCase();
     let url;
     if (CryptovoxelsConverter.ID === this.option.id) {
       url = this.prepareCryptovoxelsUrl(trimmedValue);
