@@ -5,27 +5,9 @@
   </label>
 
   <div *ngIf="option.valueType === TargetingOptionType.STRING" class="col row--gap8 custom-input-wrapper">
-    <mat-chip-list #chipList>
-      <mat-chip
-        *ngFor="let option of customOptionsArray"
-        [selectable]="true"
-        [removable]="true"
-        (removed)="remove(option)">
-        {{ option.label }}
-        <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
-    </mat-chip-list>
     <div class="row row--gap18">
-      <input
-        class="ap-form-input ap-form-input--full"
-        #input
-        [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        [matChipInputAddOnBlur]="true"
-        (matChipInputTokenEnd)="add($event)"
-        (keyup.enter)="saveCustomTargetingOptions()" />
-
-      <button class="ap-icon-btn" title="Add custom option" (click)="saveCustomTargetingOptions()">
+      <input class="ap-form-input ap-form-input--full" #input (keyup.enter)="saveCustomTargetingOption()" />
+      <button class="ap-icon-btn" title="Add custom option" (click)="saveCustomTargetingOption()">
         <fa-icon [icon]="faPlus"></fa-icon>
       </button>
     </div>

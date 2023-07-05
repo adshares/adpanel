@@ -1,6 +1,4 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model';
 import { prepareCustomOption } from 'common/components/targeting/targeting.helpers2';
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter';
@@ -13,32 +11,18 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./targeting-custom-option-input.component.scss'],
 })
 export class TargetingCustomOptionInputComponent {
-  @ViewChild('input') input: ElementRef;
+  @ViewChild('input') input: ElementRef<HTMLInputElement>;
   @Input() option: TargetingOption;
   @Input() addedItems: TargetingOptionValue[];
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
-  readonly separatorKeysCodes: number[] = [COMMA, SPACE, ENTER];
   readonly TargetingOptionType = TargetingOptionType;
   customOptionsArray: TargetingOptionValue[] = [];
   saveRequested = false;
   faPlus = faPlus;
 
-  add(event: MatChipInputEvent): void {
-    const input = event.chipInput.inputElement;
-
-    if ((event.value || '').trim()) {
-      const value = this.adjustValueBeforeSave(event.value);
-      this.customOptionsArray.push(value);
-    }
-
-    if (input) {
-      input.value = '';
-    }
-  }
-
   private adjustValueBeforeSave(value: string): TargetingOptionValue {
-    const trimmedValue = value.trim().split(' ').join('').toLowerCase();
+    const trimmedValue = value.replace(' ', '').toLowerCase();
     let url;
     if (CryptovoxelsConverter.ID === this.option.id) {
       url = this.prepareCryptovoxelsUrl(trimmedValue);
@@ -50,15 +34,13 @@ export class TargetingCustomOptionInputComponent {
     return option;
   }
 
-  remove(option: TargetingOptionValue): void {
-    const index = this.customOptionsArray.indexOf(option);
-
-    if (index >= 0) {
-      this.customOptionsArray.splice(index, 1);
+  saveCustomTargetingOption(): void {
+    const value = (this.input.nativeElement.value || '').trim();
+    if (value) {
+      this.customOptionsArray.push(this.adjustValueBeforeSave(value));
     }
-  }
+    this.input.nativeElement.value = '';
 
-  saveCustomTargetingOptions(): void {
     this.itemsChange.emit(this.customOptionsArray);
   }
 
