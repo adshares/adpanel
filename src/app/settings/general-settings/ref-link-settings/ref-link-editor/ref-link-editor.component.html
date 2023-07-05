@@ -110,14 +110,14 @@
           </div>
         </ng-container>
         <div class="ap-form-input__box">
-          <label for="token" class="ap-form-label"> Referral token </label>
+          <label for="token" class="ap-form-label"> Link name </label>
           <input
             id="token"
             class="ap-form-input ap-form-input--full"
             type="text"
             name="token"
             formControlName="token"
-            placeholder="Leave blank to get random token" />
+            placeholder="your-link-name" />
           <span *ngIf="form.get('token').valid" class="input-valid"></span>
           <span class="error-msg" *ngIf="form.hasError('minlength', ['token']) && formSubmitted">
             The token must be at least

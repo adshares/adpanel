@@ -18,13 +18,6 @@
     align-items: center;
     padding-left: 24px;
 
-    &--input-hidden {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-
     & .custom-input-wrapper {
       flex-grow: 1;
       max-width: 390px;
