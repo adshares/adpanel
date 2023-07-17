@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 import { PublisherRoutingModule } from './publisher-routing.module';
 import { PublisherGuard } from './publisher-guard.service';
 import { AppCommonModule } from 'common/common.module';
@@ -91,6 +92,7 @@ const publisherComponents = [
     MatRadioModule,
     FontAwesomeModule,
     MatTabsModule,
+    NgxMatDatetimePickerModule,
   ],
   providers: [
     PublisherGuard,

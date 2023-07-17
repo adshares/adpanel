@@ -32,6 +32,10 @@ interface BannerClassificationFilters {
   bannerId?: string;
   landingUrl?: string;
   classifierLocalBanners?: number;
+  createdFrom?: string | null;
+  createdTo?: string | null;
+  signedFrom?: string | null;
+  signedTo?: string | null;
 }
 
 export { BannerClassification, BannerClassificationResponse, BannerClassificationFilters };

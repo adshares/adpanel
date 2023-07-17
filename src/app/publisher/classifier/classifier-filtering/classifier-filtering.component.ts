@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BannerClassificationFilters } from 'models/classifier.model';
 import { ActivatedRoute } from '@angular/router';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-classifier-filtering',
@@ -13,9 +15,14 @@ export class ClassifierFilteringComponent implements OnInit {
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() siteId: number;
   @Input() classifierLocalBanners: number;
+  protected readonly faCalendar = faCalendar;
   status = new FormControl('Unclassified');
   landingUrl = new FormControl('');
   bannerId = new FormControl('');
+  createdFromFormControl = new FormControl('');
+  createdToFormControl = new FormControl('');
+  signedFromFormControl = new FormControl('');
+  signedToFormControl = new FormControl('');
   sizes: Array<string> = [];
   filtering: BannerClassificationFilters = {
     sizes: [],
@@ -130,6 +137,27 @@ export class ClassifierFilteringComponent implements OnInit {
     this.filteringChange.emit(this.filtering);
   }
 
+  changeFilteringByDates(): void {
+    this.filtering = {
+      ...this.filtering,
+      createdFrom: this.createdFromFormControl.value ? moment(this.createdFromFormControl.value._d).format() : null,
+      createdTo: this.createdToFormControl.value ? moment(this.createdToFormControl.value._d).format() : null,
+      signedFrom: this.signedFromFormControl.value ? moment(this.signedFromFormControl.value._d).format() : null,
+      signedTo: this.signedToFormControl.value ? moment(this.signedToFormControl.value._d).format() : null,
+    };
+
+    this.filteringChange.emit(this.filtering);
+  }
+
+  changeFilteringByDatesReset() {
+    this.createdFromFormControl.setValue('');
+    this.createdToFormControl.setValue('');
+    this.signedFromFormControl.setValue('');
+    this.signedToFormControl.setValue('');
+
+    this.changeFilteringByDates();
+  }
+
   changeFilteringByBannerIdReset(): void {
     this.bannerId.setValue('');
 
@@ -154,5 +182,16 @@ export class ClassifierFilteringComponent implements OnInit {
       classifierLocalBanners: this.classifierLocalBanners,
     };
     this.filteringChange.emit(this.filtering);
+  }
+
+  get filterByDatesDescription(): string {
+    const labels = [];
+    if (this.createdFromFormControl.value || this.createdToFormControl.value) {
+      labels.push('Added');
+    }
+    if (this.signedFromFormControl.value || this.signedToFormControl.value) {
+      labels.push('Accepted');
+    }
+    return labels.join(', ');
   }
 }
