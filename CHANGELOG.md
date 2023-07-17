@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Png icons replaced with svgs
 - Classifier filtering and Targeting & exclusions text and backgrounds contrasting colors set
 - Direct deal's condition
+- Discarding status filter on banner classification page
 
 ## [2.5.0] - 2023-05-15
 ### Added
