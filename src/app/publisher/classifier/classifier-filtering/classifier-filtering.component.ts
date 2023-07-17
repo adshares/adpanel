@@ -15,7 +15,7 @@ export class ClassifierFilteringComponent implements OnInit {
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() siteId: number;
   @Input() classifierLocalBanners: number;
-  protected readonly faCalendar = faCalendar;
+  faCalendar = faCalendar;
   status = new FormControl('Unclassified');
   landingUrl = new FormControl('');
   bannerId = new FormControl('');
