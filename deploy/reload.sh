@@ -36,7 +36,8 @@ then
   if [[ -d ${BRAND_ASSETS_DIR} ]]
   then
     echo "Copying brand assets from ${BRAND_ASSETS_DIR}"
-    cp -fr "${BRAND_ASSETS_DIR}"/* $BUILD_DIRECTORY/
+#     sync all files exclude *simple*
+      rsync -r --exclude="*simple*" "${BRAND_ASSETS_DIR}"/* $BUILD_DIRECTORY/
   else
     echo "Brand assets directory ${BRAND_ASSETS_DIR} doesn't exist."
   fi

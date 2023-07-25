@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.0] - 2023-07-25
+### Added
+- Custom logos support in dark mode
+- Missed views rate statistics for sites
+- Filtering by added and accepted dates on banner classification page
+### Changed
+- Targeting custom option UX - remove unintuitive batch input
+- Logo in banner preview
+### Fixed
+- Block buttons while campaign/site creation is in progress
+- Fixing background of targeting select input
+- Png icons replaced with svgs
+- Classifier filtering and Targeting & exclusions text and backgrounds contrasting colors set
+- Direct deal's condition
+- Discarding status filter on banner classification page
+
 ## [2.5.0] - 2023-05-15
 ### Added
 - Instructions for adding the ads.txt file entry
@@ -578,7 +594,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.5.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.6.0...develop
+[2.6.0]: https://github.com/adshares/adpanel/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/adshares/adpanel/compare/v2.4.6...v2.5.0
 [2.4.6]: https://github.com/adshares/adpanel/compare/v2.4.5...v2.4.6
 [2.4.5]: https://github.com/adshares/adpanel/compare/v2.4.4...v2.4.5

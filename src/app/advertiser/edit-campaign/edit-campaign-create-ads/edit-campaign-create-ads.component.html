@@ -180,7 +180,7 @@
                 [uploader]="uploader"
                 onclick="document.getElementById('fileSelect').click()"
                 data-test="advertiser-edit-campaign-create-ads-form-drag-and-drop-wrapper">
-                <img src="/assets/images/campaign-ad-illustration.png" alt="" />
+                <img class="svg-dark" src="/assets/images/campaign-ad-icon.svg" alt="a desktop with an ad" />
                 <div>
                   <p class="ap-copy ap-copy--semi">
                     Drag & Drop or Browse
@@ -306,12 +306,7 @@
               </div>
 
               <div class="row justify-end">
-                <button
-                  class="ap-btn ap-btn--secondary ap-btn-error"
-                  (click)="removeNewAd(i)"
-                  data-test="advertiser-edit-campaign-create-ads-form-remove-ad">
-                  Delete placements
-                </button>
+                <button class="ap-btn ap-btn--secondary ap-btn-error" (click)="removeNewAd(i)">Delete ad</button>
               </div>
             </div>
           </mat-expansion-panel>
@@ -341,22 +336,15 @@
 
       <div class="row row--gap8">
         <button
+          type="button"
           *ngIf="!isEditMode"
           (click)="onSubmit(true)"
           class="ap-btn ap-btn--secondary"
-          data-test="advertiser-edit-campaign-save-as-draft">
+          [disabled]="changesSaved">
           Save as draft
         </button>
-        <button
-          class="ap-btn ap-btn--primary"
-          (click)="onSubmit()"
-          data-test="advertiser-edit-campaign-save-and-continue">
-          <span *ngIf="!changesSaved; else loading">
-            {{ isEditMode ? 'Update' : 'Save & continue' }}
-          </span>
-          <ng-template #loading>
-            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-          </ng-template>
+        <button type="button" class="ap-btn ap-btn--primary" (click)="onSubmit()" [disabled]="changesSaved">
+          {{ isEditMode ? 'Update' : 'Save & continue' }}
         </button>
       </div>
     </div>

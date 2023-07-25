@@ -30,4 +30,8 @@ export class InfoPageComponent implements OnInit {
         this.name = info.name;
       });
   }
+
+  onLogoError(event) {
+    event.target.src = '/logo.png';
+  }
 }

@@ -9,6 +9,7 @@ import { Media, Medium } from 'models/taxonomy-medium.model';
 import { parseTargetingForBackend, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
 import { SiteOptions } from 'models/settings.model';
+import * as qs from 'qs';
 
 @Injectable()
 export class PublisherService {
@@ -161,13 +162,25 @@ export class PublisherService {
         ...params,
         ...filtering.status,
         sizes: JSON.stringify(filtering.sizes),
-        landingUrl: filtering.landingUrl || '',
-        local: filtering.classifierLocalBanners || '',
+        landingUrl: filtering.landingUrl,
+        local: filtering.classifierLocalBanners,
+        filter: {
+          created_at: {
+            from: filtering.createdFrom,
+            to: filtering.createdTo,
+          },
+          signed_at: {
+            from: filtering.signedFrom,
+            to: filtering.signedTo,
+          },
+        },
       };
     }
-    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`, {
-      params,
-    });
+    const query = qs.stringify(params, { skipNulls: true });
+
+    return this.http.get<BannerClassificationResponse>(
+      `${environment.apiUrl}/classifications/${siteId || ''}?${query}`
+    );
   }
 
   getSiteOptions(): Observable<SiteOptions> {

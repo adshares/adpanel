@@ -267,12 +267,12 @@
         </button>
 
         <button
+          type="button"
           *ngIf="isTaxonomy && setupVersionControl.value === SETUP_VERSION.MANUAL"
           class="ap-btn ap-btn--primary"
-          data-test="publisher-edit-site-save-and-continue"
           (click)="onSubmit()"
           [disabled]="changesSaving">
-          <span>{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
+          {{ createSiteMode ? 'Save & continue' : 'Update' }}
         </button>
       </div>
     </div>

@@ -116,6 +116,10 @@ mat-chip:not(.mat-basic-chip) {
   line-height: 1;
 }
 
+.mat-checkbox-disabled .mat-checkbox-label {
+  color: pal(gray);
+}
+
 .mat-checkbox-frame {
   border: 2px solid pal(body-color);
 }
@@ -137,16 +141,15 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .classifier-filtering {
+  &__input {
+    background-color: pal(body-bg);
+    color: pal(body-color);
+  }
+
   .mat-expansion-panel-body {
     display: flex;
     flex-wrap: wrap;
     padding: 0 10px 8px !important;
-  }
-
-  .mat-checkbox-label,
-  .mat-checkbox-frame {
-    color: rgba(0, 0, 0, 0.54) !important;
-    border-color: rgba(0, 0, 0, 0.54) !important;
   }
 
   .mat-expansion-panel-header-title {
@@ -364,6 +367,10 @@ mat-chip:not(.mat-basic-chip) {
   .mat-expansion-indicator::after {
     color: pal(body-color);
   }
+
+  .mat-expansion-panel-header-description {
+    color: pal(secondary-alt);
+  }
 }
 
 // --- table-border --- //
@@ -383,7 +390,8 @@ mat-chip:not(.mat-basic-chip) {
 
 // --- input --- //
 
-.ap-form-input {
+.ap-form-input,
+.targeting-select__input {
   background-color: pal(light);
   color: pal(dark);
 

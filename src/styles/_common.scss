@@ -622,5 +622,11 @@ a, a:has(.fa-icon) {
 
   .ap-logo-dark-mode {
     display: block;
+    max-width: 200px;
+    max-height: 40px;
+  }
+
+  .svg-dark {
+    filter: invert(1);
   }
 }

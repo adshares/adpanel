@@ -91,7 +91,6 @@
               #address
               [value]="adsharesAddress"
               class="ap-form-input ap-form-input--full"
-              data-test="common-add-funds-dialog-adshares-address"
               id="adshares-address"
               name="adshares-address"
               readonly />
@@ -101,10 +100,7 @@
             otherwise your funds will not be deposited.
           </p>
           <div class="row justify-end">
-            <button
-              (click)="copyInput(address)"
-              class="ap-btn ap-btn--secondary"
-              data-test="common-add-funds-dialog-adshares-address-copy">
+            <button (click)="copyInput(address)" class="ap-btn ap-btn--secondary">
               <fa-icon [icon]="faCopy" class="ap-icon ap-icon--prepend"></fa-icon>
               Copy to clipboard
             </button>
@@ -118,7 +114,6 @@
               #memo
               [value]="paymentMemo"
               class="ap-form-input ap-form-input--full"
-              data-test="common-add-funds-dialog-user-memo"
               id="memo"
               name="memo"
               readonly
@@ -129,10 +124,7 @@
             transfer.
           </p>
           <div class="row justify-end">
-            <button
-              (click)="copyInput(memo)"
-              class="ap-btn ap-btn--secondary"
-              data-test="common-add-funds-dialog-user-memo-copy">
+            <button (click)="copyInput(memo)" class="ap-btn ap-btn--secondary">
               <fa-icon [icon]="faCopy" class="ap-icon ap-icon--prepend"></fa-icon>
               Copy to clipboard
             </button>
@@ -178,10 +170,7 @@
         <div class="col row--gap8 justify-center">
           <div *ngIf="isConfirmed" class="col row--gap8">
             <div class="row justify-center">
-              <button
-                (click)="depositWrapped()"
-                class="ap-btn ap-btn--primary"
-                data-test="common-now-payments-submit-button">
+              <button (click)="depositWrapped()" class="ap-btn ap-btn--primary">
                 <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Deposit with Metamask</span>
               </button>
             </div>
@@ -209,10 +198,7 @@
       </div>
 
       <div *ngIf="!metamaskConnected && metamaskAvailable" class="col">
-        <button
-          (click)="connectMetamask()"
-          class="ap-btn ap-btn--primary"
-          data-test="common-now-payments-submit-button">
+        <button (click)="connectMetamask()" class="ap-btn ap-btn--primary">
           <span *ngIf="!isMetamaskConnecting; else loadingBtn">Connect Metamask</span>
         </button>
         <div *ngIf="metamaskChainError" class="error-msg">
@@ -278,8 +264,8 @@
           <div *ngIf="isConfirmed" class="col row--gap8">
             <button
               (click)="depositNowPaymentsFunds()"
-              class="ap-btn ap-btn--primary"
-              data-test="common-now-payments-submit-button">
+              [disabled]="isFormBeingSubmitted"
+              class="ap-btn ap-btn--primary">
               <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Deposit</span>
             </button>
             <p class="ap-alert ap-alert--info">

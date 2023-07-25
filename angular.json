@@ -31,6 +31,7 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
+              "src/logo.png",
               "src/favicon.ico",
               "src/favicon-16x16.png",
               "src/favicon-32x32.png",

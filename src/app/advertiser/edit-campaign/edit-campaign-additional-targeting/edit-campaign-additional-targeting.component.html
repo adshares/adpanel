@@ -163,19 +163,14 @@
       <div class="row row--gap8">
         <button
           *ngIf="createCampaignMode"
+          type="button"
           (click)="saveCampaignTargetingAndCpm(true)"
           class="ap-btn ap-btn--secondary"
-          data-test="advertiser-edit-campaign-save-as-draft">
+          [disabled]="changesSaved">
           Save as draft
         </button>
-        <button
-          (click)="onSubmit()"
-          class="ap-btn ap-btn--primary"
-          data-test="advertiser-edit-campaign-save-and-continue">
-          <span *ngIf="!changesSaved; else loading">{{ createCampaignMode ? 'Save & continue' : 'Update' }}</span>
-          <ng-template #loading>
-            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-          </ng-template>
+        <button type="button" (click)="onSubmit()" class="ap-btn ap-btn--primary" [disabled]="changesSaved">
+          {{ createCampaignMode ? 'Save & continue' : 'Update' }}
         </button>
       </div>
     </div>

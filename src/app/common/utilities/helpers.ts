@@ -279,14 +279,15 @@ function formatNumberWithComma(value) {
 }
 
 function checkDirectedDeal(campaign) {
-  let isDirectDeal = false;
-  if (campaign.basicInformation.medium === 'metaverse' && campaign.targeting.requires.site?.domain) {
-    const isTargetingForParcel = campaign.targeting.requires.site.domain.find(domain => domain.startsWith('scene'));
-    if (isTargetingForParcel) {
-      isDirectDeal = true;
-    }
+  if (!campaign.targeting.requires.site?.domain) {
+    return false;
   }
-  return isDirectDeal;
+  if ('metaverse' === campaign.basicInformation.medium && campaign.targeting.requires.site.domain.length === 1) {
+    const vendor = campaign.basicInformation.vendor;
+    const domain = campaign.targeting.requires.site.domain[0];
+    return !vendor || !domain.startsWith(vendor);
+  }
+  return true;
 }
 
 function currencySymbolByCode(code: string): string {

@@ -52,4 +52,8 @@ export class AuthComponent extends HandleSubscriptionComponent implements OnInit
     });
     this.subscriptions.push(placeholdersSubscription);
   }
+
+  onLogoError(event) {
+    event.target.src = '/logo.png';
+  }
 }

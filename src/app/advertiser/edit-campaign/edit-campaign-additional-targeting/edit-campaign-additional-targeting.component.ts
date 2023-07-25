@@ -4,10 +4,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { filter, first, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import {
+  ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE,
   AddCampaignToCampaigns,
   ClearLastEditedCampaign,
   SaveCampaignBasicInformation,
   SaveCampaignTargeting,
+  UPDATE_CAMPAIGN_FAILURE,
   UpdateCampaign,
 } from 'store/advertiser/advertiser.actions';
 import { AppState } from 'models/app-state.model';
@@ -20,6 +22,7 @@ import { processTargeting } from 'common/components/targeting/targeting.helpers'
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { CustomValidators } from 'common/utilities/forms';
 import { ServerOptionsService } from 'common/server-options.service';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-campaign-additional-targeting',
@@ -49,7 +52,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
     private router: Router,
     private advertiserService: AdvertiserService,
     private serverOptionsService: ServerOptionsService,
-    private assetHelpers: AssetHelpersService
+    private assetHelpers: AssetHelpersService,
+    private actions$: Actions
   ) {
     super();
   }
@@ -88,9 +92,17 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
     this.submitted = false;
 
     this.createCampaignMode ? this.saveCampaignTargetingAndCpm(false) : this.updateTargetingAndCpm();
+
+    const errorSubscription = this.actions$
+      .pipe(ofType(ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE, UPDATE_CAMPAIGN_FAILURE), first())
+      .subscribe(() => {
+        this.changesSaved = false;
+      });
+    this.subscriptions.push(errorSubscription);
   }
 
   updateTargetingAndCpm(): void {
+    this.changesSaved = true;
     const targeting = {
       requires: this.addedItems,
       excludes: this.excludedItems,

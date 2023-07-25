@@ -124,6 +124,9 @@ export class ClassifierComponent extends HandleSubscriptionComponent implements 
 
   updateBannersList(filtering: BannerClassificationFilters): void {
     this.filtering = { ...this.filtering, ...filtering };
+    if (!filtering.status) {
+      delete this.filtering.status;
+    }
     this.getBannerClassification();
   }
 }

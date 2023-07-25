@@ -165,19 +165,10 @@
       </a>
 
       <div class="row row--gap8">
-        <button
-          class="ap-btn ap-btn--secondary"
-          type="button"
-          (click)="saveSite(true)"
-          data-test="publisher-edit-site-save-as-draft">
+        <button class="ap-btn ap-btn--secondary" type="button" (click)="saveSite(true)" [disabled]="changeSaved">
           Save as draft
         </button>
-        <button
-          [disabled]="canSubmit"
-          class="ap-btn ap-btn--primary"
-          (click)="saveSite(false)"
-          type="button"
-          data-test="publisher-edit-site-start-site">
+        <button [disabled]="changeSaved" class="ap-btn ap-btn--primary" (click)="saveSite(false)" type="button">
           Add site
         </button>
       </div>

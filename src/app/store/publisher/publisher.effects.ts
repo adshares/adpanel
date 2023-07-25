@@ -9,6 +9,7 @@ import { PublisherService } from 'publisher/publisher.service';
 import {
   ADD_SITE_TO_SITES,
   AddSiteToSites,
+  AddSiteToSitesFailure,
   AddSiteToSitesSuccess,
   ClearLastEditedSite,
   GET_LANGUAGES_LIST,
@@ -40,6 +41,7 @@ import {
   UpdateSiteStatusSuccess,
   UpdateSiteSuccess,
   UpdateSiteUnits,
+  UpdateSiteUnitsFailure,
   UpdateSiteUnitsSuccess,
 } from './publisher.actions';
 import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions';
@@ -143,12 +145,7 @@ export class PublisherEffects {
           }),
           catchError(error => {
             if (error !== HTTP_INTERNAL_SERVER_ERROR) {
-              return observableOf(
-                new ShowDialogOnError(
-                  `We weren't able to save your site due to this error: ${error.error.message} \n
-            Please try again later.`
-                )
-              );
+              return observableOf(new AddSiteToSitesFailure(error.error.message));
             }
           })
         )
@@ -179,7 +176,7 @@ export class PublisherEffects {
             this.router.navigate(['/publisher', 'site', site.id]);
             return [new UpdateSiteSuccess(site), new ClearLastEditedSite()];
           }),
-          catchError(() => observableOf(new UpdateSiteFailure()))
+          catchError(error => observableOf(new UpdateSiteFailure(error.error.message)))
         )
       )
     )
@@ -195,7 +192,7 @@ export class PublisherEffects {
             this.router.navigate(['/publisher', 'site', payload.id]);
             return [new ClearLastEditedSite(), new UpdateSiteUnitsSuccess(), new LoadSite(payload.id)];
           }),
-          catchError(() => observableOf(new ShowDialogOnError('Placements cannot be updated')))
+          catchError(() => observableOf(new UpdateSiteUnitsFailure('Placements cannot be updated')))
         )
       )
     )

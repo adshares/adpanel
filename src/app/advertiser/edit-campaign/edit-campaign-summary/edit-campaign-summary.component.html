@@ -138,16 +138,10 @@
       <button routerLink="../create-ad" class="ap-btn ap-btn--secondary">Back</button>
 
       <div class="row row--gap8">
-        <button
-          class="ap-btn ap-btn--secondary"
-          (click)="saveCampaign(true)"
-          data-test="advertiser-edit-campaign-save-as-draft">
+        <button class="ap-btn ap-btn--secondary" (click)="saveCampaign(true)" [disabled]="changesSaved">
           Save as draft
         </button>
-        <button
-          class="ap-btn ap-btn--primary"
-          (click)="saveCampaign(false)"
-          data-test="advertiser-edit-campaign-start-campaign">
+        <button class="ap-btn ap-btn--primary" (click)="saveCampaign(false)" [disabled]="changesSaved">
           Start campaign
         </button>
       </div>
