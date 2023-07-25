@@ -105,6 +105,96 @@
       </div>
     </form>
   </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header class="classifier-filtering__content-padding">
+      <mat-panel-title>
+        <mat-icon class="classifier-filtering__icon"> filter_list </mat-icon>
+        Filter banners by dates
+      </mat-panel-title>
+      <mat-panel-description>
+        <span class="classifier-filtering__chosen-value">
+          {{ filterByDatesDescription }}
+        </span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form (submit)="changeFilteringByDates()">
+      <div class="ap-form-input__box">
+        <div class="row row--gap18">
+          <div class="col input-250">
+            <label class="ap-form-label">Added from</label>
+            <mat-form-field
+              (click)="createdFromPicker.open()"
+              class="ap-form-input ap-form-input--narrow ap-form-input--full">
+              <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
+              <input
+                matInput
+                type="text"
+                [ngxMatDatetimePicker]="createdFromPicker"
+                [formControl]="createdFromFormControl"
+                [max]="createdToFormControl.value" />
+              <ngx-mat-datetime-picker #createdFromPicker></ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+          <div class="col input-250">
+            <label class="ap-form-label">Added to</label>
+            <mat-form-field
+              (click)="createdToPicker.open()"
+              class="ap-form-input ap-form-input--narrow ap-form-input--full">
+              <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
+              <input
+                matInput
+                type="text"
+                [ngxMatDatetimePicker]="createdToPicker"
+                [formControl]="createdToFormControl"
+                [min]="createdFromFormControl.value" />
+              <ngx-mat-datetime-picker #createdToPicker></ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="ap-form-input__box">
+        <div class="row row--gap18">
+          <div class="col input-250">
+            <label class="ap-form-label">Accepted from</label>
+            <mat-form-field
+              (click)="signedFromPicker.open()"
+              class="ap-form-input ap-form-input--narrow ap-form-input--full">
+              <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
+              <input
+                matInput
+                type="text"
+                [ngxMatDatetimePicker]="signedFromPicker"
+                [formControl]="signedFromFormControl"
+                [max]="signedToFormControl.value" />
+              <ngx-mat-datetime-picker #signedFromPicker></ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+          <div class="col input-250">
+            <label class="ap-form-label">Accepted to</label>
+            <mat-form-field
+              (click)="signedToPicker.open()"
+              class="ap-form-input ap-form-input--narrow ap-form-input--full">
+              <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
+              <input
+                matInput
+                type="text"
+                [ngxMatDatetimePicker]="signedToPicker"
+                [formControl]="signedToFormControl"
+                [min]="signedFromFormControl.value" />
+              <ngx-mat-datetime-picker #signedToPicker></ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="ap-form-input__box">
+        <div class="row row--gap8">
+          <button type="submit" class="ap-btn ap-btn--secondary">Search</button>
+          <button class="ap-btn ap-btn--secondary ap-btn-error" (click)="changeFilteringByDatesReset()">Clear</button>
+        </div>
+      </div>
+    </form>
+  </mat-expansion-panel>
 </mat-accordion>
 <div [ngClass]="classifierOption === 'local-only' ? 'classifier-filtering__hidden' : 'classifier-filtering__checkbox'">
   <mat-checkbox [checked]="classifierLocalBanners !== 0" (change)="changeFilterByServer($event.checked)">
