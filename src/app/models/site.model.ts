@@ -10,6 +10,7 @@ interface Site {
   medium: string;
   vendor: string | null;
   onlyAcceptedBanners: boolean;
+  onlyDirectDeals: boolean;
   filtering: {
     requires: object;
     excludes: object;

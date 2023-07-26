@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
@@ -7,7 +8,7 @@ import {
   AddSiteToSites,
   ClearLastEditedSite,
   SaveSiteFiltering,
-  SaveSiteOnlyAcceptedBanners,
+  SaveSiteOptions,
   UPDATE_SITE_FAILURE,
   UpdateSite,
 } from 'store/publisher/publisher.actions';
@@ -40,6 +41,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
   changesSaved: boolean = false;
   showRequiresSection: boolean = false;
   isCheckedOnlyAcceptedBanners: boolean;
+  isCheckedOnlyDirectDeals: boolean;
   faQuestionCircle = faQuestionCircle;
 
   constructor(
@@ -98,6 +100,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
       ...reducedSite,
       filtering: parseTargetingForBackend(filtering),
       onlyAcceptedBanners: this.isCheckedOnlyAcceptedBanners,
+      onlyDirectDeals: this.isCheckedOnlyDirectDeals,
     };
   }
 
@@ -122,6 +125,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
       this.site = {
         ...this.site,
         onlyAcceptedBanners: this.isCheckedOnlyAcceptedBanners,
+        onlyDirectDeals: this.isCheckedOnlyDirectDeals,
         status: siteStatusEnum.DRAFT,
         filteringArray: chosenTargeting,
       };
@@ -132,7 +136,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
       this.subscriptions.push(errorSubscription);
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
-      this.store.dispatch(new SaveSiteOnlyAcceptedBanners(this.isCheckedOnlyAcceptedBanners));
+      this.store.dispatch(
+        new SaveSiteOptions({
+          onlyAcceptedBanners: this.isCheckedOnlyAcceptedBanners,
+          onlyDirectDeals: this.isCheckedOnlyDirectDeals,
+        })
+      );
       this.router.navigate(['/publisher', 'create-site', 'summary']);
     }
   }
@@ -159,7 +168,20 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
         } else {
           this.isCheckedOnlyAcceptedBanners = lastEditedSite.onlyAcceptedBanners;
         }
+        this.isCheckedOnlyDirectDeals = lastEditedSite.onlyDirectDeals;
       });
     this.subscriptions.push(lastSiteSubscription);
+  }
+
+  onChangeOnlyAcceptedBanners($event: MatCheckboxChange) {
+    if (!$event.checked) {
+      this.isCheckedOnlyDirectDeals = false;
+    }
+  }
+
+  onChangeOnlyDirectDeals($event: MatCheckboxChange) {
+    if ($event.checked) {
+      this.isCheckedOnlyAcceptedBanners = true;
+    }
   }
 }
