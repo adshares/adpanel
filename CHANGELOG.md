@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.1] - 2023-08-07
+### Added
+- Direct deals for publisher
+
 ## [2.6.0] - 2023-07-25
 ### Added
 - Custom logos support in dark mode
@@ -594,7 +598,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.6.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.6.1...develop
+[2.6.1]: https://github.com/adshares/adpanel/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/adshares/adpanel/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/adshares/adpanel/compare/v2.4.6...v2.5.0
 [2.4.6]: https://github.com/adshares/adpanel/compare/v2.4.5...v2.4.6

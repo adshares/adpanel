@@ -20,6 +20,7 @@ export const siteInitialState: Site = {
   medium: 'web',
   vendor: null,
   onlyAcceptedBanners: false,
+  onlyDirectDeals: false,
   filtering: {
     requires: {},
     excludes: {},

@@ -2,11 +2,11 @@
   <div class="site-details container">
     <div class="row justify-between">
       <div class="row align-center breadcrumbs">
-        <a routerLink="/publisher/dashboard" data-test="publisher-navigate-to-dashboard">
+        <a routerLink="/publisher/dashboard">
           <p class="ap-copy ap-copy--small">My sites</p>
         </a>
         <div class="ap-circle ap-circle--x-small ap-circle--navy breadcrumbs-divider"></div>
-        <p class="ap-copy ap-copy--small ap-copy--x-dark ap-copy--semi" data-test="publisher-site-url">
+        <p class="ap-copy ap-copy--small ap-copy--x-dark ap-copy--semi">
           {{ site.name }}
         </p>
       </div>
@@ -15,8 +15,7 @@
         *ngIf="site.onlyAcceptedBanners"
         class="ap-btn ap-btn--primary"
         (click)="navigateToClassification()"
-        [disabled]="!isSitePositivelyVerified"
-        data-test="publisher-site-navigate-to-classifier">
+        [disabled]="!isSitePositivelyVerified">
         <fa-icon class="ap-icon ap-icon--prepend" [icon]="faEdit"></fa-icon>
         Select banners for approval
       </button>
@@ -25,8 +24,8 @@
     <div *ngIf="site.needsAdsTxtConfirmation" class="ap-alert ap-alert--warning">
       <h1 class="ap-heading--h4">Add ads.txt entry</h1>
       <p>
-        This site needs specific ads.txt entry to display advertisements. Please add the following entry to your
-        ads.txt file:<br />
+        This site needs specific ads.txt entry to display advertisements. Please add the following entry to your ads.txt
+        file:<br />
         <code>{{ adsTxtEntry }}</code>
       </p>
       <p>
@@ -77,7 +76,7 @@
 
       <div class="row justify-between align-start box-title">
         <div class="col">
-          <h2 class="ap-heading ap-heading--h2" data-test="publisher-site-url">
+          <h2 class="ap-heading ap-heading--h2">
             {{ site.name }}
             <span class="ap-copy" *ngIf="!isMetaverse">
               {{ site.domain }}
@@ -93,8 +92,7 @@
         <button
           class="ap-btn ap-btn--text"
           (click)="navigateToEditSite('basic-information')"
-          [disabled]="siteStatusEnum.PENDING === this.site.status"
-          data-test="publisher-site-edit-basic-info-button">
+          [disabled]="siteStatusEnum.PENDING === this.site.status">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit basic info
         </button>
@@ -129,12 +127,7 @@
             [barChartLabels]="barChartLabels"></app-chart>
         </div>
         <div class="row justify-end">
-          <button
-            (click)="downloadReport()"
-            class="ap-btn ap-btn--secondary ap-copy--dark"
-            data-test="publisher-site-download-report-button">
-            Generate a report
-          </button>
+          <button (click)="downloadReport()" class="ap-btn ap-btn--secondary ap-copy--dark">Generate a report</button>
         </div>
       </div>
     </div>
@@ -146,8 +139,7 @@
         <button
           class="ap-btn ap-btn--text"
           (click)="navigateToEditSite('additional-filtering')"
-          [disabled]="!isSitePositivelyVerified"
-          data-test="publisher-site-edit-filtering-button">
+          [disabled]="!isSitePositivelyVerified">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           {{
             !filtering.requires.length && !filtering.excludes.length && !site.onlyAcceptedBanners
@@ -157,18 +149,24 @@
         </button>
       </div>
       <div *ngIf="!!filtering.requires.length || !!filtering.excludes.length || site.onlyAcceptedBanners">
-        <div *ngIf="site.onlyAcceptedBanners" class="ap-copy row align-center box-content">
-          <mat-checkbox class="site-details__checkbox" checked="checked" disabled>
-            Manual approval of banners
-          </mat-checkbox>
-          <button
-            class="ap-btn ap-btn--text"
-            (click)="navigateToClassification()"
-            [disabled]="!isSitePositivelyVerified"
-            data-test="publisher-site-edit-filtering-button">
-            <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
-            Select banners for approval
-          </button>
+        <div class="ap-copy row align-center box-content">
+          <div class="col">
+            <mat-checkbox class="site-details__checkbox" checked="checked" disabled>
+              Manual approval of banners
+            </mat-checkbox>
+            <mat-checkbox *ngIf="site.onlyDirectDeals" class="site-details__checkbox" checked="checked" disabled>
+              Only direct deals
+            </mat-checkbox>
+          </div>
+          <div class="col">
+            <button
+              class="ap-btn ap-btn--text"
+              (click)="navigateToClassification()"
+              [disabled]="!isSitePositivelyVerified">
+              <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
+              Select banners for approval
+            </button>
+          </div>
         </div>
       </div>
 
@@ -201,8 +199,7 @@
         <button
           class="ap-btn ap-btn--text"
           (click)="navigateToEditSite('pops-settings')"
-          [disabled]="!isSitePositivelyVerified"
-          data-test="publisher-site-edit-pops-button">
+          [disabled]="!isSitePositivelyVerified">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit pops
         </button>
@@ -222,11 +219,7 @@
         </table>
       </div>
       <div *ngIf="!!popAdUnits.length" class="box-content row justify-center">
-        <button
-          class="ap-btn ap-btn--secondary"
-          [disabled]="!isSitePositivelyVerified"
-          (click)="openGetCodeDialog()"
-          data-test="publisher-get-code-button">
+        <button class="ap-btn ap-btn--secondary" [disabled]="!isSitePositivelyVerified" (click)="openGetCodeDialog()">
           Get placement codes
         </button>
       </div>
@@ -239,8 +232,7 @@
           *ngIf="editAds"
           class="ap-btn ap-btn--text ap-btn--edit ap-btn--no-border"
           (click)="navigateToEditSite('create-ad-units')"
-          [disabled]="!isSitePositivelyVerified"
-          data-test="publisher-site-edit-ad-units-button">
+          [disabled]="!isSitePositivelyVerified">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit placements
         </button>
@@ -260,11 +252,7 @@
         </table>
       </div>
       <div *ngIf="!!displayAdUnits.length" class="box-content row justify-center">
-        <button
-          class="ap-btn ap-btn--secondary"
-          [disabled]="!isSitePositivelyVerified"
-          (click)="openGetCodeDialog()"
-          data-test="publisher-get-code-button">
+        <button class="ap-btn ap-btn--secondary" [disabled]="!isSitePositivelyVerified" (click)="openGetCodeDialog()">
           Get placement codes
         </button>
       </div>
@@ -272,7 +260,7 @@
 
     <div class="ap-box">
       <div class="box-content row justify-center">
-        <button routerLink="/publisher/dashboard" class="ap-btn ap-btn--primary" data-test="publisher-get-code-button">
+        <button routerLink="/publisher/dashboard" class="ap-btn ap-btn--primary">
           <fa-icon [icon]="faArrowLeft" class="ap-icon ap-icon--prepend"></fa-icon>
           Dashboard
         </button>
