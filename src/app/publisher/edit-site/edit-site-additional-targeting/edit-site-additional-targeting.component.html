@@ -2,31 +2,25 @@
 <section class="homepage-view site-edit-additional-targeting container">
   <div class="ap-box">
     <h1 class="ap-heading ap-heading--h2 box-title">Classification</h1>
-    <div class="box-content">
-      <mat-checkbox
-        id="require-classified-checkbox"
-        [(ngModel)]="isCheckedOnlyAcceptedBanners"
-        data-test="publisher-edit-site-require-classified-checkbox">
+    <div class="col box-content">
+      <mat-checkbox [(ngModel)]="isCheckedOnlyAcceptedBanners" (change)="onChangeOnlyAcceptedBanners($event)">
         Manual approval of banners
         <fa-icon
           [icon]="faQuestionCircle"
           class="ap-icon ap-icon--append ap-copy--secondary"
-          matTooltip="After set this setting you will be able to approve banners for this particular site."
+          matTooltip="After setting this, you will be able to approve banners for this particular site."
           matTooltipClass="ap-mat-tooltip"
           matTooltipPosition="right"></fa-icon>
+      </mat-checkbox>
+      <mat-checkbox [(ngModel)]="isCheckedOnlyDirectDeals" (change)="onChangeOnlyDirectDeals($event)">
+        Only direct deals
       </mat-checkbox>
     </div>
 
     <div class="box-content">
-      <mat-accordion
-        multi="true"
-        class="targeting-accordion"
-        data-test="publisher-edit-site-additional-targeting-accordion">
+      <mat-accordion multi="true" class="targeting-accordion">
         <div *ngIf="showRequiresSection">
-          <mat-expansion-panel
-            (opened)="requirePanelOpenState = true"
-            (closed)="requirePanelOpenState = false"
-            data-test="publisher-edit-site-additional-targeting-accordion-panel-required">
+          <mat-expansion-panel (opened)="requirePanelOpenState = true" (closed)="requirePanelOpenState = false">
             <mat-expansion-panel-header class="ap-heading ap-heading--h3">
               <mat-panel-title>Targeting</mat-panel-title>
             </mat-expansion-panel-header>
@@ -71,8 +65,7 @@
         <mat-expansion-panel
           (opened)="excludePanelOpenState = true"
           (closed)="excludePanelOpenState = false"
-          [expanded]="true"
-          data-test="publisher-edit-site-additional-targeting-accordion-panel-excluded">
+          [expanded]="true">
           <mat-expansion-panel-header class="ap-heading ap-heading--h3">
             <mat-panel-title> Exclusions</mat-panel-title>
           </mat-expansion-panel-header>
