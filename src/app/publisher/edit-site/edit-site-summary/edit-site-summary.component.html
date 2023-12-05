@@ -1,4 +1,7 @@
-<app-edit-site-navigation [currentStep]="5" [medium]="site.medium"></app-edit-site-navigation>
+<app-edit-site-navigation
+  [currentStep]="5"
+  [medium]="site.medium"
+  [showPlacements]="showPlacements"></app-edit-site-navigation>
 <section class="homepage-view site-edit-summary container">
   <div class="ap-box">
     <div class="box-title">
@@ -114,7 +117,7 @@
       </div>
     </div>
 
-    <div class="ap-box site-edit-summary__poster-info">
+    <div *ngIf="showPlacements" class="ap-box site-edit-summary__poster-info">
       <div class="row align-center justify-between box-title">
         <h3 class="ap-heading ap-heading--h3">4. Placements</h3>
         <button
