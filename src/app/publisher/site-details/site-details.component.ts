@@ -72,6 +72,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
   faQuestionCircle = faQuestionCircle;
+  showPlacements: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -111,6 +112,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
 
   ngOnInit(): void {
     this.site = cloneDeep(this.route.snapshot.data.site);
+    this.showPlacements = this.route.snapshot.data.adUnitSizes.some(adUnit => adUnit.type === adUnitTypesEnum.DISPLAY);
     this.isMetaverse = this.site.medium === 'metaverse';
     this.editAds = !this.isMetaverse;
     this.editPopups = !this.isMetaverse;

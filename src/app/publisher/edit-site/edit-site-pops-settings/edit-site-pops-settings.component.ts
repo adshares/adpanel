@@ -76,7 +76,15 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
       });
     });
 
-    this.popsSettingsForm = new FormGroup(controls);
+    this.popsSettingsForm = new FormGroup(controls, [
+      (formGroup: FormGroup) => {
+        if (this.showPlacements) {
+          return null;
+        }
+        const anySelected = Object.values(formGroup.value).some((value: any) => value.selected);
+        return anySelected ? null : { noAdUnitSelected: true };
+      },
+    ]);
   }
 
   selectAdUnit(size: string): void {
@@ -133,6 +141,9 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
     this.subscriptions.push(errorSubscription);
   }
 
+  get isFormValid(): boolean {
+    return !this.showPlacements && this.popsSettingsForm.valid;
+  }
   get adUnitsToSave(): AdUnit[] {
     const units = [
       ...this.site.adUnits.filter(adUnit => {
