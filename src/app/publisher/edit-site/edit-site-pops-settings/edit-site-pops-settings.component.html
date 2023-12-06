@@ -1,4 +1,7 @@
-<app-edit-site-navigation [currentStep]="2" [medium]="site.medium"></app-edit-site-navigation>
+<app-edit-site-navigation
+  [currentStep]="2"
+  [medium]="site.medium"
+  [showPlacements]="showPlacements"></app-edit-site-navigation>
 <section class="homepage-view site-edit-pops-settings site-edit-create-posters-units container">
   <form [formGroup]="popsSettingsForm" class="ap-form" data-test="publisher-edit-site-pops-settings-form">
     <div class="ap-box site-edit-pops-settings__info-box">
@@ -42,6 +45,9 @@
         </div>
         <div *ngIf="0 === adUnitSizes.length" class="ap-copy">Pops are not available for current medium</div>
       </div>
+      <span *ngIf="this.popsSettingsForm.errors?.noAdUnitSelected" class="error-msg">
+        At least one must be selected
+      </span>
     </div>
 
     <div class="ap-box ap-box--large row justify-between">
@@ -52,10 +58,14 @@
           (click)="saveAdUnits(true)"
           type="button"
           class="ap-btn ap-btn--secondary"
-          [disabled]="changesSaved">
+          [disabled]="!this.popsSettingsForm.valid || changesSaved">
           Save as draft
         </button>
-        <button type="submit" class="ap-btn ap-btn--primary" [disabled]="changesSaved" (click)="onSubmit()">
+        <button
+          type="submit"
+          class="ap-btn ap-btn--primary"
+          [disabled]="!this.popsSettingsForm.valid || changesSaved"
+          (click)="onSubmit()">
           {{ createSiteMode ? 'Save & continue' : 'Update' }}
         </button>
       </div>

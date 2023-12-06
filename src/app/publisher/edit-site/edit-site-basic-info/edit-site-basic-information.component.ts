@@ -21,7 +21,7 @@ import { User } from 'models/user.model';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
-import { SessionService } from '../../../session.service';
+import { adUnitTypesEnum } from 'models/enum/ad.enum'
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -58,13 +58,13 @@ export class EditSiteBasicInformationComponent extends HandleSubscriptionCompone
   medium: string;
   vendor: string;
   isConnectedWallet: boolean = false;
+  showPlacements: boolean;
 
   constructor(
     private action$: Actions,
     private router: Router,
     private route: ActivatedRoute,
     private publisherService: PublisherService,
-    private session: SessionService,
     private store: Store<AppState>,
     private dialog: MatDialog
   ) {
@@ -79,6 +79,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscriptionCompone
     });
     this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
+    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
+      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
+    );
     if (this.createSiteMode && this.media.length > 0) {
       this.onMediumChange(this.media[0].key);
     }

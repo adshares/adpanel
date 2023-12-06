@@ -10,13 +10,14 @@ export class EditSiteNavigationComponent implements OnChanges {
 
   @Input() currentStep: number;
   @Input() medium: string;
+  @Input() showPlacements: boolean = false;
 
   ngOnChanges(_changes: SimpleChanges): void {
     if (this.medium !== 'metaverse') {
       this.steps = [
         { id: 1, name: 'Basic information' },
         { id: 2, name: 'Pops' },
-        { id: 3, name: 'Placements' },
+        ...(this.showPlacements ? [{ id: 3, name: 'Placements' }] : []),
         { id: 4, name: 'Exclusions' },
         { id: 5, name: 'Summary' },
       ];

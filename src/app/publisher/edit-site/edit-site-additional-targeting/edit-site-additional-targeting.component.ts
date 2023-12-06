@@ -15,7 +15,6 @@ import {
 import { AppState } from 'models/app-state.model';
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
-import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
@@ -23,6 +22,7 @@ import { HandleSubscriptionComponent } from 'common/handle-subscription.componen
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { Actions, ofType } from '@ngrx/effects';
+import { adUnitTypesEnum } from 'models/enum/ad.enum'
 
 @Component({
   selector: 'app-edit-site-additional-targeting',
@@ -43,12 +43,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
   isCheckedOnlyAcceptedBanners: boolean;
   isCheckedOnlyDirectDeals: boolean;
   faQuestionCircle = faQuestionCircle;
+  showPlacements: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private router: Router,
-    private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
     private actions$: Actions
   ) {
@@ -57,6 +57,9 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
+    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
+      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
+    );
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
     this.getSiteFromStore();
@@ -85,7 +88,10 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
   }
 
   private getPreviousPath(): string {
-    return this.site.medium !== 'metaverse' ? 'create-ad-units' : 'basic-information';
+    if ('metaverse' === this.site.medium) {
+      return 'basic-information';
+    }
+    return this.showPlacements ? 'create-ad-units' : 'pops-settings';
   }
 
   get siteToSave(): Site {

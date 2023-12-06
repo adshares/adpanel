@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { cloneDeep } from 'common/utilities/helpers';
 import { AdUnit, AdUnitMetaData, Site } from 'models/site.model';
@@ -44,9 +43,9 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
   faCheck = faCheck;
   faTimes = faTimes;
   faTrash = faTrash;
+  showPlacements: boolean;
 
   constructor(
-    private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
@@ -58,7 +57,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
+    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
+      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
+    );
+    this.adUnitSizes = cloneDeep(this.route.parent.snapshot.data.adUnitSizes).filter(
       item => item.type === adUnitTypesEnum.DISPLAY
     );
 
