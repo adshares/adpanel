@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { AppState } from 'models/app-state.model';
 import { AdUnit, Site } from 'models/site.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { PUBLISHER_INSTRUCTION_LINK } from 'models/enum/link.enum';
-import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { ADD_SITE_TO_SITES_FAILURE, AddSiteToSites } from 'store/publisher/publisher.actions';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
@@ -27,12 +26,11 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
   changeSaved: boolean = false;
   displayAds: boolean;
   PUBLISHER_INSTRUCTION_LINK = PUBLISHER_INSTRUCTION_LINK;
+  showPlacements: boolean;
 
   constructor(
     private store: Store<AppState>,
-    private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
-    private router: Router,
     private route: ActivatedRoute,
     private actions: Actions
   ) {
@@ -40,6 +38,9 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
   }
 
   ngOnInit() {
+    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
+      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
+    );
     const lastSiteSubscription = this.store
       .select('state', 'publisher', 'lastEditedSite')
       .pipe(first())

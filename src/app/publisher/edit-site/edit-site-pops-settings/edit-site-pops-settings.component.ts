@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { PublisherService } from 'publisher/publisher.service';
 import { cloneDeep } from 'common/utilities/helpers';
 import { AdUnit, AdUnitMetaData, Site } from 'models/site.model';
 import { AppState } from 'models/app-state.model';
@@ -17,7 +16,6 @@ import {
   UpdateSiteUnits,
 } from 'store/publisher/publisher.actions';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { AssetHelpersService } from 'common/asset-helpers.service';
 import { adUnitStatusesEnum, adUnitTypesEnum } from 'models/enum/ad.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { Actions, ofType } from '@ngrx/effects';
@@ -35,10 +33,9 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   createSiteMode: boolean;
   changesSaved: boolean = false;
   site: Site;
+  showPlacements: boolean;
 
   constructor(
-    private publisherService: PublisherService,
-    private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>,
@@ -49,8 +46,11 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
-      item => item.type === adUnitTypesEnum.POP
+    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
+      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
+    );
+    this.adUnitSizes = cloneDeep(this.route.parent.snapshot.data.adUnitSizes).filter(
+      item => item.type === adUnitTypesEnum.POP && item.size.startsWith('pop-')
     );
 
     this.createForm();
@@ -76,7 +76,15 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
       });
     });
 
-    this.popsSettingsForm = new FormGroup(controls);
+    this.popsSettingsForm = new FormGroup(controls, [
+      (formGroup: FormGroup) => {
+        if (this.showPlacements) {
+          return null;
+        }
+        const anySelected = Object.values(formGroup.value).some((value: any) => value.selected);
+        return anySelected ? null : { noAdUnitSelected: true };
+      },
+    ]);
   }
 
   selectAdUnit(size: string): void {
@@ -112,7 +120,11 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
       });
       this.subscriptions.push(errorSubscription);
     } else {
-      this.router.navigate(['/publisher', 'create-site', 'create-ad-units']);
+      this.router.navigate([
+        '/publisher',
+        'create-site',
+        this.showPlacements ? 'create-ad-units' : 'additional-filtering',
+      ]);
     }
   }
 
@@ -129,6 +141,9 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
     this.subscriptions.push(errorSubscription);
   }
 
+  get isFormValid(): boolean {
+    return !this.showPlacements && this.popsSettingsForm.valid;
+  }
   get adUnitsToSave(): AdUnit[] {
     const units = [
       ...this.site.adUnits.filter(adUnit => {

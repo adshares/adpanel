@@ -46,6 +46,7 @@ const publisherRoutes: Routes = [
             pathMatch: 'full',
             component: SiteDetailsComponent,
             resolve: {
+              adUnitSizes: AdUnitSizesResolver,
               media: MediaResolver,
             },
           },
@@ -62,7 +63,10 @@ const publisherRoutes: Routes = [
       {
         path: 'create-site',
         component: EditSiteComponent,
-        resolve: { filteringOptions: FilteringCriteriaResolver },
+        resolve: {
+          adUnitSizes: AdUnitSizesResolver,
+          filteringOptions: FilteringCriteriaResolver,
+        },
         children: [
           {
             path: 'basic-information',
@@ -75,12 +79,10 @@ const publisherRoutes: Routes = [
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
-            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
-            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'additional-filtering',
@@ -97,6 +99,7 @@ const publisherRoutes: Routes = [
         path: 'edit-site/:id',
         component: EditSiteComponent,
         resolve: {
+          adUnitSizes: AdUnitSizesResolver,
           filteringOptions: FilteringCriteriaResolver,
           site: SiteResolver,
         },
@@ -112,12 +115,10 @@ const publisherRoutes: Routes = [
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
-            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
-            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'additional-filtering',
