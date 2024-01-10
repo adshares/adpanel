@@ -58,6 +58,12 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
     });
   }
 
+  get directLinkAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.DIRECT_LINK;
+    });
+  }
+
   get displayAdUnits(): AdUnit[] {
     return this.site.adUnits.filter(adUnit => {
       return adUnit.type === adUnitTypesEnum.DISPLAY;

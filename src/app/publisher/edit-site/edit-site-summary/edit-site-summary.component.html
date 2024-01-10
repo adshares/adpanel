@@ -85,10 +85,10 @@
       </div>
 
       <div class="box-content">
-        <div class="row" *ngIf="!popAdUnits.length">
+        <div class="row" *ngIf="!popAdUnits.length && !directLinkAdUnits.length">
           <strong class="site-edit-summary__warning ap-copy">(none)</strong>
         </div>
-        <div *ngIf="!!popAdUnits.length" class="row row--gap18">
+        <div *ngIf="!!popAdUnits.length || !!directLinkAdUnits.length" class="row row--gap18">
           <div
             class="poster-unit poster-unit--selected"
             *ngFor="let adUnit of popAdUnits"
@@ -112,6 +112,23 @@
                 {{ tag }}
               </div>
             </div>
+          </div>
+
+          <div
+            class="poster-unit poster-unit--selected"
+            *ngFor="let directLinkAdUnit of directLinkAdUnits"
+            data-test="publisher-edit-site-summary-ad-units">
+            <div class="row align-center justify-center">
+              <div class="ap-copy poster-unit-title" data-test="publisher-edit-site-create-ad-units-form-ad-unit-size">
+                {{ directLinkAdUnit.name }}
+              </div>
+            </div>
+
+            <strong
+              class="ap-copy ap-copy--semi poster-unit-title"
+              data-test="publisher-edit-site-create-poster-units-form-poster-unit-name">
+              {{ directLinkAdUnit.size }}
+            </strong>
           </div>
         </div>
       </div>
