@@ -57,12 +57,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent 
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
-      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
-    );
-    this.adUnitSizes = cloneDeep(this.route.parent.snapshot.data.adUnitSizes).filter(
+    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
       item => item.type === adUnitTypesEnum.DISPLAY
     );
+    this.showPlacements = this.adUnitSizes.length > 0;
 
     this.getOptions();
     this.fillFormWithData();

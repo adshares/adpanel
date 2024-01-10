@@ -38,9 +38,7 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
   }
 
   ngOnInit() {
-    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
-      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
-    );
+    this.showPlacements = this.route.snapshot.data.adUnitSizes.some(adUnit => adUnit.type === adUnitTypesEnum.DISPLAY);
     const lastSiteSubscription = this.store
       .select('state', 'publisher', 'lastEditedSite')
       .pipe(first())
