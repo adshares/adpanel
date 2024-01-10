@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Opportunity to configure direct-link
+- Opportunity to configure smart-link on publisher site
 
 ## [2.6.2] - 2023-12-06
 ### Changed
