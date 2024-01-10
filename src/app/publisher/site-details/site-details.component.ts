@@ -90,7 +90,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
 
   get popAdUnits(): AdUnit[] {
     return this.site.adUnits.filter(adUnit => {
-      return adUnit.type === adUnitTypesEnum.POP;
+      return adUnit.type === adUnitTypesEnum.POP || adUnit.type === adUnitTypesEnum.DIRECT_LINK;
     });
   }
 
