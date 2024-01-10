@@ -79,6 +79,7 @@ const publisherRoutes: Routes = [
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
+            resolve: { siteOptions: SiteOptionsResolver },
           },
           {
             path: 'create-ad-units',
@@ -115,6 +116,7 @@ const publisherRoutes: Routes = [
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
+            resolve: { siteOptions: SiteOptionsResolver },
           },
           {
             path: 'create-ad-units',

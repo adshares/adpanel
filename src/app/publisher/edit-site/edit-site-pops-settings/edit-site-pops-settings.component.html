@@ -46,7 +46,7 @@
       </span>
     </div>
 
-    <div class="ap-box">
+    <div *ngIf="directLinkEnabled && adUnitSizes.length > 0" class="ap-box">
       <div class="box-title">
         <h1 class="ap-heading ap-heading--h2">Direct link</h1>
         <p class="ap-copy box-subtitle">
@@ -74,7 +74,6 @@
             direct-link
           </p>
         </div>
-        <div *ngIf="0 === adUnitSizes.length" class="ap-copy">Pops are not available for current medium</div>
       </div>
       <span *ngIf="this.popsSettingsForm.errors?.noAdUnitSelected" class="error-msg">
         At least one must be selected

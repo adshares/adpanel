@@ -34,6 +34,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   createSiteMode: boolean;
   changesSaved: boolean = false;
   site: Site;
+  directLinkEnabled: boolean;
   showPlacements: boolean;
 
   constructor(
@@ -53,6 +54,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
     this.adUnitSizes = cloneDeep(this.route.parent.snapshot.data.adUnitSizes).filter(
       item => item.type === adUnitTypesEnum.POP && item.size.startsWith('pop-')
     );
+    this.directLinkEnabled = this.route.snapshot.data.siteOptions.directLinkEnabled;
 
     this.createForm();
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').subscribe((site: Site) => {
