@@ -74,7 +74,6 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   faEdit = faEdit;
   faQuestionCircle = faQuestionCircle;
   showPlacements: boolean;
-  directLink: string | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -90,7 +89,13 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
 
   get popAdUnits(): AdUnit[] {
     return this.site.adUnits.filter(adUnit => {
-      return adUnit.type === adUnitTypesEnum.POP || adUnit.type === adUnitTypesEnum.DIRECT_LINK;
+      return adUnit.type === adUnitTypesEnum.POP;
+    });
+  }
+
+  get directLinkAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.DIRECT_LINK;
     });
   }
 
@@ -171,8 +176,6 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
       this.adsTxtEntry = `${domain}, ${uuid}, DIRECT`;
     });
     this.subscriptions.push(infoSubscription);
-
-    this.directLink = this.site.adUnits.find(adUnit => adUnit.type === adUnitTypesEnum.DIRECT_LINK)?.code;
   }
 
   private getSiteLinkUrl(): string {
@@ -340,7 +343,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   openGetDirectLinkDialog(): void {
     this.dialog.open(SiteDirectLinkDialogComponent, {
       data: {
-        directLink: this.directLink,
+        directLink: this.directLinkAdUnits[0]?.code,
       },
     });
   }
