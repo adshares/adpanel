@@ -21,7 +21,7 @@ import { User } from 'models/user.model';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
-import { adUnitTypesEnum } from 'models/enum/ad.enum'
+import { adUnitTypesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -79,9 +79,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscriptionCompone
     });
     this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
-      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
-    );
+    this.showPlacements = this.route.snapshot.data.adUnitSizes.some(adUnit => adUnit.type === adUnitTypesEnum.DISPLAY);
     if (this.createSiteMode && this.media.length > 0) {
       this.onMediumChange(this.media[0].key);
     }

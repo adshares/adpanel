@@ -22,7 +22,7 @@ import { HandleSubscriptionComponent } from 'common/handle-subscription.componen
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { Actions, ofType } from '@ngrx/effects';
-import { adUnitTypesEnum } from 'models/enum/ad.enum'
+import { adUnitTypesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-edit-site-additional-targeting',
@@ -57,9 +57,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComp
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
-      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
-    );
+    this.showPlacements = this.route.snapshot.data.adUnitSizes.some(adUnit => adUnit.type === adUnitTypesEnum.DISPLAY);
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
     this.getSiteFromStore();

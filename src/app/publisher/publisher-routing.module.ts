@@ -64,7 +64,6 @@ const publisherRoutes: Routes = [
         path: 'create-site',
         component: EditSiteComponent,
         resolve: {
-          adUnitSizes: AdUnitSizesResolver,
           filteringOptions: FilteringCriteriaResolver,
         },
         children: [
@@ -72,6 +71,7 @@ const publisherRoutes: Routes = [
             path: 'basic-information',
             component: EditSiteBasicInformationComponent,
             resolve: {
+              adUnitSizes: AdUnitSizesResolver,
               languagesList: LanguagesListResolver,
               media: MediaResolver,
             },
@@ -79,19 +79,25 @@ const publisherRoutes: Routes = [
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'additional-filtering',
             component: EditSiteAdditionalTargetingComponent,
-            resolve: { siteOptions: SiteOptionsResolver },
+            resolve: {
+              adUnitSizes: AdUnitSizesResolver,
+              siteOptions: SiteOptionsResolver,
+            },
           },
           {
             path: 'summary',
             component: EditSiteSummaryComponent,
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
         ],
       },
@@ -99,7 +105,6 @@ const publisherRoutes: Routes = [
         path: 'edit-site/:id',
         component: EditSiteComponent,
         resolve: {
-          adUnitSizes: AdUnitSizesResolver,
           filteringOptions: FilteringCriteriaResolver,
           site: SiteResolver,
         },
@@ -108,6 +113,7 @@ const publisherRoutes: Routes = [
             path: 'basic-information',
             component: EditSiteBasicInformationComponent,
             resolve: {
+              adUnitSizes: AdUnitSizesResolver,
               languagesList: LanguagesListResolver,
               media: MediaResolver,
             },
@@ -115,18 +121,22 @@ const publisherRoutes: Routes = [
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'additional-filtering',
             component: EditSiteAdditionalTargetingComponent,
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
           {
             path: 'summary',
             component: EditSiteSummaryComponent,
+            resolve: { adUnitSizes: AdUnitSizesResolver },
           },
         ],
       },

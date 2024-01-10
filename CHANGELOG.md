@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.6.2] - 2023-12-06
 ### Changed
 - Selecting site's placement step depends on taxonomy
+### Fixed
+- Site creation (placement settings not available)
 
 ## [2.6.1] - 2023-08-07
 ### Added
