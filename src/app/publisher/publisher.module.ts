@@ -45,6 +45,7 @@ import { SiteCodeCryptovoxelsDialogComponent } from 'publisher/dialogs/site-code
 import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component';
 import { MetaverseInstructionsComponent } from 'publisher/edit-site/edit-site-basic-info/metaverse-instructions/metaverse-instructions.component';
 import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver';
+import { SiteDirectLinkDialogComponent } from './dialogs/site-direct-link-dialog/site-direct-link-dialog.component';
 
 const editSiteComponents = [
   EditSiteComponent,
@@ -103,7 +104,7 @@ const publisherComponents = [
     SiteOptionsResolver,
     LanguagesListResolver,
   ],
-  declarations: [...publisherComponents, ...editSiteComponents],
+  declarations: [...publisherComponents, ...editSiteComponents, SiteDirectLinkDialogComponent],
 })
 export class PublisherModule {
   constructor(library: FaIconLibrary) {

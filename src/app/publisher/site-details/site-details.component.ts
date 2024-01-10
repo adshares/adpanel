@@ -35,6 +35,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
 import { ADS_TXT_INSTRUCTION, DECENTRALAND_BUILDER } from 'models/enum/link.enum';
 import { SessionService } from '../../session.service';
+import { SiteDirectLinkDialogComponent } from 'publisher/dialogs/site-direct-link-dialog/site-direct-link-dialog.component';
 
 @Component({
   selector: 'app-site-details',
@@ -73,6 +74,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   faEdit = faEdit;
   faQuestionCircle = faQuestionCircle;
   showPlacements: boolean;
+  directLink: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -169,6 +171,8 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
       this.adsTxtEntry = `${domain}, ${uuid}, DIRECT`;
     });
     this.subscriptions.push(infoSubscription);
+
+    this.directLink = this.site.adUnits.find(adUnit => adUnit.type === adUnitTypesEnum.DIRECT_LINK)?.code;
   }
 
   private getSiteLinkUrl(): string {
@@ -329,6 +333,14 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
       data: {
         siteId: this.site.id,
         hasSitePops: this.hasSitePops(),
+      },
+    });
+  }
+
+  openGetDirectLinkDialog(): void {
+    this.dialog.open(SiteDirectLinkDialogComponent, {
+      data: {
+        directLink: this.directLink,
       },
     });
   }

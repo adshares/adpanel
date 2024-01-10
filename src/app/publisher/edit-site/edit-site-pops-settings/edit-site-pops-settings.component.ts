@@ -26,6 +26,7 @@ import { Actions, ofType } from '@ngrx/effects';
   styleUrls: ['./edit-site-pops-settings.component.scss'],
 })
 export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent implements OnInit {
+  DIRECT_LINK_KEY: 'direct-link' = 'direct-link';
   faCheck = faCheck;
   faTimes = faTimes;
   popsSettingsForm: FormGroup;
@@ -57,7 +58,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').subscribe((site: Site) => {
       this.site = site;
       site.adUnits
-        .filter(item => item.type === adUnitTypesEnum.POP)
+        .filter(item => item.type === adUnitTypesEnum.POP || item.type === adUnitTypesEnum.DIRECT_LINK)
         .forEach(adUnit => {
           const control = this.popsSettingsForm.get(adUnit.size);
           control.get('selected').setValue(true);
@@ -74,6 +75,10 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
         selected: new FormControl(false),
         id: new FormControl(null),
       });
+    });
+    controls[this.DIRECT_LINK_KEY] = new FormGroup({
+      selected: new FormControl(false),
+      id: new FormControl(null),
     });
 
     this.popsSettingsForm = new FormGroup(controls, [
@@ -144,6 +149,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   get isFormValid(): boolean {
     return !this.showPlacements && this.popsSettingsForm.valid;
   }
+
   get adUnitsToSave(): AdUnit[] {
     const units = [
       ...this.site.adUnits.filter(adUnit => {
@@ -165,6 +171,17 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
       }
     });
 
+    if (this.popsSettingsForm.get(this.DIRECT_LINK_KEY).get('selected').value) {
+      units.push({
+        id: this.popsSettingsForm.get(this.DIRECT_LINK_KEY).get('id').value,
+        size: this.DIRECT_LINK_KEY,
+        name: 'Direct link',
+        type: adUnitTypesEnum.DIRECT_LINK,
+        status: adUnitStatusesEnum.ACTIVE,
+        label: 'Direct link',
+        tags: [],
+      });
+    }
     return units;
   }
 }

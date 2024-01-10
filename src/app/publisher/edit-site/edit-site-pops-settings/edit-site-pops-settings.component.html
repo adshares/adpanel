@@ -3,8 +3,8 @@
   [medium]="site.medium"
   [showPlacements]="showPlacements"></app-edit-site-navigation>
 <section class="homepage-view site-edit-pops-settings site-edit-create-posters-units container">
-  <form [formGroup]="popsSettingsForm" class="ap-form" data-test="publisher-edit-site-pops-settings-form">
-    <div class="ap-box site-edit-pops-settings__info-box">
+  <form [formGroup]="popsSettingsForm" class="ap-form">
+    <div class="ap-box">
       <div class="box-title">
         <h1 class="ap-heading ap-heading--h2">Pops settings</h1>
         <p class="ap-copy box-subtitle">
@@ -21,27 +21,58 @@
           }"
           *ngFor="let adUnit of adUnitSizes"
           role="button"
-          (click)="selectAdUnit(adUnit.size)"
-          data-test="publisher-edit-site-pops-settings-form-ad-unit-select">
+          (click)="selectAdUnit(adUnit.size)">
           <div class="row align-center justify-center">
-            <div class="ap-copy" data-test="publisher-edit-site-pops-settings-form-ad-unit-size">
+            <div class="ap-copy">
               {{ adUnit.label }}
             </div>
           </div>
-          <p class="ap-copy ap-copy--semi" data-test="publisher-edit-site-pops-settings-form-ad-unit-name">
+          <p class="ap-copy ap-copy--semi">
             <fa-icon
               class="selected-icon"
               [icon]="popsSettingsForm.get(adUnit.size).get('selected').value ? faCheck : faTimes"></fa-icon>
             {{ adUnit.size }}
           </p>
           <div class="row row--gap8">
-            <div
-              class="ap-chip-box"
-              *ngFor="let tag of adUnit.tags"
-              data-test="publisher-edit-site-pops-settings-form-ad-unit-tag">
+            <div class="ap-chip-box" *ngFor="let tag of adUnit.tags">
               {{ tag }}
             </div>
           </div>
+        </div>
+        <div *ngIf="0 === adUnitSizes.length" class="ap-copy">Pops are not available for current medium</div>
+      </div>
+      <span *ngIf="this.popsSettingsForm.errors?.noAdUnitSelected" class="error-msg">
+        At least one must be selected
+      </span>
+    </div>
+
+    <div class="ap-box">
+      <div class="box-title">
+        <h1 class="ap-heading ap-heading--h2">Direct link</h1>
+        <p class="ap-copy box-subtitle">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore laborum quia repellendus reprehenderit,
+          voluptate voluptates! Adipisci, dicta dolores ea eius enim error explicabo fugiat magni maiores, quod tenetur
+          voluptas! Labore.
+        </p>
+      </div>
+
+      <div class="row row--gap18 box-content justify-center">
+        <div
+          class="poster-unit"
+          role="button"
+          (click)="selectAdUnit(DIRECT_LINK_KEY)"
+          [ngClass]="{
+            'poster-unit--selected': popsSettingsForm.get(DIRECT_LINK_KEY).get('selected').value
+          }">
+          <div class="row align-center justify-center">
+            <div class="ap-copy">Direct link</div>
+          </div>
+          <p class="ap-copy ap-copy--semi">
+            <fa-icon
+              class="selected-icon"
+              [icon]="popsSettingsForm.get(DIRECT_LINK_KEY).get('selected').value ? faCheck : faTimes"></fa-icon>
+            direct-link
+          </p>
         </div>
         <div *ngIf="0 === adUnitSizes.length" class="ap-copy">Pops are not available for current medium</div>
       </div>

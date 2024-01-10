@@ -218,10 +218,15 @@
           <app-poster-units *ngFor="let adUnit of popAdUnits" [adUnit]="adUnit" class="ap-copy"></app-poster-units>
         </table>
       </div>
-      <div *ngIf="!!popAdUnits.length" class="box-content row justify-center">
-        <button class="ap-btn ap-btn--secondary" [disabled]="!isSitePositivelyVerified" (click)="openGetCodeDialog()">
+      <div class="box-content row justify-center row--gap8">
+        <button
+          *ngIf="!!directLink"
+          class="ap-btn ap-btn--secondary"
+          [disabled]="!isSitePositivelyVerified"
+          (click)="openGetCodeDialog()">
           Get placement codes
         </button>
+        <button class="ap-btn ap-btn--secondary" (click)="openGetDirectLinkDialog()">Get direct link</button>
       </div>
     </div>
 
