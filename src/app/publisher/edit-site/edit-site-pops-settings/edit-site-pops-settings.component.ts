@@ -46,10 +46,8 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
-      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
-    );
-    this.adUnitSizes = cloneDeep(this.route.parent.snapshot.data.adUnitSizes).filter(
+    this.showPlacements = this.route.snapshot.data.adUnitSizes.some(adUnit => adUnit.type === adUnitTypesEnum.DISPLAY);
+    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
       item => item.type === adUnitTypesEnum.POP && item.size.startsWith('pop-')
     );
 
