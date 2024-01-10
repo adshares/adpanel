@@ -35,7 +35,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
 import { ADS_TXT_INSTRUCTION, DECENTRALAND_BUILDER } from 'models/enum/link.enum';
 import { SessionService } from '../../session.service';
-import { SiteDirectLinkDialogComponent } from 'publisher/dialogs/site-direct-link-dialog/site-direct-link-dialog.component';
+import { SiteSmartLinkDialogComponent } from 'publisher/dialogs/site-smart-link-dialog/site-smart-link-dialog.component';
 
 @Component({
   selector: 'app-site-details',
@@ -93,9 +93,9 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
     });
   }
 
-  get directLinkAdUnits(): AdUnit[] {
+  get smartLinkAdUnits(): AdUnit[] {
     return this.site.adUnits.filter(adUnit => {
-      return adUnit.type === adUnitTypesEnum.DIRECT_LINK;
+      return adUnit.type === adUnitTypesEnum.SMART_LINK;
     });
   }
 
@@ -340,11 +340,12 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
     });
   }
 
-  openGetDirectLinkDialog(): void {
-    this.dialog.open(SiteDirectLinkDialogComponent, {
+  openGetSmartLinkDialog(): void {
+    this.dialog.open(SiteSmartLinkDialogComponent, {
       data: {
-        directLink: this.directLinkAdUnits[0]?.code,
+        smartLink: this.smartLinkAdUnits[0]?.code,
       },
+      width: '70%',
     });
   }
 }

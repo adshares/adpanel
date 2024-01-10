@@ -26,7 +26,7 @@ import { Actions, ofType } from '@ngrx/effects';
   styleUrls: ['./edit-site-pops-settings.component.scss'],
 })
 export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent implements OnInit {
-  DIRECT_LINK_KEY: 'direct-link' = 'direct-link';
+  SMART_LINK_KEY: adUnitTypesEnum.SMART_LINK = adUnitTypesEnum.SMART_LINK;
   faCheck = faCheck;
   faTimes = faTimes;
   popsSettingsForm: FormGroup;
@@ -34,7 +34,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   createSiteMode: boolean;
   changesSaved: boolean = false;
   site: Site;
-  directLinkEnabled: boolean;
+  smartLinkEnabled: boolean;
   showPlacements: boolean;
 
   constructor(
@@ -52,13 +52,13 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
       item => item.type === adUnitTypesEnum.POP && item.size.startsWith('pop-')
     );
-    this.directLinkEnabled = this.route.snapshot.data.siteOptions.directLinkEnabled;
+    this.smartLinkEnabled = this.route.snapshot.data.siteOptions.smartLinkEnabled;
 
     this.createForm();
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').subscribe((site: Site) => {
       this.site = site;
       site.adUnits
-        .filter(item => item.type === adUnitTypesEnum.POP || item.type === adUnitTypesEnum.DIRECT_LINK)
+        .filter(item => item.type === adUnitTypesEnum.POP || item.type === this.SMART_LINK_KEY)
         .forEach(adUnit => {
           const control = this.popsSettingsForm.get(adUnit.size);
           control.get('selected').setValue(true);
@@ -76,7 +76,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
         id: new FormControl(null),
       });
     });
-    controls[this.DIRECT_LINK_KEY] = new FormGroup({
+    controls[this.SMART_LINK_KEY] = new FormGroup({
       selected: new FormControl(false),
       id: new FormControl(null),
     });
@@ -153,7 +153,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   get adUnitsToSave(): AdUnit[] {
     const units = [
       ...this.site.adUnits.filter(adUnit => {
-        return adUnit.type !== adUnitTypesEnum.POP && adUnit.type !== adUnitTypesEnum.DIRECT_LINK;
+        return adUnit.type !== adUnitTypesEnum.POP && adUnit.type !== this.SMART_LINK_KEY;
       }),
     ];
     this.adUnitSizes.forEach(adUnit => {
@@ -171,14 +171,14 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
       }
     });
 
-    if (this.popsSettingsForm.get(this.DIRECT_LINK_KEY).get('selected').value) {
+    if (this.popsSettingsForm.get(this.SMART_LINK_KEY).get('selected').value) {
       units.push({
-        id: this.popsSettingsForm.get(this.DIRECT_LINK_KEY).get('id').value,
-        size: this.DIRECT_LINK_KEY,
-        name: 'Direct link',
-        type: adUnitTypesEnum.DIRECT_LINK,
+        id: this.popsSettingsForm.get(this.SMART_LINK_KEY).get('id').value,
+        size: this.SMART_LINK_KEY,
+        name: 'SmartLink',
+        type: this.SMART_LINK_KEY,
         status: adUnitStatusesEnum.ACTIVE,
-        label: 'Direct link',
+        label: 'SmartLink',
         tags: [],
       });
     }

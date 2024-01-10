@@ -6,22 +6,22 @@ import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { HelperService } from 'common/helper.service';
 
 @Component({
-  selector: 'app-site-direct-link-dialog',
-  templateUrl: './site-direct-link-dialog.component.html',
-  styleUrls: ['./site-direct-link-dialog.component.scss'],
+  selector: 'app-site-smart-link-dialog',
+  templateUrl: './site-smart-link-dialog.component.html',
+  styleUrls: ['./site-smart-link-dialog.component.scss'],
 })
-export class SiteDirectLinkDialogComponent extends HandleSubscriptionComponent {
-  directLink: string;
+export class SiteSmartLinkDialogComponent extends HandleSubscriptionComponent {
+  smartLink: string;
   faCopy = faCopy;
 
   constructor(
-    public dialogRef: MatDialogRef<SiteDirectLinkDialogComponent>,
+    public dialogRef: MatDialogRef<SiteSmartLinkDialogComponent>,
     private helperService: HelperService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     super();
 
-    this.directLink = data.directLink;
+    this.smartLink = data.smartLink;
   }
 
   copyCode(elementId: string): void {

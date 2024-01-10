@@ -195,21 +195,21 @@
 
     <div *ngIf="editPopups" class="ap-box">
       <div class="box-title row justify-between align-center">
-        <h2 class="ap-heading ap-heading--h2">List of enabled pops</h2>
+        <h2 class="ap-heading ap-heading--h2">List of enabled ads</h2>
         <button
           class="ap-btn ap-btn--text"
           (click)="navigateToEditSite('pops-settings')"
           [disabled]="!isSitePositivelyVerified">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
-          Edit pops
+          Edit ads
         </button>
       </div>
 
-      <div *ngIf="!popAdUnits.length && !directLinkAdUnits.length" class="box-content">
+      <div *ngIf="!popAdUnits.length && !smartLinkAdUnits.length" class="box-content">
         <span class="ap-copy ap-copy--semi ad-units-warning">Pops disabled</span>
       </div>
 
-      <div class="box-content site-details__scrollable-table" *ngIf="!!popAdUnits.length || !!directLinkAdUnits.length">
+      <div class="box-content site-details__scrollable-table" *ngIf="!!popAdUnits.length || !!smartLinkAdUnits.length">
         <table class="site-details__table">
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
@@ -220,8 +220,8 @@
             [adUnit]="popAdUnit"
             class="ap-copy"></app-poster-units>
           <app-poster-units
-            *ngFor="let directLinkAdUnit of directLinkAdUnits"
-            [adUnit]="directLinkAdUnit"
+            *ngFor="let smartLinkAdUnit of smartLinkAdUnits"
+            [adUnit]="smartLinkAdUnit"
             class="ap-copy"></app-poster-units>
         </table>
       </div>
@@ -233,8 +233,8 @@
           (click)="openGetCodeDialog()">
           Get placement codes
         </button>
-        <button *ngIf="!!directLinkAdUnits.length" class="ap-btn ap-btn--secondary" (click)="openGetDirectLinkDialog()">
-          Get direct link
+        <button *ngIf="!!smartLinkAdUnits.length" class="ap-btn ap-btn--secondary" (click)="openGetSmartLinkDialog()">
+          Get SmartLink
         </button>
       </div>
     </div>

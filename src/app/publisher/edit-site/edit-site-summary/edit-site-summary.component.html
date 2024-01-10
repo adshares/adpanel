@@ -75,7 +75,7 @@
   <ng-container *ngIf="displayAds">
     <div class="ap-box site-edit-summary__poster-info">
       <div class="row align-center justify-between box-title">
-        <h3 class="ap-heading ap-heading--h3">3. Pops</h3>
+        <h3 class="ap-heading ap-heading--h3">3. Ads</h3>
         <button
           routerLink="../pops-settings"
           data-test="publisher-edit-site-summary-navigate-to-pops-settings"
@@ -85,10 +85,10 @@
       </div>
 
       <div class="box-content">
-        <div class="row" *ngIf="!popAdUnits.length && !directLinkAdUnits.length">
+        <div class="row" *ngIf="!popAdUnits.length && !smartLinkAdUnits.length">
           <strong class="site-edit-summary__warning ap-copy">(none)</strong>
         </div>
-        <div *ngIf="!!popAdUnits.length || !!directLinkAdUnits.length" class="row row--gap18">
+        <div *ngIf="!!popAdUnits.length || !!smartLinkAdUnits.length" class="row row--gap18">
           <div
             class="poster-unit poster-unit--selected"
             *ngFor="let adUnit of popAdUnits"
@@ -116,18 +116,18 @@
 
           <div
             class="poster-unit poster-unit--selected"
-            *ngFor="let directLinkAdUnit of directLinkAdUnits"
+            *ngFor="let smartLinkAdUnit of smartLinkAdUnits"
             data-test="publisher-edit-site-summary-ad-units">
             <div class="row align-center justify-center">
               <div class="ap-copy poster-unit-title" data-test="publisher-edit-site-create-ad-units-form-ad-unit-size">
-                {{ directLinkAdUnit.name }}
+                {{ smartLinkAdUnit.name }}
               </div>
             </div>
 
             <strong
               class="ap-copy ap-copy--semi poster-unit-title"
               data-test="publisher-edit-site-create-poster-units-form-poster-unit-name">
-              {{ directLinkAdUnit.size }}
+              {{ smartLinkAdUnit.size }}
             </strong>
           </div>
         </div>

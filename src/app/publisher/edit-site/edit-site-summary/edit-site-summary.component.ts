@@ -58,9 +58,9 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
     });
   }
 
-  get directLinkAdUnits(): AdUnit[] {
+  get smartLinkAdUnits(): AdUnit[] {
     return this.site.adUnits.filter(adUnit => {
-      return adUnit.type === adUnitTypesEnum.DIRECT_LINK;
+      return adUnit.type === adUnitTypesEnum.SMART_LINK;
     });
   }
 

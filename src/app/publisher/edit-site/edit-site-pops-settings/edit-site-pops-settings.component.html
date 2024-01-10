@@ -7,10 +7,7 @@
     <div class="ap-box">
       <div class="box-title">
         <h1 class="ap-heading ap-heading--h2">Pops settings</h1>
-        <p class="ap-copy box-subtitle">
-          Pops ads are advertisements that show up in a new browser window.<br />
-          If you want to make extra profit, please activate pop-up or pop-under ads for your site below.
-        </p>
+        <p class="ap-copy box-subtitle">Pops ads are advertisements that show up in a new browser window.</p>
       </div>
 
       <div [ngClass]="adUnitSizes.length > 4 ? 'justify-between' : 'justify-center'" class="row row--gap18 box-content">
@@ -46,13 +43,12 @@
       </span>
     </div>
 
-    <div *ngIf="directLinkEnabled && adUnitSizes.length > 0" class="ap-box">
+    <div *ngIf="smartLinkEnabled && adUnitSizes.length > 0" class="ap-box">
       <div class="box-title">
-        <h1 class="ap-heading ap-heading--h2">Direct link</h1>
+        <h1 class="ap-heading ap-heading--h2">SmartLinks setting</h1>
         <p class="ap-copy box-subtitle">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore laborum quia repellendus reprehenderit,
-          voluptate voluptates! Adipisci, dicta dolores ea eius enim error explicabo fugiat magni maiores, quod tenetur
-          voluptas! Labore.
+          SmartLinks are dynamic hyperlinks that automatically direct users to monetizable content based on their
+          preferences.
         </p>
       </div>
 
@@ -60,18 +56,18 @@
         <div
           class="poster-unit"
           role="button"
-          (click)="selectAdUnit(DIRECT_LINK_KEY)"
+          (click)="selectAdUnit(SMART_LINK_KEY)"
           [ngClass]="{
-            'poster-unit--selected': popsSettingsForm.get(DIRECT_LINK_KEY).get('selected').value
+            'poster-unit--selected': popsSettingsForm.get(SMART_LINK_KEY).get('selected').value
           }">
           <div class="row align-center justify-center">
-            <div class="ap-copy">Direct link</div>
+            <div class="ap-copy">SmartLink</div>
           </div>
           <p class="ap-copy ap-copy--semi">
             <fa-icon
               class="selected-icon"
-              [icon]="popsSettingsForm.get(DIRECT_LINK_KEY).get('selected').value ? faCheck : faTimes"></fa-icon>
-            direct-link
+              [icon]="popsSettingsForm.get(SMART_LINK_KEY).get('selected').value ? faCheck : faTimes"></fa-icon>
+            {{ SMART_LINK_KEY }}
           </p>
         </div>
       </div>
