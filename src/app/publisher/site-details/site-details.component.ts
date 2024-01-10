@@ -74,7 +74,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   faEdit = faEdit;
   faQuestionCircle = faQuestionCircle;
   showPlacements: boolean;
-  directLink: string;
+  directLink: string | undefined;
 
   constructor(
     private route: ActivatedRoute,

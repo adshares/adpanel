@@ -220,13 +220,15 @@
       </div>
       <div class="box-content row justify-center row--gap8">
         <button
-          *ngIf="!!directLink"
+          *ngIf="!!popAdUnits.length"
           class="ap-btn ap-btn--secondary"
           [disabled]="!isSitePositivelyVerified"
           (click)="openGetCodeDialog()">
           Get placement codes
         </button>
-        <button class="ap-btn ap-btn--secondary" (click)="openGetDirectLinkDialog()">Get direct link</button>
+        <button *ngIf="!!directLink" class="ap-btn ap-btn--secondary" (click)="openGetDirectLinkDialog()">
+          Get direct link
+        </button>
       </div>
     </div>
 

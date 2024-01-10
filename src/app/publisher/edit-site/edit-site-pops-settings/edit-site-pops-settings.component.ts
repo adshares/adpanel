@@ -153,7 +153,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   get adUnitsToSave(): AdUnit[] {
     const units = [
       ...this.site.adUnits.filter(adUnit => {
-        return adUnit.type !== adUnitTypesEnum.POP;
+        return adUnit.type !== adUnitTypesEnum.POP && adUnit.type !== adUnitTypesEnum.DIRECT_LINK;
       }),
     ];
     this.adUnitSizes.forEach(adUnit => {
