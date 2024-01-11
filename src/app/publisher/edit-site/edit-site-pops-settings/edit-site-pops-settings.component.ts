@@ -26,6 +26,7 @@ import { Actions, ofType } from '@ngrx/effects';
   styleUrls: ['./edit-site-pops-settings.component.scss'],
 })
 export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent implements OnInit {
+  SMART_LINK_KEY: adUnitTypesEnum.SMART_LINK = adUnitTypesEnum.SMART_LINK;
   faCheck = faCheck;
   faTimes = faTimes;
   popsSettingsForm: FormGroup;
@@ -33,6 +34,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   createSiteMode: boolean;
   changesSaved: boolean = false;
   site: Site;
+  smartLinkEnabled: boolean;
   showPlacements: boolean;
 
   constructor(
@@ -46,18 +48,17 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
-      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
-    );
-    this.adUnitSizes = cloneDeep(this.route.parent.snapshot.data.adUnitSizes).filter(
+    this.showPlacements = this.route.snapshot.data.adUnitSizes.some(adUnit => adUnit.type === adUnitTypesEnum.DISPLAY);
+    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(
       item => item.type === adUnitTypesEnum.POP && item.size.startsWith('pop-')
     );
+    this.smartLinkEnabled = this.route.snapshot.data.siteOptions.smartLinkEnabled;
 
     this.createForm();
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').subscribe((site: Site) => {
       this.site = site;
       site.adUnits
-        .filter(item => item.type === adUnitTypesEnum.POP)
+        .filter(item => item.type === adUnitTypesEnum.POP || item.type === this.SMART_LINK_KEY)
         .forEach(adUnit => {
           const control = this.popsSettingsForm.get(adUnit.size);
           control.get('selected').setValue(true);
@@ -74,6 +75,10 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
         selected: new FormControl(false),
         id: new FormControl(null),
       });
+    });
+    controls[this.SMART_LINK_KEY] = new FormGroup({
+      selected: new FormControl(false),
+      id: new FormControl(null),
     });
 
     this.popsSettingsForm = new FormGroup(controls, [
@@ -144,10 +149,11 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
   get isFormValid(): boolean {
     return !this.showPlacements && this.popsSettingsForm.valid;
   }
+
   get adUnitsToSave(): AdUnit[] {
     const units = [
       ...this.site.adUnits.filter(adUnit => {
-        return adUnit.type !== adUnitTypesEnum.POP;
+        return adUnit.type !== adUnitTypesEnum.POP && adUnit.type !== this.SMART_LINK_KEY;
       }),
     ];
     this.adUnitSizes.forEach(adUnit => {
@@ -165,6 +171,17 @@ export class EditSitePopsSettingsComponent extends HandleSubscriptionComponent i
       }
     });
 
+    if (this.popsSettingsForm.get(this.SMART_LINK_KEY).get('selected').value) {
+      units.push({
+        id: this.popsSettingsForm.get(this.SMART_LINK_KEY).get('id').value,
+        size: this.SMART_LINK_KEY,
+        name: 'SmartLink',
+        type: this.SMART_LINK_KEY,
+        status: adUnitStatusesEnum.ACTIVE,
+        label: 'SmartLink',
+        tags: [],
+      });
+    }
     return units;
   }
 }

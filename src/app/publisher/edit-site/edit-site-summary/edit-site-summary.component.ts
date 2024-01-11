@@ -38,9 +38,7 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
   }
 
   ngOnInit() {
-    this.showPlacements = this.route.parent.snapshot.data.adUnitSizes.some(
-      adUnit => adUnit.type === adUnitTypesEnum.DISPLAY
-    );
+    this.showPlacements = this.route.snapshot.data.adUnitSizes.some(adUnit => adUnit.type === adUnitTypesEnum.DISPLAY);
     const lastSiteSubscription = this.store
       .select('state', 'publisher', 'lastEditedSite')
       .pipe(first())
@@ -57,6 +55,12 @@ export class EditSiteSummaryComponent extends HandleSubscriptionComponent implem
   get popAdUnits(): AdUnit[] {
     return this.site.adUnits.filter(adUnit => {
       return adUnit.type === adUnitTypesEnum.POP;
+    });
+  }
+
+  get smartLinkAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.SMART_LINK;
     });
   }
 

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.0] - 2024-01-11
+### Added
+- Opportunity to configure smart-link on publisher site
+### Fixed
+- Site creation (placement settings not available)
+
 ## [2.6.2] - 2023-12-06
 ### Changed
 - Selecting site's placement step depends on taxonomy
@@ -602,7 +608,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.6.2...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.7.0...develop
+[2.7.0]: https://github.com/adshares/adpanel/compare/v2.6.2...v2.7.0
 [2.6.2]: https://github.com/adshares/adpanel/compare/v2.6.1...v2.6.2
 [2.6.1]: https://github.com/adshares/adpanel/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/adshares/adpanel/compare/v2.5.0...v2.6.0
