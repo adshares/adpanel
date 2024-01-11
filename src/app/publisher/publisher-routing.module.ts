@@ -79,7 +79,10 @@ const publisherRoutes: Routes = [
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
-            resolve: { adUnitSizes: AdUnitSizesResolver },
+            resolve: {
+              siteOptions: SiteOptionsResolver,
+              adUnitSizes: AdUnitSizesResolver,
+            },
           },
           {
             path: 'create-ad-units',
@@ -121,7 +124,10 @@ const publisherRoutes: Routes = [
           {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
-            resolve: { adUnitSizes: AdUnitSizesResolver },
+            resolve: {
+              siteOptions: SiteOptionsResolver,
+              adUnitSizes: AdUnitSizesResolver,
+            },
           },
           {
             path: 'create-ad-units',

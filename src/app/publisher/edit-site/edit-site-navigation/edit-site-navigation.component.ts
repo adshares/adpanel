@@ -16,7 +16,7 @@ export class EditSiteNavigationComponent implements OnChanges {
     if (this.medium !== 'metaverse') {
       this.steps = [
         { id: 1, name: 'Basic information' },
-        { id: 2, name: 'Pops' },
+        { id: 2, name: 'Ads' },
         ...(this.showPlacements ? [{ id: 3, name: 'Placements' }] : []),
         { id: 4, name: 'Exclusions' },
         { id: 5, name: 'Summary' },

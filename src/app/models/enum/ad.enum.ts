@@ -2,6 +2,7 @@ export enum adUnitTypesEnum {
   DISPLAY = 'display',
   MODEL = 'model',
   POP = 'pop',
+  SMART_LINK = 'smart-link',
 }
 
 export const adCreativeTypes = {
