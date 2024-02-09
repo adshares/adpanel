@@ -4,6 +4,7 @@ import * as moment from 'moment';
 
 export const campaignsConfigInitialState: CampaignsConfig = {
   minBudget: 0,
+  minBudgetExperiment: 0,
   minCpm: 0,
   minCpa: 0,
 };
@@ -28,6 +29,7 @@ export const campaignInitialState: Campaign = {
     medium: 'web',
     vendor: null,
     dateStart: moment().format(),
+    experimentBudget: null,
   },
 
   targeting: {

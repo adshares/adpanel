@@ -1,7 +1,7 @@
 <section *ngIf="dataLoaded; else loading" class="dashboard-view">
   <div class="campaign-details container">
     <div class="row align-center breadcrumbs">
-      <a routerLink="/advertiser/dashboard" data-test="advertiser-navigate-to-dashboard">
+      <a routerLink="/advertiser/dashboard">
         <p class="ap-copy ap-copy--small">My campaigns</p>
       </a>
       <div class="ap-circle ap-circle--x-small ap-circle--navy breadcrumbs-divider"></div>
@@ -19,7 +19,6 @@
           <button
             class="ap-btn ap-btn--secondary"
             (click)="onCampaignStatusChange()"
-            data-test="advertiser-campaign-status-change-button"
             [ngClass]="{
               'ap-btn-success': currentCampaignStatus === 'inactive'
             }">
@@ -27,14 +26,12 @@
           </button>
           <button
             class="ap-btn ap-btn--secondary ap-btn-info"
-            data-test="advertiser-campaign-delete-button"
             (click)="cloneCampaign()">
             <fa-icon [icon]="faCopy" class="ap-icon ap-icon--prepend"></fa-icon>
             Clone campaign
           </button>
           <button
             class="ap-btn ap-btn--secondary ap-btn-error"
-            data-test="advertiser-campaign-delete-button"
             (click)="deleteCampaign()">
             <fa-icon [icon]="faTrash" class="ap-icon ap-icon--prepend"></fa-icon>
             Delete campaign
@@ -53,8 +50,7 @@
         </div>
         <button
           class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('basic-information')"
-          data-test="advertiser-campaign-edit-basic-info-button">
+          (click)="navigateToCampaignEdition('basic-information')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit basic info
         </button>
@@ -68,28 +64,47 @@
             [title]="campaign.basicInformation.targetUrl"
             rel="nofollow noopener noreferrer"
             target="_blank"
-            class="ap-copy ap-copy--semi"
-            data-test="advertiser-campaign-target-url">
+            class="ap-copy ap-copy--semi">
             {{ campaign.basicInformation.targetUrl }}
           </a>
         </div>
         <div class="col row--gap8" *ngIf="campaign.basicInformation.maxCpm !== null">
           <p class="ap-copy--small label">Max CPM</p>
-          <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-max-cpm">
+          <p class="ap-copy--dark ap-copy--semi">
             {{ campaign.basicInformation.maxCpm | formatMoney : 2 }}
           </p>
         </div>
         <div class="col row--gap8">
           <p class="ap-copy--small label">Budget</p>
-          <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-budget">
+          <p class="ap-copy--dark ap-copy--semi">
             {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney : 4 }}
           </p>
         </div>
+        <ng-container *ngIf="campaign.basicInformation.experimentBudget > 0">
+          <div class="col row--gap8">
+            <p class="ap-copy--small label">Budget for experiments</p>
+            <p class="ap-copy--dark ap-copy--semi">
+              {{ campaign.basicInformation.experimentBudget | campaignBudgetPerDay | formatMoney : 4 }}
+            </p>
+          </div>
+          <div class="col row--gap8">
+            <p class="ap-copy--small label">Experiment end date</p>
+            <div class="row align-center" [class.text-warning]="isExperimentExpired()">
+              <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
+              <p
+                *ngIf="null !== campaign.basicInformation.experimentEndAt; else experimentEndAtEmpty"
+                class="ap-copy--dark ap-copy--semi">
+                {{ campaign.basicInformation.experimentEndAt | formatDate }}
+              </p>
+              <ng-template #experimentEndAtEmpty> - </ng-template>
+            </div>
+          </div>
+        </ng-container>
         <div class="col row--gap8">
           <p class="ap-copy--small label">Start date</p>
           <div class="row align-center">
             <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
-            <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-start-date">
+            <p class="ap-copy--dark ap-copy--semi">
               {{ campaign.basicInformation.dateStart | formatDate }}
             </p>
           </div>
@@ -100,8 +115,7 @@
             <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
             <p
               *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
-              class="ap-copy--dark ap-copy--semi"
-              data-test="advertiser-campaign-end-date">
+              class="ap-copy--dark ap-copy--semi">
               {{ campaign.basicInformation.dateEnd | formatDate }}
             </p>
             <ng-template #dateEndEmpty> - </ng-template>
@@ -136,8 +150,7 @@
         <div class="row justify-end">
           <button
             (click)="downloadReport()"
-            class="ap-btn ap-btn--secondary"
-            data-test="advertiser-campaign-download-report-button">
+            class="ap-btn ap-btn--secondary">
             Generate a report
           </button>
         </div>
@@ -159,8 +172,7 @@
         <h2 class="ap-heading ap-heading--h2">Bid strategy</h2>
         <button
           class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('bid-strategy')"
-          data-test="advertiser-campaign-edit-bid-strategy-button">
+          (click)="navigateToCampaignEdition('bid-strategy')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit bid strategy
         </button>
@@ -177,8 +189,7 @@
         <h2 class="ap-heading ap-heading--h2">Conversions</h2>
         <button
           class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('conversion')"
-          data-test="advertiser-campaign-edit-conversion-button">
+          (click)="navigateToCampaignEdition('conversion')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit conversions
         </button>
@@ -215,8 +226,7 @@
         <h2 class="ap-heading ap-heading--h2">Targeting & Exclusions</h2>
         <button
           class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('additional-targeting')"
-          data-test="advertiser-campaign-edit-targeting-button">
+          (click)="navigateToCampaignEdition('additional-targeting')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           {{
             !targeting.requires.length && !targeting.excludes.length
@@ -260,8 +270,7 @@
         <button
           *ngIf="campaign.ads.length > 0"
           class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('create-ad')"
-          data-test="advertiser-campaign-edit-targeting-button">
+          (click)="navigateToCampaignEdition('create-ad')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Add new advertisement
         </button>

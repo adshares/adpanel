@@ -9,6 +9,7 @@ interface BannersConfig {
 
 interface CampaignsConfig {
   minBudget: number;
+  minBudgetExperiment: number;
   minCpm: number;
   minCpa: number;
 }
@@ -66,6 +67,8 @@ interface CampaignBasicInformation {
   vendor: string | null;
   dateStart: string;
   dateEnd?: string;
+  experimentBudget: number;
+  experimentEndAt?: string | null;
 }
 
 interface CampaignConversion {

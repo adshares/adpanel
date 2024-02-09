@@ -46,6 +46,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;
+  experimentBudgetPerDay: FormControl;
   budgetValue: number;
   dateStart = new FormControl(campaignInitialState.basicInformation.dateStart.toString(), Validators.required);
   dateEnd = new FormControl();
@@ -59,6 +60,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
   media: Entry[];
   vendors: Entry[] = [];
   faCalendar = faCalendar;
+  experimentBudgetValue: number;
+  experimentEndAt = new FormControl();
 
   constructor(
     private router: Router,
@@ -91,6 +94,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
           : campaignBasicInfoValue.vendor,
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null,
+      experimentBudget: adsToClicks(this.experimentBudgetValue || 0),
+      experimentEndAt: this.experimentEndAt.value !== null ? moment(this.experimentEndAt.value._d).format() : null,
     };
   }
 
@@ -104,12 +109,18 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
       maxCpc: 0,
       maxCpm: null,
       budget: null,
+      experimentBudget: null,
     };
     if (lastEditedCampaign.maxCpm !== null) {
       basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
     }
     if (lastEditedCampaign.budget !== null) {
       basicInformation.budget = parseFloat(formatMoney(lastEditedCampaign.budget, 4, true, '.', ''));
+    }
+    if (lastEditedCampaign.experimentBudget !== null) {
+      basicInformation.experimentBudget = parseFloat(
+        formatMoney(lastEditedCampaign.experimentBudget, 4, true, '.', '')
+      );
     }
     return basicInformation;
   }
@@ -168,12 +179,17 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
   createForm() {
     const initialBasicInfo = campaignInitialState.basicInformation;
     this.setBudgetValue(initialBasicInfo.budget);
+    this.setExperimentBudgetValue(initialBasicInfo.experimentBudget);
     this.dateStart.setValue(initialBasicInfo.dateStart);
     this.media = mapToIterable(this.route.snapshot.data.media);
 
     this.budgetPerDay = new FormControl('', [
       Validators.required,
       Validators.min(clicksToAds(calcCampaignBudgetPerDay(this.campaignsConfig.minBudget))),
+    ]);
+    this.experimentBudgetPerDay = new FormControl('', [
+      Validators.required,
+      Validators.min(clicksToAds(calcCampaignBudgetPerDay(this.campaignsConfig.minBudgetExperiment))),
     ]);
 
     this.campaignBasicInfoForm = new FormGroup({
@@ -188,6 +204,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
       budget: new FormControl(initialBasicInfo.budget, [
         Validators.required,
         Validators.min(clicksToAds(this.campaignsConfig.minBudget)),
+      ]),
+      experimentBudget: new FormControl(initialBasicInfo.experimentBudget, [
+        Validators.required,
+        Validators.min(clicksToAds(this.campaignsConfig.minBudgetExperiment)),
       ]),
       medium: new FormControl({
         value: initialBasicInfo.medium,
@@ -210,6 +230,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
         this.campaign = lastEditedCampaign;
         this.isAutoCpm = lastEditedCampaign.basicInformation.maxCpm === null;
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
+        this.setExperimentBudgetValue(lastEditedCampaign.basicInformation.experimentBudget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(
           lastEditedCampaign.basicInformation
         );
@@ -220,6 +241,9 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
 
         if (lastEditedCampaign.basicInformation.dateEnd) {
           this.dateEnd.setValue(moment(lastEditedCampaign.basicInformation.dateEnd));
+        }
+        if (lastEditedCampaign.basicInformation.experimentEndAt) {
+          this.experimentEndAt.setValue(moment(lastEditedCampaign.basicInformation.experimentEndAt));
         }
       });
     this.subscriptions.push(subscription);
@@ -239,6 +263,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
     this.budgetValue = value || 0;
   }
 
+  private setExperimentBudgetValue(value?: number): void {
+    this.experimentBudgetValue = value || 0;
+  }
+
   private subscribeBudgetChange() {
     let subscription: Subscription;
 
@@ -251,12 +279,27 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
       }
     });
     this.subscriptions.push(subscription);
+    subscription = this.campaignBasicInfoForm.get('experimentBudget').valueChanges.subscribe(val => {
+      if (!this.calcBudgetToHour) {
+        this.setExperimentBudgetValue(val);
+        const budgetPerDayValue = val !== null ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
+        this.experimentBudgetPerDay.setValue(budgetPerDayValue);
+      }
+    });
+    this.subscriptions.push(subscription);
 
     // calculate budget: day -> hour
     subscription = this.budgetPerDay.valueChanges.subscribe(val => {
       if (this.calcBudgetToHour) {
         this.setBudgetValue(calcCampaignBudgetPerHour(val));
         this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
+      }
+    });
+    this.subscriptions.push(subscription);
+    subscription = this.experimentBudgetPerDay.valueChanges.subscribe(val => {
+      if (this.calcBudgetToHour) {
+        this.setExperimentBudgetValue(calcCampaignBudgetPerHour(val));
+        this.campaignBasicInfoForm.get('experimentBudget').setValue(this.experimentBudgetValue.toFixed(4));
       }
     });
     this.subscriptions.push(subscription);
