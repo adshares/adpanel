@@ -24,15 +24,11 @@
             }">
             {{ statusButtonLabel }}
           </button>
-          <button
-            class="ap-btn ap-btn--secondary ap-btn-info"
-            (click)="cloneCampaign()">
+          <button class="ap-btn ap-btn--secondary ap-btn-info" (click)="cloneCampaign()">
             <fa-icon [icon]="faCopy" class="ap-icon ap-icon--prepend"></fa-icon>
             Clone campaign
           </button>
-          <button
-            class="ap-btn ap-btn--secondary ap-btn-error"
-            (click)="deleteCampaign()">
+          <button class="ap-btn ap-btn--secondary ap-btn-error" (click)="deleteCampaign()">
             <fa-icon [icon]="faTrash" class="ap-icon ap-icon--prepend"></fa-icon>
             Delete campaign
           </button>
@@ -48,9 +44,7 @@
             {{ mediumLabel }}
           </p>
         </div>
-        <button
-          class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('basic-information')">
+        <button class="ap-btn ap-btn--text" (click)="navigateToCampaignEdition('basic-information')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit basic info
         </button>
@@ -113,9 +107,7 @@
           <p class="ap-copy--small label">End date</p>
           <div class="row align-center">
             <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
-            <p
-              *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
-              class="ap-copy--dark ap-copy--semi">
+            <p *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty" class="ap-copy--dark ap-copy--semi">
               {{ campaign.basicInformation.dateEnd | formatDate }}
             </p>
             <ng-template #dateEndEmpty> - </ng-template>
@@ -148,11 +140,7 @@
             [barChartLabels]="barChartLabels"></app-chart>
         </div>
         <div class="row justify-end">
-          <button
-            (click)="downloadReport()"
-            class="ap-btn ap-btn--secondary">
-            Generate a report
-          </button>
+          <button (click)="downloadReport()" class="ap-btn ap-btn--secondary">Generate a report</button>
         </div>
       </div>
     </div>
@@ -170,9 +158,7 @@
     <div class="ap-box">
       <div class="box-title row justify-between">
         <h2 class="ap-heading ap-heading--h2">Bid strategy</h2>
-        <button
-          class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('bid-strategy')">
+        <button class="ap-btn ap-btn--text" (click)="navigateToCampaignEdition('bid-strategy')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit bid strategy
         </button>
@@ -187,9 +173,7 @@
     <section class="ap-box">
       <div class="row justify-between box-title">
         <h2 class="ap-heading ap-heading--h2">Conversions</h2>
-        <button
-          class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('conversion')">
+        <button class="ap-btn ap-btn--text" (click)="navigateToCampaignEdition('conversion')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           Edit conversions
         </button>
@@ -224,9 +208,7 @@
     <div class="ap-box">
       <div class="box-title row justify-between">
         <h2 class="ap-heading ap-heading--h2">Targeting & Exclusions</h2>
-        <button
-          class="ap-btn ap-btn--text"
-          (click)="navigateToCampaignEdition('additional-targeting')">
+        <button class="ap-btn ap-btn--text" (click)="navigateToCampaignEdition('additional-targeting')">
           <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
           {{
             !targeting.requires.length && !targeting.excludes.length

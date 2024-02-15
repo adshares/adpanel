@@ -1,7 +1,8 @@
-dist: bionic
+dist: jammy
 language: node_js
 node_js:
-  - "14"
+  - "16"
+jdk: openjdk17
 
 env:
   global:
@@ -14,6 +15,10 @@ env:
 jobs:
   include:
     - install: true
+      before_script:
+        - export JAVA_HOME=/usr/local/lib/jvm/openjdk17
+        - export PATH="$JAVA_HOME/bin:$PATH"
+        - java --version
       script: sonar-scanner
 
     - env: APP_ENV=prod APP_PROD=true APP_NAME=Adpanel APP_CURRENCY_CODE=USD APP_CURRENCY_SYMBOL=\$
