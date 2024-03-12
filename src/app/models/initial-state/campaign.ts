@@ -3,8 +3,8 @@ import { campaignConversionClick, campaignStatusesEnum } from 'models/enum/campa
 import * as moment from 'moment';
 
 export const campaignsConfigInitialState: CampaignsConfig = {
+  minBoostBudget: 0,
   minBudget: 0,
-  minBudgetExperiment: 0,
   minCpm: 0,
   minCpa: 0,
 };
@@ -29,7 +29,7 @@ export const campaignInitialState: Campaign = {
     medium: 'web',
     vendor: null,
     dateStart: moment().format(),
-    experimentBudget: null,
+    boostBudget: null,
   },
 
   targeting: {

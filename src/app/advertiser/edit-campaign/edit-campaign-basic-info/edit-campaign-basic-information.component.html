@@ -116,48 +116,48 @@
           <div class="row row--gap18">
             <div class="col input-250 relative">
               <label for="campaign-experiment-budget-per-day" class="ap-form-label">
-                Budget for experiments ({{ currencyCode }}/day)
+                Boost budget ({{ currencyCode }}/day)
               </label>
               <input
                 id="campaign-experiment-budget-per-day"
                 class="ap-form-input ap-form-input--full"
                 type="number"
                 step="0.01"
-                name="campaignExperimentBudgetPerDay"
-                [formControl]="experimentBudgetPerDay"
+                name="campaignBoostBudgetPerDay"
+                [formControl]="boostBudgetPerDay"
                 (focus)="onFocus('campaign-budget-per-day')" />
-              <span *ngIf="campaignBasicInfoForm.get('experimentBudget').valid" class="input-valid"></span>
+              <span *ngIf="campaignBasicInfoForm.get('boostBudget').valid" class="input-valid"></span>
 
               <ng-container *ngIf="campaignBasicInformationSubmitted">
-                <span class="error-msg" *ngIf="experimentBudgetPerDay.hasError('required')"> Budget required </span>
-                <span class="error-msg" *ngIf="experimentBudgetPerDay.hasError('min')">
+                <span class="error-msg" *ngIf="boostBudgetPerDay.hasError('required')"> Budget required </span>
+                <span class="error-msg" *ngIf="boostBudgetPerDay.hasError('min')">
                   Allowed minimum is
-                  {{ this.campaignsConfig.minBudgetExperiment | budgetPerDay | formatMoney : 2 : '' }}
+                  {{ this.campaignsConfig.minBoostBudget | budgetPerDay | formatMoney : 2 : '' }}
                 </span>
               </ng-container>
             </div>
 
             <div class="col input-250 relative">
               <label for="campaign-experiment-budget" class="ap-form-label">
-                Budget for experiments ({{ currencyCode }}/hour)
+                Boost budget ({{ currencyCode }}/hour)
               </label>
               <input
                 id="campaign-experiment-budget"
                 class="ap-form-input ap-form-input--full"
                 type="number"
                 step="0.0001"
-                name="campaignExperimentBudget"
-                formControlName="experimentBudget"
+                name="campaignBoostBudget"
+                formControlName="boostBudget"
                 (focus)="onFocus('campaign-budget')" />
-              <span *ngIf="campaignBasicInfoForm.get('experimentBudget').valid" class="input-valid"></span>
+              <span *ngIf="campaignBasicInfoForm.get('boostBudget').valid" class="input-valid"></span>
 
               <ng-container *ngIf="campaignBasicInformationSubmitted">
-                <span class="error-msg" *ngIf="campaignBasicInfoForm.hasError('required', ['experimentBudget'])">
+                <span class="error-msg" *ngIf="campaignBasicInfoForm.hasError('required', ['boostBudget'])">
                   Budget required
                 </span>
-                <span class="error-msg" *ngIf="campaignBasicInfoForm.hasError('min', ['experimentBudget'])">
+                <span class="error-msg" *ngIf="campaignBasicInfoForm.hasError('min', ['boostBudget'])">
                   Allowed minimum is
-                  {{ this.campaignsConfig.minBudgetExperiment | formatMoney : 2 : '' }}
+                  {{ this.campaignsConfig.minBoostBudget | formatMoney : 2 : '' }}
                 </span>
               </ng-container>
             </div>
@@ -167,17 +167,17 @@
         <div class="ap-form-input__box">
           <div class="row row--gap18">
             <div class="col input-250">
-              <label class="ap-form-label"> Experiment end date (optional) </label>
+              <label class="ap-form-label"> Boost end date (optional) </label>
               <mat-form-field
-                (click)="experimentEndAtPicker.open()"
+                (click)="boostEndAtPicker.open()"
                 class="ap-form-input ap-form-input--narrow ap-form-input--full">
                 <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
                 <input
-                  [ngxMatDatetimePicker]="experimentEndAtPicker"
+                  [ngxMatDatetimePicker]="boostEndAtPicker"
                   matInput
                   [min]="dateStart.value"
-                  [formControl]="experimentEndAt" />
-                <ngx-mat-datetime-picker #experimentEndAtPicker></ngx-mat-datetime-picker>
+                  [formControl]="boostEndAt" />
+                <ngx-mat-datetime-picker #boostEndAtPicker></ngx-mat-datetime-picker>
               </mat-form-field>
             </div>
           </div>

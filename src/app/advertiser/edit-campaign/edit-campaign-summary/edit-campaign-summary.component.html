@@ -48,10 +48,10 @@
           {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney : 4 }}
         </p>
       </div>
-      <div *ngIf="campaign.basicInformation.experimentBudget > 0" class="col row--gap8">
-        <p class="ap-copy--small label">Budget for experiments</p>
+      <div *ngIf="campaign.basicInformation.boostBudget > 0" class="col row--gap8">
+        <p class="ap-copy--small label">Boost budget</p>
         <p class="ap-copy--dark ap-copy--semi">
-          {{ campaign.basicInformation.experimentBudget | campaignBudgetPerDay | formatMoney : 4 }}
+          {{ campaign.basicInformation.boostBudget | campaignBudgetPerDay | formatMoney : 4 }}
         </p>
       </div>
       <div class="col row--gap8">

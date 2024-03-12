@@ -35,7 +35,7 @@ import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
 import { faPlusCircle, faEdit, faArrowLeft, faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar, faTrashAlt, faCopy } from '@fortawesome/free-regular-svg-icons';
-import * as moment from 'moment/moment'
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-campaign-details',
@@ -344,10 +344,10 @@ export class CampaignDetailsComponent extends HandleSubscriptionComponent implem
     });
   }
 
-  isExperimentExpired(): boolean {
-    if (null === this.campaign.basicInformation.experimentEndAt) {
+  isBoostExpired(): boolean {
+    if (null === this.campaign.basicInformation.boostEndAt) {
       return false;
     }
-    return moment(this.campaign.basicInformation.experimentEndAt) < moment();
+    return moment(this.campaign.basicInformation.boostEndAt) < moment();
   }
 }

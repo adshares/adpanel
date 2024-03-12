@@ -74,23 +74,23 @@
             {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney : 4 }}
           </p>
         </div>
-        <ng-container *ngIf="campaign.basicInformation.experimentBudget > 0">
+        <ng-container *ngIf="campaign.basicInformation.boostBudget > 0">
           <div class="col row--gap8">
-            <p class="ap-copy--small label">Budget for experiments</p>
+            <p class="ap-copy--small label">Boost budget</p>
             <p class="ap-copy--dark ap-copy--semi">
-              {{ campaign.basicInformation.experimentBudget | campaignBudgetPerDay | formatMoney : 4 }}
+              {{ campaign.basicInformation.boostBudget | campaignBudgetPerDay | formatMoney : 4 }}
             </p>
           </div>
           <div class="col row--gap8">
-            <p class="ap-copy--small label">Experiment end date</p>
-            <div class="row align-center" [class.text-warning]="isExperimentExpired()">
+            <p class="ap-copy--small label">Boost end date</p>
+            <div class="row align-center" [class.text-warning]="isBoostExpired()">
               <fa-icon [icon]="faCalendar" class="ap-icon ap-icon--prepend"></fa-icon>
               <p
-                *ngIf="null !== campaign.basicInformation.experimentEndAt; else experimentEndAtEmpty"
+                *ngIf="null !== campaign.basicInformation.boostEndAt; else boostEndAtEmpty"
                 class="ap-copy--dark ap-copy--semi">
-                {{ campaign.basicInformation.experimentEndAt | formatDate }}
+                {{ campaign.basicInformation.boostEndAt | formatDate }}
               </p>
-              <ng-template #experimentEndAtEmpty> - </ng-template>
+              <ng-template #boostEndAtEmpty> - </ng-template>
             </div>
           </div>
         </ng-container>
