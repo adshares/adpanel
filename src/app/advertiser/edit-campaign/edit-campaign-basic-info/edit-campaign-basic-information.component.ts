@@ -46,6 +46,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;
+  boostBudgetPerDay: FormControl;
   budgetValue: number;
   dateStart = new FormControl(campaignInitialState.basicInformation.dateStart.toString(), Validators.required);
   dateEnd = new FormControl();
@@ -59,6 +60,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
   media: Entry[];
   vendors: Entry[] = [];
   faCalendar = faCalendar;
+  boostBudgetValue: number;
+  boostEndAt = new FormControl();
 
   constructor(
     private router: Router,
@@ -91,6 +94,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
           : campaignBasicInfoValue.vendor,
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null,
+      boostBudget: adsToClicks(this.boostBudgetValue || 0),
+      boostEndAt: this.boostEndAt.value !== null ? moment(this.boostEndAt.value._d).format() : null,
     };
   }
 
@@ -104,12 +109,16 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
       maxCpc: 0,
       maxCpm: null,
       budget: null,
+      boostBudget: null,
     };
     if (lastEditedCampaign.maxCpm !== null) {
       basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
     }
     if (lastEditedCampaign.budget !== null) {
       basicInformation.budget = parseFloat(formatMoney(lastEditedCampaign.budget, 4, true, '.', ''));
+    }
+    if (lastEditedCampaign.boostBudget !== null) {
+      basicInformation.boostBudget = parseFloat(formatMoney(lastEditedCampaign.boostBudget, 4, true, '.', ''));
     }
     return basicInformation;
   }
@@ -168,12 +177,17 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
   createForm() {
     const initialBasicInfo = campaignInitialState.basicInformation;
     this.setBudgetValue(initialBasicInfo.budget);
+    this.setBoostBudgetValue(initialBasicInfo.boostBudget);
     this.dateStart.setValue(initialBasicInfo.dateStart);
     this.media = mapToIterable(this.route.snapshot.data.media);
 
     this.budgetPerDay = new FormControl('', [
       Validators.required,
       Validators.min(clicksToAds(calcCampaignBudgetPerDay(this.campaignsConfig.minBudget))),
+    ]);
+    this.boostBudgetPerDay = new FormControl('', [
+      Validators.required,
+      Validators.min(clicksToAds(calcCampaignBudgetPerDay(this.campaignsConfig.minBoostBudget))),
     ]);
 
     this.campaignBasicInfoForm = new FormGroup({
@@ -188,6 +202,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
       budget: new FormControl(initialBasicInfo.budget, [
         Validators.required,
         Validators.min(clicksToAds(this.campaignsConfig.minBudget)),
+      ]),
+      boostBudget: new FormControl(initialBasicInfo.boostBudget, [
+        Validators.required,
+        Validators.min(clicksToAds(this.campaignsConfig.minBoostBudget)),
       ]),
       medium: new FormControl({
         value: initialBasicInfo.medium,
@@ -210,6 +228,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
         this.campaign = lastEditedCampaign;
         this.isAutoCpm = lastEditedCampaign.basicInformation.maxCpm === null;
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
+        this.setBoostBudgetValue(lastEditedCampaign.basicInformation.boostBudget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(
           lastEditedCampaign.basicInformation
         );
@@ -220,6 +239,9 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
 
         if (lastEditedCampaign.basicInformation.dateEnd) {
           this.dateEnd.setValue(moment(lastEditedCampaign.basicInformation.dateEnd));
+        }
+        if (lastEditedCampaign.basicInformation.boostEndAt) {
+          this.boostEndAt.setValue(moment(lastEditedCampaign.basicInformation.boostEndAt));
         }
       });
     this.subscriptions.push(subscription);
@@ -239,6 +261,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
     this.budgetValue = value || 0;
   }
 
+  private setBoostBudgetValue(value?: number): void {
+    this.boostBudgetValue = value || 0;
+  }
+
   private subscribeBudgetChange() {
     let subscription: Subscription;
 
@@ -251,12 +277,27 @@ export class EditCampaignBasicInformationComponent extends HandleSubscriptionCom
       }
     });
     this.subscriptions.push(subscription);
+    subscription = this.campaignBasicInfoForm.get('boostBudget').valueChanges.subscribe(val => {
+      if (!this.calcBudgetToHour) {
+        this.setBoostBudgetValue(val);
+        const budgetPerDayValue = val !== null ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
+        this.boostBudgetPerDay.setValue(budgetPerDayValue);
+      }
+    });
+    this.subscriptions.push(subscription);
 
     // calculate budget: day -> hour
     subscription = this.budgetPerDay.valueChanges.subscribe(val => {
       if (this.calcBudgetToHour) {
         this.setBudgetValue(calcCampaignBudgetPerHour(val));
         this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
+      }
+    });
+    this.subscriptions.push(subscription);
+    subscription = this.boostBudgetPerDay.valueChanges.subscribe(val => {
+      if (this.calcBudgetToHour) {
+        this.setBoostBudgetValue(calcCampaignBudgetPerHour(val));
+        this.campaignBasicInfoForm.get('boostBudget').setValue(this.boostBudgetValue.toFixed(4));
       }
     });
     this.subscriptions.push(subscription);
