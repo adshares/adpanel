@@ -48,6 +48,12 @@
           {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney : 4 }}
         </p>
       </div>
+      <div *ngIf="campaign.basicInformation.boostBudget > 0" class="col row--gap8">
+        <p class="ap-copy--small label">Boost budget</p>
+        <p class="ap-copy--dark ap-copy--semi">
+          {{ campaign.basicInformation.boostBudget | campaignBudgetPerDay | formatMoney : 4 }}
+        </p>
+      </div>
       <div class="col row--gap8">
         <p class="ap-copy--small label">Start date</p>
         <div class="row align-center">
